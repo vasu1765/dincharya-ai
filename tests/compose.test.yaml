@@ -1,0 +1,24 @@
+# Explicit future opt-in only. Do not combine with production Compose.
+services:
+  postgres-test:
+    image: postgres:17
+    profiles: ["test"]
+    environment:
+      POSTGRES_USER: synthetic_test
+      POSTGRES_DB: dincharya_test
+      POSTGRES_HOST_AUTH_METHOD: trust
+      TZ: Asia/Kolkata
+    networks: [isolated-test]
+    read_only: true
+    tmpfs:
+      - /var/lib/postgresql/data
+      - /var/run/postgresql
+      - /tmp
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U synthetic_test -d dincharya_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+networks:
+  isolated-test:
+    internal: true

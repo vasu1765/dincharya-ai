@@ -1,0 +1,15 @@
+[
+  {
+    "id": "synthetic-workflow",
+    "name": "Synthetic offline workflow",
+    "active": true,
+    "versionId": "synthetic-draft",
+    "activeVersionId": "synthetic-published",
+    "nodes": [
+      {"id": "synthetic-node-1", "name": "Start", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [0, 0], "parameters": {}},
+      {"id": "synthetic-node-2", "name": "Reply", "type": "n8n-nodes-base.set", "typeVersion": 3.4, "position": [200, 0], "parameters": {"value": "={{ $json.message }}"}}
+    ],
+    "connections": {"Start": {"main": [[{"node": "Reply", "type": "main", "index": 0}]]}},
+    "settings": {"timezone": "Asia/Kolkata"}
+  }
+]
