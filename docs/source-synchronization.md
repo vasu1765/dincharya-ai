@@ -56,13 +56,12 @@ labelled published. Editor published declarations need coherent version IDs and
 active metadata but still do not prove which version was actually deployed.
 Process distinct states/versions in separate bundles.
 
-The adapter currently recognizes only manualTrigger v1 and Set v3.4 structures
-covered by synthetic fixtures. This is an intentionally narrow syntactic
-allowlist, not runtime compatibility certification. Unknown node types/versions,
-fields, settings, branch types, malformed metadata, duplicate IDs/names, and
-unsupported Set options/assignment structures reject preparation. The live chat
-workflow's LLM nodes will require separately reviewed adapters and synthetic
-fixtures; never bypass these checks to ingest an unsupported workflow.
+Versioned adapters now cover observed data nodes, LLM model connections and
+multi-output branches; see workflow-adapters.md for the exact versions and field
+contract. This remains a syntactic allowlist, not runtime compatibility
+certification. Unknown node types/versions, fields, settings, branch types,
+malformed metadata and duplicate IDs/names reject preparation. Code nodes and
+nonempty runtime state remain blocked. Never bypass these checks.
 
 Nonempty pinned/static/execution data, sensitive parameter keys (including apiKey
 variants), authentication headers and token patterns are rejected. Credential

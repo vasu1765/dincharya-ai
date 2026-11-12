@@ -1,0 +1,181 @@
+{
+  "services": {
+    "postgres-test": {
+      "profiles": [
+        "integration"
+      ],
+      "pull_policy": "never",
+      "restart": "no",
+      "networks": [
+        "synthetic-only"
+      ],
+      "read_only": true,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "image": "${DINCHARYA_TEST_POSTGRES_IMAGE:?Set approved local PostgreSQL 17 image ID}",
+      "environment": {
+        "POSTGRES_USER": "synthetic_test",
+        "POSTGRES_DB": "dincharya_n8n_test",
+        "POSTGRES_PASSWORD": "${DINCHARYA_TEST_DB_PASSWORD:?Generate a synthetic session-only password}",
+        "TZ": "Asia/Kolkata"
+      },
+      "tmpfs": [
+        "/var/lib/postgresql/data:size=256m",
+        "/var/run/postgresql:size=16m",
+        "/tmp:size=32m"
+      ],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "./postgres-init.sql",
+          "target": "/docker-entrypoint-initdb.d/010-synthetic.sql",
+          "read_only": true
+        }
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "pg_isready -U synthetic_test -d dincharya_n8n_test"
+        ],
+        "interval": "2s",
+        "timeout": "2s",
+        "retries": 30
+      },
+      "mem_limit": "512m",
+      "cpus": 0.5
+    },
+    "mock-services": {
+      "profiles": [
+        "integration"
+      ],
+      "pull_policy": "never",
+      "restart": "no",
+      "networks": [
+        "synthetic-only"
+      ],
+      "read_only": true,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "image": "${DINCHARYA_TEST_N8N_IMAGE:?Set approved local n8n 2.47.3 image ID}",
+      "user": "1000:1000",
+      "cap_drop": [
+        "ALL"
+      ],
+      "entrypoint": [
+        "node",
+        "/opt/synthetic/mock-services.js"
+      ],
+      "command": [],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "./mock-services.js",
+          "target": "/opt/synthetic/mock-services.js",
+          "read_only": true
+        }
+      ],
+      "tmpfs": [
+        "/tmp:size=16m,uid=1000,gid=1000"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "node",
+          "-e",
+          "fetch(\"http://127.0.0.1:8080/health\").then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+        ],
+        "interval": "2s",
+        "timeout": "2s",
+        "retries": 30
+      },
+      "mem_limit": "128m",
+      "cpus": 0.25
+    },
+    "n8n-test": {
+      "profiles": [
+        "integration"
+      ],
+      "pull_policy": "never",
+      "restart": "no",
+      "networks": [
+        "synthetic-only"
+      ],
+      "read_only": true,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "image": "${DINCHARYA_TEST_N8N_IMAGE:?Set approved local n8n 2.47.3 image ID}",
+      "user": "1000:1000",
+      "cap_drop": [
+        "ALL"
+      ],
+      "environment": {
+        "DB_TYPE": "postgresdb",
+        "DB_POSTGRESDB_HOST": "postgres-test",
+        "DB_POSTGRESDB_PORT": "5432",
+        "DB_POSTGRESDB_DATABASE": "dincharya_n8n_test",
+        "DB_POSTGRESDB_USER": "synthetic_test",
+        "DB_POSTGRESDB_PASSWORD": "${DINCHARYA_TEST_DB_PASSWORD:?Generate a synthetic session-only password}",
+        "N8N_ENCRYPTION_KEY": "${DINCHARYA_TEST_ENCRYPTION_KEY:?Generate a synthetic session-only key}",
+        "N8N_HOST": "n8n-test",
+        "N8N_PORT": "5678",
+        "N8N_PROTOCOL": "http",
+        "TZ": "Asia/Kolkata",
+        "GENERIC_TIMEZONE": "Asia/Kolkata",
+        "N8N_DIAGNOSTICS_ENABLED": "false",
+        "N8N_PERSONALIZATION_ENABLED": "false",
+        "N8N_VERSION_NOTIFICATIONS_ENABLED": "false",
+        "N8N_TEMPLATES_ENABLED": "false",
+        "N8N_COMMUNITY_PACKAGES_ENABLED": "false",
+        "N8N_LOG_LEVEL": "warn",
+        "DINCHARYA_TEST_MOCK_BASE_URL": "http://mock-services:8080"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "./fixtures/manual-smoke.json",
+          "target": "/opt/synthetic/fixtures/manual-smoke.json",
+          "read_only": true
+        },
+        {
+          "type": "bind",
+          "source": "./fixtures/scheduler-state.json",
+          "target": "/opt/synthetic/fixtures/scheduler-state.json",
+          "read_only": true
+        }
+      ],
+      "tmpfs": [
+        "/home/node/.n8n:size=64m,uid=1000,gid=1000,mode=0700",
+        "/tmp:size=32m,uid=1000,gid=1000"
+      ],
+      "depends_on": {
+        "postgres-test": {
+          "condition": "service_healthy"
+        },
+        "mock-services": {
+          "condition": "service_healthy"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "node",
+          "-e",
+          "fetch(\"http://127.0.0.1:5678/healthz/readiness\").then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 30
+      },
+      "mem_limit": "1g",
+      "cpus": 1.0
+    }
+  },
+  "networks": {
+    "synthetic-only": {
+      "internal": true
+    }
+  }
+}

@@ -1,0 +1,536 @@
+[
+  {
+    "id": "synthetic-observed-layout",
+    "name": "Synthetic adapter coverage",
+    "active": false,
+    "versionId": "synthetic-version",
+    "activeVersionId": null,
+    "meta": {
+      "templateCredsSetupCompleted": true
+    },
+    "nodeGroups": [],
+    "sourceWorkflowId": null,
+    "parentFolderId": null,
+    "description": null,
+    "createdAt": "2000-01-01T00:00:00Z",
+    "updatedAt": "2000-01-01T00:00:00Z",
+    "versionCounter": 1,
+    "triggerCount": 0,
+    "isArchived": false,
+    "pinData": {},
+    "staticData": null,
+    "settings": {
+      "timezone": "Asia/Kolkata",
+      "binaryMode": "default",
+      "callerPolicy": "synthetic-policy",
+      "timeSavedMode": "fixed",
+      "availableInMCP": false,
+      "executionOrder": "v1"
+    },
+    "nodes": [
+      {
+        "id": "synthetic-node-0",
+        "name": "Node0",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {}
+      },
+      {
+        "id": "synthetic-node-1",
+        "name": "Node1",
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.8,
+        "position": [
+          100,
+          0
+        ],
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT $1::text AS synthetic_value",
+          "options": {
+            "queryReplacement": "={{ $json.synthetic }}"
+          }
+        },
+        "credentials": {
+          "postgres": {
+            "id": "synthetic-reference-1",
+            "name": "Synthetic binding"
+          }
+        }
+      },
+      {
+        "id": "synthetic-node-2",
+        "name": "Node2",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.4,
+        "position": [
+          200,
+          0
+        ],
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "minutes",
+                "minutesInterval": 1
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "synthetic-node-3",
+        "name": "Node3",
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          300,
+          0
+        ],
+        "parameters": {
+          "text": "Synthetic notification",
+          "chatId": "={{ $json.syntheticChat }}",
+          "additionalFields": {}
+        },
+        "credentials": {
+          "telegramApi": {
+            "id": "synthetic-reference-3",
+            "name": "Synthetic binding"
+          }
+        }
+      },
+      {
+        "id": "synthetic-node-4",
+        "name": "Node4",
+        "type": "@n8n/n8n-nodes-langchain.chainLlm",
+        "typeVersion": 1.9,
+        "position": [
+          400,
+          0
+        ],
+        "parameters": {
+          "text": "={{ $json.synthetic }}",
+          "promptType": "define",
+          "batching": {},
+          "messages": {
+            "messageValues": [
+              {
+                "message": "Synthetic prompt"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "synthetic-node-5",
+        "name": "Node5",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+        "typeVersion": 1,
+        "position": [
+          500,
+          0
+        ],
+        "parameters": {
+          "model": "synthetic-model",
+          "options": {}
+        },
+        "credentials": {
+          "ollamaApi": {
+            "id": "synthetic-reference-5",
+            "name": "Synthetic binding"
+          }
+        }
+      },
+      {
+        "id": "synthetic-node-6",
+        "name": "Node6",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.2,
+        "position": [
+          600,
+          0
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "synthetic-only",
+          "options": {},
+          "responseMode": "responseNode"
+        },
+        "webhookId": "synthetic-webhook-binding"
+      },
+      {
+        "id": "synthetic-node-7",
+        "name": "Node7",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5,
+        "position": [
+          700,
+          0
+        ],
+        "parameters": {
+          "respondWith": "json",
+          "responseBody": "={{ $json }}",
+          "options": {}
+        }
+      },
+      {
+        "id": "synthetic-node-8",
+        "name": "Node8",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.4,
+        "position": [
+          800,
+          0
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "version": 2,
+              "leftValue": "",
+              "caseSensitive": true,
+              "typeValidation": "strict"
+            },
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "synthetic-condition",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals",
+                  "singleValue": false
+                },
+                "leftValue": "={{ $json.kind }}",
+                "rightValue": "synthetic"
+              }
+            ]
+          },
+          "options": {}
+        }
+      },
+      {
+        "id": "synthetic-node-9",
+        "name": "Node9",
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.5,
+        "position": [
+          900,
+          0
+        ],
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "outputKey": "synthetic-0",
+                "conditions": {
+                  "options": {
+                    "version": 2,
+                    "leftValue": "",
+                    "caseSensitive": true,
+                    "typeValidation": "strict"
+                  },
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "synthetic-condition",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "singleValue": false
+                      },
+                      "leftValue": "={{ $json.kind }}",
+                      "rightValue": "synthetic"
+                    }
+                  ]
+                },
+                "renameOutput": true
+              },
+              {
+                "outputKey": "synthetic-1",
+                "conditions": {
+                  "options": {
+                    "version": 2,
+                    "leftValue": "",
+                    "caseSensitive": true,
+                    "typeValidation": "strict"
+                  },
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "synthetic-condition",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "singleValue": false
+                      },
+                      "leftValue": "={{ $json.kind }}",
+                      "rightValue": "synthetic"
+                    }
+                  ]
+                },
+                "renameOutput": true
+              },
+              {
+                "outputKey": "synthetic-2",
+                "conditions": {
+                  "options": {
+                    "version": 2,
+                    "leftValue": "",
+                    "caseSensitive": true,
+                    "typeValidation": "strict"
+                  },
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "synthetic-condition",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "singleValue": false
+                      },
+                      "leftValue": "={{ $json.kind }}",
+                      "rightValue": "synthetic"
+                    }
+                  ]
+                },
+                "renameOutput": true
+              },
+              {
+                "outputKey": "synthetic-3",
+                "conditions": {
+                  "options": {
+                    "version": 2,
+                    "leftValue": "",
+                    "caseSensitive": true,
+                    "typeValidation": "strict"
+                  },
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "synthetic-condition",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "singleValue": false
+                      },
+                      "leftValue": "={{ $json.kind }}",
+                      "rightValue": "synthetic"
+                    }
+                  ]
+                },
+                "renameOutput": true
+              },
+              {
+                "outputKey": "synthetic-4",
+                "conditions": {
+                  "options": {
+                    "version": 2,
+                    "leftValue": "",
+                    "caseSensitive": true,
+                    "typeValidation": "strict"
+                  },
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "synthetic-condition",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "singleValue": false
+                      },
+                      "leftValue": "={{ $json.kind }}",
+                      "rightValue": "synthetic"
+                    }
+                  ]
+                },
+                "renameOutput": true
+              },
+              {
+                "outputKey": "synthetic-5",
+                "conditions": {
+                  "options": {
+                    "version": 2,
+                    "leftValue": "",
+                    "caseSensitive": true,
+                    "typeValidation": "strict"
+                  },
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "synthetic-condition",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "singleValue": false
+                      },
+                      "leftValue": "={{ $json.kind }}",
+                      "rightValue": "synthetic"
+                    }
+                  ]
+                },
+                "renameOutput": true
+              },
+              {
+                "outputKey": "synthetic-6",
+                "conditions": {
+                  "options": {
+                    "version": 2,
+                    "leftValue": "",
+                    "caseSensitive": true,
+                    "typeValidation": "strict"
+                  },
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "synthetic-condition",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "singleValue": false
+                      },
+                      "leftValue": "={{ $json.kind }}",
+                      "rightValue": "synthetic"
+                    }
+                  ]
+                },
+                "renameOutput": true
+              }
+            ]
+          },
+          "options": {
+            "fallbackOutput": "extra"
+          },
+          "looseTypeValidation": false
+        }
+      },
+      {
+        "id": "synthetic-node-10",
+        "name": "Node10",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.5,
+        "position": [
+          1000,
+          0
+        ],
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "synthetic-assignment",
+                "name": "reply",
+                "type": "string",
+                "value": "={{ $json.synthetic }}"
+              }
+            ]
+          },
+          "options": {}
+        }
+      }
+    ],
+    "connections": {
+      "Node0": {
+        "main": [
+          [
+            {
+              "node": "Node1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Node5": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Node4",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Node8": {
+        "main": [
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Node9": {
+        "main": [
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Node10",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  }
+]

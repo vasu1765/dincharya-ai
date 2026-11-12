@@ -25,3 +25,9 @@ docker compose -p dincharya-phasea-test -f tests/compose.test.yaml --profile tes
 Do not merge it with production Compose. Pin an approved PostgreSQL 17 digest and
 verify compatibility before relying on integration results. No container commands
 were run while implementing Phase A.
+
+Milestone 2C's separate three-service configuration and approval boundaries are
+in tests/integration/README.md and tests/integration/compose.json. Do not merge
+that file with this older PostgreSQL-only Phase A scaffold or production Compose.
+The new config uses generated session-only test credentials and individually
+allowlisted read-only fixture files; it has not been started or import-tested.

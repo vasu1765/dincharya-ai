@@ -1,0 +1,113 @@
+# Dincharya AI architecture
+
+This describes repository configuration and reviewed private evidence, not a new
+live-service health check. Runtime operations remain approval-gated. See
+[decisions](DECISIONS.md), [roadmap](ROADMAP.md) and [handoff](HANDOFF.md).
+
+## Application components
+
+| Component | Current role and evidence |
+| --- | --- |
+| Python Telegram gateway | Polls Telegram; authorizes one user in private chats; handles /start and forwards text to the local n8n webhook. Source is in telegram-gateway/. |
+| n8n | Chat orchestration, local LLM calls, schedule decisions and reminders. Compose service n8n exposes only 127.0.0.1:5678. Four workflow records were privately reviewed; no production workflow JSON is adopted as repository source. |
+| PostgreSQL 17 | Compose service postgres, shared persistent postgres_data volume. n8n metadata and application data use separate databases; the documented application database is dincharya_app. |
+| Ollama / Qwen2.5 3B | Local LLM backend documented for the live workflow. Not defined as a service in compose.yaml; host installation/supervision is not represented here. |
+| Ubuntu WSL2 | Current host platform. Application/node scheduling timezone is Asia/Kolkata. An India-based VPS is planned, not deployed by this work. |
+
+```mermaid
+flowchart LR
+  T[Telegram] <--> G[Python polling gateway]
+  G --> C[n8n chat webhook]
+  C --> A[PostgreSQL application database]
+  C --> O[Local Ollama / Qwen]
+  S[n8n Schedule Trigger] --> R[Reminder workflow]
+  R --> A
+  R --> T
+  N[n8n orchestration] --> M[PostgreSQL n8n metadata]
+```
+
+Compose defines only postgres and n8n. Its PostgreSQL image is postgres:17; its n8n
+image is a mutable latest tag. Administrator-provided source/image evidence
+identifies n8n 2.47.3 with n8n-nodes-base 2.47.2. That evidence does not prove
+historical executions used the same build. Production image pinning is future
+controlled work; production Compose was not changed. n8n_data stores the node
+user directory separately from PostgreSQL data.
+
+## Database and workflow source gap
+
+The private schema capture contains four application tables: schedule_events,
+recurrence_rules, schedule_change_requests and reminder_deliveries, plus 11
+function definitions. Scheduling functions cover occurrence generation, conflict
+checks, proposal validation and decision/approval dispatch. Exact definitions and
+signatures remain private; they are not reconstructed from function names.
+
+m2a/ contains an earlier schedule_events-only schema and non-repeat-safe routine
+seeds. It is historical material, not a migration chain or the current live schema.
+Never replay it over the working database. database/baseline/ and workflows/
+currently contain adoption guidance, not the adopted production baseline.
+
+Only three n8n backup tables were selectively extracted by the administrator:
+workflow_history, workflow_published_version, workflow_publish_history. Reviewed
+results: 94 historical versions for four current workflows; one current publication
+reference and 11 distinct historical event/version references resolve. Versionless
+events remain preserved without fabricated identifiers. Current nodes/connections
+match their same-version history; the referenced published definition differs
+only by one node's position. Original identifiers and records stay private.
+
+History provides node/connection bodies but not full historical settings/staticData.
+Current and published representations stay separate; settings/state are never
+borrowed to make an incomplete published export appear complete. Two current
+structural candidates pass adapters. The other two are archived unchanged behind
+native-state/Code acceptance gates. No importability or execution is established.
+
+## Native scheduler state
+
+The exact exported ScheduleTrigger.node.js and GenericFunctions.js use
+recurrenceRules as per-rule last-run values that gate scheduled emissions, and
+recurrenceRuleSignatures as interval type/size bookkeeping to re-arm stale state.
+Both are native n8n class-B persistent state for the reviewed image, not application
+recurrence definitions or reminder-delivery records. Values were preserved.
+
+Scheduled setup can re-arm/trim state; manual triggering bypasses the recurrence
+filter. A separate emitted deduplication key uses workflow/node/scheduled-time
+identity. This is not an exactly-once reminder guarantee. Import API behavior,
+engine persistence flushing, restart loading and historical compatibility require
+integration evidence. See [source conclusions](native-scheduler-state.md).
+
+## Offline tooling and trust boundaries
+
+- scripts/source_sync.py and validation tools prepare private candidates, preserve
+  SQL bytes, retain version/credential-reference provenance and reject unknown or
+  sensitive structures. They do not deploy, import or promote source.
+- Extraction/version tools parse only approved tables and COPY text without SQL
+  execution. JSON object-key order is ignored for comparison; arrays, scalar types,
+  parameters and Code strings remain significant. Original bytes are not rewritten.
+- Source-review tools inspect library text and hash-bound evidence without loading
+  JavaScript. The computed-member warning was traced to returned array literals;
+  this is not a security clearance for the seven Code nodes.
+- Private raw data, identities, credentials and detailed provenance stay outside
+  Git, with mode 700 directories and 600 files. Unix permissions are not encryption;
+  temporary /tmp reports can expire. Hashes do not authenticate a wholly replaced set.
+
+## Prepared Milestone 2C environment
+
+[Standalone configuration](../tests/integration/compose.json) defines postgres-test,
+n8n-test and mock-services on an internal network, with no host ports or production
+mounts. Images must be verified local IDs; pulls and automatic restarts are disabled.
+Runtime storage is tmpfs. Only explicit synthetic fixture files are mounted read-only.
+
+Fresh databases dincharya_n8n_test and dincharya_app_test receive only test metadata
+and invented data. Test credentials/keys are generated for the session, not copied
+from production or stored in Git. Mocks provide bounded synthetic Telegram/Ollama
+HTTP responses without outbound calls or payload logs. No polling or Code workflow
+is included. Only configuration/contracts have been checked; no test containers,
+SQL initialization or workflow imports have been run by Codex. See the
+[integration runbook](../tests/integration/README.md).
+
+## Outstanding risks
+
+Live webhook authentication, least-privilege roles, process supervision, dependency
+pinning, reliable reminder delivery, full restore readiness and VPS hardening remain
+separate work. Current source does not reproduce the entire working system from
+scratch. Private conversion, static tests and matching version identifiers do not
+prove deployed behavior or authorize real-state changes.

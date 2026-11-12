@@ -16,8 +16,9 @@ def check_path(value):
             for part in relative.parts[:-1])
             or relative.name.startswith('.env')
             or relative.name in {'PREPARED', 'workflows.candidate.json', 'manifest.json'}
+            or '.private.' in relative.name
             or any(part in relative.name.lower() for part in ('workflow-input', 'workflow-provenance', 'encryption-key'))
-            or relative.suffix not in {'.py', '.md', '.yaml', '.yml', '.json', '.sql', '.txt'}):
+            or relative.suffix not in {'.py', '.js', '.sh', '.md', '.yaml', '.yml', '.json', '.sql', '.txt'}):
         # .gitignore is the sole extensionless source exception.
         if relative != Path('.gitignore'):
             raise Rejected('FORBIDDEN_SCAN_PATH')

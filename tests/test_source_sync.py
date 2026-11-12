@@ -434,7 +434,8 @@ class HardenedPreparationTests(unittest.TestCase):
         scanner = importlib.util.module_from_spec(scanner_spec)
         with patch.dict('sys.modules', {'source_sync': sync}):
             scanner_spec.loader.exec_module(scanner)
-        for path in (ROOT / '.env', ROOT / 'backups/unread.sql', ROOT / 'workflow-input.private.json'):
+        for path in (ROOT / '.env', ROOT / 'backups/unread.sql', ROOT / 'workflow-input.private.json',
+                     ROOT / 'extracted-tables.original.private.sql'):
             with self.subTest(path=path), patch.object(scanner, 'read_input') as reader:
                 with self.assertRaises(sync.Rejected):
                     scanner.check_path(path)

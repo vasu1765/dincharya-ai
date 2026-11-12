@@ -17,15 +17,26 @@ MARKER = b'PRIVATE_CANDIDATE_ONLY: no Git promotion, import, execution, or deplo
 NODE_PARAMETERS = {
     'n8n-nodes-base.manualTrigger': {1: set()},
     'n8n-nodes-base.set': {3.4: {'mode', 'assignments', 'options', 'includeOtherFields', 'value'}},
+    'n8n-nodes-base.postgres': {2.8: {'operation', 'query', 'options'}},
+    'n8n-nodes-base.scheduleTrigger': {1.4: {'rule'}},
+    'n8n-nodes-base.telegram': {1.2: {'text', 'chatId', 'additionalFields'}},
+    '@n8n/n8n-nodes-langchain.chainLlm': {1.9: {'text', 'promptType', 'batching', 'messages'}},
+    '@n8n/n8n-nodes-langchain.lmChatOllama': {1: {'model', 'options'}},
+    'n8n-nodes-base.webhook': {2.2: {'httpMethod', 'path', 'options', 'responseMode'}},
+    'n8n-nodes-base.respondToWebhook': {1.5: {'respondWith', 'responseBody', 'options'}},
+    'n8n-nodes-base.if': {2.4: {'conditions', 'options'}},
+    'n8n-nodes-base.switch': {3.5: {'rules', 'options', 'looseTypeValidation'}},
     # Extend only with version-specific fixtures and explicit field review.
 }
 NODE_FIELDS = {'id', 'name', 'type', 'typeVersion', 'position', 'parameters',
                'credentials', 'disabled', 'notes', 'notesInFlow', 'alwaysOutputData',
-               'executeOnce', 'retryOnFail', 'maxTries', 'waitBetweenTries', 'onError'}
+               'executeOnce', 'retryOnFail', 'maxTries', 'waitBetweenTries', 'onError', 'webhookId'}
 RECORD_FIELDS = {'id', 'name', 'nodes', 'connections', 'settings', 'active',
                  'versionId', 'activeVersionId', 'versionMetadata', 'createdAt',
                  'updatedAt', 'description', 'tags', 'meta', 'pinData', 'staticData',
-                 'triggerCount', 'isArchived', 'versionCounter', 'parentFolderId'}
+                 'triggerCount', 'isArchived', 'versionCounter', 'parentFolderId',
+                 'nodeGroups', 'sourceWorkflowId'}
+NODE_PARAMETERS['n8n-nodes-base.set'][3.5] = NODE_PARAMETERS['n8n-nodes-base.set'][3.4] - {'value'}
 MANIFEST_FIELDS = {'format_version', 'candidate_only', 'promotion_approved',
                    'human_review_attested', 'state_verified', 'import_compatibility_verified',
                    'database_execution_performed', 'schema_sha256', 'workflow_input_sha256',
@@ -241,6 +252,90 @@ def load_schema(path):
     return validate_schema(read_input(path, '.sql'))
 
 
+def fields(value, allowed, required=()):
+    if not isinstance(value, dict) or set(value) - set(allowed) or not set(required) <= set(value):
+        raise Rejected('UNSUPPORTED_NESTED_STRUCTURE')
+
+
+def condition_structure(value):
+    fields(value, {'options', 'combinator', 'conditions'}, {'options', 'combinator', 'conditions'})
+    fields(value['options'], {'version', 'leftValue', 'caseSensitive', 'typeValidation'})
+    for key, item in value['options'].items():
+        expected = {'version': int, 'leftValue': str, 'caseSensitive': bool, 'typeValidation': str}[key]
+        if type(item) is not expected:
+            raise Rejected('INVALID_CONDITION_OPTION')
+    if value['combinator'] not in ('and', 'or') or not isinstance(value['conditions'], list):
+        raise Rejected('INVALID_CONDITIONS')
+    for condition in value['conditions']:
+        fields(condition, {'id', 'operator', 'leftValue', 'rightValue'}, {'id', 'operator', 'leftValue', 'rightValue'})
+        if not isinstance(condition['id'], str):
+            raise Rejected('INVALID_CONDITION_ID')
+        fields(condition['operator'], {'type', 'operation', 'singleValue'}, {'type', 'operation'})
+        if any(not isinstance(condition['operator'][key], str) for key in ('type', 'operation')):
+            raise Rejected('INVALID_CONDITION_OPERATOR')
+        if 'singleValue' in condition['operator'] and type(condition['operator']['singleValue']) is not bool:
+            raise Rejected('INVALID_CONDITION_OPERATOR')
+
+
+def observed_parameters(kind, parameters):
+    """Syntactic adapters only. Never evaluate queries, expressions or code."""
+    string_fields = {
+        'n8n-nodes-base.postgres': {'operation', 'query'},
+        'n8n-nodes-base.telegram': {'text', 'chatId'},
+        '@n8n/n8n-nodes-langchain.chainLlm': {'text', 'promptType'},
+        '@n8n/n8n-nodes-langchain.lmChatOllama': {'model'},
+        'n8n-nodes-base.webhook': {'httpMethod', 'path', 'responseMode'},
+        'n8n-nodes-base.respondToWebhook': {'respondWith', 'responseBody'},
+    }.get(kind, set())
+    if any(not isinstance(parameters.get(key), str) for key in string_fields):
+        raise Rejected('INVALID_NODE_PARAMETER_TYPE')
+    if kind == 'n8n-nodes-base.postgres':
+        fields(parameters.get('options'), {'queryReplacement'})
+        if parameters['operation'] != 'executeQuery' or any(not isinstance(v, str) for v in parameters['options'].values()):
+            raise Rejected('UNSUPPORTED_POSTGRES_OPERATION')
+    elif kind in {'@n8n/n8n-nodes-langchain.lmChatOllama', 'n8n-nodes-base.webhook',
+                  'n8n-nodes-base.respondToWebhook', 'n8n-nodes-base.if'}:
+        if parameters.get('options') != {}:
+            raise Rejected('UNSUPPORTED_NODE_OPTIONS')
+    if kind == 'n8n-nodes-base.telegram' and parameters.get('additionalFields') != {}:
+        raise Rejected('UNSUPPORTED_TELEGRAM_OPTIONS')
+    if kind == '@n8n/n8n-nodes-langchain.chainLlm':
+        if parameters.get('batching') != {}:
+            raise Rejected('UNSUPPORTED_CHAIN_BATCHING')
+        if 'messages' in parameters:
+            fields(parameters['messages'], {'messageValues'}, {'messageValues'})
+            messages = parameters['messages']['messageValues']
+            if not isinstance(messages, list):
+                raise Rejected('INVALID_CHAIN_MESSAGES')
+            for message in messages:
+                fields(message, {'message'}, {'message'})
+                if not isinstance(message['message'], str):
+                    raise Rejected('INVALID_CHAIN_MESSAGES')
+    if kind == 'n8n-nodes-base.scheduleTrigger':
+        fields(parameters.get('rule'), {'interval'}, {'interval'})
+        intervals = parameters['rule']['interval']
+        if not isinstance(intervals, list) or not intervals:
+            raise Rejected('INVALID_SCHEDULE_INTERVAL')
+        for interval in intervals:
+            fields(interval, {'field', 'minutesInterval'}, {'field', 'minutesInterval'})
+            if not isinstance(interval['field'], str) or type(interval['minutesInterval']) is not int or interval['minutesInterval'] < 1:
+                raise Rejected('INVALID_SCHEDULE_INTERVAL')
+    if kind == 'n8n-nodes-base.if':
+        condition_structure(parameters.get('conditions'))
+    if kind == 'n8n-nodes-base.switch':
+        fields(parameters.get('rules'), {'values'}, {'values'})
+        rules = parameters['rules']['values']
+        fields(parameters.get('options'), {'fallbackOutput'})
+        if ('fallbackOutput' in parameters['options'] and not isinstance(parameters['options']['fallbackOutput'], str)
+                or type(parameters.get('looseTypeValidation')) is not bool or not isinstance(rules, list)):
+            raise Rejected('INVALID_SWITCH_OPTIONS')
+        for rule in rules:
+            fields(rule, {'outputKey', 'conditions', 'renameOutput'}, {'outputKey', 'conditions', 'renameOutput'})
+            if not isinstance(rule['outputKey'], str) or type(rule['renameOutput']) is not bool:
+                raise Rejected('INVALID_SWITCH_RULE')
+            condition_structure(rule['conditions'])
+
+
 def convert_workflows(raw, input_format, state):
     if input_format not in {'raw', 'editor'} or state not in {'unknown', 'draft', 'published'}:
         raise Rejected('INVALID_PROVENANCE_DECLARATION')
@@ -263,14 +358,21 @@ def convert_workflows(raw, input_format, state):
         for field in ('active', 'isArchived'):
             if field in record and type(record[field]) is not bool:
                 raise Rejected('INVALID_PUBLICATION_METADATA')
-        for field in ('versionId', 'activeVersionId', 'createdAt', 'updatedAt', 'description', 'parentFolderId'):
+        for field in ('versionId', 'activeVersionId', 'createdAt', 'updatedAt', 'description', 'parentFolderId', 'sourceWorkflowId'):
             if field in record and record[field] is not None and (not isinstance(record[field], str) or not record[field]):
                 raise Rejected('INVALID_VERSION_METADATA')
         for field in ('versionCounter', 'triggerCount'):
             if field in record and (type(record[field]) is not int or record[field] < 0):
                 raise Rejected('INVALID_VERSION_METADATA')
-        if record.get('meta') not in (None, {}):
-            raise Rejected('UNREVIEWED_WORKFLOW_METADATA')
+        meta = record.get('meta')
+        if meta is not None:
+            fields(meta, {'templateCredsSetupCompleted'})
+            if any(type(v) is not bool for v in meta.values()):
+                raise Rejected('UNREVIEWED_WORKFLOW_METADATA')
+        if record.get('nodeGroups') not in (None, []):
+            raise Rejected('UNREVIEWED_NODE_GROUPS')
+        if record.get('staticData') not in (None, {}):
+            raise Rejected('RUNTIME_STATE_REQUIRES_REVIEW')
         if record.get('tags') not in (None, []):
             raise Rejected('UNREVIEWED_WORKFLOW_TAGS')
         version_metadata = record.get('versionMetadata')
@@ -287,11 +389,17 @@ def convert_workflows(raw, input_format, state):
         nodes, connections, settings = record.get('nodes'), record.get('connections'), record.get('settings', {})
         if not isinstance(nodes, list) or not nodes or not isinstance(connections, dict) or not isinstance(settings, dict):
             raise Rejected('INVALID_WORKFLOW_STRUCTURE')
-        if set(settings) - {'timezone', 'executionOrder'}:
+        if any(isinstance(node, dict) and node.get('type') == 'n8n-nodes-base.code' for node in nodes):
+            raise Rejected('EXECUTABLE_NODE_REQUIRES_REVIEW')
+        if set(settings) - {'timezone', 'executionOrder', 'binaryMode', 'callerPolicy', 'timeSavedMode', 'availableInMCP'}:
             raise Rejected('UNSUPPORTED_WORKFLOW_SETTINGS')
         if ('timezone' in settings and not isinstance(settings['timezone'], str)
                 or 'executionOrder' in settings and (not isinstance(settings['executionOrder'], str)
                                                       or settings['executionOrder'] not in {'v0', 'v1'})):
+            raise Rejected('INVALID_WORKFLOW_SETTINGS')
+        if any(key in settings and not isinstance(settings[key], str) for key in ('binaryMode', 'callerPolicy', 'timeSavedMode')):
+            raise Rejected('INVALID_WORKFLOW_SETTINGS')
+        if 'availableInMCP' in settings and type(settings['availableInMCP']) is not bool:
             raise Rejected('INVALID_WORKFLOW_SETTINGS')
         names, node_ids, references, candidate_nodes = set(), set(), {}, []
         for node in nodes:
@@ -304,6 +412,8 @@ def convert_workflows(raw, input_format, state):
             names.add(name)
             node_ids.add(node_id)
             kind, version = node.get('type'), node.get('typeVersion')
+            if kind == 'n8n-nodes-base.code':
+                raise Rejected('EXECUTABLE_NODE_REQUIRES_REVIEW')
             if (not isinstance(kind, str) or type(version) not in (int, float)
                     or type(version) is float and not math.isfinite(version)):
                 raise Rejected('INVALID_NODE_VERSION')
@@ -313,6 +423,7 @@ def convert_workflows(raw, input_format, state):
             parameters = node.get('parameters')
             if not isinstance(parameters, dict) or set(parameters) - supported:
                 raise Rejected('UNSUPPORTED_NODE_PARAMETERS')
+            observed_parameters(kind, parameters)
             if kind == 'n8n-nodes-base.set':
                 if ('mode' in parameters and parameters['mode'] != 'manual'
                         or 'options' in parameters and parameters['options'] != {}
@@ -342,6 +453,8 @@ def convert_workflows(raw, input_format, state):
                     raise Rejected('INVALID_NODE_OPTION')
             if 'notes' in node and not isinstance(node['notes'], str):
                 raise Rejected('INVALID_NODE_OPTION')
+            if 'webhookId' in node and (not isinstance(node['webhookId'], str) or not node['webhookId']):
+                raise Rejected('INVALID_WEBHOOK_ID')
             if 'onError' in node and (not isinstance(node['onError'], str) or node['onError'] not in {'stopWorkflow', 'continueRegularOutput', 'continueErrorOutput'}):
                 raise Rejected('INVALID_NODE_OPTION')
             candidate_node = copy.deepcopy(node)
@@ -349,11 +462,16 @@ def convert_workflows(raw, input_format, state):
                 credential_references(candidate_node['credentials'])
                 references[node_id] = candidate_node.pop('credentials')
             candidate_nodes.append(candidate_node)
+        node_types = {node['name']: node['type'] for node in nodes}
         for origin, outputs in connections.items():
-            if origin not in names or not isinstance(outputs, dict) or set(outputs) - {'main'}:
+            if origin not in names or not isinstance(outputs, dict) or set(outputs) - {'main', 'ai_languageModel'}:
                 raise Rejected('INVALID_CONNECTION_ORIGIN')
-            for branches in outputs.values():
-                if not isinstance(branches, list) or len(branches) > 1:
+            for connection_type, branches in outputs.items():
+                origin_node = next(node for node in nodes if node['name'] == origin)
+                maximum = 2 if origin_node['type'] == 'n8n-nodes-base.if' else (
+                    len(origin_node['parameters']['rules']['values']) + 1 if origin_node['type'] == 'n8n-nodes-base.switch' else 1)
+                if (not isinstance(branches, list) or len(branches) > maximum
+                        or connection_type == 'ai_languageModel' and origin_node['type'] != '@n8n/n8n-nodes-langchain.lmChatOllama'):
                     raise Rejected('INVALID_CONNECTION_BRANCHES')
                 for branch in branches:
                     if not isinstance(branch, list):
@@ -361,7 +479,8 @@ def convert_workflows(raw, input_format, state):
                     for edge in branch:
                         if (not isinstance(edge, dict) or set(edge) != {'node', 'type', 'index'}
                                 or not isinstance(edge.get('node'), str) or edge['node'] not in names
-                                or edge.get('type') != 'main' or type(edge.get('index')) is not int or edge['index'] != 0):
+                                or edge.get('type') != connection_type or type(edge.get('index')) is not int or edge['index'] != 0
+                                or connection_type == 'ai_languageModel' and node_types[edge['node']] != '@n8n/n8n-nodes-langchain.chainLlm'):
                             raise Rejected('INVALID_CONNECTION_TARGET')
         scan_record = copy.deepcopy(record)
         for node in scan_record['nodes']:
@@ -475,6 +594,89 @@ def read_directory(fd, expected):
         finally:
             os.close(file_fd)
     return result
+
+
+WORKFLOW_MARKER = b'PRIVATE_WORKFLOW_REVIEW_ONLY: no import, execution or Git promotion approval.\n'
+
+
+def workflow_snapshot_payload(raw, report_raw, source_path):
+    """Keep every original byte; convert independent records or record rejection."""
+    report = decode_json(report_raw)
+    if not isinstance(report, dict) or not isinstance(report.get('inputs'), list):
+        raise Rejected('INVALID_PRIOR_INTEGRITY_REPORT')
+    entries = [entry for entry in report['inputs'] if isinstance(entry, dict)
+               and entry.get('source_path') == source_path]
+    if (len(entries) != 1 or entries[0].get('checksum_verified') is not True
+            or entries[0].get('sha256') != digest(raw)):
+        raise Rejected('PRIOR_VERIFIED_INPUT_MISMATCH')
+    records = decode_json(raw)
+    if not isinstance(records, list) or not records:
+        raise Rejected('EXPECTED_WORKFLOW_SNAPSHOT_ARRAY')
+    candidates, provenance, rejected = [], [], []
+    identities = [record.get('id') for record in records if isinstance(record, dict)]
+    if any(not isinstance(identity, str) for identity in identities) or len(set(identities)) != len(identities):
+        raise Rejected('INVALID_OR_DUPLICATE_WORKFLOW_ID')
+    for index, record in enumerate(records, 1):
+        try:
+            converted, metadata = convert_workflows(encoded([record]), 'raw', 'unknown')
+        except Rejected as error:
+            rejected.append({'source_index': index, 'category': str(error)})
+        else:
+            candidates.extend(converted)
+            provenance.append({'source_index': index, **metadata[0]})
+    files = {'workflow-input.private.json': raw, 'integrity-report.private.json': report_raw,
+             'workflows.candidate.json': encoded(candidates),
+             'workflow-provenance.private.json': encoded(provenance),
+             'rejections.private.json': encoded(rejected)}
+    manifest = {'format_version': 1, 'kind': 'private-workflow-snapshot-review',
+                'source_path': source_path, 'input_format': 'raw', 'declared_state': 'unknown',
+                'state_verified': False, 'human_review_attested': False,
+                'promotion_approved': False, 'import_compatibility_verified': False,
+                'execution_performed': False, 'workflow_count': len(records),
+                'converted_count': len(candidates), 'rejected_count': len(rejected),
+                'files_sha256': {name: digest(value) for name, value in files.items()}}
+    files['manifest.json'] = encoded(manifest)
+    files['REVIEW_ONLY'] = WORKFLOW_MARKER
+    return files, manifest
+
+
+def prepare_workflow_snapshot(snapshot, integrity_report, output, private_root):
+    root, root_fd = private_root_fd(private_root)
+    output_fd = None
+    try:
+        name = child_name(root, output)
+        raw, report = read_input(snapshot, '.json'), read_input(integrity_report, '.json')
+        files, manifest = workflow_snapshot_payload(raw, report, str(Path(snapshot).absolute()))
+        output_fd = open_child(root_fd, name, create=True)
+        for filename, content in files.items():
+            write_file(output_fd, filename, content)
+        return manifest
+    finally:
+        for fd in (output_fd, root_fd):
+            if fd is not None:
+                os.close(fd)
+
+
+def validate_workflow_snapshot(output, private_root):
+    root, root_fd = private_root_fd(private_root)
+    output_fd = None
+    try:
+        output_fd = open_child(root_fd, child_name(root, output))
+        files = read_directory(output_fd, {'workflow-input.private.json', 'integrity-report.private.json',
+                  'workflows.candidate.json', 'workflow-provenance.private.json',
+                  'rejections.private.json', 'manifest.json', 'REVIEW_ONLY'})
+        manifest = decode_json(files['manifest.json'])
+        if not isinstance(manifest, dict) or not isinstance(manifest.get('source_path'), str):
+            raise Rejected('INVALID_MANIFEST_FIELDS')
+        expected, result = workflow_snapshot_payload(files['workflow-input.private.json'],
+                      files['integrity-report.private.json'], manifest['source_path'])
+        if files != expected:
+            raise Rejected('INTEGRITY_OR_PROVENANCE_MISMATCH')
+        return result
+    finally:
+        for fd in (output_fd, root_fd):
+            if fd is not None:
+                os.close(fd)
 
 
 def validate_bundle(directory, private_output, private_root):
