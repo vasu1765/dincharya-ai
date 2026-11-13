@@ -15,15 +15,30 @@ Security: Gateway restricts Telegram user ID, but n8n webhook itself is not auth
 
 ## Isolated reminder acceptance
 
-Run from the repository root with `PYTHONPATH=. python telegram-gateway/gateway.py`.
-For this check use a dedicated Telegram test bot, the owner's private test chat,
-and a disposable application database with both numbered migrations applied.
-Set `DINCHARYA_REMINDER_DSN` to that test database connection. Setting it enables
-the worker for **all** due occurrences in that database. Start with an empty
-synthetic schedule and a single gateway process. The worker polls PostgreSQL
-every 15 seconds and claims one reminder per tick. Keep any other delivery worker
-off during this check. Set the usual Telegram environment variables for the test
-bot and test owner. Use an isolated n8n endpoint if exercising ordinary chat.
+Run from the repository root with
+`PYTHONPATH=. python telegram-gateway/gateway.py --acceptance`.
+Start with a dedicated test bot, a private test chat, and an empty disposable
+PostgreSQL database on an unused loopback port other than 5432. Apply both
+numbered migrations using the isolated migration runner so the ledger is present.
+Provide these settings from a clean shell using the test credentials only.
+
+| Environment variable | Value |
+| --- | --- |
+| `DINCHARYA_TEST_BOT_ID` | Numeric ID of the dedicated test bot, independently verified |
+| `DINCHARYA_TEST_BOT_TOKEN` | Token issued for that test bot |
+| `DINCHARYA_TEST_OWNER_ID` | Numeric owner ID for the private test chat |
+| `DINCHARYA_TEST_PG_PORT` | Dedicated loopback port for the disposable PostgreSQL listener |
+| `DINCHARYA_TEST_PG_PASSWORD` | Password for the disposable `synthetic_test` database role |
+
+Acceptance skips dotenv, regular gateway configuration and n8n routing. It
+rejects inherited regular gateway, PostgreSQL and HTTP proxy settings. It checks
+the token against the supplied test bot ID, pins the DB to loopback and verifies
+the test database name, role and migration ledger before polling. Verify the
+pinned ID independently because a matching token and ID do not establish that a
+bot is dedicated to testing. Use a single gateway and keep other delivery
+systems off. The job allows one in-process invocation, and a PostgreSQL session
+lock serializes delivery ticks from cooperating gateways on the same database.
+Each tick claims at most one reminder.
 
 1. Send `/remind YYYY-MM-DD HH:MM Acceptance check` with an Asia/Kolkata time a few
    minutes ahead. Record the proposal ID. Confirm the proposal is pending and no
@@ -37,8 +52,20 @@ bot and test owner. Use an isolated n8n endpoint if exercising ordinary chat.
 4. Stop the test gateway and remove the disposable test database through its
    normal test teardown.
 
-The explicit commands are handled by the gateway. Ordinary chat still goes to
-n8n/Ollama. The first command supports one-time Gregorian reminders. Recurring
+The gateway handles the explicit commands. In regular mode, ordinary chat
+goes to n8n/Ollama. The first command supports one-time Gregorian reminders. Recurring
 series and occurrence edits use the existing PostgreSQL proposal API. Definitive
 Bot API rejections follow database retry policy. Timeouts and ambiguous responses
 are quarantined for operator reconciliation.
+
+## Delivery reconciliation
+
+Persisting the Telegram `message_id` would let an operator correlate an accepted
+send with its ledger row. Telegram IDs are scoped to a chat, so store the chat
+identity with the ID and write both in the same lease-checked PostgreSQL update
+that marks a delivery sent. Leave legacy rows and unknown responses nullable.
+This requires an additive migration, including tests for lost leases and legacy
+rows. It cannot recover a message ID if Telegram accepted a send but its response
+was lost, or if the worker crashed before committing. Continue quarantining
+those cases. A reconciliation interface and message ID persistence remain
+production blockers.

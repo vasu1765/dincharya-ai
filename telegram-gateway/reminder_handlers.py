@@ -1,5 +1,6 @@
 """Opt-in reminder commands and polling job for the existing Telegram gateway."""
 import asyncio
+from contextlib import closing
 from datetime import datetime, timezone
 import logging
 from zoneinfo import ZoneInfo
@@ -7,16 +8,34 @@ from zoneinfo import ZoneInfo
 import httpx
 from telegram.ext import CommandHandler
 
+from acceptance import decision_reply
+
 from dincharya.reminder_adapters import PostgresReminders, TelegramReminders, parse_reminder
 from dincharya.reminders import process_batch
 
 
-def register_reminders(app, dsn, token, owner_id):
+def register_reminders(app, token, owner_id, *, dsn="", database=None):
     import psycopg
 
-    repository = PostgresReminders(lambda: psycopg.connect(
-        dsn, connect_timeout=5, options='-c statement_timeout=15000',
-    ))
+    def connect():
+        return psycopg.connect(
+            dsn, connect_timeout=5, options='-c statement_timeout=15000',
+            **(database or {}),
+        )
+
+    if database is not None:
+        with closing(connect()) as check:
+            ready = check.execute(
+                "SELECT current_database() = 'dincharya_app_test' "
+                "AND session_user = 'synthetic_test' "
+                "AND (SELECT count(*) FROM public.application_migration_ledger "
+                "WHERE version IN ('0001_gregorian_occurrences.sql', "
+                "'0002_occurrence_reminders.sql')) = 2"
+            ).fetchone()[0]
+            if not ready:
+                raise ValueError('Disposable database identity or migrations could not be verified.')
+
+    repository = PostgresReminders(connect)
     local_zone = ZoneInfo('Asia/Kolkata')
     logger = logging.getLogger(__name__)
 
@@ -53,12 +72,12 @@ def register_reminders(app, dsn, token, owner_id):
             await update.message.reply_text(f'Use /{decision}_reminder followed by the proposal ID.')
             return
         try:
-            _, message = await asyncio.to_thread(repository.decide, owner_id, int(args[0]), decision)
+            success, message = await asyncio.to_thread(repository.decide, owner_id, int(args[0]), decision)
         except Exception:
             logger.warning('Reminder decision database operation failed')
             await update.message.reply_text('Could not confirm the reminder decision.')
             return
-        await update.message.reply_text(message)
+        await update.message.reply_text(decision_reply(success, message, decision))
 
     async def approve(update, context):
         await decide(update, context, 'approve')
@@ -67,9 +86,14 @@ def register_reminders(app, dsn, token, owner_id):
         await decide(update, context, 'reject')
 
     def tick():
-        with httpx.Client(timeout=10, trust_env=False) as client:
-            transport = TelegramReminders(client.post, token, owner_id)
-            process_batch(repository, transport, lambda: datetime.now(timezone.utc), limit=1)
+        # A session lock covers claim, send and acknowledgement across gateway processes.
+        with closing(connect()) as lease:
+            lease.autocommit = True
+            if not lease.execute('SELECT pg_try_advisory_lock(20261112,3)').fetchone()[0]:
+                return
+            with httpx.Client(timeout=10, trust_env=False) as client:
+                transport = TelegramReminders(client.post, token, owner_id)
+                process_batch(repository, transport, lambda: datetime.now(timezone.utc), limit=1)
 
     async def run_tick(context):
         try:
