@@ -5,69 +5,77 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-Branch `development/m2-recovery-acceptance`, pushed base `ff6198d` (restart/outage
-checkpoint). Working tree was clean at entry; local HEAD and origin tracking SHA
-matched and GitHub confirmed the commit. Issue #2 now records restart/outage as
-pushed and the current 2D results; no open PR was found for this branch. PR #1 remains merged.
+Branch `development/m2-recovery-acceptance`, pushed base `cb6fdd7` (full SHA
+cb6fdd73686fbdb19b29aea1011585faf4205e46). Working tree was clean at entry;
+HEAD and origin tracking ref matched, GitHub confirmed the commit, and no open
+PR was found for this branch. The prior 2D checkpoint is committed/pushed; old
+ff6198d/uncommitted references are superseded. PR #1 remains merged.
 
-Outstanding 2D synthetic recurrence/API acceptance now passed. Two new SQL cases
-cover weekly/yearly intervals and December–January transitions, combined selectors,
-inclusive start/until and beyond-until exclusion, invalid concrete dates/ranges,
-leap/century behavior, and approved series edits over existing exceptions,
-cancellations and future reminder rows. Deliberate series conflict rejects until
-explicit owner force approval; unauthorized force and stale decisions reject.
-Event/rule/ledger identities, unaffected override output and full sent/uncertain
-history remain stable; dormant explicit cancellations survive rule changes.
-No application defect was demonstrated; no migration or application change.
+Owner authorized **Milestone 2F Phase 1 research/design only**. New
+[M2F_PANCHANG_DESIGN.md](M2F_PANCHANG_DESIGN.md) records primary research sources,
+confirmed facts versus recommendations/unresolved decisions, functional/calendar
+requirements, engine/reference comparisons, stable occurrence/approval/reminder
+integration, fixture criteria and phased implementation gates. No engine,
+dependency, migration or n8n change has been implemented.
 
-Both new SQL cases passed; only the strengthened calendar case was rerun.
-Three affected runner preflight tests passed. Existing 2C/2E/reconciliation/n8n/
-live Telegram suites were not rerun. See [2D matrix/evidence](M2D_RECURRENCE_ACCEPTANCE.md)
-for passed cases, design limits and the 2B integration block. The new series test
-uses reminder APIs only to verify the effects of its newly tested rule changes.
-Restart/outage evidence remains at [prior checkpoint](M2_RESTART_RECOVERY_RESULTS.md).
+Recommendation pending approval: evaluate Skyfield with pinned local DE440s
+first; keep astronomical tithi intervals, sunrise-based dates, personal recurrence
+policies and festival observance profiles distinct. Delhi/Asia-Kolkata and
+Purnimanta default/Amanta configuration reflect owner requirements; exact profile,
+ayanamsa/sunrise and exceptional-date choices remain pending. Swiss Ephemeris is
+an alternative with explicit license/binding-support review. PAC and Skyfield
+sunrise models differ, so reference comparisons must bind coordinates/conventions.
 
-Pinned daemon/image, exact schema-only input unchanged, no-network/tmpfs/read-only
-isolation, teardown and unchanged existing running container IDs were verified.
-Host HBA SCRAM/local-only trust, restricted worker access, disabled reconciliation
-and empty audit were checked. Credential/logging, executor roles and immutable
-audit code remain unchanged. Source-safety, changed Python AST and whitespace/diff
-checks passed. No production/private-directory access, Telegram sends, resend/
-reset, deployment or merge. All Milestone 2 including Hindu Panchang precedes
-other orchestrators; production reconciliation remains disabled.
+Proposed personal defaults: first repeated sunrise once, skipped-tithi/Kshaya-month
+cases require review, ordinary-month anniversaries unless explicitly selected,
+adhika-origin rules clarified. Propose North-Indian Smarta as a candidate profile,
+not an inferred owner tradition. Each requested observance needs independent
+verification; tithi-only matching cannot silently schedule every festival.
 
-Full 2D application/workflow closure remains blocked by reviewed 2B adoption.
-The owner confirmed the original manifest path is not yet known and did not
-authorize private searches or referenced-artifact access. Provenance is blocked
-until the **exact original manifest path and explicit file-only authorization**
-are supplied; no search or manifest read was performed. Do not open referenced/adjacent artifacts
-without exact authorization or recreate/substitute a manifest without approval.
-Repository-only follow-up can map validator formats, audit synthetic-test gaps
-and refine the adoption checklist; it cannot establish original provenance.
-Details and follow-up validation boundaries are in the 2D report. Panchang source/tradition/reference,
-production operator evidence/identity, and 2G operations remain separate gates.
+Storage approval needed: current ledger allows one event/date delivery and due
+at event time. Stable Hindu logical identity, independent notification due time,
+bounded lead-aware lookahead and multiple slots require reviewed additive design.
+Preferred candidate keeps old history/uniqueness and adds companion jobs for extra
+slots with shared lease/receipt/quarantine semantics. This is a proposal only.
 
-Git metadata remains mounted read-only; no Git write/bypass attempted. Review the
-new untracked SQL/report as well as tracked diff, verify branch/index, then run
-these exact eight-safe-file commit commands in your normal WSL terminal:
+Stop for owner decisions before implementation: engine/licensing, Delhi/sunrise/
+ayanamsa profile, personal exception policies, ritual authority/tradition and
+staged identity/notification storage. See the numbered approval list in the design.
+No choice is recorded as accepted merely because it is recommended.
+
+Only documentation checks ran: explicit five-file safe-source scan, local-link
+checks, whitespace and diff review. No Docker/SQL/Panchang runtime tests, package
+installation, Telegram, n8n operation, private backup/manifest access, production,
+deployment or merge. No runtime accuracy/performance or golden fixture is claimed.
+Source and engine/data/reference license verification remain implementation gates.
+GitHub issue #2 reflects the pushed 2D checkpoint and current design status.
+
+2D synthetic database/API acceptance remains passed at cb6fdd7; full trusted
+application/workflow adoption is blocked by 2B. The owner confirmed original
+manifest path is unknown and authorizes no private searches, unknown artifacts,
+manifest replacement or capture. Repository-only contract/test-gap/checklist work
+can proceed later; this phase does not unblock provenance or private-source
+adoption. Production reconciliation and all resend/reset operations stay disabled.
+All Milestone 2, including Panchang and operations, precedes other orchestrators.
+
+Git metadata is still mounted read-only; no Git write/bypass attempted. After
+reviewing the design and index, use these exact five-safe-file commands in your
+normal WSL terminal; committing documentation does not authorize implementation:
 
 ```bash
 git status --short
 git branch --show-current
 git diff --check
 git add -- \
-  tests/sql/gregorian_calendar_acceptance.sql \
-  tests/sql/gregorian_series_acceptance.sql \
-  tests/integration/focused_application_runner.py \
-  tests/sql/README.md \
-  docs/M2D_RECURRENCE_ACCEPTANCE.md \
+  docs/M2F_PANCHANG_DESIGN.md \
   docs/HANDOFF.md \
   docs/MILESTONE2_PLAN.md \
+  docs/DECISIONS.md \
   docs/ROADMAP.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "test: complete Gregorian recurrence API acceptance matrix"
+git commit -m "docs: propose Hindu Panchang scheduling design and approval gates"
 ```
 
 ## Prior integration evidence (historical)

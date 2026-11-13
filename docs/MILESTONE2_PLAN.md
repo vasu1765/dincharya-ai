@@ -15,7 +15,7 @@ Track remaining work in [GitHub issue #2](https://github.com/vasu1765/dincharya-
 | P2: 2D compatibility and adversarial acceptance | 0001/0003 and focused SQL cover recurrence, D10 coexistence/boundaries and the requested adversarial API matrix | Synthetic tests prove old decision dispatch remains functional, cannot bypass managed snapshots/approval or mutate in-flight sends; malformed selectors/bounds reject atomically; occurrence/series edits preserve identity and sent history. Add corrective migrations only when a failure requires them. |
 | P3: 2E recovery and receipts | 0002/0004 cover retries, claims and atomic nullable receipts; read-only inspection and owner-approved synthetic reconciliation implemented; production actions disabled | Cover recovery at/outside lookback, lease expiry, stale ack, cancelled/replanned work, restart and duplicate suppression; no blind resend after ambiguous acceptance. Add nullable chat/message receipt with lease-checked atomic acknowledgement and legacy compatibility, then explicit operator reconciliation audit tests. Further live tests need new approval. |
 | P4: 2B reproducible source | baseline/ and workflows/ contain guidance only; native/Code source provenance gates remain | Obtain exact missing manifest path, never search backups; hash-bound reviewed schema and current/published workflow provenance; decide adopted vs archived items, preserve Code/state bytes; owner approval before private-source promotion or execution. Prove clean synthetic reconstruction from reviewed source. |
-| P5: 2F Hindu Panchang | No adopted source/engine or fixture suite; no completion claim | Owner chooses calculation/reference source, tradition and geographic parameters before engine/schema commitment. Define sunrise/day-boundary, tithi/paksha/month, amanta/purnimanta, adhika/kshaya, skipped/repeated tithi and observance policy. Compare versioned Delhi reference fixtures across ordinary, transition and leap-month cases; generate stable occurrences with overrides/conflicts/explicit approvals and deduplicated reminders. Investigate public sources only when beginning this task. |
+| P5: 2F Hindu Panchang | Phase 1 public research/design drafted; engine, policy and storage approvals pending; no implementation | Owner chooses calculation/reference source, tradition and geographic parameters before engine/schema commitment. Define sunrise/day-boundary, tithi/paksha/month, amanta/purnimanta, adhika/kshaya, skipped/repeated tithi and observance policy. Compare versioned Delhi reference fixtures across ordinary, transition and leap-month cases; generate stable occurrences with overrides/conflicts/explicit approvals and deduplicated reminders. See M2F_PANCHANG_DESIGN.md for sources, proposed phases and owner decisions; no dependencies/migrations before approval. |
 | P6: 2G operational acceptance | Existing tests are disposable; production readiness is not established | Least-privilege roles, webhook auth, pinned dependencies/images, supervision, redacted logs, health and backlog visibility, restore rehearsal, migration/rollback and recovery runbooks all validated in isolated synthetic environment. Review diff/evidence and obtain explicit owner approval before production access, cutover or deployment. |
 
 P0/P1 are committed (P1 at `120b28a`); D10/recovery is pushed at `db87193`;
@@ -40,8 +40,8 @@ SCRAM/ACL/logging boundaries preserved; prior accepted suites were not rerun.
 See [restart/outage evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
 Remaining recovery work is operational: gateway supervision, wall-clock policy,
 host/disk/durable restore and adopted workflow acceptance. Restart/outage acceptance
-is pushed at `ff6198d`. The next 2D fixture checkpoint awaits owner commit because
-Git metadata is read-only;
+is pushed at `ff6198d`; 2D recurrence API acceptance is pushed at `cb6fdd7`.
+The current 2F design-only checkpoint awaits owner review/commit; Git metadata is read-only;
 [handoff](HANDOFF.md) contains the exact safe-file commands.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
@@ -89,3 +89,28 @@ No new architecture decision was required by this acceptance checkpoint.
 Remaining 2E/2G: supervision/clock and broader outage/restore rehearsal, reviewed
 source adoption and real operator authority/identity procedures before any
 production enablement. Keep production reconciliation disabled and no resend/reset.
+
+
+## 2F Phase 1 design checkpoint
+
+Owner authorized public research, requirements and design only. The
+[Panchang design](M2F_PANCHANG_DESIGN.md) compares Skyfield/local JPL, Swiss/Python
+bindings, Astronomy Engine and existing Panchang implementations; PAC/Drik/
+mypanchang are references with distinct convention/lineage limitations. Research
+facts, publisher claims, recommendations and unknowns are separated. No engine
+accuracy, runtime or fixture acceptance is claimed.
+
+Proposed order: F2 personal annual/generic monthly tithi with offline astronomy
+and independent fixtures; F3 individually verified observance profiles for
+Ekadashi, Ram Navami, Janmashtami and Diwali; F4 approved identity/notification-slot
+storage and n8n/gateway integration/acceptance. No n8n replacement. Full required
+advance/reminder slot support must pass before 2F closure; existing one-row-per-
+event/date delivery is not a drop-in multi-reminder API.
+
+Owner approval before implementation: engine/license and pinned data strategy;
+Delhi location/sunrise/ayanamsa profile with Purnimanta default and explicit Amanta;
+skipped/repeated/intercalary personal policies; ritual authority/tradition; stable
+logical identities and staged additive reminder jobs. The design's six numbered
+questions remain unresolved, not accepted decisions. 2B provenance remains blocked;
+2F research does not authorize private capture/adoption or live tests. No engine,
+migration, Telegram operation, deployment or merge in this phase.

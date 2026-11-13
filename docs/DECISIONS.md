@@ -164,3 +164,26 @@ review and authorization. No resend/reset implementation or production gateway
 resolution command is authorized. See [design](RECONCILIATION_DESIGN.md) and
 [evidence](M2_RECONCILIATION_RESULTS.md). All Milestone 2 including Panchang remains
 required before other orchestrators.
+
+
+## D13 — Panchang Phase 1 design only; implementation decisions pending
+
+Owner authorized Milestone 2F public research, requirements and design on the
+existing branch. [M2F_PANCHANG_DESIGN.md](M2F_PANCHANG_DESIGN.md) is a proposal,
+not engine/schema adoption or permission to change n8n. Delhi/Asia-Kolkata and
+preferred Purnimanta/configurable Amanta are stated requirements. Keep personal
+lunar recurrence and festival-specific observance distinct; do not infer every
+festival date from a tithi match.
+
+Pending owner decisions: Skyfield/local DE440s recommendation versus licensed
+Swiss alternative; exact sunrise/location/ayanamsa; skipped/repeated/Adhika/Kshaya
+policies; ritual authority/tradition; stable Hindu identity and multiple advance
+notification storage. The one-event/date ledger constraint requires explicit
+additive compatibility review, not a hidden reinterpretation. No policy or
+architecture proposal in this document is accepted by default.
+
+Stop for approval before implementation. No package/engine, migration, n8n change,
+private-file/manifest access, Telegram operation, production capture/adoption,
+deployment or merge is authorized. 2B stays blocked; no replacement manifest.
+All Milestone 2 including Panchang and operational acceptance precedes other
+orchestrators. Production reconciliation and resend/reset remain disabled.

@@ -12,14 +12,16 @@ including Hindu Panchang and operational acceptance, before other domains or
 orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
 2B/2D/2E against existing source/tests and defines acceptance and approval gates.
 
-Restart/outage acceptance is pushed at `ff6198d`, following reconciliation
-`3d46d8e`. The next local checkpoint completes the requested outstanding 2D
-synthetic recurrence/API matrix: intervals/selectors, year/leap boundaries and
-approved series edits over existing overrides/cancellations/future reminders.
-No application defect required a migration. See [2D evidence and exit matrix](M2D_RECURRENCE_ACCEPTANCE.md).
-Full managed-v2 integration remains blocked by reviewed 2B adoption; smallest next
-step is owner-supplied original manifest path/read-only authorization, without
-private-directory searches. Production reconciliation and resend/reset stay disabled.
+2D synthetic recurrence/API acceptance is pushed at `cb6fdd7`, after restart/
+outage `ff6198d` and reconciliation `3d46d8e`. Existing acceptance is retained.
+Current work is **2F Phase 1 design only**: public engine/reference research,
+requirements, proposed calendar policies, integration and fixture criteria in
+[M2F_PANCHANG_DESIGN.md](M2F_PANCHANG_DESIGN.md). Engine/profile/tradition and
+identity/reminder-slot choices need owner approval before implementation. No n8n
+architecture change, dependency or migration has been made.
+Full managed-v2 integration remains blocked by reviewed 2B adoption; the original
+manifest is unidentified and no private search/substitution is authorized.
+Production reconciliation and resend/reset remain disabled.
 
 Completed 2C/live-reminder acceptance is retained without repeating it. Full
 Milestone 2 closure still requires reviewed source adoption, remaining recovery/
@@ -39,7 +41,7 @@ usage. Work is uncommitted and unstaged; preserve all working-tree changes.
 | 2C — isolated integration | Passed for synthetic default runtime | Health/isolation, manual output, activation/successful scheduling, n8n-only restart, durable job/occurrence persistence, observed duplicate checks and teardown passed. Historical/legacy engine behavior and real workflow import are not certified. |
 | 2D — advanced Gregorian recurrence | Synthetic database/API matrix passed; integration blocked by 2B | Add/update/remove, occurrence/series scopes, calendar boundaries, conflicts, stale proposals and approval foundations implemented. Parallel duplicate decision check passed; D10 and the requested authorization/stale/invalid-argument/concurrency matrix passed; outstanding calendar/series API fixtures now passed; full trusted application/workflow integration remains blocked by 2B adoption. |
 | 2E — occurrence reminders | Initial migration/SQL assertions and offline worker tests passed | Identity, deduplication, claims/leases, retry/backoff, uncertainty quarantine and bounded recovery foundations implemented. Concurrent claims, five-attempt cap and one-time gateway delivery passed. Exact lookback/expiry, immutable history and replanning passed; metadata-only inspection added. Nullable receipt persistence/atomic acknowledgement now passed; controlled-clock worker/postmaster restart matrix now passed; gateway supervision, host/disk/restore and production operator/operational review remain. Audited synthetic reconciliation passed. |
-| 2F — Delhi Hindu recurrence | Not started | Agree calculation/source/tradition/location and reference dates; implement and validate Hindu scheduling before completing Milestone 2. |
+| 2F — Delhi Hindu recurrence | Phase 1 design drafted; implementation approval pending | Agree calculation/source/tradition/location and reference dates; implement and validate Hindu scheduling before completing Milestone 2. |
 | 2G — deployment preparation | Not started | Restore/recovery rehearsal, full acceptance, reviewed migrations/workflow diffs and explicit production approval. |
 
 ## Preserved next-session work
