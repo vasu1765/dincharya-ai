@@ -136,14 +136,42 @@ commits synthetic rows. Reset the disposable database before the bot run by exit
 
 ## 3. Verify the dedicated bot independently
 
+The owner has created `@dincharya_acceptance_test_bot` and revoked its exposed
+token. Use only the replacement. In a normal local WSL terminal run:
+
+```bash
+python3 -B scripts/prepare-acceptance-secrets.py
+```
+
+Both inputs are hidden terminal reads, never command arguments or chat inputs.
+The helper creates a fresh mode-700 directory under `/tmp` and a mode-600 JSON
+file outside Git. It makes no network calls. Keep the printed file path locally;
+do not print the contents. Remove that exact file and empty directory after the
+test. This file is plaintext protected by Unix permissions, not encryption.
+In the clean acceptance shell, load only this newly created file as follows
+(do not enable shell tracing):
+
+```bash
+set +x
+read -r -p 'New private credentials.json path: ' acceptance_secrets
+DINCHARYA_TEST_BOT_TOKEN=$(python -B -c 'import json,sys; print(json.load(open(sys.argv[1]))["token"])' "$acceptance_secrets")
+DINCHARYA_TEST_OWNER_ID=$(python -B -c 'import json,sys; print(json.load(open(sys.argv[1]))["owner_id"])' "$acceptance_secrets")
+export DINCHARYA_TEST_BOT_TOKEN DINCHARYA_TEST_OWNER_ID
+test_bot_username=dincharya_acceptance_test_bot
+```
+
+Use the verification below after loading the file; skip its interactive token,
+username and owner reads when those variables are already loaded. Never source
+the JSON as shell code. Do not start the gateway until explicit live-test approval.
+
 Identify the test bot's username in BotFather and open that exact bot in
 Telegram. Enter its token silently and enter the test owner's numeric ID.
 Verify `getMe` matches the BotFather username, then pin the returned ID:
 
 ```bash
-read -r -s -p 'Dedicated test bot token: ' DINCHARYA_TEST_BOT_TOKEN; printf '\n'
+test -n "${DINCHARYA_TEST_BOT_TOKEN:-}" || { read -r -s -p 'Dedicated test bot token: ' DINCHARYA_TEST_BOT_TOKEN; printf '\n'; }
 export DINCHARYA_TEST_BOT_TOKEN
-read -r -p 'BotFather test bot username (without @): ' test_bot_username
+test -n "${test_bot_username:-}" || read -r -p 'BotFather test bot username (without @): ' test_bot_username
 DINCHARYA_TEST_BOT_ID=$(python -B - "$test_bot_username" <<'PY'
 import json, os, sys, urllib.request
 try:
@@ -160,8 +188,17 @@ PY
 )
 test -n "$DINCHARYA_TEST_BOT_ID"
 export DINCHARYA_TEST_BOT_ID
-read -r -p 'Private test owner numeric ID: ' DINCHARYA_TEST_OWNER_ID
+test -n "${DINCHARYA_TEST_OWNER_ID:-}" || { read -r -s -p 'Private test owner numeric ID: ' DINCHARYA_TEST_OWNER_ID; printf '\n'; }
 export DINCHARYA_TEST_OWNER_ID
+```
+
+Keep credentials in this local shell only. Do not paste them into chat, command
+arguments, reports or Git. After test database isolation and bot identity have
+been verified, obtain the owner's explicit approval for the live acceptance test
+before starting the gateway below. Telegram proposal approval remains a separate
+step in section 4.
+
+```bash
 PYTHONPATH=. python -B telegram-gateway/gateway.py --acceptance >"$work/gateway.log" 2>&1 &
 gateway_pid=$!
 ```

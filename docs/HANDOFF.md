@@ -5,23 +5,55 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-[Draft PR #1](https://github.com/vasu1765/dincharya-ai/pull/1) on
-`development/telegram-reminder` owns the first owner-approved reminder. Main
-contains the recurrence and reminder foundations. ChatGPT Work coordinates
-implementation and review. WSL Codex handles local runtime acceptance and
-reports sanitized evidence directly on the PR.
+2026-11-13: **PR #1 single live reminder acceptance passed** on
+`development/telegram-reminder` at `aa05dd280ff6c90c510bc60c7351d1503a825cac`.
+WSL Codex is primary while ChatGPT Work is paused. See the sanitized
+[acceptance report](PR1_FOCUSED_ACCEPTANCE_RESULTS.md).
 
-The gateway, separate owner approval, acceptance-mode credential checks and
-worker advisory lock are implemented. Thirteen focused offline tests passed.
-The first local attempt was blocked by missing prerequisites. Use the
-[consolidated WSL Codex task](WSL2_REMINDER_ACCEPTANCE.md) to reuse the pinned
-Docker PostgreSQL image and avoid installing a host database. The focused
-SQL assertions, competing-worker behavior and first dedicated bot delivery
-remain pending. Keep PR #1 draft pending evidence and owner approval to merge.
+- Pinned daemon/image and disposable PostgreSQL 17 isolation verified. Only the
+  exact owner-authorized schema file was loaded, unchanged. Approval/retry-cap
+  SQL and concurrent decision/claim/acknowledgement passed. Lock-only harness
+  timeout was corrected; only that check was repeated and passed.
+- After explicit owner live-test authorization, a fresh tmpfs PostgreSQL database
+  and dedicated network were used with only 127.0.0.1:55432 exposed. Dedicated
+  test-bot identity and private credential-file permissions were verified without
+  displaying credentials. Exactly one gateway poller started.
+- Observed one pending proposal, null event ID and zero deliveries. Owner then
+  sent `/approve_reminder 1` directly in Telegram; only then was one event created.
+  Lock contention suppressed all attempts through due time plus 35 seconds.
+  Disconnecting the lock holder allowed one acknowledged send: `sent`, attempts
+  `1`, send timestamp present and worker token cleared. Ledger remained unchanged
+  over two further ticks. Owner confirmed exactly one reminder in the test chat.
+- Gateway stopped and lock reacquisition passed. Disposable container/network
+  removed, loopback port closed, original running container IDs unchanged.
+  Production credentials/services were never used. No deploy, merge or push.
+- The owner's original private credential file remains outside Git; temporary
+  gateway environment was stopped. Temporary acceptance virtualenv remains at
+  `/tmp/dincharya-acceptance-venv`. Further Telegram sends require new authorization.
 
-After the first accepted reminder, close the remaining 2D/2E acceptance gaps.
-Telegram message-ID persistence is a separate follow-up unless evidence shows
-it is needed to correct a failure.
+Local source/documentation changes remain uncommitted because Git metadata is
+mounted read-only. Pre-existing untracked
+`docs/WSL2_REMINDER_ACCEPTANCE_RESULTS.md` is preserved as historical blocked
+results; it is superseded by the new report. No unrelated suites were repeated.
+Documentation safety scan and diff checks passed. Keep PR #1 draft for final
+review; remaining 2D/2E coverage is not declared complete. Message-ID persistence
+remains a separate follow-up; it was not required to fix a demonstrated failure.
+Sanitized evidence was posted to [PR #1](https://github.com/vasu1765/dincharya-ai/pull/1#issuecomment-6846033279).
+
+Exact normal-WSL commands for the owner after reviewing the changes (the two
+`--no-index` review commands return 1 when showing a new file):
+
+```bash
+cd /home/vasu1765/projects/dincharya-ai
+git diff -- AGENTS.md docs/HANDOFF.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md
+git diff --no-index -- /dev/null scripts/prepare-acceptance-secrets.py
+git diff --no-index -- /dev/null docs/PR1_FOCUSED_ACCEPTANCE_RESULTS.md
+git add -- AGENTS.md docs/HANDOFF.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md scripts/prepare-acceptance-secrets.py docs/PR1_FOCUSED_ACCEPTANCE_RESULTS.md
+git commit -m "test: record successful isolated Telegram reminder acceptance"
+```
+
+Next: review PR #1 evidence and remaining 2D/2E gaps; do not repeat live acceptance,
+merge, deploy or extend milestone scope without the applicable authorization.
 
 ## Last successful evidence
 
@@ -86,17 +118,16 @@ or daemon failure can still leave disposable resources.
   preserve sent history; guard edits while a send is in flight.
 - dincharya/reminders.py is an adapter-injected single-batch worker, tested offline.
   It opens no connections and performs no real Telegram I/O itself. Database and
-  transport adapters, workflow/gateway wiring, operator resolution of uncertain
-  sends and deployment remain future integration work. A batch abort can leave
+  transport adapters and one-time gateway wiring now passed isolated acceptance.
+  Operator resolution of uncertain sends and deployment remain future work.
+  A batch abort can leave
   remaining claims to expire into quarantine; external exactly-once is not claimed.
-- ApplicationRunner's **new checksum-corruption rejection**, **parallel duplicate
-  decision check**, **competing reminder-claim check** and final concurrent
-  acknowledgement are source-reviewed/syntax-checked only, not runtime verified.
-  They were added after the last passing SQL integration. Existing concurrency
-  safety assertions must not be presented as passing multi-session evidence.
-- Retry exhaustion, broad outage/recovery permutations, adversarial API cases,
-  legacy API interaction with managed series, and worker transport wiring need
-  further focused coverage before declaring all of 2D/2E complete.
+- Parallel duplicate decisions, competing reminder claims and concurrent
+  acknowledgement now passed multi-session acceptance. Checksum-corruption
+  rejection remains source-reviewed/syntax-checked only; it was not rerun here.
+- Five-attempt exhaustion and one-time gateway transport wiring now passed. Broad
+  outage/recovery permutations, adversarial API cases, legacy API interaction and
+  uncertain-send reconciliation still need coverage before closing all of 2D/2E.
 
 ## Source/provenance boundaries
 
