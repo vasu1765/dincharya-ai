@@ -98,3 +98,24 @@ Historical holds do not override later explicit scoped approvals; private source
 promotion, production access, deployments and merges remain gated. Do not bypass sandbox read-only Git/Docker metadata
 by escalation, permission changes or relocating .git. No remotes/push/deployment
 without explicit approval. Keep this distinction visible in new-session handoff.
+
+## D10 — Managed series require v2 mutations
+
+Owner approved 2026-11-13. Reject legacy update/remove submissions and approvals
+when the target recurrence rule has `managed_by=m2d`; require a fresh managed v2
+proposal and explicit approval. Check current ownership at decision time under
+the same transaction advisory lock as v2 decisions, including requests created
+before conversion and stale event-only snapshots. Force does not bypass policy.
+Neither version tags nor noncanonical approval strings authorize the legacy
+decision entry point to mutate managed state.
+Unauthorized decisions must retain the generic authorization response. Return
+only the sanitized compatibility reason to an authorized pending requester.
+
+Blocked approval leaves the request pending and all managed state untouched;
+the owner can explicitly reject/discard it. Genuine legacy events retain their
+existing update/remove behavior. New v2 proposals, approvals, snapshots and
+occurrence/series edits retain their checks. Migration 0003 preserves original
+legacy bodies verbatim inside guarded blocks, retaining their signatures,
+ownership, ACLs, invoker security and configuration; no public bypass alias or
+privilege elevation is introduced. A request trigger also guards direct legacy
+envelope submission. No historical migration or baseline bytes are rewritten.

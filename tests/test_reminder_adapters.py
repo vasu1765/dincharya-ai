@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 import json
 import unittest
 from unittest.mock import MagicMock, Mock
@@ -104,3 +104,27 @@ class ReminderAdapterTests(unittest.TestCase):
         for date, time in [('2032-01-02', '03:03'), ('2032-1-02', '03:06'), ('2032-02-30', '03:06')]:
             with self.subTest(date=date, time=time), self.assertRaises(ValueError):
                 parse_reminder([date, time, 'Havan'], self.now)
+
+    def test_quarantine_inspection_is_bounded_metadata_only_and_does_not_send(self):
+        self.cursor.fetchall.return_value = [(8, 5, date(2032, 1, 2), 1, self.now, self.now)]
+        page = self.repository.list_quarantined(after_id=7, limit=1)
+        self.assertEqual(page[0].delivery_id, 8)
+        self.assertEqual(page[0].event_id, 5)
+        self.assertEqual(page[0].attempts, 1)
+        self.assertEqual(set(vars(page[0])), {
+            'delivery_id', 'event_id', 'occurrence_date', 'attempts', 'due_at', 'claimed_at',
+        })
+        statement, params = self.session.execute.call_args.args
+        self.assertTrue(statement.startswith('SELECT id,event_id,occurrence_date,attempts,due_at,claimed_at '))
+        self.assertIn("managed_by='m2e' AND status='uncertain' AND id>%s", statement)
+        self.assertEqual(params, (7, 1))
+        self.session.execute.assert_called_once()
+        self.connection.__exit__.assert_called_once_with(None, None, None)
+        self.post.assert_not_called()
+
+    def test_quarantine_inspection_rejects_bad_bounds_before_connecting(self):
+        for kwargs in ({'limit': 0}, {'limit': 101}, {'limit': True},
+                       {'after_id': -1}, {'after_id': 2**63}, {'after_id': False}):
+            with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
+                self.repository.list_quarantined(**kwargs)
+        self.repository.connect.assert_not_called()

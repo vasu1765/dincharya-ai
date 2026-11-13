@@ -18,7 +18,7 @@ Security: Gateway restricts Telegram user ID, but n8n webhook itself is not auth
 Run from the repository root with
 `PYTHONPATH=. python telegram-gateway/gateway.py --acceptance`.
 Start with a dedicated test bot, a private test chat, and an empty disposable
-PostgreSQL database on an unused loopback port other than 5432. Apply both
+PostgreSQL database on an unused loopback port other than 5432. Apply all three
 numbered migrations using the isolated migration runner so the ledger is present.
 Provide these settings from a clean shell using the test credentials only.
 
@@ -65,6 +65,13 @@ manually retry before Telegram's wait expires. Timeouts, malformed responses and
 5xx responses also remain quarantined for operator reconciliation.
 
 ## Delivery reconciliation
+
+`PostgresReminders.list_quarantined(after_id=0, limit=20)` provides a bounded,
+read-only metadata page for managed `uncertain` rows, ordered by delivery ID.
+Pass the last returned delivery ID as `after_id` for the next page. Limits are
+1–100; payload/title, chat identity, tokens and raw errors are excluded. This
+adapter building block does not clear uncertainty, change retry state or send.
+It is not an operator resolution interface; all resolution/resend remains gated.
 
 Persisting the Telegram `message_id` would let an operator correlate an accepted
 send with its ledger row. Telegram IDs are scoped to a chat, so store the chat

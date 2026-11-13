@@ -79,7 +79,8 @@ from database.migrate import render_migrations
 from pathlib import Path
 root = Path('database/migrations')
 print(render_migrations([root / '0001_gregorian_occurrences.sql',
-                         root / '0002_occurrence_reminders.sql']))
+                         root / '0002_occurrence_reminders.sql',
+                         root / '0003_managed_legacy_boundary.sql']))
 PY
 q -c 'SELECT version FROM public.application_migration_ledger ORDER BY version'
 python -B - <<'PY'
@@ -96,11 +97,11 @@ with psycopg.connect(hostaddr='127.0.0.1', port=os.environ['DINCHARYA_TEST_PG_PO
                      dbname='dincharya_app_test', user='synthetic_test',
                      passfile='/dev/null', sslmode='disable', connect_timeout=5,
                      **credentials) as conn:
-    assert conn.execute('SELECT count(*) FROM public.application_migration_ledger').fetchone() == (2,)
+    assert conn.execute('SELECT count(*) FROM public.application_migration_ledger').fetchone() == (3,)
 PY
 ```
 
-Confirm exactly the two expected ledger entries. Keep other delivery workers off.
+Confirm exactly the three expected ledger entries. Keep other delivery workers off.
 If the port is occupied, choose an unused loopback port other than 5432 and
 use it consistently. If the Docker-published loopback endpoint is unreachable
 from WSL, report that preflight blocker. Do not widen the binding.

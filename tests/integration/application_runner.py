@@ -32,7 +32,8 @@ class ApplicationRunner(runner.Runner):
         decoded = validate_schema(baseline).decode('utf-8')
         self.psql(decoded)
         paths = [runner.ROOT / 'database/migrations' / name for name in
-                 ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql')]
+                 ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql',
+                  '0003_managed_legacy_boundary.sql')]
         script = migrations.render_migrations(paths)
         self.psql(script)
         self.psql(script)  # Repeat is a checked no-op, not a baseline replay.
@@ -50,7 +51,8 @@ class ApplicationRunner(runner.Runner):
         runner.require(failed, 'Changed migration checksum was accepted')
         self.sql("UPDATE public.application_migration_ledger SET checksum='" + original + "' WHERE version='" + name + "'",
                  'dincharya_app_test')
-        for name in ('gregorian.sql', 'reminders.sql'):
+        for name in ('gregorian.sql', 'reminders.sql', 'legacy_coexistence.sql',
+                     'legacy_managed_boundary.sql', 'reminder_recovery.sql'):
             self.psql((runner.ROOT / 'tests/sql' / name).read_text())
             print('Isolated application assertions passed: ' + name, flush=True)
         self.concurrent_tests()

@@ -5,44 +5,63 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-2026-11-13: GitHub confirms PR #1 merged into main at
-`f3db2ff600dbb417e8bd2c553aad5388697cbd9e`; merged feature head is `1c60fe1`.
-This includes the accepted single test-bot reminder and tested 429 quarantine.
-Owner reconfirmed ALL Milestone 2, including Hindu Panchang scheduling and
-operational acceptance, must finish before other domains or orchestrators.
-See [prioritized implementation plan](MILESTONE2_PLAN.md), with explicit 2B/2D/2E
-source/test gaps and milestone acceptance criteria.
-GitHub tracking: [Milestone 2 completion issue #2](https://github.com/vasu1765/dincharya-ai/issues/2).
+Development branch: `development/m2-recovery-acceptance`, committed base `120b28a`.
+PR #1 merged at `f3db2ff`; acknowledgement recovery/roadmap work is committed and
+pushed. ALL Milestone 2, including Hindu Panchang and operational acceptance,
+remains required before other domains/orchestrators. Track [issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
+and [plan](MILESTONE2_PLAN.md).
 
-Owner completed synchronization and branch creation in normal WSL after the
-sandbox fetch failed on read-only Git metadata. Verified local main and
-`development/m2-recovery-acceptance` both start at `f3db2ff`, initially clean.
-No escalation or alternate Git store was used.
+Current uncommitted task implements owner-approved [D10](DECISIONS.md): reject
+legacy update/remove submissions and approvals for managed series; require a fresh
+v2 proposal. A new test first demonstrated legacy approval bypassing a changed
+managed override. Additive migration 0003 now guards the original public proposal
+and decision entry points plus direct legacy request submission. Current ownership
+is checked under the v2 advisory lock, covering requests created before conversion.
+Unauthorized requests retain a generic response; authorized blocked approvals get
+only the sanitized v2-required reason and stay pending for explicit discard.
+Original legacy bodies, signatures, ACLs, ownership and execution properties are
+preserved; existing migration/baseline bytes remain unchanged. No new privileges,
+public bypass aliases or production operations.
 
-Implemented the first focused 2E recovery fix: database finish exceptions and
-lease loss now raise sanitized DeliveryUncertain, without retrying transport or
-continuing the remaining claimed batch. Reproduced the prior raw-exception gap.
-Added tests across accepted/rejected/unknown send outcomes and multi-claim abort;
-all **17 focused reminder tests passed**. No services/private inputs needed.
-Remaining claims still expire into quarantine; no active lease reset was added.
-Source scan and diff review passed. Existing architecture/migrations unchanged.
+Focused evidence: three new SQL cases passed (coexistence, managed transition/
+boundary and targeted recovery), plus a multi-session conversion/legacy-decision
+case observing blocked waiters. Genuine legacy updates/removals, stale rejection,
+new submissions, force/authorization, pending pre-conversion requests and continued
+v2 approval/override/replay protection passed, including forged version tags and
+noncanonical approval attempts. Recovery covers exact six-hour and
+expiry boundaries, stale ack, sent/quarantine history, cancelled-work replanning
+and no automatic resend. Eight adapter tests, four migration renderer tests and
+three new runner preflight tests passed. Do not report these as a full suite run.
 
-Git metadata remains read-only. Owner commands to record the reviewed changes:
+New `PostgresReminders.list_quarantined` is bounded read-only metadata inspection,
+with no payload/title/chat/token/error exposure and no reset/resend capability.
+It is adapter-tested, not a completed operator reconciliation interface. See
+[sanitized results](M2_COMPATIBILITY_RECOVERY_RESULTS.md) for test limits and fixes.
+The PostgreSQL-only focused runner selects named cases, verifies daemon/image,
+uses fresh tmpfs/no-network/no-port/no-mount test resources, and cleans up. Every
+completed run preserved original running container IDs; final prefix audit found
+no leftover disposable containers after the interrupted call. No Telegram/n8n or
+completed full integration suite was repeated. Only the exact previously
+owner-authorized schema input was read, unchanged; no backup search or production
+credential/service access occurred.
+
+Git metadata remains read-only; no staging/commit/push attempted here. Owner
+commands after reviewing explicit safe files:
 
 ```bash
-git diff -- AGENTS.md dincharya/reminders.py tests/test_reminder_worker.py docs/HANDOFF.md docs/ROADMAP.md docs/ARCHITECTURE.md docs/DECISIONS.md docs/DEVELOPMENT_POLICY.md
-git diff --no-index -- /dev/null docs/MILESTONE2_PLAN.md
-git add -- AGENTS.md dincharya/reminders.py tests/test_reminder_worker.py docs/HANDOFF.md docs/ROADMAP.md docs/ARCHITECTURE.md docs/DECISIONS.md docs/DEVELOPMENT_POLICY.md docs/MILESTONE2_PLAN.md
-git commit -m "fix: harden reminder acknowledgement recovery and plan Milestone 2"
+git diff -- database/migrations/README.md dincharya/reminder_adapters.py docs/DECISIONS.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md telegram-gateway/README.md tests/integration/application_runner.py tests/test_migrations.py tests/test_reminder_adapters.py tests/sql/README.md
+git status --short
+git add -- database/migrations/0003_managed_legacy_boundary.sql database/migrations/README.md dincharya/reminder_adapters.py docs/DECISIONS.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md docs/M2_COMPATIBILITY_RECOVERY_RESULTS.md telegram-gateway/README.md tests/integration/application_runner.py tests/integration/focused_application_runner.py tests/integration/legacy_boundary_checks.py tests/sql/legacy_coexistence.sql tests/sql/legacy_managed_boundary.sql tests/sql/reminder_recovery.sql tests/sql/README.md tests/test_migrations.py tests/test_reminder_adapters.py tests/test_focused_application_runner.py
+git diff --cached --check
+git diff --cached
+git commit -m "fix: enforce managed-series legacy boundary and test recovery"
 ```
 
-Do not repeat live Telegram acceptance. No production credentials/services,
-private inputs, Docker tests, deployment or merge used for this planning task.
-The prior sanitized [acceptance report](PR1_FOCUSED_ACCEPTANCE_RESULTS.md) and
-[review](PR1_PREMERGE_REVIEW.md) remain historical evidence, not pending PR gates.
-Next branch task after reviewing/recording this change: 2D legacy decision and
-managed-series coexistence tests, then targeted 2E recovery/receipt work. The
-missing exact provenance manifest and Panchang policy remain later owner gates.
+Next: remaining 2D adversarial API matrix; P3 nullable chat/message receipts and
+lease-checked acknowledgement, then explicit audited resolution design. No new
+architecture decision is needed for this patch. Enabling resolution/resend is not
+implicit in read-only inspection; Panchang source/tradition/geographic/reference
+policy remains a later owner decision. Do not merge, deploy or repeat live sends.
 
 ## Last successful evidence
 

@@ -40,9 +40,11 @@ class MigrationTests(unittest.TestCase):
 
     def test_repository_migrations_render_without_services_or_private_input(self):
         text = m.render_migrations([ROOT / 'database/migrations' / name for name in
-            ('0001_gregorian_occurrences.sql','0002_occurrence_reminders.sql')])
+            ('0001_gregorian_occurrences.sql','0002_occurrence_reminders.sql',
+             '0003_managed_legacy_boundary.sql')])
         self.assertIn('CREATE FUNCTION public.propose_gregorian_change', text)
         self.assertIn('CREATE FUNCTION public.claim_occurrence_reminders', text)
+        self.assertIn('CREATE TRIGGER guard_legacy_managed_request', text)
         self.assertNotIn('CREATE DATABASE', text)
 
 

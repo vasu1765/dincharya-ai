@@ -18,10 +18,18 @@ Track remaining work in [GitHub issue #2](https://github.com/vasu1765/dincharya-
 | P5: 2F Hindu Panchang | No adopted source/engine or fixture suite; no completion claim | Owner chooses calculation/reference source, tradition and geographic parameters before engine/schema commitment. Define sunrise/day-boundary, tithi/paksha/month, amanta/purnimanta, adhika/kshaya, skipped/repeated tithi and observance policy. Compare versioned Delhi reference fixtures across ordinary, transition and leap-month cases; generate stable occurrences with overrides/conflicts/explicit approvals and deduplicated reminders. Investigate public sources only when beginning this task. |
 | P6: 2G operational acceptance | Existing tests are disposable; production readiness is not established | Least-privilege roles, webhook auth, pinned dependencies/images, supervision, redacted logs, health and backlog visibility, restore rehearsal, migration/rollback and recovery runbooks all validated in isolated synthetic environment. Review diff/evidence and obtain explicit owner approval before production access, cutover or deployment. |
 
-P0 completed by the owner and verified locally at `f3db2ff`. P1 is implemented
-on `development/m2-recovery-acceptance`; all 17 focused reminder tests pass,
-including new DB-failure and batch-abort cases. Commit remains pending because
-sandbox Git metadata is read-only. Later rows remain planned acceptance work.
+P0 completed and P1 committed/pushed at `120b28a` (17 focused reminder tests
+passed at that checkpoint). P2 now includes the owner-approved D10 policy and
+additive migration 0003: legacy update/remove cannot target managed series,
+including pre-conversion pending requests. Genuine legacy and v2 paths, stale
+snapshots and concurrent conversion decisions passed the new focused SQL cases.
+P3 exact-window/expiry/history/replan cases also passed; bounded metadata-only
+quarantine inspection has offline tests. New work remains uncommitted because
+Git metadata is read-only. See [evidence](M2_COMPATIBILITY_RECOVERY_RESULTS.md).
+Remaining P2 adversarial cases, P3 receipts/audited resolution and later rows
+are not declared complete. No additional architectural approval is required for
+this patch; enabling resolution/resend and the Panchang provider policy remain
+later decisions, not implicit permissions to mutate or send now.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
 closed remaining gaps before Milestone 2 is complete. Passing one reminder is not
