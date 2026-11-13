@@ -280,3 +280,14 @@ The adapter reuses preview validation and DeliveryReceipt and does not implement
 SQL conflicts/leases/retries. See M2F_MEMORY_CONTRACT.md for divergences and tests.
 Stop after offline checkpoint. PostgreSQL design/execution/migration, n8n/Telegram,
 production/private access, deployment and merging remain unapproved.
+
+## D20 — Lunar PostgreSQL design authorized; adoption pending
+
+Owner authorizes repository-only mapping/auth/transaction review and a finite
+synthetic acceptance plan, not database execution or implementation. See
+[M2F_POSTGRESQL_DESIGN](M2F_POSTGRESQL_DESIGN.md). Recommended one-off projections,
+seven metadata tables, trusted session principals, atomic approval, conservative
+never-attempted replacement and cancellation tombstones are proposals requiring
+approval. The first-test one-at-event reminder limit requires explicit approval
+and does not reduce full Milestone2 advance-reminder requirements. No engine
+adoption, migrations, private source access, workflow/delivery or deployment.

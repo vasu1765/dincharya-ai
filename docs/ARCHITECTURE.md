@@ -172,3 +172,15 @@ Sent/uncertain fixtures cannot be changed and no worker/transport/database exist
 This implements the previous proposed offline seam only, not the live diagram or
 SQL architecture. PostgreSQL mapping/auth/transaction/locking review remains a
 separate approval gate; no migration or n8n/Telegram change is included.
+
+## Proposed lunar PostgreSQL mapping — review only
+
+The [PostgreSQL design](M2F_POSTGRESQL_DESIGN.md) proposes immutable lunar metadata
+projected into existing managed Gregorian once events, one per approved logical
+occurrence. Existing generator, conflicts, reminder ledger, leases and worker are
+reused. Proposed trusted identity, mapped-event write barriers and shared-lock
+coordinator atomically approve/materialize; terminal history cannot be replaced.
+Seven proposed metadata tables and the API are not implemented or adopted. Initial
+synthetic acceptance would cover one at-event reminder; advance slots still need
+design. Owner architectural/policy approval and separate database execution
+authorization are required. No live architecture, workflow or schema changes.

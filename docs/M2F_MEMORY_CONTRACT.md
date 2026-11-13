@@ -1,11 +1,10 @@
 # Milestone 2F — isolated in-memory personal recurrence contract
 
-Owner authorized this synthetic offline integration after the pre-integration
-assessment. Base `9eaf859ccd6fe99cb77a02d3758817ff551399c7`, entry branch
-`development/m2f-skyfield-feasibility`, clean tree. Owner created and agent verified
-separate `development/m2f-memory-contract`; preserve work there. Git remains
-mounted read-only to the agent, so new changes are uncommitted/unpushed until the
-owner runs HANDOFF commands. No replacement commit SHA is claimed.
+The implemented offline contract is committed/pushed at
+`0304de6a5ee140c313eb4aae6c2d18a35b0e7e99` on
+`development/m2f-memory-contract`. Historical results below are unchanged.
+The separately authorized [PostgreSQL design](M2F_POSTGRESQL_DESIGN.md) now reviews
+mapping, auth, transactions and differences; it implements no database behavior.
 
 ## Outcome and readiness
 

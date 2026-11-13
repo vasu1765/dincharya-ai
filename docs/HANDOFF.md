@@ -3,78 +3,57 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — authorized isolated in-memory lunar contract, stop offline
+## Current checkpoint — PostgreSQL lunar design, no implementation
 
-Base `9eaf859ccd6fe99cb77a02d3758817ff551399c7`; entry clean on
- development/m2f-skyfield-feasibility. Owner created separate
-`development/m2f-memory-contract`; agent verified it, with clean tree before edits.
-Old uncommitted34b6270-base instructions superseded. Git metadata remains mounted
-read-only; no stage/commit/push/bypass attempted. Current changes uncommitted;
-no new commit SHA can be reported until owner executes the explicit commands.
+Verified pushed HEAD `0304de6a5ee140c313eb4aae6c2d18a35b0e7e99` on
+`development/m2f-memory-contract`; entry working tree clean. The prior in-memory
+checkpoint is committed/pushed, superseding its old uncommitted instructions.
+Git metadata remains read-only; no bypass, stage, commit or push attempted here.
 
-- Owner authorized this in-memory proposal/approval/ledger simulation only. No DB,
-  n8n, Telegram, actual delivery or scheduling enablement. AGENTS unchanged.
-- Separate immutable UUID series for synthetic birthday/wedding share the same
-  lunar key without collision. Ledger key is series UUID + existing logical key.
-- Reuses LunarRule/logical_key/research comparison boundary and DeliveryReceipt;
-  no duplicate astronomy, worker/lease/retry implementation. SQL approval source
-  reviewed for snapshot/ownership/atomicity expectations; no SQL executed.
-- Immutable proposals, approval action/snapshots and ledger/history records.
-  Explicit owner capability, per-occurrence approval, observation/candidate-rule
-  generations, stale/ABA/action replay guards. Changed dates/rules require review;
-  already materialized entries cannot be replaced, even after new approval.
-- Validated batch is atomic in process; repeated submission/recalculation/overlap
-  idempotent. Unsupported/unselected/ambiguous/skipped input rejects; empty result
-  no-op. Test-only sent/uncertain fixture records/receipts immutable, no resend path.
--29 focused tests pass0.480s (15 adapter+2 comparison+12 mocked worker regressions).
-  Stale/unauthorized replay strengthened test passes0.001s. Red forged2030 date
-  outside2023 physical interval rejected after adding interval-containment check.
-- Actual engine-to-adapter overlap test runs offline.11 accepted reference/result
-  files unchanged; astronomical model/dependencies/diagnostics untouched. No
-  unrelated integration/accuracy/coordinate suite rerun or new packages/data.
+Owner authorized design/review only. See [PostgreSQL mapping, authorization,
+transaction design and finite acceptance plan](M2F_POSTGRESQL_DESIGN.md).
 
-See [contract/API/acceptance/risks](M2F_MEMORY_CONTRACT.md),
-[tests](../tests/panchang/test_memory_contract.py),
-[synthetic fixtures](../tests/panchang/fixtures/memory-contract.synthetic.json) and
-[results](../prototypes/panchang/memory-contract-results.json). Source-safety,
-AST/JSON/link/diff and accepted-evidence checks pass; GitHub issue2 updated.
+- Proposes one native managed Gregorian one-off projection per logical lunar
+  occurrence, scoped by immutable personal series UUID. Reuses existing requests,
+  occurrence generator, conflicts, reminder ledger and worker; no second queue.
+- Seven proposed metadata/authority/audit tables; no executable DDL or migration.
+  Trusted session identity, explicit lunar dispatch, mapped-event write barriers,
+  shared scheduler mutex, fresh snapshots and atomic approval/materialization.
+- Date replacement restricted to never-attempted work, same projection ID;
+  cancellation tombstones prevent revival. Sent/uncertain history stays immutable.
+  Legacy event_date synchronization is an explicit future implementation check.
+- Memory source reviewed against migrations0001–0005 and reminder contracts.
+  No demonstrated offline defect; no source/model/reference files changed.
+  Atomic SQL approval, committed rule revisions and conflict handling are proposed
+  differences, not claimed in-memory capabilities.
+- T00–T26 is a finite future synthetic acceptance plan, not executed evidence.
+  No PostgreSQL, Docker, Telegram, n8n, private inputs or production access.
+- Owner approval required for projection/schema/auth contract, replacement and
+  cancellation policy, and one-at-event reminder scope for initial synthetic tests.
+  Advance/multiple reminders remain required for full Milestone2. Database execution
+  needs separate authorization; no scheduling/engine adoption is implied.
 
-Readiness: in-memory contract accepted by focused tests, ready for separate owner
-review of PostgreSQL mapping/transaction/auth/locking design and finite synthetic
-acceptance plan. NOT ready for DB execution, migration, persistence/delivery or
-live adoption. Trusted capability is not production auth; no concurrency/durability,
-conflict checks or ledger replacement. Existing n8n/SQL/leases/history untouched.
-No production/private backup/2B access, migration, live Telegram, deployment/main
-merge or other orchestrator. Neutral profile/consolidated future observances stay.
-Stop after offline checkpoint; any next DB design/execution scope needs approval.
+Validation: four offline migration-renderer tests pass. Explicit documentation
+source-safety, links, syntax/evidence immutability and diff checks are recorded at
+this checkpoint. Existing29 in-memory/regression passes remain historical evidence;
+unchanged tests and unrelated integration suites were not rerun.
 
-Normal WSL commands (branch already created),14 explicit safe files; inspect index:
+Readiness: design ready for owner review; PostgreSQL implementation/execution is
+not authorized. No architectural choice in the proposal is recorded as adopted.
+GitHub issue2 updated with design status and approval gates. AGENTS unchanged.
+
+Exact safe commands in normal WSL (review index before committing):
 
 ```bash
 git branch --show-current
 git status --short
 git diff --check
-git add -- \
-  prototypes/panchang/memory_contract.py \
-  prototypes/panchang/memory-contract-results.json \
-  tests/panchang/test_memory_contract.py \
-  tests/panchang/fixtures/memory-contract.synthetic.json \
-  docs/M2F_MEMORY_CONTRACT.md \
-  docs/HANDOFF.md \
-  docs/ARCHITECTURE.md \
-  docs/DECISIONS.md \
-  docs/MILESTONE2_PLAN.md \
-  docs/ROADMAP.md \
-  docs/M2F_RECURRENCE_PREVIEW.md \
-  docs/M2F_FEASIBILITY_RESULTS.md \
-  docs/M2F_PREINTEGRATION_ASSESSMENT.md \
-  prototypes/panchang/README.md
+git add -- docs/M2F_POSTGRESQL_DESIGN.md docs/HANDOFF.md docs/ARCHITECTURE.md docs/DECISIONS.md docs/MILESTONE2_PLAN.md docs/ROADMAP.md docs/M2F_MEMORY_CONTRACT.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "feat: add isolated in-memory lunar approval contract"
-git push -u origin development/m2f-memory-contract
-git rev-parse HEAD
+git commit -m "docs: design lunar PostgreSQL mapping and acceptance"
+git push origin development/m2f-memory-contract
 ```
 
 ## Prior integration evidence (historical)

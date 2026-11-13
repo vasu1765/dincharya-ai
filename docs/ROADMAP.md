@@ -88,3 +88,11 @@ must not replace the recorded successful integration result.
 
 After Milestone 2: Adhyayan, Arogya, Atma-Chintan, Vittiya, then operational
 hardening and separately approved India-based VPS deployment.
+
+## Current lunar mapping review
+
+The in-memory checkpoint is pushed at `0304de6` on development/m2f-memory-contract.
+Its [PostgreSQL mapping proposal](M2F_POSTGRESQL_DESIGN.md) is ready for owner
+review, with finite synthetic acceptance and explicit architecture/policy gates.
+No database implementation/execution or scheduling adoption follows automatically.
+Full Milestone2 still includes advance reminders and operational acceptance.
