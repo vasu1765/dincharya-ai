@@ -120,15 +120,14 @@ migration, Telegram operation, deployment or merge in this phase.
 
 ## 2F isolated feasibility checkpoint after owner authorization
 
-Research continues from pushed general preview0a1cae6. Current all-name evidence
-passes47 PAC Amanta +47 inferred Purnimanta +5 new direct Purnimanta comparisons.
-All12 ordinary names are research-enabled; direct convention/profile/exception
-coverage is not complete. Logical identityv2 excludes engine/profile/date/policy;
-offline comparison withholds changed civil dates and rejects changed identities.
-Actual300s guard defect fixed;60s diagnostics unchanged and still failed where
-recorded.19 focused tests verified; no material host performance regression.
-See [full matrix/contract/proposed date gate](M2F_MONTH_COVERAGE.md). Stop for owner
-review before adoption or persistent v1 mapping/schema/series/reconciliation work.
+Bounded pre-integration assessment now reviews pushed34b6270. See
+[M2F_PREINTEGRATION_ASSESSMENT.md](M2F_PREINTEGRATION_ASSESSMENT.md) for explicit
+ready/requires-validation/unsupported classifications, personal recurrence policy,
+12 distinct focused tests, comparator fixes and remaining persistence risks.
+No open-ended astronomy cycle. Existing timing diagnostics/fixtures retained.
+Smallest proposed next step is an owner-approved in-memory fake proposal/approval/
+ledger contract test for synthetic birthday/wedding series. NOT implemented;
+no database, migration, workflow, scheduling or delivery integration authorized.
 
 The owner is religiously neutral: future supported festivals should consolidate
 labelled Smarta/Vaishnava dates in one reminder when different. Proposed Vaishnava

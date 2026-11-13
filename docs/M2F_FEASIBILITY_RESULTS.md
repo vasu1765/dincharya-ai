@@ -1,3 +1,25 @@
+# Current checkpoint — bounded pre-integration readiness assessment
+
+Base34b6270901d0d09ba0d96e445185277cc2090f4d, branch
+development/m2f-skyfield-feasibility. See
+[explicit readiness matrix](M2F_PREINTEGRATION_ASSESSMENT.md) and
+[focused evidence](../prototypes/panchang/preintegration-results.json).
+
+-12 distinct focused tests verified, including red-before-fix comparator boundary
+  and same-date policy regressions.10 accepted evidence files unchanged.
+- Pure rules/calendar identity/selected-date panel/cache behavior are ready for
+  proposed isolated contract testing, not deployment. General astronomy/calendar
+  accuracy needs validation; persistence, approval integration, delivery safety,
+  Kshaya and festivals remain unsupported/disabled.
+- Existing60-second failures remain unchanged. No minute-level investigation,
+  new source acquisition or unrelated integration suite rerun.
+- Owner approval required before the recommended in-memory synthetic adapter
+  dry run. No integration implemented. Source safety and all boundaries retained.
+
+---
+
+## Prior pushed all-month checkpoint (34b6270; historical below)
+
 # Current checkpoint — all12 month names / logical identity v2
 
 Base `0a1cae678dc9a00a120a56a703f74a23935bfde2`, branch

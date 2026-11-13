@@ -3,55 +3,52 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — all-name coverage / identity v2, stop offline for review
+## Current checkpoint — bounded pre-integration assessment, stop for approval
 
 Branch development/m2f-skyfield-feasibility, pushed base
-`0a1cae678dc9a00a120a56a703f74a23935bfde2`; entry clean, HEAD/tracking/GitHub
-agree, no open PR. Earlier uncommitted2bd37c0-base instructions are superseded
-by this pushed base. Current local work remains uncommitted; Git metadata read-only,
-no bypass/stage/commit. No scheduling adoption.
+`34b6270901d0d09ba0d96e445185277cc2090f4d`. Entry clean; HEAD/tracking/GitHub
+agree, no open PR. Prior uncommitted0a1cae6-base instructions are superseded.
+Git remains read-only; no stage/commit/bypass. Current local assessment ready for
+review, NOT engine adoption or permission to integrate.
 
-- All12 names selected research support:47 direct PAC Amanta name/paksha/tithi
-  cases across1945SE/1946SE editions,47 inferred Purnimanta comparisons and5 new
-  direct Purnimanta corroborations. No PAC station/solar-heading/Delhi confusion.
-  Direct Purnimanta coverage remains uneven; not full calendar certification.
-- New logical identityv2 excludes profile/date/policy. Fixed guarded lunation
-  cycle anchors canonical ordinary/Adhika month occurrences. Provenance and
-  selected-date policy separate. Profile changes retain key; offline comparison
-  withholds changed dates, rejects duplicate/legacy/changed identity sets.
-- Future persisted v1-to-v2 mapping, per-series scope, changed labels/cycles/date
-  reconciliation need explicit owner approval; no migration or stored change.
-- Confirmed source defect fixed: preview used120s despite documented300s guard.
-  It now actually withholds240s synthetic sunrise even with explicit first policy.
-  Pinned model, old astronomy guards and60s diagnostics unchanged.
-- Deliberate near-sunrise PAC May1,2024 boundary05:47IST vs computed Delhi dawn
-  gives403.895/389.546s margin, same Saptami/date under both hypotheses. This is
-  not a direct matching-profile Delhi sunrise publication. Date-changing
-  disagreements require investigation/withholding even beyond a heuristic guard.
-- Seven new focused tests verified plus12 affected existing recurrence tests
-  (22.265s). New strengthened guard/cycle cases rerun. All8 old fixture/result
-  bytes preserved. No unrelated integration/old coordinate experiments repeated.
-- Offline report exits2, not adoption. Cold annual1.991s vs recorded2.056s,
-  warm0.089ms, month32/preview8/sunrise800 bounds, peak RSS87,424KiB. Same pinned
-  local packages/kernel; no new download/dependency. Public archived PAC files
-  reused outside Git; finite selected primary web labels, no bulk scraper.
+- Independently inspected lunation_cycle/_label/preview/logical_key/comparison.
+  Calendar key is not a user series/event ID.2,487 analytic centers with+/-8h
+  shifts and50 actual new moons at1900/1950/2050/2100 preserve identity arithmetic;
+  this does not certify all-year calendar accuracy.
+- Fixed two demonstrated comparator gaps: approval/delivery/series fields could
+  be silently discarded; changed birth/repetition policy could pass on same date.
+  Strict research-only shapes/statuses now reject application payloads; changed
+  policy/date retains key but withholds date. No ledger/transport or stored action.
+- Bounded accepted reference panel covers actual near-Delhi sunrise, repeated/
+  skipped dates, ordinary/Adhika choices, Purnimanta split halves and Kshaya
+  rejection. Existing public source limitations remain. No new astronomy research,
+  new download or minute-level discrepancy rerun;60s diagnostics unchanged.
+- Personal birthday/anniversary policy explicit: instant versus sunrise input,
+  sunrise future assignment, repeated first/last/review, skipped review, ordinary/
+  Adhika/both choices including no-Adhika years. No fallback date or festival rule.
+-12 distinct focused tests verified: initial11 in14.017s; new same-date policy
+  plus2 affected regressions in4.262s. Red-before-fix evidence recorded. Existing10
+  fixture/result files preserved. No unrelated integration suite repeated.
+- Performance:1.963s cold month cache /0.104ms warm, no extra month calculations;
+  shared sunrise cache may be warm. Bounds unchanged; not a VPS certification.
 
-See [full coverage matrix / contract / proposed gate](M2F_MONTH_COVERAGE.md),
-[preview design](M2F_RECURRENCE_PREVIEW.md),
-[results](../prototypes/panchang/coverage-results.json) and
-[fixtures](../prototypes/panchang/coverage-references.json). Source-safety,
-AST/JSON/link/diff and evidence checks passed; issue2 updated.
+[Readiness matrix / policy / next-step proposal](M2F_PREINTEGRATION_ASSESSMENT.md)
+is authoritative for this checkpoint. Pure preview/identity/change detection ready
+for a proposed isolated contract test; general astronomy/calendar validation still
+limited; persistence/approval/delivery safety unsupported and disabled. Cannot
+claim preservation of stored sent/uncertain records without a future adapter test.
+AGENTS unchanged because existing boundaries suffice. Source-safety/AST/JSON/link/
+diff/evidence checks passed; GitHub issue2 updated.
 
-Remaining: direct Purnimanta and multi-year exception/reference-profile coverage,
-Kshaya/ambiguous boundaries and identity mapping (withheld), independent precise
-Lahiri epochs and original timing failures.60-second timing diagnostic remains
-failed, separate from selected date checks. Overall date gate is proposed and
-incomplete; adoption/persistence policy requires owner review. Neutral profile,
-future consolidated Smarta/Vaishnava design and n8n/PostgreSQL safeguards remain.
-No production/private backups/2B search, migration, n8n/Telegram, festivals,
-deployment/main merge or other orchestrator. Stop after offline checkpoint.
+Next step recommended only: owner-approved in-memory fake proposal/approval/ledger
+adapter dry run for two synthetic personal series, no transport/database. NOT
+implemented. Owner must approve scope before integration, persisted v1 mapping,
+series identity or engine/date-policy adoption. All current outputs research-only.
+No production/private backup/2B access, migration, n8n/Telegram, live scheduling,
+festival implementation, deployment, main merge or other orchestrator. Neutral
+profile and future consolidated Smarta/Vaishnava design preserved. Stop here.
 
-Normal WSL commands: confirm branch, inspect index; only these16 safe files:
+Normal WSL commands, confirming branch and reviewing index;13 explicit safe files:
 
 ```bash
 git branch --show-current
@@ -59,25 +56,22 @@ git status --short
 git diff --check
 git add -- \
   prototypes/panchang/recurrence.py \
-  prototypes/panchang/coverage_validation.py \
-  prototypes/panchang/coverage-references.json \
-  prototypes/panchang/coverage-results.json \
-  tests/panchang/test_recurrence.py \
-  tests/panchang/test_coverage.py \
-  docs/M2F_MONTH_COVERAGE.md \
+  prototypes/panchang/preintegration-results.json \
+  tests/panchang/test_preintegration.py \
+  docs/M2F_PREINTEGRATION_ASSESSMENT.md \
   docs/M2F_RECURRENCE_PREVIEW.md \
   docs/M2F_FEASIBILITY_RESULTS.md \
   docs/HANDOFF.md \
-  docs/M2F_PANCHANG_DESIGN.md \
   docs/MILESTONE2_PLAN.md \
   docs/ROADMAP.md \
   docs/DECISIONS.md \
   docs/ARCHITECTURE.md \
+  docs/M2F_PANCHANG_DESIGN.md \
   prototypes/panchang/README.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "feat: validate all lunar names and separate logical occurrence identity"
+git commit -m "fix: bound lunar preview comparison and assess integration readiness"
 git push origin development/m2f-skyfield-feasibility
 ```
 

@@ -1,0 +1,627 @@
+{
+  "accepted_sha256": {
+    "calendar-references.json": "218989c875197d0a37fda34d72a453a22bbf44f15f5a3eaf2320ed3623a5ca5e",
+    "coverage-references.json": "6f0ff2997b3001bfb755473f4027308970889c8874b6d4312e4b83f2e7d6baa9",
+    "coverage-results.json": "91ae1ee0e14612a3686c63e87d630a2a01263ab525d7526f58216c079646e538",
+    "feasibility-results.json": "9ef5f2a217ac9ecda87af4214e07c2b7472052f34c8402cb5c490bbb91fbec09",
+    "month-references.json": "8d8210c495e4aa02d7458ddd49221896ba9d88ac1cc35282fe110df59c445d19",
+    "month-results.json": "e1a1afe46499e353282546d1fe3f99a8d5ed762c18d1b4b69a9e23c060ff1ec9",
+    "recurrence-results.json": "f48f7d98cd8be03e8d66ed719f120d9796d42f6fe6e2d5be45154f7ac4ca6357",
+    "references.json": "25978108a2800699e1b90d5fee1c189390283a30b90cb4d28fae46ee43047e62",
+    "research-references.json": "c7e36e1dbf18c57ea6b09e1526e71ec0c1b7b3e2ec946560be05413e38be12fa",
+    "validation-results.json": "84a78b83b557accc97822fc3f34597bce6724a7717b866f72d9f05696a802829"
+  },
+  "base_commit": "34b6270901d0d09ba0d96e445185277cc2090f4d",
+  "distinct_focused_tests_verified": 12,
+  "followup": {
+    "changed_personal_policy_same_date_withheld": true,
+    "existing_comparison_regressions_pass": true,
+    "tests": 3,
+    "wall_seconds": 4.262188143999083
+  },
+  "initial_red_evidence": {
+    "application_state_subcases": 4,
+    "policy_same_date_case": 1
+  },
+  "peak_rss_kib": 103168,
+  "results": {
+    "annual_intercalation": {
+      "2023-adhika": [
+        {
+          "end": "2023-07-27T10:18:10.214526+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "adhika",
+            "lunation_cycle": 291,
+            "month": "shravana",
+            "paksha": "shukla",
+            "tithi": 9,
+            "version": 2
+          },
+          "intercalation": "adhika",
+          "month": "shravana",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2023-07-17",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "single_sunrise",
+          "selected_date": "2023-07-27",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2023-07-26T10:22:59.553210+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-07-27"
+          ],
+          "tithi": 9
+        }
+      ],
+      "2023-both": [
+        {
+          "end": "2023-07-27T10:18:10.214526+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "adhika",
+            "lunation_cycle": 291,
+            "month": "shravana",
+            "paksha": "shukla",
+            "tithi": 9,
+            "version": 2
+          },
+          "intercalation": "adhika",
+          "month": "shravana",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2023-07-17",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "single_sunrise",
+          "selected_date": "2023-07-27",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2023-07-26T10:22:59.553210+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-07-27"
+          ],
+          "tithi": 9
+        },
+        {
+          "end": "2023-08-25T20:32:56.097094+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 292,
+            "month": "shravana",
+            "paksha": "shukla",
+            "tithi": 9,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "shravana",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2023-08-16",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "single_sunrise",
+          "selected_date": "2023-08-25",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2023-08-24T21:41:04.988696+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-08-25"
+          ],
+          "tithi": 9
+        }
+      ],
+      "2023-ordinary": [
+        {
+          "end": "2023-08-25T20:32:56.097094+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 292,
+            "month": "shravana",
+            "paksha": "shukla",
+            "tithi": 9,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "shravana",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2023-08-16",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "single_sunrise",
+          "selected_date": "2023-08-25",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2023-08-24T21:41:04.988696+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-08-25"
+          ],
+          "tithi": 9
+        }
+      ],
+      "2024-adhika": [],
+      "2024-both": [
+        {
+          "end": "2024-08-14T04:54:12.159106+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 304,
+            "month": "shravana",
+            "paksha": "shukla",
+            "tithi": 9,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "shravana",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2024-08-04",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "single_sunrise",
+          "selected_date": "2024-08-14",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2024-08-13T04:01:54.381396+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2024-08-14"
+          ],
+          "tithi": 9
+        }
+      ],
+      "2024-ordinary": [
+        {
+          "end": "2024-08-14T04:54:12.159106+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 304,
+            "month": "shravana",
+            "paksha": "shukla",
+            "tithi": 9,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "shravana",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2024-08-04",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "single_sunrise",
+          "selected_date": "2024-08-14",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2024-08-13T04:01:54.381396+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2024-08-14"
+          ],
+          "tithi": 9
+        }
+      ]
+    },
+    "application_boundary": "approved/sent/uncertain/series payloads rejected; no ledger or transport capability",
+    "cycles": {
+      "actual_new_moon_years": [
+        {
+          "count": 13,
+          "year": 1900
+        },
+        {
+          "count": 12,
+          "year": 1950
+        },
+        {
+          "count": 12,
+          "year": 2050
+        },
+        {
+          "count": 13,
+          "year": 2100
+        }
+      ],
+      "analytical_centers": 2487,
+      "jitter_hours": 8
+    },
+    "matching": {
+      "date_change_withheld": true,
+      "lost_duplicate_new_renamed_rejected": true,
+      "prior_immutable": true,
+      "same_identity": true
+    },
+    "near_sunrise": [
+      {
+        "gap_seconds": 403.894681,
+        "horizon": "upper_limb_50",
+        "selected_date": "2024-05-01"
+      },
+      {
+        "gap_seconds": 389.546323,
+        "horizon": "pac_47_hypothesis",
+        "selected_date": "2024-05-01"
+      }
+    ],
+    "performance": {
+      "caveat": "Shared astronomy sunrise cache may be warm; development host, not VPS certification",
+      "cold_month_cache_seconds": 1.9628274099959526,
+      "month_entries": 12,
+      "preview_entries": 1,
+      "warm_month_calculations": 0,
+      "warm_seconds": 0.00010420900071039796
+    },
+    "personal_policy": {
+      "distinct_series_required": true,
+      "instant_day": 13,
+      "no_private_birth_record": true,
+      "recurrence_assignment": "sunrise",
+      "sunrise_day": 12
+    },
+    "purnimanta_split": [
+      {
+        "end": "2023-07-04T08:08:40.916735+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "lunation_cycle": 292,
+          "month": "shravana",
+          "paksha": "krishna",
+          "tithi": 1,
+          "version": 2
+        },
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "paksha": "krishna",
+        "provenance": {
+          "canonical_new_moon_date": "2023-08-16",
+          "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2023-07-04",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2023-07-03T11:38:41.754443+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-07-04"
+        ],
+        "tithi": 1
+      },
+      {
+        "end": "2023-07-18T20:40:23.226916+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "adhika",
+          "lunation_cycle": 291,
+          "month": "shravana",
+          "paksha": "shukla",
+          "tithi": 1,
+          "version": 2
+        },
+        "intercalation": "adhika",
+        "month": "shravana",
+        "paksha": "shukla",
+        "provenance": {
+          "canonical_new_moon_date": "2023-07-17",
+          "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2023-07-18",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2023-07-17T18:31:50.206591+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-07-18"
+        ],
+        "tithi": 1
+      },
+      {
+        "end": "2023-08-02T14:36:11.008288+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "adhika",
+          "lunation_cycle": 291,
+          "month": "shravana",
+          "paksha": "krishna",
+          "tithi": 1,
+          "version": 2
+        },
+        "intercalation": "adhika",
+        "month": "shravana",
+        "paksha": "krishna",
+        "provenance": {
+          "canonical_new_moon_date": "2023-07-17",
+          "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2023-08-02",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2023-08-01T18:31:40.318896+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-08-02"
+        ],
+        "tithi": 1
+      },
+      {
+        "end": "2023-08-17T12:06:04.224231+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "lunation_cycle": 292,
+          "month": "shravana",
+          "paksha": "shukla",
+          "tithi": 1,
+          "version": 2
+        },
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "paksha": "shukla",
+        "provenance": {
+          "canonical_new_moon_date": "2023-08-16",
+          "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2023-08-17",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2023-08-16T09:38:11.253649+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-08-17"
+        ],
+        "tithi": 1
+      }
+    ],
+    "repeat_skip": [
+      {
+        "actual": {
+          "end": "2023-04-03T00:54:48.551318+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 287,
+            "month": "chaitra",
+            "paksha": "shukla",
+            "tithi": 12,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2023-03-21",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "repeated_requires_policy",
+          "selected_date": null,
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2023-04-01T22:50:17.614733+00:00",
+          "status": "needs_review",
+          "sunrise_dates": [
+            "2023-04-02",
+            "2023-04-03"
+          ],
+          "tithi": 12
+        },
+        "policy": "review",
+        "reference": "repeated-chaitra12"
+      },
+      {
+        "actual": {
+          "end": "2023-04-03T00:54:48.551318+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 287,
+            "month": "chaitra",
+            "paksha": "shukla",
+            "tithi": 12,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2023-03-21",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "explicit_first_of_repeated",
+          "selected_date": "2023-04-02",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "first"
+          },
+          "start": "2023-04-01T22:50:17.614733+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-04-02",
+            "2023-04-03"
+          ],
+          "tithi": 12
+        },
+        "policy": "first",
+        "reference": "repeated-chaitra12"
+      },
+      {
+        "actual": {
+          "end": "2023-04-03T00:54:48.551318+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 287,
+            "month": "chaitra",
+            "paksha": "shukla",
+            "tithi": 12,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "paksha": "shukla",
+          "provenance": {
+            "canonical_new_moon_date": "2023-03-21",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "explicit_last_of_repeated",
+          "selected_date": "2023-04-03",
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "last"
+          },
+          "start": "2023-04-01T22:50:17.614733+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-04-02",
+            "2023-04-03"
+          ],
+          "tithi": 12
+        },
+        "policy": "last",
+        "reference": "repeated-chaitra12"
+      },
+      {
+        "actual": {
+          "end": "2023-04-12T00:10:01.899707+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 288,
+            "month": "vaishakha",
+            "paksha": "krishna",
+            "tithi": 6,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "vaishakha",
+          "paksha": "krishna",
+          "provenance": {
+            "canonical_new_moon_date": "2023-04-20",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "skipped_at_sunrise",
+          "selected_date": null,
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "review"
+          },
+          "start": "2023-04-11T01:48:27.820117+00:00",
+          "status": "needs_review",
+          "sunrise_dates": [],
+          "tithi": 6
+        },
+        "policy": "review",
+        "reference": "skipped-vaishakha-krishna6"
+      },
+      {
+        "actual": {
+          "end": "2023-04-12T00:10:01.899707+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 288,
+            "month": "vaishakha",
+            "paksha": "krishna",
+            "tithi": 6,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "vaishakha",
+          "paksha": "krishna",
+          "provenance": {
+            "canonical_new_moon_date": "2023-04-20",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "skipped_at_sunrise",
+          "selected_date": null,
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "first"
+          },
+          "start": "2023-04-11T01:48:27.820117+00:00",
+          "status": "needs_review",
+          "sunrise_dates": [],
+          "tithi": 6
+        },
+        "policy": "first",
+        "reference": "skipped-vaishakha-krishna6"
+      },
+      {
+        "actual": {
+          "end": "2023-04-12T00:10:01.899707+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "lunation_cycle": 288,
+            "month": "vaishakha",
+            "paksha": "krishna",
+            "tithi": 6,
+            "version": 2
+          },
+          "intercalation": "ordinary",
+          "month": "vaishakha",
+          "paksha": "krishna",
+          "provenance": {
+            "canonical_new_moon_date": "2023-04-20",
+            "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+          },
+          "reason": "skipped_at_sunrise",
+          "selected_date": null,
+          "selection_policy": {
+            "assignment": "sunrise",
+            "repeated": "last"
+          },
+          "start": "2023-04-11T01:48:27.820117+00:00",
+          "status": "needs_review",
+          "sunrise_dates": [],
+          "tithi": 6
+        },
+        "policy": "last",
+        "reference": "skipped-vaishakha-krishna6"
+      }
+    ],
+    "unsupported": {
+      "guard_240_seconds_withheld": true,
+      "kshaya_withheld": true
+    }
+  },
+  "status": "bounded_preintegration_assessment_not_integration_approval",
+  "tests": 11,
+  "usable_for_scheduling": false,
+  "wall_seconds": 14.016686079994543
+}

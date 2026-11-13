@@ -208,3 +208,21 @@ OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
 
 Affected test_recurrence.py also passed; no unrelated suites needed. Runner exits2
 with incomplete adoption gate. All work remains offline, no DB/n8n/Telegram changes.
+
+## Bounded pre-integration assessment (base34b6270)
+
+See [readiness matrix/policy/next approval gate](../../docs/M2F_PREINTEGRATION_ASSESSMENT.md).
+The research comparator rejects application approval/delivery payloads and withholds
+changed birth/repetition policy even when the civil date is unchanged. It cannot
+edit approved occurrences or send reminders; persistence safety is not certified.
+No integration adapter is implemented.10 prior evidence files remain unchanged.
+
+```bash
+DINCHARYA_PUBLIC_DE440S=/EXTERNAL/PUBLIC/de440s.bsp \
+  OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m unittest discover \
+  -s tests/panchang -p test_preintegration.py -v
+```
+
+preintegration-results.json records the bounded run/public fixtures and two affected
+comparison regressions. No need to rerun unrelated integration/timing experiments.

@@ -241,8 +241,27 @@ def reconcile_calculations(prior,current):
     and require review for cycle/name/identity changes rather than making new rows.
     """
     def indexed(result):
+        # This comparator accepts research previews, never an approval/delivery
+        # ledger. Unknown application state must not be silently discarded.
+        fields={'profile','occurrences','status','birth_basis','assignment',
+                'calendar_date_gate','validation_scope','usable_for_scheduling'}
+        row_fields={'identity','provenance','selection_policy','month','intercalation',
+                    'paksha','tithi','start','end','sunrise_dates','selected_date','reason','status'}
+        if (not isinstance(result,dict) or set(result)!=fields
+                or result['usable_for_scheduling'] is not False
+                or result['calendar_date_gate']!='not_adopted'
+                or result['status'] not in ('experimental_preview','needs_review')
+                or not isinstance(result['occurrences'],list)):
+            raise Unsupported('Only unapproved research previews may be compared')
         rows={}
         for row in result['occurrences']:
+            if (not isinstance(row,dict) or set(row)!=row_fields
+                    or row['status'] not in ('experimental_date','needs_review')
+                    or not isinstance(row['provenance'],dict)
+                    or set(row['provenance'])!={'profile','canonical_new_moon_date'}
+                    or not isinstance(row['selection_policy'],dict)
+                    or set(row['selection_policy'])!={'assignment','repeated'}):
+                raise Unsupported('Application approval/delivery state is outside preview comparison')
             identity=row['identity']
             key=logical_key(identity)
             if key in rows:raise Unsupported('Duplicate logical occurrence')
@@ -254,10 +273,14 @@ def reconcile_calculations(prior,current):
     result=deepcopy(current)
     for row in result['occurrences']:
         previous=old[logical_key(row['identity'])]
-        if previous['selected_date']!=row['selected_date']:
+        if (prior['birth_basis']!=current['birth_basis']
+                or previous['selection_policy']!=row['selection_policy']):
+            row.update(selected_date=None,status='needs_review',reason='recurrence_policy_disagreement')
+        elif previous['selected_date']!=row['selected_date']:
             row.update(selected_date=None,status='needs_review',reason='calculation_date_disagreement')
     result['status']='needs_review' if any(r['selected_date'] is None for r in result['occurrences']) else 'experimental_preview'
     result['usable_for_scheduling']=False
+    result['calendar_date_gate']='not_adopted'
     return result
 
 

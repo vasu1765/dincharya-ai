@@ -155,3 +155,10 @@ and withholds changed selected dates. See [contract and proposed calendar-date
 gate](M2F_MONTH_COVERAGE.md). Future persistence requires reviewed per-series scope,
 one-to-one v1 research-key mapping and explicit ambiguous/date-changing
 reconciliation policy. No database schema or live architecture changed.
+
+The bounded [pre-integration assessment](M2F_PREINTEGRATION_ASSESSMENT.md) separates
+pure calendar preview readiness from persistence safety. Research comparison now
+rejects approval/delivery application state and withholds policy changes on matching
+calendar keys. It cannot preserve or mutate a real approval/delivery ledger because
+there is no lunar adapter. A synthetic in-memory contract-adapter test is proposed
+only; owner approval is required before implementation. No live architecture changed.

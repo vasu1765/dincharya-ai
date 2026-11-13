@@ -255,3 +255,16 @@ model or60s diagnostics. Final direct-reference/exception/date/engine approval
 and persisted v1 mapping/per-series identity adoption remain owner-gated. No DB
 migration, stored reconciliation, production/private access, n8n/Telegram/festival
 integration, deployment or merge. See M2F_MONTH_COVERAGE.md for exact limits.
+
+## D18 — Bounded pre-integration assessment, no implicit integration approval
+
+Owner accepts the all-month/v2 checkpoint as offline research and requests a
+finite readiness/personal-policy assessment. Pure preview comparison is restricted
+to research payloads; application approval/delivery state rejects, changed date or
+interpretation/repetition policy requires review even when a calendar key matches.
+A calendar key is not an event/series identity or delivery authorization. Existing
+astronomy/date evidence is retained without an open-ended timing investigation.
+See M2F_PREINTEGRATION_ASSESSMENT.md for classifications and limitations. The
+recommended in-memory synthetic contract adapter requires explicit approval and
+is NOT implemented. No DB/n8n/Telegram/production/private access, migration,
+resend, festival, deployment or merge follows. AGENTS already covers boundaries.

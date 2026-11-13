@@ -1,3 +1,10 @@
+# Current assessment gate
+
+See [bounded pre-integration assessment](M2F_PREINTEGRATION_ASSESSMENT.md) from
+pushed34b6270. Personal policies, identity invariants and finite reference-panel
+results are explicit. The next isolated adapter test is proposed, not authorized
+or implemented. General engine/persistence/delivery/festival adoption stays disabled.
+
 # Milestone 2F — Hindu Panchang scheduling design
 
 Status: **isolated Skyfield/DE440s feasibility authorized; final engine adoption,

@@ -20,6 +20,8 @@ Month research is pushed at `2bd37c0`, general preview at `0a1cae6`. Current gen
 arbitrary bounded rules, with canonical identities, explicit birth/repeat/skip
 policies and bounded caches. Selected calendar-date checks pass; timing diagnostics
 and overall adoption remain incomplete. General live scheduling stays disabled.
+Pushed34b6270 now has a [bounded pre-integration assessment](M2F_PREINTEGRATION_ASSESSMENT.md);
+the next synthetic adapter step requires owner approval and is not implemented.
 Current all12-name selected research and identityv2 separate logical keys from
 provenance/date policy; see [coverage matrix](M2F_MONTH_COVERAGE.md). Direct
 publisher labels and inferred comparisons remain distinguished.

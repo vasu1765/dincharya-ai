@@ -1,3 +1,12 @@
+# Current review: bounded pre-integration assessment (base34b6270)
+
+See [readiness and personal policy matrix](M2F_PREINTEGRATION_ASSESSMENT.md).
+Research comparator now rejects approval/delivery/application fields and withholds
+changed interpretation/repetition policy even on an unchanged date. It is not a
+persisted approval editor or a ledger adapter. Pure preview contract testing is
+proposed; integration remains owner-gated and has NOT begun. Historical model/
+coverage details below remain evidence, not scheduling adoption.
+
 # Current status: all-name coverage / identity v2 research
 
 Pushed base0a1cae6 on development/m2f-skyfield-feasibility. See
