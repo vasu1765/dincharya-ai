@@ -107,8 +107,8 @@ class LunarAdapterTests(unittest.TestCase):
 
 class LunarPackagingTests(unittest.TestCase):
     def test_numbered_migration_renders_offline_with_checksum_and_transaction(self):
-        paths=sorted((ROOT/'database/migrations').glob('000[1-6]_*.sql'))
-        self.assertEqual(len(paths),6)
+        paths=sorted((ROOT/'database/migrations').glob('000[1-8]_*.sql'))
+        self.assertEqual(len(paths),8)
         text=render_migrations(paths)
         self.assertIn(hashlib.sha256(MIGRATION.read_bytes()).hexdigest(),text)
         self.assertTrue(text.endswith('COMMIT;\n'))

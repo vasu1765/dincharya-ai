@@ -416,3 +416,8 @@ disposable database execution. Production auth/deployment, workflow wiring,
 multiple reminder slots, broader calendar acceptance and main merge remain later
 explicit gates. Neutral user profile and future consolidated named Smarta/Vaishnava
 observance design stay intact; no festival calculations are introduced.
+
+Latest implementation status: the owner subsequently authorized isolated database
+execution. All T00–T26 passed with0007/0008 additive corrections; see
+[M2F_POSTGRESQL_RESULTS](M2F_POSTGRESQL_RESULTS.md). This is bounded synthetic
+acceptance, not production or astronomical engine adoption.

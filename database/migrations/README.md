@@ -80,3 +80,13 @@ Only `--case lunar` in the focused runner appends0006; previous selections keep
 0001–0005. The19 offline checks pass; T00–T26 runtime assertions await separate
 execution authorization. See [results](../../docs/M2F_POSTGRESQL_RESULTS.md) for
 exact gated command and limitations. Do not run this against an existing service.
+
+## 0007/0008 — demonstrated lunar runtime corrections
+
+0007 qualifies the record_calculation local command binding (42702).0008 fixes
+search_path on the baseline sync_legacy_recurrence_rule invoker helper (42P01),
+without changing its body/ACL/owner/security mode; temp lookup is explicitly last.
+Earlier0001–0006 files remain byte-identical. Only the lunar runner case loads
+0006–0008. Owner-authorized T00–T26 now pass, plus20 offline tests, with cleanup
+and unchanged unrelated service IDs confirmed. See the results report. No
+production migration/application or scheduling-engine adoption is authorized.

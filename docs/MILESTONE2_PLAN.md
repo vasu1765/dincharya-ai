@@ -151,3 +151,13 @@ activation. Advance slots, astronomical acceptance,2B provenance and operational
 acceptance remain outstanding; do not begin another orchestrator. Earlier design
 and research paragraphs are historical scope records, superseded by D21 only for
 this synthetic implementation; production and actual database execution stay gated.
+
+## Current 2F synthetic PostgreSQL acceptance — passed
+
+Owner-authorized T00–T26 passed on development/m2f-postgres-integration, based on
+pushed5991138 and additive corrections0007/0008.20 focused offline tests passed;
+cleanup and unchanged unrelated container IDs confirmed. See
+[actual results](M2F_POSTGRESQL_RESULTS.md). This supersedes the preceding runtime
+execution gate for the completed scoped run only. No open synthetic acceptance
+failure remains. Preview ingestion, advance slots, astronomical release and full
+operational acceptance remain pending; no production or workflow adoption.

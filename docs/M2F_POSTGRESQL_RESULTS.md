@@ -1,18 +1,19 @@
-# M2F PostgreSQL integration — offline implementation checkpoint
+# M2F PostgreSQL integration — synthetic acceptance passed
 
 ## Status and exact scope
 
-Base pushed `81acd6a8240f474b0bdabf4d73a79f1433b9a08c` (design), clean entry on
-`development/m2f-memory-contract`. Owner created
-`development/m2f-postgres-integration` and agent verified it. Git metadata is
-mounted read-only: implementation is uncommitted until the owner executes HANDOFF
-commands. No alternative Git/remote write path was used.
+Implementation checkpoint `599113826a6052fa89389f3b4c61a3b9c370a559` verified
+pushed on `development/m2f-postgres-integration`; entry working tree clean. This
+supersedes the earlier uncommitted81acd6a-base instructions. Git metadata remains
+mounted read-only; new fixes/evidence are uncommitted, with exact commands in
+HANDOFF. No Git bypass or remote-file substitution.
 
-The latest instruction authorizes implementation, offline verification and harness
-preparation. It expressly withholds PostgreSQL connections and Docker execution.
-**No SQL has been installed, parsed by PostgreSQL, or exercised against a database.**
-T00–T26 below are implemented acceptance assertions awaiting execution; they are
-not passing runtime evidence. This checkpoint is not a working synthetic E2E claim.
+The owner explicitly authorized the documented isolated Docker/PostgreSQL run and
+necessary defect fixes. **All T00–T26 passed with migrations0001–0008.** The final
+run exited0 and confirmed disposable teardown and unchanged original running
+container IDs. This certifies the bounded synthetic fixtures on the pinned test
+infrastructure, not production, astronomical accuracy or general scheduling.
+No live Telegram/n8n tests, production access, deployment or merge occurred.
 
 ## Implementation
 
@@ -76,7 +77,7 @@ Date/time payloads require ISO dates and literal clock times; relative values
 (`now`, `tomorrow`) and locale-dependent dates reject. Evidence intervals require
 explicit offsets. API DateStyle/TimeZone are pinned to ISO,YMD/UTC so caller settings cannot
 reinterpret approved fields or change snapshot fingerprints. This is implemented
-and awaiting the prepared runtime regression, not a compiled SQL claim.
+and its alternate-session-settings regression passed during T11.
 
 ## Policy and history
 
@@ -105,7 +106,7 @@ unselected/Kshaya data has no selectable date. The DB validates bounded typed
 producer evidence and interval containment; **it cannot independently certify
 astronomy**. Engine/date release gates remain unchanged, with no new model evidence.
 
-## Verification and pending runtime matrix
+## Offline verification and actual runtime matrix
 
 Offline command:
 
@@ -113,8 +114,8 @@ Offline command:
 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest tests.test_lunar_postgres tests.test_migrations tests.test_focused_application_runner -v
 ```
 
-19 tests passed:8 transaction/adapter tests,4 packaging/harness tests,4 existing
-migration-renderer tests,3 affected runner preflight tests. Transaction tests use
+20 tests passed:8 transaction/adapter tests,4 packaging/harness tests,4 existing
+migration-renderer tests,4 affected runner preflight/SQLSTATE tests. Transaction tests use
 mocks, including commit failure, rollback, sanitized errors, parameter injection,
 exact action replay and no implicit retry. Preflight tests mock subprocesses and
 prove missing execution approval, mixed/duplicate cases, symlinks and wrong daemon
@@ -122,23 +123,23 @@ stop before container creation. The initial packaging test had an incorrect API
 count; its expected named API set was corrected. This was a test expectation error,
 not PostgreSQL red-before-fix/runtime evidence.
 
-AST, SQL lexical framing, explicit source-safety and diff checks are required for
+AST, SQL lexical framing, explicit source-safety and diff checks passed for
 this checkpoint. Lexical framing is not a PostgreSQL grammar/PLpgSQL compiler check.
 No new dependencies or model files; no unrelated accepted suites rerun.
 
 | Acceptance IDs | Implemented runtime assertions | Status |
 | --- | --- | --- |
-| T00–T02 | Catalog/role/daemon/SCRAM boundaries, bad password, cross-role/disabled identity, malformed/injection payload | Pending authorized DB execution |
-| T03–T06 | Rule reject/approve, unapproved isolation, overlapping calculations/replay, distinct birthday/wedding conflicts, ordinary/Adhika sibling scope | Pending |
-| T07–T09 | Parallel same/different decisions, ABA observations, changed birth/repetition snapshots | Pending |
-| T10–T12 | Audit fault rollback, lost-response replay, stable-ID never-attempted replacement and event_date parity | Pending |
-| T13–T16 | Terminal/attempted history gates, cancellation/refresh tombstones, manifest-vs-approval race, mapped raw/native boundaries | Pending |
-| T17–T21 | Real API projection/refresh/due-claim/receipt path, concurrent claims, controlled two-order claim/edit lock waits, expired lease/stale ack, cap/backoff, receipt uniqueness/rollback | Pending |
-| T22–T25 | Unmapped Gregorian overrides/cancel, unresolved inputs, profile change/key mapping refusal, immutable/least-privilege boundaries | Pending |
-| T26 | Disposable postmaster crash/restart, action replay and exact terminal-history/uniqueness persistence | Pending |
+| T00–T02 | Catalog/role/daemon/SCRAM boundaries, bad password, cross-role/disabled identity, malformed/injection payload | PASS |
+| T03–T06 | Rule reject/approve, unapproved isolation, overlapping calculations/replay, distinct birthday/wedding conflicts, ordinary/Adhika sibling scope | PASS |
+| T07–T09 | Parallel same/different decisions, ABA observations, changed birth/repetition snapshots | PASS |
+| T10–T12 | Audit fault rollback, lost-response replay, stable-ID never-attempted replacement and event_date parity | PASS |
+| T13–T16 | Terminal/attempted history gates, cancellation/refresh tombstones, manifest-vs-approval race, mapped raw/native boundaries | PASS |
+| T17–T21 | Real API projection/refresh/due-claim/receipt path, concurrent claims, controlled two-order claim/edit lock waits, expired lease/stale ack, cap/backoff, receipt uniqueness/rollback | PASS |
+| T22–T25 | Unmapped Gregorian overrides/cancel, unresolved inputs, profile change/key mapping refusal, immutable/least-privilege boundaries | PASS |
+| T26 | Disposable postmaster crash/restart, action replay and exact terminal-history/uniqueness persistence | PASS |
 
 The runner isolates lunar acceptance from all existing case selections. Only
-`--case lunar` adds0006; ordinary2D/2E cases retain migrations0001–0005. Reuses the
+`--case lunar` adds0006–0008; ordinary2D/2E cases retain migrations0001–0005. Reuses the
 pinned local PostgreSQL17 image/daemon checks, no-network/tmpfs/no-port container,
 SCRAM TCP inside that container and local trust confined to its Unix socket.
 The genuine API-to-ledger test waits at most45 seconds for a30-second future
@@ -147,13 +148,13 @@ No fake future worker clock or real transport is used. Session-generated
 credentials remain in memory/inherited environment and SQL stdin,
 never values in argv, source or output. Server statement/error-parameter logging
 is suppressed before credential provisioning. Existing service IDs and cleanup
-are checked by the harness. **These inherited safeguards have not been re-executed
-for the new case.**
+are checked by the harness. **These safeguards passed for the new case**, including final cleanup and
+unchanged unrelated running-container IDs.
 
-## Exact remaining gated execution
+## Authorized command executed
 
-After explicit owner authorization for this specific disposable acceptance run
-(and narrowly scoped sandbox execution permission if needed), run:
+The owner authorized this exact command; sandbox Docker access required narrowly
+scoped execution permission, which was granted without socket permission changes:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python3 -B tests/integration/focused_application_runner.py \
@@ -162,13 +163,60 @@ PYTHONDONTWRITEBYTECODE=1 python3 -B tests/integration/focused_application_runne
   --case lunar --execute-approved
 ```
 
-This command is **not executed or authorized by this checkpoint**. It loads only
-the named schema, validates daemon/isolation before test setup, executes T00–T26,
-restarts only the disposable postmaster and verifies cleanup/service invariance.
-Do not run successful live Telegram/n8n acceptance again. Fix demonstrated runtime
-failures and rerun affected cases once authorized; do not claim a working workflow
-until installation, assertions, concurrent sessions and cleanup actually pass.
+The final command completed successfully. It loaded only the named schema,
+verified daemon `44c1ef83-c50e-4ecc-8f19-4b112bc40f29`, pinned local PostgreSQL17
+image, no-network/no-port/read-only-root/tmpfs-only disposable container and empty
+`dincharya_app_test`. Schema bytes were validated unchanged after installation;
+no other backup artifacts were opened. Local trust stayed container-socket-only,
+TCP used SCRAM, bad-password rejection passed, and generated credentials remained
+out of command values, logs and repository files. Existing services were never
+connected to, restarted or modified.
 
-Remaining: database grammar/catalog/permission/runtime compatibility, actual race
-and rollback evidence, then review of validated preview ingestion and wider
-reminder-slot policy. No production adoption, workflow integration or real send.
+## Demonstrated failures and additive corrections
+
+| Evidence | Correction and regression |
+| --- | --- |
+| First isolated run passed T00–T03, then42702 in calculation observation handling | [0007](../database/migrations/0007_lunar_calculation_binding.sql) adds an explicit block label and qualifies the local command value in its comparison against old.command. T04 overlapping submissions and all later calculations passed. |
+| Next run passed T04, then42P01 when updating event_date | Reviewed baseline recurrence-sync trigger used an unqualified recurrence_rules name under the restricted lunar search path. [0008](../database/migrations/0008_lunar_projection_trigger_path.sql) sets that invoker helper's path to pg_catalog,public,pg_temp; checks synthetic identity and absence of untrusted public-schema login writers. Body/ACL/owner/security mode stay unchanged. T05/T12 and native Gregorian T22 passed. |
+| Verbose sanitized diagnostics initially caused SQLSTATE recognition to miss the colon after the code | Runner accepts both terse and verbose code separators; expected authorization denials passed again. Only allowlisted function/line metadata is emitted; raw SQL/errors remain suppressed. |
+
+Earlier0001–0006 bytes remain identical to committed HEAD.0007 recreates the exact
+reviewed record_calculation definition with only its labelled binding correction;
+0008 changes only the reviewed trigger's function setting. No disabled checks,
+relaxed approval/authorization, forced history changes or new automatic retries.
+Source fixes were made additively because0006 was already committed.
+
+Several fresh disposable runs stopped at the demonstrated failures while locating
+safe diagnostics. Each verified teardown and unchanged original running-container
+IDs. Previous cases were prerequisite fixture setup on each fresh run; no unrelated
+acceptance suites or successful live tests were repeated. Final complete run:
+
+```text
+PASS pinned daemon/image, no-network isolation, fresh DB, 8 migrations and preserved legacy contracts
+RUN focused case: lunar
+PASS lunar T00–T26 (each individual label emitted exactly once)
+PASS disposable teardown; original running container IDs unchanged
+exit status 0
+```
+
+All27 individual runtime cases passed, including the genuine future server-clock
+proposal/approval/refresh/claim/synthetic receipt path, concurrent decisions and
+workers, controlled mutex waits, audit-failure rollback, stale decisions/acks,
+terminal history preservation and crash/restart of only the disposable postmaster.
+The original legacy function bodies/properties and existing acknowledgement body
+were checked unchanged by the runner. After completion20 focused offline tests
+passed (0.022s), including the new terse/verbose SQLSTATE regression. The diagnostic
+parser was factored into an equivalent pure helper after the passing run and
+verified offline; no SQL or runtime assertion changed. No unresolved acceptance
+failures remain.
+
+New correction checksums:
+
+- 0007: `d2663fc16d75fe9e22c84b6e670da1f59e7804050ea24a1320a0aaf4114b5294`
+- 0008: `5d4006db8fbbbeb85bf64296f377537f2dbd8e8f9037ec37ad0a5c1cca81ff21`
+
+Remaining limits: production ACL/catalog adoption is not certified; astronomy
+release gates, validated preview ingestion, advance/multiple slots and operational
+acceptance remain separate work. No real transport, production workflow, private
+2B adoption, deployment or main merge. A successful synthetic cycle grants none
+of those permissions. No repeat run is needed absent a relevant change.

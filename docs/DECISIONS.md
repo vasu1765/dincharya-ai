@@ -314,3 +314,17 @@ remain required for full Milestone2. Changes to projected identity interpretatio
 require a future explicit mapping policy and currently reject. No production ACL
 rollout, engine adoption, workflow/Telegram activation, deployment or main merge.
 See [results and exact pending execution](M2F_POSTGRESQL_RESULTS.md).
+
+## D22 — Isolated lunar PostgreSQL acceptance authorized and completed
+
+Owner explicitly authorizes only the documented disposable PostgreSQL/Docker
+lunar acceptance and demonstrated defect fixes, retaining daemon/schema pins,
+isolation, SCRAM and cleanup/service-invariance checks. This supersedes D21's
+execution gate only for this synthetic cycle. All T00–T26 passed with additive
+0007 (calculation command binding) and0008 (fixed search path on the reviewed
+baseline recurrence-sync invoker trigger; body preserved). Earlier migration
+bytes remain immutable. No authorization/history checks were weakened.
+
+See M2F_POSTGRESQL_RESULTS.md for failure evidence, complete passing cycle and
+remaining limits. No production access, live Telegram/n8n tests, astronomical
+adoption, deployment, main merge or other orchestrator is authorized.

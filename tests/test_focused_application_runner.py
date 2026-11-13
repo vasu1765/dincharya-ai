@@ -15,6 +15,14 @@ SPEC.loader.exec_module(focused)
 
 
 class FocusedRunnerTests(unittest.TestCase):
+    def test_terse_and_verbose_sqlstates_preserve_negative_assertions(self):
+        for state in ('42501','22023','55000','23505','42702','42P01','P0001'):
+            for error in ('ERROR:  '+state, 'ERROR:  '+state+': suppressed test detail'):
+                with self.subTest(state=state,error_format=error.endswith('detail')):
+                    self.assertEqual(focused.sqlstate_from_error(error).group(1),state)
+        self.assertIsNone(focused.sqlstate_from_error('ERROR: invalid format'))
+        self.assertIsNone(focused.sqlstate_from_error('ERROR: 42501suffix'))
+
     def test_missing_execution_approval_stops_before_execute(self):
         args = ['runner', '--baseline', '/unused', '--expected-daemon-id', 'synthetic',
                 '--case', 'legacy-concurrency']

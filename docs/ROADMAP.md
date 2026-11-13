@@ -108,3 +108,9 @@ owner authorization for disposable acceptance. Prior “design approval”/“no
 implementation” notes are historical, not a remaining routine coding gate.
 Full scheduling/model adoption, advance slots and operational acceptance remain
 incomplete. No production, workflows, Telegram or other orchestrator is enabled.
+
+Latest: owner-authorized lunar T00–T26 synthetic PostgreSQL acceptance passed with
+additive0007/0008, plus20 offline tests. Disposable cleanup and unchanged unrelated
+container IDs passed. Earlier runtime-pending notes describe prior checkpoints;
+see M2F_POSTGRESQL_RESULTS.md. Full scheduling/model/operational adoption remains
+unapproved and incomplete.

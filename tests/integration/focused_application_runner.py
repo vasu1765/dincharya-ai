@@ -31,6 +31,11 @@ CASES = ('legacy_coexistence.sql', 'legacy_managed_boundary.sql', 'reminder_reco
          'gregorian_calendar_acceptance.sql', 'gregorian_series_acceptance.sql', 'lunar')
 
 
+def sqlstate_from_error(stderr):
+    """Recognize terse and verbose psql codes without exposing error contents."""
+    return re.search(r'ERROR:\s+([A-Z0-9]{5})(?:[:\s]|$)', stderr)
+
+
 def execute(baseline, expected_daemon, cases):
     require(baseline.is_file() and not baseline.is_symlink(), 'Explicit regular schema file required')
     require(bool(cases) and all(case in CASES for case in cases), 'Unknown focused test case')
@@ -41,7 +46,7 @@ def execute(baseline, expected_daemon, cases):
     require('restart-recovery' not in cases or len(cases)==1, 'Run restart recovery individually')
     require('lunar' not in cases or cases == ['lunar'], 'Run synthetic lunar acceptance individually')
     actors = (*ACTORS, *LUNAR_ACTORS) if cases == ['lunar'] else ACTORS
-    migrations = (*MIGRATIONS, '0006_synthetic_lunar_approval.sql') if cases == ['lunar'] else MIGRATIONS
+    migrations = (*MIGRATIONS, '0006_synthetic_lunar_approval.sql', '0007_lunar_calculation_binding.sql', '0008_lunar_projection_trigger_path.sql') if cases == ['lunar'] else MIGRATIONS
     with tempfile.TemporaryDirectory(prefix='dincharya-focused-sql-') as directory:
         env = client_environment(os.environ, directory)
         docker = ['docker', '--config', directory, '--host', ENDPOINT]
@@ -55,7 +60,7 @@ def execute(baseline, expected_daemon, cases):
                                         env=env, timeout=timeout)
             except subprocess.TimeoutExpired:
                 raise Failure('Focused test command timed out; private output suppressed') from None
-            state = re.search(r'ERROR:\s+([A-Z0-9]{5})(?:\s|$)', result.stderr)
+            state = sqlstate_from_error(result.stderr)
             require(result.returncode == 0, 'Focused test command failed; private output suppressed'
                     + ('; SQLSTATE '+state.group(1) if state else ''))
             return result.stdout.strip()
@@ -74,10 +79,10 @@ def execute(baseline, expected_daemon, cases):
                 exec_args += ['-e','PGPASSWORD']
                 auth_args = ['-h','127.0.0.1','-w']
             result = subprocess.run(docker+exec_args+[container,'psql','-XAt','-v','ON_ERROR_STOP=1',
-                '-v','VERBOSITY=sqlstate',*auth_args,'-U',actor,'-d','dincharya_app_test'], input=statement,
+                '-v','VERBOSITY=verbose',*auth_args,'-U',actor,'-d','dincharya_app_test'], input=statement,
                 text=True,capture_output=True,env=actor_env,timeout=90)
             actor_env.pop('PGPASSWORD',None)
-            state = re.search(r'ERROR:\s+([A-Z0-9]{5})(?:\s|$)',result.stderr)
+            state = sqlstate_from_error(result.stderr)
             if expected_state=='AUTH':
                 require(result.returncode!=0 and 'password authentication failed' in result.stderr,
                         'Incorrect operator password was not rejected')
@@ -85,8 +90,13 @@ def execute(baseline, expected_daemon, cases):
                 require(result.returncode!=0 and state is not None and state.group(1)==expected_state,
                         'Expected scoped SQL rejection did not occur')
             else:
+                contexts = re.findall(r'PL/pgSQL function ([a-z_.]+)\([^\n]*\) line ([0-9]+)', result.stderr)
+                safe_context = next(((fn, line) for fn, line in contexts
+                    if fn.startswith('lunar_api.') or fn.rsplit('.',1)[-1] in ('guard_lunar_projection',
+                    'decide_gregorian_change','guard_legacy_managed_request','guard_inflight_occurrence_change')), None)
+                detail = ('; function '+safe_context[0]+' line '+safe_context[1]) if safe_context else ''
                 require(result.returncode==0,'Synthetic actor command failed; private output suppressed'
-                        + ('; SQLSTATE '+state.group(1) if state else ''))
+                        + ('; SQLSTATE '+state.group(1) if state else '') + detail)
             return result.stdout.strip()
 
         def provision_actor(actor):

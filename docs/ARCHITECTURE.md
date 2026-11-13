@@ -173,7 +173,7 @@ This implements the previous proposed offline seam only, not the live diagram or
 SQL architecture. PostgreSQL mapping/auth/transaction/locking review remains a
 separate approval gate; no migration or n8n/Telegram change is included.
 
-## Isolated lunar PostgreSQL implementation — runtime acceptance pending
+## Isolated lunar PostgreSQL implementation — synthetic acceptance passed
 
 The owner authorized the [mapping implementation](M2F_POSTGRESQL_RESULTS.md),
 based on the [reviewed design](M2F_POSTGRESQL_DESIGN.md). Additive0006 projects each
@@ -189,6 +189,8 @@ tombstones and terminal history. Series cancel uses an explicit bounded manifest
 No separate scheduler/worker or change to n8n. One at-event reminder is the initial
 synthetic seam; full advance/multiple-slot support remains outstanding.
 
-Implementation and mocked/offline checks are complete at this checkpoint; SQL has
-NOT been installed/compiled/executed. T00–T26 harness execution requires separate
-owner authorization. No production auth rollout, model adoption or live scheduling.
+Owner-authorized T00–T26 passed on disposable PostgreSQL with migrations0001–0008.
+0007 corrects a local variable/column ambiguity;0008 pins the reviewed baseline
+recurrence-sync invoker helper’s search path without changing its body. Cleanup
+and unchanged unrelated containers passed;20 offline tests passed. No production
+auth rollout, model adoption or live scheduling follows from synthetic acceptance.

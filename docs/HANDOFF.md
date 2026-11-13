@@ -3,74 +3,68 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — lunar PostgreSQL source ready; runtime gated
+## Current checkpoint — lunar PostgreSQL T00–T26 passed
 
-Verified pushed design HEAD `81acd6a8240f474b0bdabf4d73a79f1433b9a08c`, clean entry
-on development/m2f-memory-contract. Owner created and agent confirmed
-`development/m2f-postgres-integration`. Metadata mount is read-only; no Git write,
-bypass, stage/commit/push attempted. Current implementation is uncommitted.
+Pushed implementation HEAD `599113826a6052fa89389f3b4c61a3b9c370a559` verified on
+`development/m2f-postgres-integration`; entry working tree clean. Git metadata is
+still mounted read-only. New fixes/evidence are uncommitted; no Git bypass,
+stage/commit/push attempted. Previous “uncommitted implementation/runtime gated”
+instructions are superseded for this owner-authorized isolated acceptance cycle.
 
-Latest owner authorization supersedes the prior design-only implementation gate;
-it explicitly withholds PostgreSQL connections/Docker execution. See
-[implementation and evidence](M2F_POSTGRESQL_RESULTS.md),
-[original design/T00–T26](M2F_POSTGRESQL_DESIGN.md) and D21.
+- Owner authorized the exact pinned daemon/schema lunar command and demonstrated
+  defect fixes. Scoped sandbox execution permission granted for Docker access;
+  no socket permission changes. Only named schema read, no other backup artifacts.
+- Final run: **T00–T26 all passed, exit0**, migrations0001–0008 installed in fresh
+  network-none/no-port/read-only-root/tmpfs-only disposable PostgreSQL17. Daemon
+  `44c1ef83-c50e-4ecc-8f19-4b112bc40f29` verified before creation.
+- Synthetic API proposal/approval->native projection->refresh->real server-clock
+  due claim->synthetic receipt passed; no actual Telegram transport. Concurrency,
+  stale/ABA, audit rollback/replay, replacement/cancel/history and disposable
+  postmaster crash/restart tests passed. SCRAM and scoped privileges retained.
+- Demonstrated42702 fixed additively in0007: qualify calculation local command
+  binding.42P01 fixed in0008: set reviewed baseline recurrence-sync invoker
+  helper’s safe search_path; preserve its body/ACL/owner/security mode.
+  Committed0001–0006 files remain byte-identical.
+- Runner now extracts sanitized function/line diagnostics and handles terse/verbose
+  SQLSTATE separators. Added focused SQLSTATE regression; **20 offline tests pass**.
+  No relaxation of authorization, isolation, history or concurrency checks.
+- Every diagnostic/final disposable run verified cleanup and unchanged original
+  running-container IDs. Existing PostgreSQL/n8n services untouched. No live tests,
+  production, deployment, merge or private2B access. No unrelated suites repeated.
+- [Results](M2F_POSTGRESQL_RESULTS.md) records failures, corrections, complete
+  acceptance and limits. Architecture/decisions/roadmap/plan and GitHub issue2
+  updated. AGENTS unchanged.
 
-- Added0006 synthetic-only migration, six private tables (actions also store
-  immutable approved revisions), trusted session identity, scoped executor and
-  native one-off projection approval. Migrations0001–0005 byte-preserved.
-- Explicit propose/inspect/approve/reject, calculation replay and fresh observation/
-  rule/occurrence review fingerprints. Native child/projection/audit atomicity;
-  stable typed series/key/event identities; synchronized compatibility event_date.
-- Mapped-event/request/rule/override barriers, limited preserved-body wrappers,
-  no raw caller DML or executor membership. Immutable profile descriptors hash-bound;
-  producer/owner/worker separated. No production ACL rollout or auth adoption.
-- Never-attempted replacement only, same event ID; any sending blocks edits.
-  Cancellation tombstones/explicit bounded manifests prevent revival; attempted
-  history/receipts preserved, no resend/reset. Identity remapping unsupported.
-- Added opt-in parameterized Python adapter and T00–T26 runtime assertions to the
-  existing pinned standalone synthetic runner. New case isolated from old cases.
-  Includes genuine API->refresh->due claim->synthetic receipt, parallel decisions/
-  workers, controlled mutex waits, audit-fault rollback and disposable DB restart.
-- **19 offline tests pass** (8 adapter,4 packaging,4 renderer,3 affected preflight).
-  Python AST/SQL lexical/source-safety/diff/evidence immutability checks pass.
-  These are NOT PostgreSQL grammar/runtime/ACL or concurrency pass claims.
-  Old unrelated model/memory/2C/2D/2E/n8n/live suites not rerun.
-- No DB connection, Docker, Telegram, n8n, private baseline/2B, production, deploy
-  or merge. AGENTS unchanged. GitHub issue2 updated with runtime-pending status.
+No unresolved synthetic acceptance failure. Next separate work: validated preview
+input adoption, advance/multiple reminder slots, astronomical release gates and
+operational acceptance; no scheduling/production/workflow adoption inferred.
+Do not repeat successful acceptance without materially affected code.
 
-Next action requiring owner authorization: execute ONLY the exact `--case lunar`
-command in M2F_POSTGRESQL_RESULTS.md, using the named schema and pinned daemon in
-fresh disposable PostgreSQL. Do not activate scheduling. Fix/rerun materially
-failed runtime cases within that later authorization. Current remaining risks:
-SQL/catalog/ACL compatibility and real transaction/race/restart evidence; advance
-slots, broader astronomical adoption and operational acceptance remain open.
-
-Safe normal-WSL commit commands (14 files; inspect index before commit):
+Safe consolidated normal-WSL commands (13 files; review index before commit):
 
 ```bash
 git branch --show-current
 git status --short
 git diff --check
 git add -- \
-  database/migrations/0006_synthetic_lunar_approval.sql \
+  database/migrations/0007_lunar_calculation_binding.sql \
+  database/migrations/0008_lunar_projection_trigger_path.sql \
   database/migrations/README.md \
-  prototypes/panchang/postgres_contract.py \
   tests/integration/focused_application_runner.py \
-  tests/integration/lunar_checks.py \
   tests/test_lunar_postgres.py \
   tests/test_focused_application_runner.py \
-  docs/M2F_POSTGRESQL_DESIGN.md \
   docs/M2F_POSTGRESQL_RESULTS.md \
   docs/HANDOFF.md \
   docs/ARCHITECTURE.md \
   docs/DECISIONS.md \
   docs/MILESTONE2_PLAN.md \
-  docs/ROADMAP.md
+  docs/ROADMAP.md \
+  docs/M2F_POSTGRESQL_DESIGN.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "feat: add synthetic PostgreSQL lunar approval integration"
-git push -u origin development/m2f-postgres-integration
+git commit -m "fix: validate synthetic lunar PostgreSQL acceptance"
+git push origin development/m2f-postgres-integration
 ```
 
 ## Prior integration evidence (historical)
