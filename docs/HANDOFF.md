@@ -5,90 +5,76 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-Branch `development/m2-recovery-acceptance`, pushed base `d987b69` (receipt and
-adversarial checkpoint). Existing uncommitted reconciliation work was preserved,
-reviewed and completed after interrupted sessions. [Issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
-tracks all Milestone 2, including Hindu Panchang and operational acceptance before
-other orchestrators. PR #1 is merged; no deployment or main merge here.
+Branch `development/m2-recovery-acceptance`, committed base `3d46d8e`. The
+reconciliation checkpoint is committed; the working tree was clean at entry.
+PR #1 is merged. [Issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
+tracks all Milestone 2, including Panchang and operational acceptance before
+other orchestrators. No production authorization follows from these results.
 
-The owner approved **confirmed already-delivered reconciliation in isolated
-synthetic PostgreSQL only**. New migration 0005 installs private immutable
-evidence, independent destination pins, expiring explicit permits, append-only
-audit and a default-disabled synthetic gate. A dedicated authenticated DB login
-supplies operator identity; payload actor IDs/GUCs/SET ROLE cannot substitute it.
-The API locks configuration and the delivery, validates a fresh UTC row version,
-and atomically records sent state, receipt and audit. Exact replay is idempotent;
-changed replay, duplicate receipt, invalid evidence, stale/leased/resolved rows
-reject safely. Separate NOLOGIN executors and scoped operator/worker wrappers
-preserve least privilege. Original migrations 0001–0004 and worker functions are
-unchanged; restricted worker mode is opt-in. No historical receipt backfill.
+The missing 2E worker reconnect/postmaster outage matrix now passed in the new
+`restart-recovery` case. Committed sent/uncertain/leased/rejected/cancelled state
+survived immediate postmaster shutdown/start unchanged; an interrupted uncommitted
+claim rolled back. New SCRAM worker processes resumed safe rejection backoff at
+its boundary, quarantined exact lease expiry, rejected stale acknowledgements,
+recovered the inclusive lookback edge, excluded outside work, preserved sent/
+uncertain history and stable replanning identity, and suppressed duplicate claims.
+No application defect was demonstrated; no migration/worker behavior changed.
 
-Retained successful `reconciliation-concurrency` evidence covers actual SCRAM
-logins/wrong passwords, privilege boundaries, evidence/permit/destination checks,
-concurrent decisions and replay, audit fault/caller rollback, receipt uniqueness,
-history preservation and normal worker acknowledgement. 24 focused unit tests
-passed in the completed checkpoint. See [sanitized evidence](M2_RECONCILIATION_RESULTS.md)
-and [design/trust boundaries](RECONCILIATION_DESIGN.md).
+The case uses the existing fresh disposable PostgreSQL infrastructure with a
+case-only supervisor to keep container tmpfs alive while the postmaster stops.
+It does not restart the container or establish persistent-volume/host recovery.
+Before/after restart, host HBA rules required SCRAM and trust was limited to
+container-local Unix sockets; incorrect passwords rejected. Worker/operator ACLs,
+secret-safe server logging, immutable audit infrastructure and the disabled
+reconciliation gate were preserved. Passwords remained stdin/environment-only,
+never values in argv, published output or repository files.
 
-Resume security review fixed permit expiry during a row-lock wait and hardened
-synthetic server statement/error/parameter/duration logging around password DDL.
-Only the new `reconciliation-review` runtime case was run: effective logging and
-SCRAM negative authentication passed; a permit valid before a confirmed lock wait
-expired before lock release and rejected with no delivery/audit writes. Seven
-affected renderer/runner offline tests passed. Completed concurrency/receipt/2C/
-live acceptance suites were not repeated. Explicit safe-source scan and diff
-checks and changed-Python AST checks passed; the scanner was not weakened. GitHub
-issue #2 was updated with these results and remaining gates. No full-suite rerun
-is claimed.
+One new Docker case and three affected offline runner tests passed. Existing
+lookback/recovery SQL, receipt/concurrency/reconciliation, n8n and live Telegram
+acceptance were not repeated. Pinned daemon/image and exact schema-only input
+were verified unchanged; isolation/teardown passed and original running container
+IDs stayed unchanged. No production access, Telegram sends, reset/resend,
+deployment or merge. Explicit source-safety, changed-Python AST and safe-file
+whitespace/diff checks passed. GitHub issue #2 was updated; no open PR was found
+for this branch. See [evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
 
-All runtime checks verified pinned daemon/image, fresh PostgreSQL 17, tmpfs and
-read-only root, no network/ports/host mounts, disabled final synthetic gate,
-container removal and unchanged original running container IDs. Only the exact
-authorized schema file was read unchanged. No Telegram calls, resend/reset,
-production credentials/services, deployment or merge. Production reconciliation
-remains disabled, with no gateway resolution command or production provisioning.
-Trusted real evidence/destination/permit authority, production identity/TLS and
-operational procedures remain design/approval gates; admin tamper resistance and
-external exactly-once delivery are not claimed.
+2D authorization/stale/conflict/race and D10 boundaries are satisfied in existing
+covered cases. Pending: full weekly/yearly and year-transition public API fixtures,
+series recurrence changes with existing overrides/future reminders, and trusted
+managed-v2 workflow adoption. Bounded conflict horizons/unsupported overnight
+schedules are intentional current limits. 2E controlled-clock restart matrix is
+covered; gateway supervision, host/disk/restore and broader operational acceptance
+remain. No external exactly-once or production-readiness claim is made.
 
-Git metadata is mounted read-only, confirmed with `findmnt`; no bypass, stage or
-commit attempted. The exact safe-file list is the `git add` below. Run in your
-normal WSL terminal after reviewing the untracked new files as well as the diff;
-verify the branch is still `development/m2-recovery-acceptance` and the index has
-no unrelated changes. These commands do not push, deploy or merge:
+Production reconciliation remains disabled; real evidence authority/provisioning
+and production identity/TLS need separate review. All resends remain prohibited.
+Next: targeted remaining 2D fixtures and 2G recovery/operational planning, then
+owner-gated source adoption and Panchang provider/tradition/reference decisions.
+No significant architecture decision arose in this test-only task.
+
+Git metadata is confirmed mounted read-only; no stage/commit or bypass attempted.
+Run these exact eight-safe-file commands in your normal WSL terminal after
+checking the branch/index and reviewing the new untracked file contents. No push,
+deployment or merge is included:
 
 ```bash
 git status --short
+git branch --show-current
 git diff --check
-git diff -- AGENTS.md database/migrations/0005_synthetic_reconciliation.sql database/migrations/README.md dincharya/reconciliation.py dincharya/reminder_adapters.py tests/integration/focused_application_runner.py tests/integration/reconciliation_checks.py tests/test_migrations.py tests/test_reconciliation.py tests/sql/README.md docs/DECISIONS.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/ROADMAP.md docs/RECONCILIATION_DESIGN.md docs/M2_RECONCILIATION_RESULTS.md
 git add -- \
-  AGENTS.md \
-  database/migrations/0005_synthetic_reconciliation.sql \
-  database/migrations/README.md \
-  dincharya/reconciliation.py \
-  dincharya/reminder_adapters.py \
   tests/integration/focused_application_runner.py \
-  tests/integration/reconciliation_checks.py \
-  tests/test_migrations.py \
-  tests/test_reconciliation.py \
+  tests/integration/recovery_checks.py \
+  tests/test_focused_application_runner.py \
   tests/sql/README.md \
-  docs/DECISIONS.md \
   docs/HANDOFF.md \
   docs/MILESTONE2_PLAN.md \
   docs/ROADMAP.md \
-  docs/RECONCILIATION_DESIGN.md \
-  docs/M2_RECONCILIATION_RESULTS.md
+  docs/M2_RESTART_RECOVERY_RESULTS.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "feat: add synthetic audited delivery reconciliation"
+git commit -m "test: verify synthetic reminder restart and outage recovery"
 ```
-
-Next work: remaining targeted 2E restart/outage recovery and operational planning,
-review full 2D exit evidence, source-adoption provenance, and the owner decision
-on Panchang source/tradition/reference fixtures. No production enablement or
-resend is authorized. Avoid repeating completed acceptance without a relevant
-functional change. Complete all Milestone 2 before other orchestrators.
 
 ## Prior integration evidence (historical)
 

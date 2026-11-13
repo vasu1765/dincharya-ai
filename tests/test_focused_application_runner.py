@@ -33,6 +33,8 @@ class FocusedRunnerTests(unittest.TestCase):
                     (link, ['legacy-concurrency']), (source, ['../unapproved.sql']),
                     (source, ['reminder_recovery.sql', 'reminder_recovery.sql']),
                     (source, ['legacy-concurrency', 'legacy_coexistence.sql']),
+                    (source, ['restart-recovery', 'reminder_recovery.sql']),
+                    (source, ['reconciliation', 'restart-recovery']),
                 ):
                     with self.subTest(cases=cases), self.assertRaises(focused.Failure):
                         focused.execute(baseline, 'synthetic', cases)

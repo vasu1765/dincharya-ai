@@ -12,17 +12,15 @@ including Hindu Panchang and operational acceptance, before other domains or
 orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
 2B/2D/2E against existing source/tests and defines acceptance and approval gates.
 
-Acknowledgement recovery, D10 and adversarial/receipt checkpoints are pushed
-through `d987b69`. Owner-approved synthetic-only confirmed-delivered
-reconciliation is implemented locally in migration 0005 with authenticated
-operator identity, independent destination/evidence/explicit permit, atomic audit,
-scoped worker roles and idempotent replay. Completed concurrency/rollback/privilege
-acceptance is retained. Resume review fixed permit expiry after lock contention
-and hardened synthetic credential logging; only the new review case and seven
-affected offline tests were run. Production resolution and all resends remain
-disabled. See [reconciliation evidence](M2_RECONCILIATION_RESULTS.md),
-[receipt evidence](M2_RECEIPTS_ADVERSARIAL_RESULTS.md) and
-[design/remaining gates](RECONCILIATION_DESIGN.md).
+Acknowledgement/reconciliation hardening is committed through `3d46d8e`. The
+next test-only checkpoint passed the missing controlled-clock worker reconnect
+and postmaster crash/outage matrix: committed durability, interrupted claim
+rollback, backoff/lookback edges, expired leases/stale tokens, stable replanning
+and duplicate suppression. SCRAM, container-local trust, scoped roles and safe
+credential logging survived restart. No application defect required a migration.
+See [restart evidence and remaining 2D criteria](M2_RESTART_RECOVERY_RESULTS.md).
+Existing reconciliation/receipt/2C/live acceptance was retained without rerun.
+Production reconciliation and all resend/reset operations remain disabled.
 
 Completed 2C/live-reminder acceptance is retained without repeating it. Full
 Milestone 2 closure still requires reviewed source adoption, remaining recovery/
@@ -41,7 +39,7 @@ usage. Work is uncommitted and unstaged; preserve all working-tree changes.
 | 2B — source synchronization | Investigation complete; adoption incomplete | Exact schema inspected under operator authorization. Original provenance manifest path is missing from the named docs; no private search permitted. Workflow/Code acceptance and reviewed source adoption remain gated. |
 | 2C — isolated integration | Passed for synthetic default runtime | Health/isolation, manual output, activation/successful scheduling, n8n-only restart, durable job/occurrence persistence, observed duplicate checks and teardown passed. Historical/legacy engine behavior and real workflow import are not certified. |
 | 2D — advanced Gregorian recurrence | Initial migration and isolated SQL assertions passed | Add/update/remove, occurrence/series scopes, calendar boundaries, conflicts, stale proposals and approval foundations implemented. Parallel duplicate decision check passed; D10 and the requested authorization/stale/invalid-argument/concurrency matrix passed; review full 2D exit evidence and application/workflow coverage before closure. |
-| 2E — occurrence reminders | Initial migration/SQL assertions and offline worker tests passed | Identity, deduplication, claims/leases, retry/backoff, uncertainty quarantine and bounded recovery foundations implemented. Concurrent claims, five-attempt cap and one-time gateway delivery passed. Exact lookback/expiry, immutable history and replanning passed; metadata-only inspection added. Nullable receipt persistence/atomic acknowledgement now passed; restart/outage matrices and production operator provisioning/operational review remain; audited synthetic reconciliation passed. |
+| 2E — occurrence reminders | Initial migration/SQL assertions and offline worker tests passed | Identity, deduplication, claims/leases, retry/backoff, uncertainty quarantine and bounded recovery foundations implemented. Concurrent claims, five-attempt cap and one-time gateway delivery passed. Exact lookback/expiry, immutable history and replanning passed; metadata-only inspection added. Nullable receipt persistence/atomic acknowledgement now passed; controlled-clock worker/postmaster restart matrix now passed; gateway supervision, host/disk/restore and production operator/operational review remain. Audited synthetic reconciliation passed. |
 | 2F — Delhi Hindu recurrence | Not started | Agree calculation/source/tradition/location and reference dates; implement and validate Hindu scheduling before completing Milestone 2. |
 | 2G — deployment preparation | Not started | Restore/recovery rehearsal, full acceptance, reviewed migrations/workflow diffs and explicit production approval. |
 

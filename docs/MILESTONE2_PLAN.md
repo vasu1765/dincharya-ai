@@ -24,8 +24,8 @@ at `d987b69`. Existing evidence is retained without another live Telegram or ful
 integration run. See [receipt/adversarial results](M2_RECEIPTS_ADVERSARIAL_RESULTS.md).
 
 The owner approved only isolated synthetic **record confirmed already-delivered**
-reconciliation. Local migration 0005/API and focused tests implement trusted DB
-identity, independent destination pins, immutable positive evidence and explicit
+reconciliation. Migration 0005/API and focused tests, committed at `3d46d8e`,
+implement trusted DB identity, independent destination pins, immutable positive evidence and explicit
 expiring permits, fresh row versions/locks, atomic append-only audit, scoped
 worker privileges and idempotent replay. Concurrency, failure/rollback, duplicate
 and privilege acceptance passed. Resume review added a post-lock permit-expiry
@@ -34,8 +34,13 @@ seven affected offline checks were run. See [evidence](M2_RECONCILIATION_RESULTS
 and [design](RECONCILIATION_DESIGN.md). Production reconciliation and all resend/
 reset operations remain disabled. Real evidence authority/provisioning and
 production rollout remain separately reviewed owner gates. Full 2D/2E closure,
-restart/outage matrices, source adoption, Panchang and operational acceptance are
-still open. Local changes await owner commit because Git metadata is read-only;
+source adoption, Panchang and operational acceptance remain open. The new
+controlled-clock worker reconnect/postmaster crash-recovery matrix passed with
+SCRAM/ACL/logging boundaries preserved; prior accepted suites were not rerun.
+See [restart/outage evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
+Remaining recovery work is operational: gateway supervision, wall-clock policy,
+host/disk/durable restore and adopted workflow acceptance. The local test-only
+checkpoint awaits owner commit because Git metadata is read-only;
 [handoff](HANDOFF.md) contains the exact safe-file commands.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
@@ -48,3 +53,25 @@ Each implementation task gets a focused branch/PR with source tests and sanitize
 evidence; do not merge into main autonomously. Architecture/provider and sensitive
 source decisions are owner gates. Routine fixes and focused verification proceed
 within approved scope. These acceptance criteria are a plan, not passed results.
+
+
+## Current 2D/2E exit status after restart acceptance
+
+Satisfied in covered synthetic cases: 2D approval/requester authorization,
+event/rule/override staleness, conflict rollback and decision races; D10 legacy/
+managed transition boundaries; occurrence overrides/removal and sent-history
+preservation. 2E lookback/backoff/lease edges, stale acknowledgements, cancellation/
+replanning, duplicate suppression, nullable receipts, synthetic audited resolution
+and now committed-state/postmaster crash recovery are verified. See the linked
+results matrix for evidence scope; this is not full milestone closure.
+
+Pending 2D targeted evidence: full public API weekly/yearly interval and year-boundary
+fixtures, multi-selector monthly/yearly combinations, and approved series rule
+changes with existing overrides/future reminder materialization. Trusted managed-v2
+application/workflow adoption remains tied to 2B. The 730-day default/3660-day
+maximum conflict horizon and unsupported overnight schedules are current design
+limits. No new architecture decision was required by this checkpoint.
+
+Remaining 2E/2G: supervision/clock and broader outage/restore rehearsal, reviewed
+source adoption and real operator authority/identity procedures before any
+production enablement. Keep production reconciliation disabled and no resend/reset.

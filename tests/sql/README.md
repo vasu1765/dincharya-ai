@@ -51,3 +51,13 @@ permit while waiting on a held row lock, asserting no delivery/audit writes.
 It does not rerun the completed reconciliation-concurrency acceptance. See
 ../../docs/M2_RECONCILIATION_RESULTS.md and the reconciliation design for trust
 boundaries, migration/role guards and production limitations.
+
+`--case restart-recovery` runs individually. A case-only supervisor preserves the
+container tmpfs across immediate PostgreSQL postmaster stop/start (never container
+restart). Committed restricted-worker state must survive; an in-flight uncommitted
+claim must roll back. Fresh SCRAM sessions then verify recovery/backoff edges,
+lease quarantine/stale tokens, cancellation/replanning and duplicate suppression.
+HBA/logging/ACL and default-off reconciliation checks run before/after the outage.
+The existing exact boundary SQL and prior acceptance suites are not rerun.
+See ../../docs/M2_RESTART_RECOVERY_RESULTS.md for verified results and limitations;
+this does not establish durable-volume/host/restore or gateway-supervisor recovery.

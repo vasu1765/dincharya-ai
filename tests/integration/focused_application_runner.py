@@ -18,6 +18,7 @@ from source_sync import validate_schema
 from legacy_boundary_checks import concurrent_legacy_boundary
 from adversarial_checks import adversarial_decisions, concurrent_receipt
 from reconciliation_checks import run_reconciliation, ACTORS
+from recovery_checks import restart_recovery
 
 MIGRATIONS = ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql',
               '0003_managed_legacy_boundary.sql', '0004_telegram_receipts.sql',
@@ -25,7 +26,7 @@ MIGRATIONS = ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql',
 CASES = ('legacy_coexistence.sql', 'legacy_managed_boundary.sql', 'reminder_recovery.sql',
          'legacy-concurrency', 'gregorian_adversarial.sql', 'telegram_receipts.sql',
          'adversarial-concurrency', 'receipt-concurrency', 'reconciliation', 'reconciliation-concurrency',
-         'reconciliation-review')
+         'reconciliation-review', 'restart-recovery')
 
 
 def execute(baseline, expected_daemon, cases):
@@ -35,6 +36,7 @@ def execute(baseline, expected_daemon, cases):
     require(not any(case.endswith('-concurrency') for case in cases[:-1]), 'Run the committing concurrency case last')
     require(not any(case.startswith('reconciliation') for case in cases) or len(cases)==1,
             'Run synthetic reconciliation cases individually')
+    require('restart-recovery' not in cases or len(cases)==1, 'Run restart recovery individually')
     with tempfile.TemporaryDirectory(prefix='dincharya-focused-sql-') as directory:
         env = client_environment(os.environ, directory)
         docker = ['docker', '--config', directory, '--host', ENDPOINT]
@@ -96,6 +98,17 @@ def execute(baseline, expected_daemon, cases):
                     'Pinned local image unavailable')
             original_ids = set(command(['ps', '-q', '--no-trunc']).splitlines())
             env['POSTGRES_PASSWORD'] = secrets.token_hex(24)
+            server_options = ['-c', 'log_statement=none', '-c', 'log_min_error_statement=panic',
+                '-c', 'log_min_duration_statement=-1', '-c', 'log_min_duration_sample=-1',
+                '-c', 'log_duration=off', '-c', 'log_transaction_sample_rate=0',
+                '-c', 'log_parameter_max_length=0', '-c', 'log_parameter_max_length_on_error=0']
+            launch = [image, 'postgres', *server_options]
+            if cases == ['restart-recovery']:
+                # Keep the container/tmpfs alive when the disposable postmaster
+                # stops. Never restart the container or use a persistent volume.
+                launch = [image, 'bash', '-c',
+                    'docker-entrypoint.sh "$@" & child=$!; wait "$child"; exec sleep infinity',
+                    'synthetic-supervisor', 'postgres', *server_options]
             container = command(['run', '-d', '--pull=never', '--name', Path(directory).name,
                 '--network', 'none', '--read-only', '--security-opt', 'no-new-privileges',
                 '--memory', '512m', '--tmpfs', '/var/lib/postgresql/data:size=256m',
@@ -103,13 +116,7 @@ def execute(baseline, expected_daemon, cases):
                 '-e', 'POSTGRES_PASSWORD', '-e', 'POSTGRES_USER=synthetic_test',
                 '-e', 'POSTGRES_HOST_AUTH_METHOD=scram-sha-256',
                 '-e', 'POSTGRES_INITDB_ARGS=--auth-local=trust --auth-host=scram-sha-256',
-                '-e', 'POSTGRES_DB=dincharya_app_test', image, 'postgres',
-                # Password DDL travels only on stdin. Suppress statement/parameter
-                # logging even on provisioning errors in this disposable server.
-                '-c', 'log_statement=none', '-c', 'log_min_error_statement=panic',
-                '-c', 'log_min_duration_statement=-1', '-c', 'log_min_duration_sample=-1',
-                '-c', 'log_duration=off', '-c', 'log_transaction_sample_rate=0',
-                '-c', 'log_parameter_max_length=0', '-c', 'log_parameter_max_length_on_error=0'])
+                '-e', 'POSTGRES_DB=dincharya_app_test', *launch])
             env.pop('POSTGRES_PASSWORD', None)
             info = json.loads(command(['inspect', container]))[0]
             host = info['HostConfig']
@@ -176,6 +183,14 @@ def execute(baseline, expected_daemon, cases):
                 elif case.startswith('reconciliation'):
                     run_reconciliation(sql,actor_sql,provision_actor,concurrent=(case=='reconciliation-concurrency'),
                                        review_only=(case=='reconciliation-review'))
+                elif case == 'restart-recovery':
+                    def database_lifecycle(action):
+                        require(action in ('stop','start'), 'Unapproved test lifecycle action')
+                        args = ['exec','-u','postgres',container,'pg_ctl','-D','/var/lib/postgresql/data',
+                                '-w','-t','30',action]
+                        args += ['-m','immediate'] if action=='stop' else ['-l','/dev/null','-o',' '.join(server_options)]
+                        command(args)
+                    restart_recovery(sql,actor_sql,provision_actor,database_lifecycle,Failure)
                 else:
                     require(sql((ROOT / 'tests/sql' / case).read_text()).endswith('ROLLBACK'),
                             'Focused SQL did not roll back')
