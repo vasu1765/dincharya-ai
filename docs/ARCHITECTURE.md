@@ -208,3 +208,22 @@ astronomy disabled. Docker/psql/stdio plumbing is test instrumentation, not a
 production authentication/driver boundary; real gateway registration is unchanged.
 A private Telegram test requires reviewed authenticated command/transport binding
 and new live-delivery approval. No deployment or astronomical adoption follows.
+
+## M2G authenticated Telegram integration — isolated acceptance passed
+
+[Application evidence](M2G_TELEGRAM_RESULTS.md) replaces the earlier fabricated
+identity/SQL cursor seam with real SDK command handlers and psycopg sessions. SDK
+private owner identity -> signed n8n envelope -> application approval service ->
+existing lunar API/native projection -> one gateway JobQueue tick -> existing
+process_batch/TelegramReminders/receipt contract. Telegram wire is simulated in
+tests; only the explicit gated live mode can use the real bot. No second scheduler
+or worker. Runtime application has no Docker/psql/test imports; opaque network
+relays remain harness-only to preserve no-host-port isolation.
+
+Separate command/tick/review keys, immutable SQL approval snapshots, deterministic
+action IDs and trusted DB owner binding reject forged/stale/replayed authority.
+Additive0009 provides owner-only bounded status/identity reads, without changing
+calendar/queue/history tables. G01–G04 and73 focused tests pass, including service
+process/n8n restarts and gateway lifecycle rebuild, exact history and unrelated
+container invariance. [Private acceptance](M2G_TELEGRAM_ACCEPTANCE.md) is prepared
+but needs explicit authorization; no live messages or astronomical adoption.

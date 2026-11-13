@@ -1,0 +1,68 @@
+{
+  "name": "Acceptance lunar signed gateway",
+  "active": false,
+  "settings": {
+    "timezone": "Asia/Kolkata"
+  },
+  "nodes": [
+    {
+      "id": "m2g-webhook",
+      "name": "Authenticated gateway envelope",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "m2g-lunar",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "m2g-lunar",
+        "responseMode": "lastNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "m2g-service",
+      "name": "Lunar approval service",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        200,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://dincharya-lunar/lunar",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-dincharya-signature",
+              "value": "={{ $json.headers['x-dincharya-signature'] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body }}",
+        "options": {
+          "timeout": 20000
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Authenticated gateway envelope": {
+      "main": [
+        [
+          {
+            "node": "Lunar approval service",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

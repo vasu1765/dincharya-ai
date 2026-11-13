@@ -3,64 +3,81 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — synthetic lunar E2E passed
+## Current checkpoint — M2G Telegram application passes isolated acceptance
 
-Pushed base `5cf007f536aaaac2708238f20b1add10f2c27489` verified, entry tree clean.
-Owner created and agent verified `development/m2f-synthetic-e2e`. Git metadata
-remains mounted read-only; new15-file checkpoint is uncommitted, no Git write or
-bypass attempted. Previous “uncommitted PostgreSQL acceptance” commands superseded.
+Clean entry at pushed `e2ca863b300b73f3ad96465800f9a1d4dc871d6a`; owner created
+and agent verified `development/m2g-telegram-integration`. Git metadata remains
+mounted read-only. This29-file checkpoint is uncommitted, no Git bypass/stage/
+commit/push attempted. Previous M2F commit instructions are superseded.
 
-- Owner authorized isolated synthetic request->preview->explicit approvals->native
-  PostgreSQL projection->existing worker->simulated delivery->receipt journey.
-  Scoped sandbox Docker permission granted for the exact new runner command.
-- **E01–E05 all passed, exit0** through real native n8n webhook, a separate Python
-  process, existing SyntheticLunarPostgres/PostgresReminders/process_batch and real
-  scoped SCRAM PostgreSQL sessions. No repository/DB success mocks in runtime.
-- Invented birthday fixtures only; astronomy_enabled=false, no model/predictions.
-  Separate rule/occurrence approvals, stale/rejected decisions and cancellation
-  tested. Three eligible delivery attempts recorded exactly once: sent+receipt,
-  definitive failed (then approved cancellation), and uncertain. No other sends.
-- Two actual worker-process/n8n restart cycles, unchanged PostgreSQL ID/start time,
-  repeated/concurrent ticks and exact durable delivery history pass. Simulated
-  transport has no dedupe masking worker defects. No second scheduler/worker.
-- Demonstrated SCRAM assertion initially failed: older2C initdb loopback TCP trust.
-  Added explicit host SCRAM/local socket trust to ONLY test compose environment;
-  reviewed validator digest updated. No check weakened. Final isolation/cleanup
-  and original unrelated running-container IDs unchanged; failed run also cleaned.
-- **46 focused offline tests pass** (7 new+39 affected runner).14 explicit source
-  scans pass; shared runner has two pre-existing variable-reference false positives,
-  human-reviewed (only its digest changed). Scanner rules unchanged. AST/JSON/link/
-  diff/immutability checks pass. No T00–T26 or old cadence/live suite
-  rerun. Existing application migrations, engine, gateway and worker untouched.
-- [Actual evidence/command/limits](M2F_SYNTHETIC_E2E_RESULTS.md), architecture,
-  D23, milestone plan, roadmap and integration README updated; GitHub issue2
-  updated. AGENTS unchanged. No production, live Telegram/n8n service, private2B,
-  deployment or main merge. Only the named authorized schema was read.
+- Owner authorized consolidated application implementation/testing, stopping
+  before real Telegram messages. **G01–G04 passed, exit0** with actual SDK
+  Update/CommandHandler/JobQueue, signed n8n orchestration, real psycopg role
+  sessions, existing lunar/Gregorian APIs, process_batch and TelegramReminders.
+  Only Telegram network IO is simulated; application has no Docker/psql shim.
+- Birthday/anniversary fixture previews, separate explicit rule/occurrence
+  approvals, rejection, reviewed cancellation and owner-only status implemented.
+  SDK private owner identity, HMAC freshness/domain-separated keys, deterministic
+  update/action IDs, review tokens and fresh SQL snapshots prevent forged/replay/
+  stale authority. Body IDs never establish owner/DB authority.
+- One polling owner and job; worker session lock covers claim/send/ack. Actual
+  simulation produced exactly4 attempts (2 sent+receipts,1 definite failure then
+  explicitly cancelled,1 uncertain). Repeat polling and two service-process/n8n
+  restarts plus gateway SDK shutdown/rebuild preserve exact histories. Existing
+  PostgreSQL container ID/start time and unrelated running-container set unchanged.
+- Additive0009 owner identity/bounded delivery status only;0001–0008, worker,
+  Gregorian model and astronomical fixtures unchanged. Actual worker denial of
+  owner status API and Gregorian proposal/approval control passed.
+- **73 focused offline tests pass**, no skips in the pinned /tmp SDK/driver venv.
+  Sandbox asyncio IPC caused shutdown warnings; scoped permitted execution
+  completed cleanly. Source/AST/JSON/SQL/link/diff/immutability checks pass.
+  No old T00–T26, model/cadence/live suite rerun; no test weakened.
+- Explicit real transport stays disabled by default. [Private acceptance runbook](M2G_TELEGRAM_ACCEPTANCE.md) and gated launcher prepare ONE dedicated test-bot
+  fixture reminder, hidden local credentials, independent bot pin, required
+  Telegram approvals, repeat-poll check and rollback/cleanup. Live flag/type,
+  credential and SDK gates are tested; the real bot wire is NOT run or authorized.
+- [Actual results](M2G_TELEGRAM_RESULTS.md), architecture/D24/roadmap/plan/readmes
+  and GitHub issue2 updated. AGENTS unchanged. No production, private backup/2B
+  search, deployment, other orchestrator or merge. Only the named schema accessed.
 
-No unresolved synthetic E2E failure. First private Telegram test is NOT ready:
-needs reviewed real authenticated gateway lunar-command/driver/transport binding
-(the Docker/stdio/psql bridge is test instrumentation), scoped credential setup
-outside Git and fresh explicit dedicated-bot delivery approval. Scheduling still
-requires explicit owner approval; actual astronomy remains disabled. General
-calendar/advance-slot/operational adoption and other orchestrators remain gated.
+No unresolved synthetic application failure. Next is explicit owner authorization
+for exactly one private fixture reminder with @dincharya_acceptance_test_bot,
+fresh disposable DB and separately entered replacement credentials. Do not
+schedule before explicit rule AND occurrence approval in Telegram. Astronomy,
+production auth/source adoption, advance slots and broader operational/VPS gates
+remain disabled/pending; this is not general calendar scheduling approval.
 
-Normal-WSL consolidated commands (15 explicit safe files):
+Normal WSL safe commands (29 explicit paths; review index before commit):
 
 ```bash
 git branch --show-current
 git status --short
 git diff --check
 git add -- \
-  tests/integration/compose.json \
-  tests/integration/runner.py \
+  database/migrations/0009_lunar_delivery_status.sql \
+  database/migrations/README.md \
+  dincharya/lunar_service.py \
+  dincharya/lunar_runtime.py \
+  dincharya/lunar_http.py \
+  telegram-gateway/gateway.py \
+  telegram-gateway/reminder_handlers.py \
+  telegram-gateway/lunar_handlers.py \
+  telegram-gateway/lunar_acceptance.py \
+  telegram-gateway/requirements-m2g.txt \
+  telegram-gateway/README.md \
+  workflows/m2g-lunar-acceptance.json \
+  workflows/README.md \
+  tests/integration/m2g_runner.py \
+  tests/integration/m2g_server.py \
+  tests/integration/m2g_bot.py \
+  tests/integration/m2g_relay.py \
+  tests/integration/m2g_live_prepare.py \
+  tests/integration/m2g_live_server.py \
   tests/integration/e2e_bridge.js \
-  tests/integration/e2e_n8n_client.js \
-  tests/integration/e2e_worker.py \
-  tests/integration/e2e_fixture.sql \
-  tests/integration/synthetic_e2e_runner.py \
-  tests/test_synthetic_e2e.py \
   tests/integration/README.md \
-  docs/M2F_SYNTHETIC_E2E_RESULTS.md \
+  tests/test_lunar_application.py \
+  docs/M2G_TELEGRAM_RESULTS.md \
+  docs/M2G_TELEGRAM_ACCEPTANCE.md \
   docs/HANDOFF.md \
   docs/ARCHITECTURE.md \
   docs/DECISIONS.md \
@@ -69,8 +86,8 @@ git add -- \
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "test: integrate synthetic lunar reminder end to end"
-git push -u origin development/m2f-synthetic-e2e
+git commit -m "feat: integrate authenticated Telegram lunar acceptance"
+git push -u origin development/m2g-telegram-integration
 ```
 
 ## Prior integration evidence (historical)

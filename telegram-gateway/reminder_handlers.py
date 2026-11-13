@@ -35,6 +35,9 @@ def register_reminders(app, token, owner_id, *, dsn="", database=None):
         if ready is not True:
             raise ValueError('Reminder database identity or migrations could not be verified.')
 
+    if isinstance(app.bot_data,dict):
+        if app.bot_data.get('reminder_polling_owner'):raise ValueError('Duplicate reminder polling owner')
+        app.bot_data['reminder_polling_owner']='gregorian'
     repository = PostgresReminders(connect)
     local_zone = ZoneInfo('Asia/Kolkata')
     logger = logging.getLogger(__name__)

@@ -86,3 +86,15 @@ Compose explicitly configures host SCRAM and container-local socket trust. See
 [actual E01–E05 evidence/command](../../docs/M2F_SYNTHETIC_E2E_RESULTS.md). The new
 HTTP/stdio/psql bridge is test instrumentation, not a production route/driver.
 No host port or new scheduler/worker, Code node or real Telegram call is added.
+
+## M2G real gateway/driver acceptance
+
+m2g_runner.py uses the existing standalone compose/project, exact daemon/schema
+pins and private Unix socket relays. Application runs actual SDK handlers, signed
+n8n HTTP, psycopg and existing process_batch/TelegramReminders; only Telegram wire
+is simulated. No test SQL cursor is imported by application code. G01–G04 pass
+with restart/duplicate/history/privilege/Gregorian checks and unchanged unrelated
+containers. The old T00–T26/cadence suites are not rerun. See
+[results and command](../../docs/M2G_TELEGRAM_RESULTS.md). The separate
+m2g_live_prepare.py requires BOTH explicit approval flags before credentials or
+resources; it has not been run live. Follow the private acceptance runbook.

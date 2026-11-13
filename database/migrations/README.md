@@ -90,3 +90,13 @@ Earlier0001–0006 files remain byte-identical. Only the lunar runner case loads
 0006–0008. Owner-authorized T00–T26 now pass, plus20 offline tests, with cleanup
 and unchanged unrelated service IDs confirmed. See the results report. No
 production migration/application or scheduling-engine adoption is authorized.
+
+## 0009 — owner-scoped application inspection
+
+0009_lunar_delivery_status.sql adds delivery_status(uuid) and owner_identity()
+under lunar_api. Trusted session_user principal lookup, owner-only grants and a
+latest20-record metadata bound expose state/attempt/due/receipt presence without
+chat/message IDs, payload or worker tokens. No event/ledger schema mutation or
+new role/table. Earlier0001–0008 bytes unchanged. M2G application acceptance
+installed0001–0009 and passed G01–G04; ordinary worker’s owner-API call rejects.
+Production migration/application remains unapproved; see M2G_TELEGRAM_RESULTS.md.

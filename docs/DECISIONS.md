@@ -345,3 +345,21 @@ preserve no-host-port/internal-network/pinned-image isolation and all assertions
 E01–E05 now pass with actual process/n8n restarts and teardown/service invariance.
 See M2F_SYNTHETIC_E2E_RESULTS.md. No live Telegram permission, production, merge,
 engine adoption or other orchestrator is authorized by this checkpoint.
+
+## D24 — Complete fixture-only Telegram application integration
+
+Owner authorizes consolidated implementation and isolated testing using the real
+gateway SDK, psycopg, n8n and existing approval/reminder worker; Telegram delivery
+is simulated, not enabled live. Replace test cursor/body-ID trust with trusted
+SDK owner checks, signed bounded commands, role-pinned database sessions and
+server-signed immutable review bindings. Reuse existing SQL/worker/transport; no
+second scheduler. Separate rule/occurrence approval remains mandatory.
+
+Add owner-only status/identity reads in0009; preserve older migration bytes and
+all delivery history. Test-only opaque socket relays may bridge the existing
+no-port isolated stack, but application code contains no Docker/psql driver shim.
+G01–G04 and73 offline checks pass. The independently gated one-reminder live
+launcher/runbook does not itself grant approval; owner must explicitly authorize
+the dedicated test bot/private chat, enter hidden local credentials and approve
+both stages in Telegram. No production, astronomical scheduling, deployment,
+merge or other orchestrator follows. See M2G_TELEGRAM_RESULTS.md.

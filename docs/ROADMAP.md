@@ -119,3 +119,10 @@ Current synthetic E2E checkpoint: E01–E05 passed through real n8n/Python/Postg
 and deterministic simulated delivery, with duplicate/history and worker/n8n restart
 checks;46 offline tests passed. See M2F_SYNTHETIC_E2E_RESULTS.md. No real gateway
 lunar route, live Telegram, astronomy enablement or production adoption follows.
+
+Current M2G application checkpoint: G01–G04 and73 focused tests pass using actual
+SDK handlers/psycopg/n8n/existing worker with Telegram IO simulated. The earlier
+fixture-only bridge’s application/authentication blockers are resolved. See
+M2G_TELEGRAM_RESULTS.md. One private fixture reminder is prepared but needs fresh
+owner approval and secure credentials; astronomical/production adoption remains
+disabled. Remaining broader Milestone2 operational/calendar/source gates persist.

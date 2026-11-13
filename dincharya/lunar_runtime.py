@@ -1,0 +1,76 @@
+"""Opt-in acceptance runtime/configuration. Production databases are rejected."""
+from pathlib import Path
+import argparse
+import json
+import os
+import stat
+import re
+
+from dincharya.lunar_service import LunarService,connection_factory,live_transport
+from dincharya.lunar_http import server
+
+
+def read_private(path):
+    path=Path(path)
+    root=Path(__file__).resolve().parents[1]
+    if path.resolve().is_relative_to(root):raise ValueError('Configuration must be outside Git')
+    fd=os.open(path,os.O_RDONLY|os.O_NOFOLLOW)
+    try:
+        info=os.fstat(fd)
+        if not stat.S_ISREG(info.st_mode) or info.st_mode&0o077 or info.st_uid!=os.geteuid() or info.st_nlink!=1:
+            raise ValueError('Restricted owner-only regular configuration required')
+        raw=os.read(fd,65537)
+        if len(raw)>65536:raise ValueError('Configuration too large')
+        value=json.loads(raw)
+    finally:os.close(fd)
+    return value
+
+
+def validate_test_bot(info,expected_owner):
+    if (set(info)!={'token','owner_id','bot_id'} or type(info['owner_id']) is not int
+        or not 0<info['owner_id']<2**63 or info['owner_id']!=expected_owner
+        or type(info['bot_id']) is not int or not 0<info['bot_id']<2**63
+        or not isinstance(info['token'],str)
+        or not re.fullmatch(str(info['bot_id'])+r':[A-Za-z0-9_-]{20,100}',info['token'])):
+        raise ValueError('Dedicated private test bot/owner pin required')
+
+
+def build_service(config,*,transport=None,live_approved=False):
+    if type(config.get('delivery_enabled',False)) is not bool:raise ValueError('Boolean delivery gate required')
+    if config.get('delivery_enabled',False) and not live_approved:
+        raise ValueError('Explicit live transport approval required')
+    if type(config.get('owner_id')) is not int or not 0<config['owner_id']<2**63:
+        raise ValueError('Explicit private owner required')
+    if config.get('delivery_enabled',False):validate_test_bot(config['telegram'],config['owner_id'])
+    roles=config['connections']
+    if set(roles)!={'owner','calculator','worker'} or len({v['user'] for v in roles.values()})!=3:
+        raise ValueError('Separate trusted database logins required')
+    connects={k:connection_factory(v) for k,v in roles.items()}
+    with connects['owner']() as identity:
+        if identity.execute('SELECT lunar_api.owner_identity()').fetchone()[0]!=config['owner_id']:
+            raise ValueError('Gateway/database owner identity mismatch')
+    if config.get('delivery_enabled',False):
+        if not live_approved or transport is not None:raise ValueError('Explicit live transport approval required')
+        import httpx
+        client=httpx.Client(timeout=10,trust_env=False)
+        token=config['telegram']['token'];owner=config['telegram']['owner_id']
+        response=client.post('https://api.telegram.org/bot'+token+'/getMe');data=response.json()
+        identity=data.get('result',{})
+        if (response.status_code!=200 or data.get('ok') is not True or identity.get('id')!=config['telegram']['bot_id']
+            or identity.get('username')!='dincharya_acceptance_test_bot'):
+            client.close();raise ValueError('Dedicated test bot identity mismatch')
+        transport=live_transport(client.post,token,owner,authorized=True)
+    return LunarService(connects['owner'],connects['calculator'],connects['worker'],config['catalog'],
+       config['command_key'],config['tick_key'],config['review_key'],transport=transport)
+
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--config',required=True);parser.add_argument('--live-approved',action='store_true')
+    args=parser.parse_args()
+    try:
+        config=read_private(args.config)
+        service=build_service(config,live_approved=args.live_approved)
+        with server(config['service_socket'],service) as instance:instance.serve_forever()
+    except Exception:raise SystemExit('Lunar acceptance service failed; private details suppressed') from None
+
+if __name__=='__main__':main()

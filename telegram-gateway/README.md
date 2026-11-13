@@ -84,3 +84,23 @@ commit acknowledgement can still be lost; do not resend based on client failure.
 The inspection path cannot resolve such ambiguity automatically. See the
 [proposed audited workflow](../docs/RECONCILIATION_DESIGN.md): no resolution/resend
 operation is enabled, and owner approval is required before enabling one.
+
+## Gated synthetic lunar application
+
+New commands: /lunar_birthday FIXTURE, /lunar_anniversary FIXTURE,
+/approve_lunar_rule TOKEN, /approve_lunar TOKEN, /reject_lunar TOKEN,
+/cancel_lunar OCCURRENCE_UUID and /lunar_status OCCURRENCE_UUID. Only configured
+synthetic fixtures are supported; no unvalidated calendar calculation. SDK owner
+and private-chat checks precede signed n8n requests. Separate rule/occurrence
+approvals are mandatory; cancellation also requires explicit review. Exactly
+one reminder JobQueue owner may be registered; legacy and lunar polling cannot
+run together. Existing ordinary gateway modes remain unchanged.
+
+Install pinned optional acceptance dependencies from requirements-m2g.txt into an
+isolated venv. Application uses real psycopg connections and the existing worker/
+Telegram adapter; default delivery is disabled. The only live gateway mode is
+--lunar-acceptance CONFIG --live-approved with a restricted outside-Git config
+and independent dedicated test-bot verification. Do not run it without owner
+authorization. [Runbook](../docs/M2G_TELEGRAM_ACCEPTANCE.md) prepares exactly one
+private fixture reminder; [evidence](../docs/M2G_TELEGRAM_RESULTS.md) records
+actual simulated-wire acceptance. No actual token was read or message sent.

@@ -35,7 +35,7 @@ const server = http.createServer((req,res) => {
       const input=JSON.parse(body),id=++next;
       if(pending.size>=8)return reply(res,503,{status:'busy'});
       const timer=setTimeout(()=>{pending.delete(id);if(!res.writableEnded)reply(res,504,{status:'unknown'});},45000);
-      pending.set(id,{res,timer});process.stdout.write(JSON.stringify({id,input})+'\n');
+      pending.set(id,{res,timer});process.stdout.write(JSON.stringify({id,input,signature:req.headers['x-dincharya-signature']||''})+'\n');
     } catch {reply(res,400,{status:'denied'});}
   });
 });

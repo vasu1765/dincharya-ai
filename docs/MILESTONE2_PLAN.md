@@ -172,3 +172,16 @@ host SCRAM; reviewed digest updated after demonstrated failure. No T00–T26 rer
 See [evidence and live-test blockers](M2F_SYNTHETIC_E2E_RESULTS.md). Real authenticated
 gateway/driver/transport binding, separate private test-bot authorization, validated
 calendar adoption, advance slots and operational acceptance remain outstanding.
+
+## Current M2G Telegram application seam — passed in isolation
+
+On development/m2g-telegram-integration, real SDK/psycopg/signed n8n application
+passes G01–G04 with Telegram IO simulated and73 focused regressions. Existing
+Gregorian scheduler, worker, leases, receipts and history are reused;0009 adds
+only owner-scoped status/identity reads. Two service/n8n restarts and gateway SDK
+rebuild preserve exact history and unrelated containers. See
+[M2G evidence](M2G_TELEGRAM_RESULTS.md) and [prepared private test](M2G_TELEGRAM_ACCEPTANCE.md).
+The earlier first-private-test implementation blockers are resolved for fixtures;
+next is explicit one-reminder live acceptance authorization and hidden credentials.
+General calendar/astronomy, advance slots,2B provenance and wider operational/VPS
+acceptance remain gated. No additional orchestrator or deployment authorized.
