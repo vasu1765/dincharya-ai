@@ -5,63 +5,61 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-Development branch: `development/m2-recovery-acceptance`, committed base `120b28a`.
-PR #1 merged at `f3db2ff`; acknowledgement recovery/roadmap work is committed and
-pushed. ALL Milestone 2, including Hindu Panchang and operational acceptance,
-remains required before other domains/orchestrators. Track [issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
-and [plan](MILESTONE2_PLAN.md).
+Branch `development/m2-recovery-acceptance`, pushed base `db87193` (D10 and prior
+recovery checkpoint). Current local task completes the requested 2D adversarial
+API matrix and adds nullable Telegram receipt persistence. [Issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
+tracks ALL Milestone 2, including Hindu Panchang and operational acceptance before
+other domains/orchestrators. PR #1 remains merged; no deployment or main merge here.
 
-Current uncommitted task implements owner-approved [D10](DECISIONS.md): reject
-legacy update/remove submissions and approvals for managed series; require a fresh
-v2 proposal. A new test first demonstrated legacy approval bypassing a changed
-managed override. Additive migration 0003 now guards the original public proposal
-and decision entry points plus direct legacy request submission. Current ownership
-is checked under the v2 advisory lock, covering requests created before conversion.
-Unauthorized requests retain a generic response; authorized blocked approvals get
-only the sanitized v2-required reason and stay pending for explicit discard.
-Original legacy bodies, signatures, ACLs, ownership and execution properties are
-preserved; existing migration/baseline bytes remain unchanged. No new privileges,
-public bypass aliases or production operations.
+Migration 0004 adds paired nullable chat/message IDs and unique receipt identity.
+The new acknowledgement function delegates the unchanged old token/lease check,
+then stores receipt in the same transaction as sent state. Historical IDs stay
+NULL; old workers retain the four-argument API. New typed transport receipts must
+match destination and have a usable message ID. Worker/commit failure never
+replays the HTTP call. Gateway preflight requires all four migrations/API before
+registering ticks. Migrations 0001–0003 and original baseline bytes are unchanged.
 
-Focused evidence: three new SQL cases passed (coexistence, managed transition/
-boundary and targeted recovery), plus a multi-session conversion/legacy-decision
-case observing blocked waiters. Genuine legacy updates/removals, stale rejection,
-new submissions, force/authorization, pending pre-conversion requests and continued
-v2 approval/override/replay protection passed, including forged version tags and
-noncanonical approval attempts. Recovery covers exact six-hour and
-expiry boundaries, stale ack, sent/quarantine history, cancelled-work replanning
-and no automatic resend. Eight adapter tests, four migration renderer tests and
-three new runner preflight tests passed. Do not report these as a full suite run.
+New adversarial SQL passed invalid action/scope/identity, malformed/non-Gregorian
+rules, requester/force/horizon/decision checks and event/rule/override snapshot
+staleness. Multi-session conflict, stale update, approve/reject and authorization
+races passed. Receipt upgrade/history, wrong/expired token, invalid pair/outcome,
+atomic failure rollback, replay/uniqueness and competing acknowledgements passed.
+35 unique focused unit/preflight tests passed across scoped runs (26 reminder/
+config checks, 2 optional gateway-dependency checks, 4 renderer and 3 runner tests).
+No full suite result is claimed. See [sanitized results](M2_RECEIPTS_ADVERSARIAL_RESULTS.md).
 
-New `PostgresReminders.list_quarantined` is bounded read-only metadata inspection,
-with no payload/title/chat/token/error exposure and no reset/resend capability.
-It is adapter-tested, not a completed operator reconciliation interface. See
-[sanitized results](M2_COMPATIBILITY_RECOVERY_RESULTS.md) for test limits and fixes.
-The PostgreSQL-only focused runner selects named cases, verifies daemon/image,
-uses fresh tmpfs/no-network/no-port/no-mount test resources, and cleans up. Every
-completed run preserved original running container IDs; final prefix audit found
-no leftover disposable containers after the interrupted call. No Telegram/n8n or
-completed full integration suite was repeated. Only the exact previously
-owner-authorized schema input was read, unchanged; no backup search or production
-credential/service access occurred.
+Read-only quarantine inspection now enforces read-only UTC transactions and
+returns bounded metadata, receipt presence and an opaque row-state observation
+version. The [audited reconciliation design](RECONCILIATION_DESIGN.md) is ready for
+review, but no resolution/reset/resend, audit write API or operator grant is
+enabled. Owner approval is required before enabling any such operation. The row
+hash is not authorization or proof of non-delivery; absent receipt is not proof
+that Telegram did not accept a send. A commit error may still hide a successful
+commit: inspect durable state, never blindly replay.
 
-Git metadata remains read-only; no staging/commit/push attempted here. Owner
-commands after reviewing explicit safe files:
+Only the exact previously authorized schema input was accessed read-only. All
+runtime checks used pinned daemon/image and fresh PostgreSQL 17, tmpfs/read-only
+root, no network/ports/host mounts; teardown passed with original running container
+IDs unchanged. No Telegram API call, n8n/full completed integration rerun,
+production credential/service access, deployment or merge. Git metadata is still
+read-only; current changes are uncommitted. Source scan/diff review passed.
+
+Owner commit commands after review (explicit safe paths only):
 
 ```bash
-git diff -- database/migrations/README.md dincharya/reminder_adapters.py docs/DECISIONS.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md telegram-gateway/README.md tests/integration/application_runner.py tests/test_migrations.py tests/test_reminder_adapters.py tests/sql/README.md
 git status --short
-git add -- database/migrations/0003_managed_legacy_boundary.sql database/migrations/README.md dincharya/reminder_adapters.py docs/DECISIONS.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md docs/M2_COMPATIBILITY_RECOVERY_RESULTS.md telegram-gateway/README.md tests/integration/application_runner.py tests/integration/focused_application_runner.py tests/integration/legacy_boundary_checks.py tests/sql/legacy_coexistence.sql tests/sql/legacy_managed_boundary.sql tests/sql/reminder_recovery.sql tests/sql/README.md tests/test_migrations.py tests/test_reminder_adapters.py tests/test_focused_application_runner.py
+git diff -- dincharya/reminders.py dincharya/reminder_adapters.py telegram-gateway/gateway.py telegram-gateway/reminder_handlers.py telegram-gateway/README.md database/migrations/README.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/DECISIONS.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md tests/integration/application_runner.py tests/integration/focused_application_runner.py tests/sql/README.md tests/test_migrations.py tests/test_reminder_adapters.py tests/test_reminder_worker.py
+git add -- database/migrations/0004_telegram_receipts.sql database/migrations/README.md dincharya/reminders.py dincharya/reminder_adapters.py telegram-gateway/gateway.py telegram-gateway/reminder_handlers.py telegram-gateway/README.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/DECISIONS.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md docs/RECONCILIATION_DESIGN.md docs/M2_RECEIPTS_ADVERSARIAL_RESULTS.md tests/integration/application_runner.py tests/integration/focused_application_runner.py tests/integration/adversarial_checks.py tests/sql/gregorian_adversarial.sql tests/sql/telegram_receipts.sql tests/sql/README.md tests/test_migrations.py tests/test_reminder_adapters.py tests/test_reminder_worker.py tests/test_reminder_gateway_preflight.py
 git diff --cached --check
 git diff --cached
-git commit -m "fix: enforce managed-series legacy boundary and test recovery"
+git commit -m "feat: persist lease-checked Telegram receipts and expand API regression coverage"
 ```
 
-Next: remaining 2D adversarial API matrix; P3 nullable chat/message receipts and
-lease-checked acknowledgement, then explicit audited resolution design. No new
-architecture decision is needed for this patch. Enabling resolution/resend is not
-implicit in read-only inspection; Panchang source/tradition/geographic/reference
-policy remains a later owner decision. Do not merge, deploy or repeat live sends.
+Next significant gate: approve the proposed audited resolution policy before any
+operator mutation/resend is enabled; no action is authorized by inspection alone.
+Independent remaining work includes recovery restart/outage permutations, source
+adoption/provenance, Panchang provider/tradition/reference decision and isolated
+operational acceptance. Do not repeat completed live acceptance or use production.
 
 ## Last successful evidence
 

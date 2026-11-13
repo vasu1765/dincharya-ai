@@ -6,7 +6,7 @@ from uuid import UUID
 from zoneinfo import ZoneInfo
 
 from dincharya.reminder_adapters import PostgresReminders, TelegramReminders, parse_reminder
-from dincharya.reminders import Claim, DeliveryUncertain, NotAccepted, process_batch
+from dincharya.reminders import Claim, DeliveryReceipt, DeliveryUncertain, NotAccepted, process_batch
 
 
 class ReminderAdapterTests(unittest.TestCase):
@@ -41,7 +41,7 @@ class ReminderAdapterTests(unittest.TestCase):
         self.cursor.fetchall.return_value = [(5, worker, self.payload)]
         self.cursor.fetchone.return_value = (True,)
         self.post.return_value.status_code = 200
-        self.post.return_value.json.return_value = {'ok': True, 'result': {'message_id': 12}}
+        self.post.return_value.json.return_value = {'ok': True, 'result': {'message_id': 12, 'chat': {'id': 101}}}
 
         def check_commit(*args, **kwargs):
             self.connection.__exit__.assert_called_once_with(None, None, None)
@@ -51,7 +51,8 @@ class ReminderAdapterTests(unittest.TestCase):
         self.assertEqual(process_batch(self.repository, self.transport, lambda: self.now, 1), 1)
         self.assertEqual(self.post.call_args.kwargs['json']['chat_id'], 101)
         self.assertIn('Havan', self.post.call_args.kwargs['json']['text'])
-        self.assertEqual(self.session.execute.call_args.args[1], (5, worker, 'sent', self.now))
+        self.assertIn('acknowledge_occurrence_reminder', self.session.execute.call_args.args[0])
+        self.assertEqual(self.session.execute.call_args.args[1], (5, worker, 'sent', self.now, 101, 12))
         self.assertEqual(self.connection.__exit__.call_count, 2)
 
     def test_telegram_errors_distinguish_rejection_from_uncertainty(self):
@@ -106,19 +107,26 @@ class ReminderAdapterTests(unittest.TestCase):
                 parse_reminder([date, time, 'Havan'], self.now)
 
     def test_quarantine_inspection_is_bounded_metadata_only_and_does_not_send(self):
-        self.cursor.fetchall.return_value = [(8, 5, date(2032, 1, 2), 1, self.now, self.now)]
+        self.cursor.fetchall.return_value = [(8, 5, date(2032, 1, 2), 1, self.now, self.now, False, 'a'*64)]
         page = self.repository.list_quarantined(after_id=7, limit=1)
         self.assertEqual(page[0].delivery_id, 8)
         self.assertEqual(page[0].event_id, 5)
         self.assertEqual(page[0].attempts, 1)
         self.assertEqual(set(vars(page[0])), {
             'delivery_id', 'event_id', 'occurrence_date', 'attempts', 'due_at', 'claimed_at',
+            'has_receipt', 'observation_version',
         })
         statement, params = self.session.execute.call_args.args
-        self.assertTrue(statement.startswith('SELECT id,event_id,occurrence_date,attempts,due_at,claimed_at '))
-        self.assertIn("managed_by='m2e' AND status='uncertain' AND id>%s", statement)
+        self.assertTrue(statement.startswith('SELECT d.id,d.event_id,d.occurrence_date,d.attempts,d.due_at,d.claimed_at,'))
+        self.assertIn("d.managed_by='m2e' AND d.status='uncertain' AND d.id>%s", statement)
+        self.assertIn('sha256(convert_to(to_jsonb(d)', statement)
+        self.assertEqual(page[0].observation_version, 'a'*64)
+        self.assertFalse(page[0].has_receipt)
         self.assertEqual(params, (7, 1))
-        self.session.execute.assert_called_once()
+        self.assertEqual(self.session.execute.call_count, 3)
+        self.assertEqual(self.session.execute.call_args_list[0].args, ('SET TRANSACTION READ ONLY',))
+        self.assertEqual(self.session.execute.call_args_list[1].args, ("SET LOCAL TIME ZONE 'UTC'",))
+        self.session.transaction.assert_called_once_with()
         self.connection.__exit__.assert_called_once_with(None, None, None)
         self.post.assert_not_called()
 
@@ -128,3 +136,41 @@ class ReminderAdapterTests(unittest.TestCase):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 self.repository.list_quarantined(**kwargs)
         self.repository.connect.assert_not_called()
+
+    def test_wrong_chat_and_unusable_message_ids_are_never_acknowledged_sent(self):
+        for result in ({'message_id': 12}, {'message_id': 12, 'chat': {'id': 999}},
+                       {'message_id': 0, 'chat': {'id': 101}},
+                       {'message_id': True, 'chat': {'id': 101}},
+                       {'message_id': 12, 'chat': {'id': True}}):
+            with self.subTest(result=result):
+                self.post.reset_mock()
+                self.post.return_value.status_code = 200
+                self.post.return_value.json.return_value = {'ok': True, 'result': result}
+                repository = Mock()
+                claim = Claim(5, 'synthetic', self.payload)
+                repository.claim.return_value = [claim]
+                repository.finish.return_value = True
+                with self.assertRaises(DeliveryUncertain):
+                    process_batch(repository, self.transport, lambda: self.now, 1)
+                repository.finish.assert_called_once_with(claim, 'uncertain', self.now)
+                self.post.assert_called_once()
+
+    def test_invalid_receipt_outcome_is_rejected_before_connecting(self):
+        claim = Claim(5, str(UUID(int=1)), self.payload)
+        with self.assertRaises(ValueError):
+            self.repository.finish(claim, 'uncertain', self.now, receipt=DeliveryReceipt(101, 12))
+        self.repository.connect.assert_not_called()
+
+    def test_receipt_commit_failure_after_send_is_not_replayed_or_reacknowledged(self):
+        worker = UUID(int=1)
+        self.cursor.fetchall.return_value = [(5, worker, self.payload)]
+        self.cursor.fetchone.return_value = (True,)
+        self.connection.__exit__.side_effect = [None, RuntimeError('synthetic private commit failure')]
+        self.post.return_value.status_code = 200
+        self.post.return_value.json.return_value = {'ok': True, 'result': {'message_id': 12, 'chat': {'id': 101}}}
+        with self.assertRaises(DeliveryUncertain) as caught:
+            process_batch(self.repository, self.transport, lambda: self.now, 1)
+        self.assertNotIn('synthetic private', str(caught.exception))
+        self.post.assert_called_once()
+        self.assertEqual(self.session.execute.call_count, 2)  # One claim, one acknowledgement.
+        self.assertIn('acknowledge_occurrence_reminder', self.session.execute.call_args.args[0])

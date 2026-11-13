@@ -11,25 +11,27 @@ Track remaining work in [GitHub issue #2](https://github.com/vasu1765/dincharya-
 | Priority | Scope and source review | Acceptance criteria / gates |
 | --- | --- | --- |
 | P0: establish branch | Synchronize main, preserve work; new development/m2-recovery-acceptance | Record upstream merge SHA and clean base; retain existing work; no Git permission bypass. |
-| P1: 2E acknowledgement failures | Worker finish failures currently escape raw; six existing worker tests omit DB exceptions | Normalize finish exceptions/lease loss to sanitized DeliveryUncertain, one transport/finish call, abort remaining batch; synthetic tests for sent/rejected/unknown outcomes, no automatic resend. First prepared task. |
-| P2: 2D compatibility and adversarial acceptance | 0001 and gregorian.sql cover monthly/leap/ISO week, overrides, stale proposals, conflicts and replay; legacy API coexistence incomplete | Synthetic tests prove old decision dispatch remains functional, cannot bypass managed snapshots/approval or mutate in-flight sends; malformed selectors/bounds reject atomically; occurrence/series edits preserve identity and sent history. Add corrective migrations only when a failure requires them. |
-| P3: 2E recovery and receipts | 0002, reminders.sql and PR #1 prove retry cap, concurrent claims and one owner-approved delivery; transport receipts not stored | Cover recovery at/outside lookback, lease expiry, stale ack, cancelled/replanned work, restart and duplicate suppression; no blind resend after ambiguous acceptance. Add nullable chat/message receipt with lease-checked atomic acknowledgement and legacy compatibility, then explicit operator reconciliation audit tests. Further live tests need new approval. |
+| P1: 2E acknowledgement failures | Completed at 120b28a: sanitized finish failures and batch-abort coverage | Normalize finish exceptions/lease loss to sanitized DeliveryUncertain, one transport/finish call, abort remaining batch; synthetic tests for sent/rejected/unknown outcomes, no automatic resend. Completed focused foundation; preserve the no-replay contract. |
+| P2: 2D compatibility and adversarial acceptance | 0001/0003 and focused SQL cover recurrence, D10 coexistence/boundaries and the requested adversarial API matrix | Synthetic tests prove old decision dispatch remains functional, cannot bypass managed snapshots/approval or mutate in-flight sends; malformed selectors/bounds reject atomically; occurrence/series edits preserve identity and sent history. Add corrective migrations only when a failure requires them. |
+| P3: 2E recovery and receipts | 0002/0004 cover retries, claims and atomic nullable receipts; read-only inspection is implemented, operator actions disabled | Cover recovery at/outside lookback, lease expiry, stale ack, cancelled/replanned work, restart and duplicate suppression; no blind resend after ambiguous acceptance. Add nullable chat/message receipt with lease-checked atomic acknowledgement and legacy compatibility, then explicit operator reconciliation audit tests. Further live tests need new approval. |
 | P4: 2B reproducible source | baseline/ and workflows/ contain guidance only; native/Code source provenance gates remain | Obtain exact missing manifest path, never search backups; hash-bound reviewed schema and current/published workflow provenance; decide adopted vs archived items, preserve Code/state bytes; owner approval before private-source promotion or execution. Prove clean synthetic reconstruction from reviewed source. |
 | P5: 2F Hindu Panchang | No adopted source/engine or fixture suite; no completion claim | Owner chooses calculation/reference source, tradition and geographic parameters before engine/schema commitment. Define sunrise/day-boundary, tithi/paksha/month, amanta/purnimanta, adhika/kshaya, skipped/repeated tithi and observance policy. Compare versioned Delhi reference fixtures across ordinary, transition and leap-month cases; generate stable occurrences with overrides/conflicts/explicit approvals and deduplicated reminders. Investigate public sources only when beginning this task. |
 | P6: 2G operational acceptance | Existing tests are disposable; production readiness is not established | Least-privilege roles, webhook auth, pinned dependencies/images, supervision, redacted logs, health and backlog visibility, restore rehearsal, migration/rollback and recovery runbooks all validated in isolated synthetic environment. Review diff/evidence and obtain explicit owner approval before production access, cutover or deployment. |
 
-P0 completed and P1 committed/pushed at `120b28a` (17 focused reminder tests
-passed at that checkpoint). P2 now includes the owner-approved D10 policy and
-additive migration 0003: legacy update/remove cannot target managed series,
-including pre-conversion pending requests. Genuine legacy and v2 paths, stale
-snapshots and concurrent conversion decisions passed the new focused SQL cases.
-P3 exact-window/expiry/history/replan cases also passed; bounded metadata-only
-quarantine inspection has offline tests. New work remains uncommitted because
-Git metadata is read-only. See [evidence](M2_COMPATIBILITY_RECOVERY_RESULTS.md).
-Remaining P2 adversarial cases, P3 receipts/audited resolution and later rows
-are not declared complete. No additional architectural approval is required for
-this patch; enabling resolution/resend and the Panchang provider policy remain
-later decisions, not implicit permissions to mutate or send now.
+P0/P1 are committed (P1 at `120b28a`); D10/recovery checkpoint is pushed at
+`db87193`. The current local patch completes the requested P2 adversarial matrix:
+invalid API arguments, authorization, event/rule/override staleness, conflicts and
+multi-session races. P3 migration 0004 adds nullable chat/message receipts with
+atomic live-lease acknowledgement, unchanged old-worker API and preserved history.
+New SQL and focused unit/startup tests passed; no live Telegram or old completed
+integration suite was repeated. See [receipt/adversarial evidence](M2_RECEIPTS_ADVERSARIAL_RESULTS.md).
+
+The [audited reconciliation design](RECONCILIATION_DESIGN.md) is proposed for
+owner review. Read-only UTC observation hashing is implemented; no resolution,
+reset, resend, audit mutation API or operator privilege is enabled. Approval is
+required before enabling those operations. Full 2D/2E closure, restart/outage
+matrices, source adoption, Panchang and operational acceptance remain open.
+The new patch awaits owner Git commit because sandbox metadata is read-only.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
 closed remaining gaps before Milestone 2 is complete. Passing one reminder is not

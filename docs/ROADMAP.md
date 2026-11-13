@@ -12,18 +12,18 @@ including Hindu Panchang and operational acceptance, before other domains or
 orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
 2B/2D/2E against existing source/tests and defines acceptance and approval gates.
 
-First focused task implemented: 2E acknowledgement failure handling and synthetic
-recovery coverage, with 17 focused tests passing. Then close 2D compatibility/adversarial and 2E recovery/receipt
-and reconciliation gaps, finish reviewed 2B source adoption, implement 2F under
-owner-approved Panchang policy, and complete isolated 2G operational acceptance.
-Completed 2C/live-reminder acceptance will not be repeated without a relevant
-functional change and applicable approval. Source merge is not deployment.
+Acknowledgement recovery and D10 compatibility/recovery are committed through
+`db87193`. The next local checkpoint completes the requested adversarial API
+matrix and adds migration 0004 with typed receipts and atomic acknowledgement.
+Upgrade, failure, duplicate-prevention and multi-session tests passed. Inspection
+is a read-only UTC transaction with an observation digest; operator actions remain
+disabled pending approval of the audited workflow. See
+[M2_RECEIPTS_ADVERSARIAL_RESULTS.md](M2_RECEIPTS_ADVERSARIAL_RESULTS.md) and
+[RECONCILIATION_DESIGN.md](RECONCILIATION_DESIGN.md).
 
-At base `120b28a`, new work implements owner-approved D10 with migration 0003:
-block legacy mutations of managed series while retaining genuine legacy and v2
-paths. New coexistence/boundary/conversion-concurrency SQL and targeted recovery
-SQL passed. Quarantine inspection is metadata-only/read-only and adapter-tested;
-active resolution and receipts remain open. See M2_COMPATIBILITY_RECOVERY_RESULTS.md.
+Completed 2C/live-reminder acceptance is retained without repeating it. Full
+Milestone 2 closure still requires reviewed source adoption, remaining recovery/
+operational acceptance and Hindu Panchang before other domains/orchestrators.
 
 ## Historical checkpoint
 
@@ -37,8 +37,8 @@ usage. Work is uncommitted and unstaged; preserve all working-tree changes.
 | 2A — offline hardening | Complete | Original tooling recorded at HEAD 62e96e6; subsequent regressions included. |
 | 2B — source synchronization | Investigation complete; adoption incomplete | Exact schema inspected under operator authorization. Original provenance manifest path is missing from the named docs; no private search permitted. Workflow/Code acceptance and reviewed source adoption remain gated. |
 | 2C — isolated integration | Passed for synthetic default runtime | Health/isolation, manual output, activation/successful scheduling, n8n-only restart, durable job/occurrence persistence, observed duplicate checks and teardown passed. Historical/legacy engine behavior and real workflow import are not certified. |
-| 2D — advanced Gregorian recurrence | Initial migration and isolated SQL assertions passed | Add/update/remove, occurrence/series scopes, calendar boundaries, conflicts, stale proposals and approval foundations implemented. Parallel duplicate decision check passed; D10 legacy/managed compatibility, transition and concurrent-decision checks passed; broader adversarial API and application/workflow cases remain. |
-| 2E — occurrence reminders | Initial migration/SQL assertions and offline worker tests passed | Identity, deduplication, claims/leases, retry/backoff, uncertainty quarantine and bounded recovery foundations implemented. Concurrent claims, five-attempt cap and one-time gateway delivery passed. Exact lookback/expiry, immutable history and replanning passed; metadata-only inspection added. Receipt persistence, restart/outage matrices and audited uncertain-send resolution remain. |
+| 2D — advanced Gregorian recurrence | Initial migration and isolated SQL assertions passed | Add/update/remove, occurrence/series scopes, calendar boundaries, conflicts, stale proposals and approval foundations implemented. Parallel duplicate decision check passed; D10 and the requested authorization/stale/invalid-argument/concurrency matrix passed; review full 2D exit evidence and application/workflow coverage before closure. |
+| 2E — occurrence reminders | Initial migration/SQL assertions and offline worker tests passed | Identity, deduplication, claims/leases, retry/backoff, uncertainty quarantine and bounded recovery foundations implemented. Concurrent claims, five-attempt cap and one-time gateway delivery passed. Exact lookback/expiry, immutable history and replanning passed; metadata-only inspection added. Nullable receipt persistence/atomic acknowledgement now passed; restart/outage matrices and audited operator resolution remain. |
 | 2F — Delhi Hindu recurrence | Not started | Agree calculation/source/tradition/location and reference dates; implement and validate Hindu scheduling before completing Milestone 2. |
 | 2G — deployment preparation | Not started | Restore/recovery rehearsal, full acceptance, reviewed migrations/workflow diffs and explicit production approval. |
 

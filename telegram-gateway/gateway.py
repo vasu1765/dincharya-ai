@@ -65,7 +65,10 @@ def main():
         if dsn:
             from reminder_handlers import register_reminders
 
-            register_reminders(app, token, owner_id, dsn=dsn)
+            try:
+                register_reminders(app, token, owner_id, dsn=dsn)
+            except Exception:
+                raise SystemExit('Could not verify the reminder database migrations.') from None
         app.add_handler(MessageHandler(filters.TEXT, handle_message))
     else:
         raise SystemExit('Usage: gateway.py [--acceptance]')

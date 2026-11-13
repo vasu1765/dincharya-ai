@@ -119,3 +119,19 @@ legacy bodies verbatim inside guarded blocks, retaining their signatures,
 ownership, ACLs, invoker security and configuration; no public bypass alias or
 privilege elevation is introduced. A request trigger also guards direct legacy
 envelope submission. No historical migration or baseline bytes are rewritten.
+
+## D11 — Lease-checked receipts and read-only reconciliation groundwork
+
+Implemented under the owner's receipt-persistence instruction, 2026-11-13.
+Store nullable Telegram chat/message pairs with sent acknowledgement in one
+lease-checked transaction. Preserve unknown historical IDs as NULL and the
+original four-argument API for old workers. New transport receipts require the
+configured destination and a usable positive message ID; acknowledgement failure
+never causes a transport replay. Require migration 0004 before gateway ticks.
+
+Inspection is a bounded read-only transaction returning metadata, receipt
+presence and a UTC-normalized row-state digest; the digest is not authorization
+or proof of non-delivery. [Audited resolution design](RECONCILIATION_DESIGN.md)
+remains proposed. No resolution/resend action, privilege grant or audit write API
+is enabled. Owner approval is required before enabling metadata resolution or
+any resend; a resend must be a separate explicit authorization, not a status reset.

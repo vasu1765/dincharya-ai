@@ -1,7 +1,7 @@
 # Application migrations
 
 0001_gregorian_occurrences.sql, 0002_occurrence_reminders.sql and
-0003_managed_legacy_boundary.sql extend the reviewed
+0003_managed_legacy_boundary.sql and 0004_telegram_receipts.sql extend the reviewed
 PostgreSQL schema. The baseline remains outside Git; its original provenance
 manifest path has not been confirmed. Historical m2a SQL must not be replayed.
 
@@ -32,3 +32,17 @@ one or more `--case` values: legacy_coexistence.sql, legacy_managed_boundary.sql
 reminder_recovery.sql, legacy-concurrency. This starts PostgreSQL only, on tmpfs,
 with no network/ports/host mounts, verifies legacy function properties and removes
 the disposable container. It does not invoke n8n, Telegram or production.
+
+0004 adds nullable chat/message receipt fields, paired/state checks and unique
+receipt identity. New acknowledge_occurrence_reminder delegates the existing
+live-token/lease check and stores sent state plus receipt atomically. Its old
+four-argument counterpart remains unchanged for old workers; unknown historical
+IDs stay NULL. No backfill, operator resolution or resend function is added.
+Apply all four migrations before starting the updated gateway; startup now fails
+closed without the receipt migration/API. Synthetic upgrade tests preserve a
+pre-existing sent row and the original acknowledgement body.
+
+Additional focused cases: gregorian_adversarial.sql, telegram_receipts.sql,
+adversarial-concurrency and receipt-concurrency. Run one committing concurrency
+case last; use separate invocations for multiple concurrency cases. New cases
+verify authorization/staleness/conflicts and receipt upgrade/failure/race safety.

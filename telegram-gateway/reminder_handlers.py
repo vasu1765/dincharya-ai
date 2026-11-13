@@ -23,17 +23,17 @@ def register_reminders(app, token, owner_id, *, dsn="", database=None):
             **(database or {}),
         )
 
-    if database is not None:
-        with closing(connect()) as check:
-            ready = check.execute(
-                "SELECT current_database() = 'dincharya_app_test' "
-                "AND session_user = 'synthetic_test' "
-                "AND (SELECT count(*) FROM public.application_migration_ledger "
-                "WHERE version IN ('0001_gregorian_occurrences.sql', "
-                "'0002_occurrence_reminders.sql')) = 2"
-            ).fetchone()[0]
-            if not ready:
-                raise ValueError('Disposable database identity or migrations could not be verified.')
+    with closing(connect()) as check:
+        identity = ("current_database() = 'dincharya_app_test' AND session_user = 'synthetic_test' AND "
+                    if database is not None else '')
+        ready = check.execute(
+            "SELECT " + identity + "(SELECT count(*) FROM public.application_migration_ledger "
+            "WHERE version IN ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql', "
+            "'0003_managed_legacy_boundary.sql', '0004_telegram_receipts.sql')) = 4 "
+            "AND to_regprocedure('public.acknowledge_occurrence_reminder(bigint,uuid,text,timestamp with time zone,bigint,bigint)') IS NOT NULL"
+        ).fetchone()[0]
+        if ready is not True:
+            raise ValueError('Reminder database identity or migrations could not be verified.')
 
     repository = PostgresReminders(connect)
     local_zone = ZoneInfo('Asia/Kolkata')

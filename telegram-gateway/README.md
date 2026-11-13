@@ -18,7 +18,7 @@ Security: Gateway restricts Telegram user ID, but n8n webhook itself is not auth
 Run from the repository root with
 `PYTHONPATH=. python telegram-gateway/gateway.py --acceptance`.
 Start with a dedicated test bot, a private test chat, and an empty disposable
-PostgreSQL database on an unused loopback port other than 5432. Apply all three
+PostgreSQL database on an unused loopback port other than 5432. Apply all four
 numbered migrations using the isolated migration runner so the ledger is present.
 Provide these settings from a clean shell using the test credentials only.
 
@@ -67,18 +67,20 @@ manually retry before Telegram's wait expires. Timeouts, malformed responses and
 ## Delivery reconciliation
 
 `PostgresReminders.list_quarantined(after_id=0, limit=20)` provides a bounded,
-read-only metadata page for managed `uncertain` rows, ordered by delivery ID.
+read-only transaction and metadata page for managed `uncertain` rows, ordered by delivery ID.
 Pass the last returned delivery ID as `after_id` for the next page. Limits are
-1–100; payload/title, chat identity, tokens and raw errors are excluded. This
-adapter building block does not clear uncertainty, change retry state or send.
+1–100; payload/title, chat identity, tokens and raw errors are excluded. Receipt
+presence and an opaque row-state hash are included; timezone is locally fixed to
+UTC for observation consistency. This adapter building block does not clear
+uncertainty, change retry state or send.
 It is not an operator resolution interface; all resolution/resend remains gated.
 
-Persisting the Telegram `message_id` would let an operator correlate an accepted
-send with its ledger row. Telegram IDs are scoped to a chat, so store the chat
-identity with the ID and write both in the same lease-checked PostgreSQL update
-that marks a delivery sent. Leave legacy rows and unknown responses nullable.
-This requires an additive migration, including tests for lost leases and legacy
-rows. It cannot recover a message ID if Telegram accepted a send but its response
-was lost, or if the worker crashed before committing. Continue quarantining
-those cases. A reconciliation interface and message ID persistence remain
-production blockers.
+Migration 0004 persists the validated Telegram chat/message pair atomically with
+lease-checked sent acknowledgement. The transport checks returned destination and
+usable message ID; receipt fields are omitted from object repr/logging. The old
+ack API and historical NULL receipts remain compatible; missing migration stops
+gateway registration before ticks. No historical IDs are inferred. An HTTP or
+commit acknowledgement can still be lost; do not resend based on client failure.
+The inspection path cannot resolve such ambiguity automatically. See the
+[proposed audited workflow](../docs/RECONCILIATION_DESIGN.md): no resolution/resend
+operation is enabled, and owner approval is required before enabling one.

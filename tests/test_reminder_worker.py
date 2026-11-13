@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 import unittest
 from unittest.mock import Mock
-from dincharya.reminders import Claim, DeliveryUncertain, NotAccepted, process_batch
+from dincharya.reminders import Claim, DeliveryReceipt, DeliveryUncertain, NotAccepted, process_batch
 
 
 class WorkerTests(unittest.TestCase):
@@ -10,6 +10,7 @@ class WorkerTests(unittest.TestCase):
         self.repository.claim.return_value = [Claim(1, 'invented-lease', {'title': 'Synthetic'})]
         self.repository.finish.return_value = True
         self.transport = Mock()
+        self.transport.send.return_value = None
         self.clock = lambda: datetime(2032, 1, 1, tzinfo=timezone.utc)
 
     def test_confirmed_acceptance_is_acknowledged_once(self):
@@ -73,6 +74,44 @@ class WorkerTests(unittest.TestCase):
         self.repository.claim.return_value = []
         self.assertEqual(process_batch(self.repository, self.transport, self.clock), 0)
         self.transport.send.assert_not_called()
+
+    def test_receipt_is_passed_only_to_the_single_sent_acknowledgement(self):
+        receipt = DeliveryReceipt(101, 12)
+        self.transport.send.return_value = receipt
+        self.assertEqual(process_batch(self.repository, self.transport, self.clock, 1), 1)
+        self.repository.finish.assert_called_once_with(
+            self.repository.claim.return_value[0], 'sent', self.clock(), receipt=receipt)
+        self.transport.send.assert_called_once()
+
+    def test_receipt_ack_failure_never_replays_send_or_exposes_identifiers(self):
+        import traceback
+        self.transport.send.return_value = DeliveryReceipt(101, 12)
+        for result in (False, RuntimeError('synthetic private receipt storage error')):
+            with self.subTest(result_type=type(result).__name__):
+                self.repository.finish.reset_mock()
+                self.transport.reset_mock()
+                self.repository.finish.side_effect = result if isinstance(result, Exception) else None
+                self.repository.finish.return_value = result
+                with self.assertRaises(DeliveryUncertain) as caught:
+                    process_batch(self.repository, self.transport, self.clock, 1)
+                self.assertNotIn('synthetic private', ''.join(traceback.format_exception(caught.exception)))
+                self.assertNotIn('101', repr(self.transport.send.return_value))
+                self.transport.send.assert_called_once()
+                self.repository.finish.assert_called_once()
+
+    def test_invalid_transport_receipt_is_quarantined_without_replay(self):
+        self.transport.send.return_value = {'message_id': 12, 'chat_id': 101}
+        with self.assertRaises(DeliveryUncertain):
+            process_batch(self.repository, self.transport, self.clock, 1)
+        self.repository.finish.assert_called_once_with(
+            self.repository.claim.return_value[0], 'uncertain', self.clock())
+        self.transport.send.assert_called_once()
+
+    def test_receipt_rejects_non_integer_zero_and_out_of_range_identifiers(self):
+        for chat, message in ((True, 1), (0, 1), (101, False), (101, 0),
+                              (101, -1), (2**63, 1), (101, 2**63)):
+            with self.subTest(chat=chat, message=message), self.assertRaises(ValueError):
+                DeliveryReceipt(chat, message)
 
     def test_invalid_batch_rejected_before_claim(self):
         for limit in (0, 101, True, None):

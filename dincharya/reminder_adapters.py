@@ -1,10 +1,10 @@
 """Single-owner reminder adapters. Importing this module opens no connections."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime
 import json
 from uuid import UUID
 
-from dincharya.reminders import Claim, NotAccepted
+from dincharya.reminders import Claim, DeliveryReceipt, NotAccepted
 
 
 @dataclass(frozen=True)
@@ -15,6 +15,8 @@ class QuarantinedReminder:
     attempts: int
     due_at: datetime | None
     claimed_at: datetime | None
+    has_receipt: bool
+    observation_version: str = field(repr=False)
 
 
 class PostgresReminders:
@@ -61,12 +63,21 @@ class PostgresReminders:
         return [Claim(delivery_id, str(worker_token), payload)
                 for delivery_id, worker_token, payload in rows]
 
-    def finish(self, claim, outcome, now):
+    def finish(self, claim, outcome, now, *, receipt=None):
+        if receipt is not None and (outcome != 'sent' or not isinstance(receipt, DeliveryReceipt)):
+            raise ValueError('Invalid delivery receipt')
         with self.connect() as connection:
-            row = connection.execute(
-                'SELECT public.finish_occurrence_reminder(%s,%s,%s,%s)',
-                (claim.delivery_id, UUID(claim.worker_token), outcome, now),
-            ).fetchone()
+            if receipt is None:
+                row = connection.execute(
+                    'SELECT public.finish_occurrence_reminder(%s,%s,%s,%s)',
+                    (claim.delivery_id, UUID(claim.worker_token), outcome, now),
+                ).fetchone()
+            else:
+                row = connection.execute(
+                    'SELECT public.acknowledge_occurrence_reminder(%s,%s,%s,%s,%s,%s)',
+                    (claim.delivery_id, UUID(claim.worker_token), outcome, now,
+                     receipt.chat_id, receipt.message_id),
+                ).fetchone()
         return row[0]
 
     def list_quarantined(self, *, after_id=0, limit=20):
@@ -79,12 +90,18 @@ class PostgresReminders:
                 or type(after_id) is not int or not 0 <= after_id < 2**63):
             raise ValueError('Invalid quarantine page bounds')
         with self.connect() as connection:
-            rows = connection.execute(
-                'SELECT id,event_id,occurrence_date,attempts,due_at,claimed_at '
-                'FROM public.reminder_deliveries '
-                "WHERE managed_by='m2e' AND status='uncertain' AND id>%s "
-                'ORDER BY id LIMIT %s', (after_id, limit),
-            ).fetchall()
+            # Explicit transaction also enforces these settings on autocommit clients.
+            with connection.transaction():
+                connection.execute('SET TRANSACTION READ ONLY')
+                connection.execute("SET LOCAL TIME ZONE 'UTC'")
+                rows = connection.execute(
+                    'SELECT d.id,d.event_id,d.occurrence_date,d.attempts,d.due_at,d.claimed_at, '
+                    '(d.telegram_chat_id IS NOT NULL AND d.telegram_message_id IS NOT NULL), '
+                    "encode(sha256(convert_to(to_jsonb(d)::text,'UTF8')),'hex') "
+                    'FROM public.reminder_deliveries d '
+                    "WHERE d.managed_by='m2e' AND d.status='uncertain' AND d.id>%s "
+                    'ORDER BY d.id LIMIT %s', (after_id, limit),
+                ).fetchall()
         return [QuarantinedReminder(*row) for row in rows]
 
 
@@ -117,6 +134,14 @@ class TelegramReminders:
         if (response.status_code != 200 or body.get('ok') is not True
                 or not isinstance(result, dict) or type(result.get('message_id')) is not int):
             raise RuntimeError('Telegram acknowledgement unavailable')
+        chat = result.get('chat')
+        if (not isinstance(chat, dict) or type(chat.get('id')) is not int
+                or chat['id'] != self.owner_id):
+            raise RuntimeError('Telegram destination acknowledgement unavailable')
+        try:
+            return DeliveryReceipt(chat['id'], result['message_id'])
+        except ValueError:
+            raise RuntimeError('Telegram acknowledgement unavailable') from None
 
 
 def parse_reminder(arguments, now):

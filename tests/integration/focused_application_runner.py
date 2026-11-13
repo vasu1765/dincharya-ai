@@ -15,18 +15,20 @@ sys.path[:0] = [str(ROOT), str(ROOT / 'scripts')]
 from database.migrate import render_migrations
 from source_sync import validate_schema
 from legacy_boundary_checks import concurrent_legacy_boundary
+from adversarial_checks import adversarial_decisions, concurrent_receipt
 
 MIGRATIONS = ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql',
-              '0003_managed_legacy_boundary.sql')
+              '0003_managed_legacy_boundary.sql', '0004_telegram_receipts.sql')
 CASES = ('legacy_coexistence.sql', 'legacy_managed_boundary.sql', 'reminder_recovery.sql',
-         'legacy-concurrency')
+         'legacy-concurrency', 'gregorian_adversarial.sql', 'telegram_receipts.sql',
+         'adversarial-concurrency', 'receipt-concurrency')
 
 
 def execute(baseline, expected_daemon, cases):
     require(baseline.is_file() and not baseline.is_symlink(), 'Explicit regular schema file required')
     require(bool(cases) and all(case in CASES for case in cases), 'Unknown focused test case')
     require(len(cases) == len(set(cases)), 'Duplicate focused cases are not allowed')
-    require('legacy-concurrency' not in cases[:-1], 'Run the committing concurrency case last')
+    require(not any(case.endswith('-concurrency') for case in cases[:-1]), 'Run the committing concurrency case last')
     with tempfile.TemporaryDirectory(prefix='dincharya-focused-sql-') as directory:
         env = client_environment(os.environ, directory)
         docker = ['docker', '--config', directory, '--host', ENDPOINT]
@@ -86,18 +88,41 @@ def execute(baseline, expected_daemon, cases):
                 return sql("SELECT proowner,proacl,prosecdef,proconfig,provolatile,proparallel "
                            "FROM pg_proc WHERE oid='" + sig + "'::regprocedure")
             attributes = {sig: properties(sig) for sig in signatures}
+            sql(render_migrations([ROOT / 'database/migrations' / name for name in MIGRATIONS[:-1]]))
+            old_ack = sql("SELECT prosrc FROM pg_proc WHERE oid='public.finish_occurrence_reminder(bigint,uuid,text,timestamp with time zone)'::regprocedure")
+            historical_event = None
+            if any('receipt' in case for case in cases):
+                historical_event = int(sql("INSERT INTO public.schedule_events(title,start_time,recurrence,event_date) "
+                    "VALUES('Synthetic historical receipt','08:00','once','2000-01-01') RETURNING id").splitlines()[0])
+                sql(f"INSERT INTO public.reminder_deliveries(event_id,occurrence_date,status) VALUES({historical_event},'2000-01-01','sent')")
+                old_history = sql(f'SELECT to_jsonb(d) FROM public.reminder_deliveries d WHERE event_id={historical_event}')
             sql(render_migrations([ROOT / 'database/migrations' / name for name in MIGRATIONS]))
+            require(old_ack == sql("SELECT prosrc FROM pg_proc WHERE oid='public.finish_occurrence_reminder(bigint,uuid,text,timestamp with time zone)'::regprocedure"),
+                    'Original acknowledgement API changed')
+            if historical_event is not None:
+                require(old_history == sql("SELECT to_jsonb(d)-'telegram_chat_id'-'telegram_message_id' "
+                    f'FROM public.reminder_deliveries d WHERE event_id={historical_event}'), 'Historical ledger changed on upgrade')
+                require(sql(f'SELECT telegram_chat_id IS NULL AND telegram_message_id IS NULL FROM public.reminder_deliveries WHERE event_id={historical_event}') == 't',
+                        'Historical receipt invented')
+                sql(f'DELETE FROM public.reminder_deliveries WHERE event_id={historical_event}; '
+                    f'DELETE FROM public.recurrence_rules WHERE event_id={historical_event}; '
+                    f'DELETE FROM public.schedule_events WHERE id={historical_event}')
+                print('PASS incremental receipt upgrade preserves historical row and nullable IDs', flush=True)
             require(sql('SELECT version FROM public.application_migration_ledger ORDER BY version').splitlines()
                     == list(MIGRATIONS), 'Migration ledger mismatch')
             for sig in signatures:
                 require(bodies[sig] in sql("SELECT prosrc FROM pg_proc WHERE oid='" + sig + "'::regprocedure")
                         and properties(sig) == attributes[sig], 'Legacy body or function properties changed')
             require(baseline.read_bytes() == raw, 'Authorized schema input changed')
-            print('PASS pinned daemon/image, no-network isolation, fresh DB, three migrations and preserved legacy contracts', flush=True)
+            print('PASS pinned daemon/image, no-network isolation, fresh DB, four migrations and preserved legacy contracts', flush=True)
             for case in cases:
                 print('RUN focused case: ' + case, flush=True)
                 if case == 'legacy-concurrency':
                     concurrent_legacy_boundary(sql)
+                elif case == 'adversarial-concurrency':
+                    adversarial_decisions(sql)
+                elif case == 'receipt-concurrency':
+                    concurrent_receipt(sql)
                 else:
                     require(sql((ROOT / 'tests/sql' / case).read_text()).endswith('ROLLBACK'),
                             'Focused SQL did not roll back')

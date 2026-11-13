@@ -20,10 +20,17 @@ Select only needed cases with tests/integration/focused_application_runner.py:
 python3 -B tests/integration/focused_application_runner.py --baseline EXACT_AUTHORIZED_SCHEMA --expected-daemon-id OPERATOR_PIN --case legacy_managed_boundary.sql --execute-approved
 ```
 
-This runs PostgreSQL only, applies all three migrations, has no network/ports/host
+New receipt/adversarial cases are gregorian_adversarial.sql, telegram_receipts.sql,
+adversarial-concurrency and receipt-concurrency. They test the remaining targeted
+API argument/authorization/staleness races and nullable receipt upgrade, atomic
+acknowledgement, rollback and duplicate prevention. Receipt cases seed an old
+historical row before migration 0004, verify it is unchanged, then remove only
+that synthetic setup fixture before running the selected assertions.
+
+This runs PostgreSQL only, applies all four migrations, has no network/ports/host
 mounts, prints no raw schema/errors/credentials and verifies cleanup. The three
 SQL scripts roll back their fixtures.
-Run legacy-concurrency last when selecting multiple cases; duplicate selections
+Run one concurrency case last when selecting multiple cases; duplicate selections
 are rejected before Docker starts. The original integration runner includes
 these scripts for a future justified full application run; it was not rerun here.
 See docs/M2_COMPATIBILITY_RECOVERY_RESULTS.md for observed evidence and limits.
