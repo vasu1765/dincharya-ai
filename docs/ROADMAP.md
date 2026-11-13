@@ -96,3 +96,15 @@ Its [PostgreSQL mapping proposal](M2F_POSTGRESQL_DESIGN.md) is ready for owner
 review, with finite synthetic acceptance and explicit architecture/policy gates.
 No database implementation/execution or scheduling adoption follows automatically.
 Full Milestone2 still includes advance reminders and operational acceptance.
+
+## Current synthetic lunar PostgreSQL implementation
+
+Owner authorized source/offline implementation after pushed design81acd6a.
+[Implementation/results](M2F_POSTGRESQL_RESULTS.md) on
+ development/m2f-postgres-integration includes additive0006, native one-off
+projections, trusted authorization, atomic approval/audit and T00–T26 harness.
+19 focused offline tests pass; no database/container execution yet. Next is separate
+owner authorization for disposable acceptance. Prior “design approval”/“no schema
+implementation” notes are historical, not a remaining routine coding gate.
+Full scheduling/model adoption, advance slots and operational acceptance remain
+incomplete. No production, workflows, Telegram or other orchestrator is enabled.

@@ -35,6 +35,8 @@ class FocusedRunnerTests(unittest.TestCase):
                     (source, ['legacy-concurrency', 'legacy_coexistence.sql']),
                     (source, ['restart-recovery', 'reminder_recovery.sql']),
                     (source, ['reconciliation', 'restart-recovery']),
+                    (source, ['lunar', 'reminder_recovery.sql']),
+                    (source, ['lunar', 'lunar']),
                 ):
                     with self.subTest(cases=cases), self.assertRaises(focused.Failure):
                         focused.execute(baseline, 'synthetic', cases)
@@ -45,8 +47,9 @@ class FocusedRunnerTests(unittest.TestCase):
             source = Path(directory) / 'synthetic.sql'
             source.write_text('SELECT 1;')
             result = subprocess.CompletedProcess([], 0, json.dumps({'ID': 'wrong'}), '')
-            with patch.object(focused.subprocess, 'run', return_value=result) as command:
-                with self.assertRaises(focused.Failure):
-                    focused.execute(source, 'synthetic', ['legacy-concurrency'])
-            command.assert_called_once()
-            self.assertEqual(command.call_args.args[0][-3:], ['info', '--format', '{{json .}}'])
+            for cases in (['legacy-concurrency'], ['lunar']):
+                with patch.object(focused.subprocess, 'run', return_value=result) as command:
+                    with self.assertRaises(focused.Failure):
+                        focused.execute(source, 'synthetic', cases)
+                command.assert_called_once()
+                self.assertEqual(command.call_args.args[0][-3:], ['info', '--format', '{{json .}}'])

@@ -137,13 +137,17 @@ persistent schema/identity/slot/notification integration is authorized now. n8n
 and existing approval/lease/receipt/quarantine safeguards remain unchanged. Stop
 at isolated feasibility; 2B/private access and production remain blocked/gated.
 
-## Current 2F persistence design checkpoint
+## Current 2F PostgreSQL implementation checkpoint
 
-Offline memory contract pushed at `0304de6` on development/m2f-memory-contract.
-[PostgreSQL design](M2F_POSTGRESQL_DESIGN.md) now specifies reusable native once
-projections, proposed metadata/auth/API/locking, history preservation, risk matrix
-and T00–T26 synthetic acceptance. This is design only; no migrations/runtime tests.
-Next gate: owner approval of mapping, identity/auth, replacement/cancellation and
-limited one-at-event synthetic test scope; then separately authorize database
-execution. Advance slots, astronomical adoption,2B provenance and operational
-acceptance remain outstanding. Do not begin another orchestrator.
+Memory contract pushed0304de6 and design81acd6a; owner authorized implementation
+on development/m2f-postgres-integration. Additive0006, opt-in Python adapter and
+finite T00–T26 runner implement the native once-projection seam with six metadata
+records (audit includes approved revisions). See [results](M2F_POSTGRESQL_RESULTS.md).
+
+Offline19 tests pass; database runtime/grammar/ACL/race evidence remains pending.
+**Next gate is explicit authorization for isolated PostgreSQL/Docker acceptance**,
+not more routine coding approval. No engine adoption, live scheduling or workflow
+activation. Advance slots, astronomical acceptance,2B provenance and operational
+acceptance remain outstanding; do not begin another orchestrator. Earlier design
+and research paragraphs are historical scope records, superseded by D21 only for
+this synthetic implementation; production and actual database execution stay gated.

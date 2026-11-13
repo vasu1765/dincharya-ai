@@ -64,3 +64,19 @@ effective credential-safe logging settings and SCRAM negative authentication.
 Reconciliation cases run individually. Successful existing acceptance should not
 be repeated without a relevant change. No Telegram API call occurs. See
 ../../docs/M2_RECONCILIATION_RESULTS.md for observed results and limitations.
+
+## 0006 — isolated lunar approval integration (not yet executed)
+
+0006_synthetic_lunar_approval.sql adds six private identity/provenance/authority/
+audit tables and scoped lunar_api functions over existing Gregorian once events.
+Approved revisions share immutable action audit snapshots; existing requests and
+reminder ledger are reused. Installation requires synthetic_test/dincharya_app_test;
+profiles and trusted principals need deliberate synthetic fixture provisioning.
+No worker/receipt/generator bodies or older migration bytes change. Mapped-event
+mutation guards, limited legacy/dispatcher wrappers and synthetic-only ACL lockdown
+are additive; not a production privilege rollout or astronomical engine adoption.
+
+Only `--case lunar` in the focused runner appends0006; previous selections keep
+0001–0005. The19 offline checks pass; T00–T26 runtime assertions await separate
+execution authorization. See [results](../../docs/M2F_POSTGRESQL_RESULTS.md) for
+exact gated command and limitations. Do not run this against an existing service.

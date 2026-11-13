@@ -19,6 +19,7 @@ from legacy_boundary_checks import concurrent_legacy_boundary
 from adversarial_checks import adversarial_decisions, concurrent_receipt
 from reconciliation_checks import run_reconciliation, ACTORS
 from recovery_checks import restart_recovery
+from lunar_checks import run_lunar, ACTORS as LUNAR_ACTORS
 
 MIGRATIONS = ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql',
               '0003_managed_legacy_boundary.sql', '0004_telegram_receipts.sql',
@@ -27,7 +28,7 @@ CASES = ('legacy_coexistence.sql', 'legacy_managed_boundary.sql', 'reminder_reco
          'legacy-concurrency', 'gregorian_adversarial.sql', 'telegram_receipts.sql',
          'adversarial-concurrency', 'receipt-concurrency', 'reconciliation', 'reconciliation-concurrency',
          'reconciliation-review', 'restart-recovery',
-         'gregorian_calendar_acceptance.sql', 'gregorian_series_acceptance.sql')
+         'gregorian_calendar_acceptance.sql', 'gregorian_series_acceptance.sql', 'lunar')
 
 
 def execute(baseline, expected_daemon, cases):
@@ -38,6 +39,9 @@ def execute(baseline, expected_daemon, cases):
     require(not any(case.startswith('reconciliation') for case in cases) or len(cases)==1,
             'Run synthetic reconciliation cases individually')
     require('restart-recovery' not in cases or len(cases)==1, 'Run restart recovery individually')
+    require('lunar' not in cases or cases == ['lunar'], 'Run synthetic lunar acceptance individually')
+    actors = (*ACTORS, *LUNAR_ACTORS) if cases == ['lunar'] else ACTORS
+    migrations = (*MIGRATIONS, '0006_synthetic_lunar_approval.sql') if cases == ['lunar'] else MIGRATIONS
     with tempfile.TemporaryDirectory(prefix='dincharya-focused-sql-') as directory:
         env = client_environment(os.environ, directory)
         docker = ['docker', '--config', directory, '--host', ENDPOINT]
@@ -61,11 +65,11 @@ def execute(baseline, expected_daemon, cases):
                             '-U', 'synthetic_test', '-d', 'dincharya_app_test'], statement)
 
         def actor_sql(actor, statement, expected_state=None):
-            require(actor in (*ACTORS,'synthetic_test'), 'Unapproved synthetic actor')
+            require(actor in (*actors,'synthetic_test'), 'Unapproved synthetic actor')
             actor_env = dict(env)
             auth_args = []
             exec_args = ['exec','-i']
-            if actor in ACTORS:
+            if actor in actors:
                 actor_env['PGPASSWORD'] = secrets.token_hex(24) if expected_state=='AUTH' else actor_passwords[actor]
                 exec_args += ['-e','PGPASSWORD']
                 auth_args = ['-h','127.0.0.1','-w']
@@ -86,7 +90,7 @@ def execute(baseline, expected_daemon, cases):
             return result.stdout.strip()
 
         def provision_actor(actor):
-            require(actor in ACTORS,'Unapproved synthetic actor')
+            require(actor in actors,'Unapproved synthetic actor')
             actor_passwords[actor] = secrets.token_hex(24)
             # Separate the SQL literal from its template; no source credential.
             credential_literal = "'" + actor_passwords[actor].replace("'", "''") + "'"
@@ -104,7 +108,7 @@ def execute(baseline, expected_daemon, cases):
                 '-c', 'log_duration=off', '-c', 'log_transaction_sample_rate=0',
                 '-c', 'log_parameter_max_length=0', '-c', 'log_parameter_max_length_on_error=0']
             launch = [image, 'postgres', *server_options]
-            if cases == ['restart-recovery']:
+            if cases in (['restart-recovery'], ['lunar']):
                 # Keep the container/tmpfs alive when the disposable postmaster
                 # stops. Never restart the container or use a persistent volume.
                 launch = [image, 'bash', '-c',
@@ -154,7 +158,7 @@ def execute(baseline, expected_daemon, cases):
                     "VALUES('Synthetic historical receipt','08:00','once','2000-01-01') RETURNING id").splitlines()[0])
                 sql(f"INSERT INTO public.reminder_deliveries(event_id,occurrence_date,status) VALUES({historical_event},'2000-01-01','sent')")
                 old_history = sql(f'SELECT to_jsonb(d) FROM public.reminder_deliveries d WHERE event_id={historical_event}')
-            sql(render_migrations([ROOT / 'database/migrations' / name for name in MIGRATIONS]))
+            sql(render_migrations([ROOT / 'database/migrations' / name for name in migrations]))
             require(old_ack == sql("SELECT prosrc FROM pg_proc WHERE oid='public.finish_occurrence_reminder(bigint,uuid,text,timestamp with time zone)'::regprocedure"),
                     'Original acknowledgement API changed')
             if historical_event is not None:
@@ -167,15 +171,22 @@ def execute(baseline, expected_daemon, cases):
                     f'DELETE FROM public.schedule_events WHERE id={historical_event}')
                 print('PASS incremental receipt upgrade preserves historical row and nullable IDs', flush=True)
             require(sql('SELECT version FROM public.application_migration_ledger ORDER BY version').splitlines()
-                    == list(MIGRATIONS), 'Migration ledger mismatch')
+                    == list(migrations), 'Migration ledger mismatch')
             for sig in signatures:
                 require(bodies[sig] in sql("SELECT prosrc FROM pg_proc WHERE oid='" + sig + "'::regprocedure")
                         and properties(sig) == attributes[sig], 'Legacy body or function properties changed')
             require(baseline.read_bytes() == raw, 'Authorized schema input changed')
-            print(f'PASS pinned daemon/image, no-network isolation, fresh DB, {len(MIGRATIONS)} migrations and preserved legacy contracts', flush=True)
+            print(f'PASS pinned daemon/image, no-network isolation, fresh DB, {len(migrations)} migrations and preserved legacy contracts', flush=True)
             for case in cases:
                 print('RUN focused case: ' + case, flush=True)
-                if case == 'legacy-concurrency':
+                if case == 'lunar':
+                    def lunar_restart():
+                        command(['exec','-u','postgres',container,'pg_ctl','-D','/var/lib/postgresql/data',
+                                 '-w','-t','30','stop','-m','immediate'])
+                        command(['exec','-u','postgres',container,'pg_ctl','-D','/var/lib/postgresql/data',
+                                 '-w','-t','30','start','-l','/dev/null','-o',' '.join(server_options)])
+                    run_lunar(sql, actor_sql, provision_actor, lunar_restart)
+                elif case == 'legacy-concurrency':
                     concurrent_legacy_boundary(sql)
                 elif case == 'adversarial-concurrency':
                     adversarial_decisions(sql)

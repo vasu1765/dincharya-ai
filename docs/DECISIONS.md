@@ -291,3 +291,26 @@ never-attempted replacement and cancellation tombstones are proposals requiring
 approval. The first-test one-at-event reminder limit requires explicit approval
 and does not reduce full Milestone2 advance-reminder requirements. No engine
 adoption, migrations, private source access, workflow/delivery or deployment.
+
+## D21 — Synthetic lunar PostgreSQL implementation authorized, execution gated
+
+The owner supersedes D20's implementation gate: implement persistence, trusted
+owner authorization, atomic approvals, reviewed replacement/cancel, immutable
+history and T00–T26 harness autonomously, completing offline checks first. Stop
+before PostgreSQL connections or container execution. Branch is
+`development/m2f-postgres-integration`; database/production access is not inferred.
+
+Use native Gregorian once projections and the existing worker/ledger. Six tables
+are sufficient: combine approved revisions and action audit into one append-only
+snapshot log; pending requests remain in schedule_change_requests. Trust separate
+login OID/name principals, not caller IDs; all APIs are synthetic-only and disabled
+without fixture provisioned principals/profiles. Conservative never-attempted
+replacement, immutable key/projection IDs, no restore/resend, and bounded atomic
+series cancellation implement the reviewed design. Profile descriptors are
+immutable SHA-256-bound JSONB. Existing migration bytes stay unchanged.
+
+One at-event reminder is this isolated acceptance seam; advance/multiple slots
+remain required for full Milestone2. Changes to projected identity interpretation
+require a future explicit mapping policy and currently reject. No production ACL
+rollout, engine adoption, workflow/Telegram activation, deployment or main merge.
+See [results and exact pending execution](M2F_POSTGRESQL_RESULTS.md).

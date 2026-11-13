@@ -1,6 +1,13 @@
 # Milestone 2F — PostgreSQL mapping, authorization and transaction proposal
 
-**Design/review only. No schema, SQL behavior or integration is implemented here.**
+**Historical design proposal (pushed81acd6a).** The subsequent owner instruction
+now authorizes implementation and offline verification on
+`development/m2f-postgres-integration`; database/container execution is still gated.
+See [implementation/results](M2F_POSTGRESQL_RESULTS.md) for the additive0006,
+six-table refinement (approved revisions share the append-only action audit),
+implemented API and pending T00–T26 runtime evidence. Proposed gates below describe
+the original design review, not a claim that implementation is still forbidden.
+No scheduling-engine adoption or production approval follows.
 Base `0304de6a5ee140c313eb4aae6c2d18a35b0e7e99` on
 `development/m2f-memory-contract`; entry tree clean, HEAD/tracking/GitHub confirmed,
 no open PR. The owner authorizes this design, not PostgreSQL connections, migrations,

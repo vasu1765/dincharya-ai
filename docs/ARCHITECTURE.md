@@ -173,14 +173,22 @@ This implements the previous proposed offline seam only, not the live diagram or
 SQL architecture. PostgreSQL mapping/auth/transaction/locking review remains a
 separate approval gate; no migration or n8n/Telegram change is included.
 
-## Proposed lunar PostgreSQL mapping — review only
+## Isolated lunar PostgreSQL implementation — runtime acceptance pending
 
-The [PostgreSQL design](M2F_POSTGRESQL_DESIGN.md) proposes immutable lunar metadata
-projected into existing managed Gregorian once events, one per approved logical
-occurrence. Existing generator, conflicts, reminder ledger, leases and worker are
-reused. Proposed trusted identity, mapped-event write barriers and shared-lock
-coordinator atomically approve/materialize; terminal history cannot be replaced.
-Seven proposed metadata tables and the API are not implemented or adopted. Initial
-synthetic acceptance would cover one at-event reminder; advance slots still need
-design. Owner architectural/policy approval and separate database execution
-authorization are required. No live architecture, workflow or schema changes.
+The owner authorized the [mapping implementation](M2F_POSTGRESQL_RESULTS.md),
+based on the [reviewed design](M2F_POSTGRESQL_DESIGN.md). Additive0006 projects each
+approved logical lunar occurrence into one existing managed Gregorian once event.
+Six private tables retain identities/provenance/authority; immutable actions also
+hold approved revisions, avoiding a duplicate revision table. Existing native
+requests, generator, conflict decision, ledger, worker and receipts are reused.
+
+Trusted database session identity, scoped non-login executor, mapped-event guards,
+shared scheduler mutex and immutable review fingerprints gate atomic approval and
+projection. Never-attempted replacement preserves event ID; cancellations retain
+tombstones and terminal history. Series cancel uses an explicit bounded manifest.
+No separate scheduler/worker or change to n8n. One at-event reminder is the initial
+synthetic seam; full advance/multiple-slot support remains outstanding.
+
+Implementation and mocked/offline checks are complete at this checkpoint; SQL has
+NOT been installed/compiled/executed. T00–T26 harness execution requires separate
+owner authorization. No production auth rollout, model adoption or live scheduling.
