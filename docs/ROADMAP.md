@@ -15,8 +15,10 @@ orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
 2D synthetic recurrence/API acceptance is pushed at `cb6fdd7`; 2F design at
 `9524757`. The owner then authorized an isolated offline Skyfield/DE440s feasibility
 prototype, not final adoption or integration. [Feasibility results](M2F_FEASIBILITY_RESULTS.md)
-record 11 focused test passes, resource measurements, two outside-threshold Drik
-tithi comparisons and unsupported exact Lahiri/month/annual rules. No calendar
+record the pushed prototype at 6f1f0b7 and current 23-test focused validation.
+Nine coordinate hypotheses do not resolve the failed Drik timing gate. Selected
+explicit Lahiri/PAC ingress/Amanta research agrees, but broader month validation,
+Purnimanta, Kshaya and annual rules remain unsupported. No calendar
 release or persistent scheduling claim; no unrelated accepted suites were rerun.
 The owner profile remains neutral: future verified festivals should consolidate
 labelled Smarta/Vaishnava dates rather than assign a sampradaya. Festival rules,

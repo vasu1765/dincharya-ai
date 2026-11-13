@@ -10,8 +10,8 @@ explicitly raise Unsupported. No persistent schedule or reminder API exists.
 
 ## Pinned environment and public assets
 
-Tested: Linux x86_64, CPython 3.12.3. requirements.txt pins **all five transitive
-packages and the exact downloaded wheel hashes**; numpy/sgp4 wheels are specific
+Tested: Linux x86_64, CPython 3.12.3. requirements.txt pins **all six reviewed
+packages (including research-only pyerfa) and the exact downloaded wheel hashes**; numpy/sgp4 wheels are specific
 to CPython 3.12/Linux x86_64. This is not a cross-platform lock. Do not silently
 substitute another build. Package versions, filenames, wheel hashes, DE440s
 source/size/hash and bundled timescale/nutation hashes are in ephemeris.json.
@@ -74,7 +74,7 @@ identical input/version/profile; timing/RSS vary. Solving the same boundary from
 different brackets can differ by less than the declared 0.05-second bracket.
 
 feasibility-results.json is the sanitized recorded run, including public numeric
-comparisons and measured performance, not a private capture. Eleven test passes
+comparisons and measured performance, not a private capture. The original eleven test passes
 mean scoped code/regression checks; they do **not** turn the two failed independent
 tithi comparisons into passes. Sunrise's single rounded reference is numerically
 close but its exact coordinates/model are unconfirmed. Annual lunar dates are
@@ -86,3 +86,34 @@ or future UTC accuracy. Monthly preview is bounded to 366 days and may reject
 edge windows whose supporting sunrise dates leave the accepted range. Public
 fixtures contain no personal birth/schedule data. All sampradaya/festival choices
 remain research labels; no owner religious identity is inferred.
+
+## Focused validation follow-up
+
+Latest research baseline is pushed at 6f1f0b7 on
+`development/m2f-skyfield-feasibility`. Run the same focused test command above
+(23 tests), then the new offline comparison runner:
+
+```bash
+OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m prototypes.panchang.validation \
+  --ephemeris /EXTERNAL/PUBLIC/de440s.bsp
+```
+
+Exit 2 intentionally retains failed scheduling adoption. See validation-results.json
+and research-references.json for all nine coordinate hypotheses, mixed additional
+tithi evidence and selected explicit Lahiri/Amanta research checks. Original
+references.json and feasibility-results.json are preserved historical evidence.
+The ERFA experiment is separate from the default astronomy calculation; no Swiss
+library/code is included. Public month_label/annual_preview still raise Unsupported.
+The PDF research parser is not a runtime requirement and publications remain external.
+
+Raw point computations use 1900–2100 UTC; complete returned intervals must also
+lie wholly in that range. Only transition/preview end parameters accept the 2101
+exclusive end sentinel. Internal padding never authorizes outside calendar claims.
+Raw tithi_at is a point estimate; interval, month-boundary and transition-search
+endpoint membership within 0.1 s of solved boundaries rejects as numerically
+ambiguous. Existing 120 s review and 60 s external accuracy gates are unchanged.
+Jan 1, 1900 sunrise computes but its straddling interval rejects. Jan 2, 1900 and
+Dec 31, 2100 monthly previews have focused passing fixtures; partial edge intervals
+reject. Neither endpoint computability nor selected month evidence is global
+astronomical accuracy certification.

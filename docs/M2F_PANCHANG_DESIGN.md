@@ -2,8 +2,9 @@
 
 Status: **isolated Skyfield/DE440s feasibility authorized; final engine adoption,
 festival rules and persistent integration are not authorized**. The Phase 1 design
-was pushed at `952475720e1990f635eed7f1710b123018262db0`; this checkpoint entered
-clean on development/m2-recovery-acceptance. See
+was pushed at `952475720e1990f635eed7f1710b123018262db0`; the prototype is now
+pushed at `6f1f0b7` on development/m2f-skyfield-feasibility. The follow-up entered
+clean on that branch. See
 [measured feasibility results](M2F_FEASIBILITY_RESULTS.md) for implemented scope,
 failed reference comparisons, unsupported month/annual-rule paths and next gates.
 Original recommendations below are historical proposals where superseded by the
@@ -28,11 +29,16 @@ owner decisions in the next section; do not infer approval for storage changes.
   and delivery safeguards remain. No migration, persistent scheduling, slot/job
   integration, private access, live send or deployment is authorized.
 
-Prototype checkpoint: 11 focused tests passed; NASA phase comparisons within the
-provisional 60-second threshold, but two Drik endpoints differ by about 86/76
-seconds. Physical month boundaries and a known intercalary period were studied;
-exact Lahiri, named-month conversion/general Adhika/Kshaya and annual anniversaries
-are unsupported. CLI returns feasibility incomplete, never usable for scheduling.
+Current validation checkpoint: 23 focused tests pass, including stricter numerical
+and 1900/2100 boundaries. Nine coordinate hypotheses leave the +85.886/+75.668 s
+Drik discrepancies unexplained; the 60-second gate remains failed. New USNO/IMD
+comparisons pass selected cases; a second publisher adds another timing mismatch.
+An explicit ERFA IAU1976/1980 epoch-anchored Lahiri candidate agrees with selected
+vendor epoch values, four PAC ingresses and three 2023 Amanta cases including
+Adhika Shravana. This limited research does not enable general names, Purnimanta
+conversion, Kshaya, annual dates or scheduling. Independent precise epoch data,
+multi-year validation and matched sunrise metadata remain gates. See the results
+report for exact sources, provenance and limitations. Stop for further review.
 
 ## Scope and requirements
 

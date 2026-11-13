@@ -33,7 +33,10 @@ class Unsupported(ValueError):
 def aware(value):
     if not isinstance(value, datetime) or value.tzinfo is None or value.utcoffset() is None:
         raise Unsupported('An explicit timezone-aware instant is required')
-    value = value.astimezone(UTC)
+    try:
+        value = value.astimezone(UTC)
+    except (ValueError,OverflowError):
+        raise Unsupported('Unsupported instant conversion') from None
     if not MINIMUM <= value < MAXIMUM:
         raise Unsupported('Supported instant range is 1900 through 2100 UTC')
     return value
@@ -116,7 +119,12 @@ class Astronomy:
 
     def _elongation(self, tt):
         sun, moon = self._longitudes(tt)
-        return (moon - sun) % 360
+        result = (moon - sun) % 360
+        # Floating modulo of a tiny negative number can round UP to 360.
+        # Do not return ordinal 31 or silently choose a side of that boundary.
+        if not np.all(np.isfinite(result)) or np.any(result<0) or np.any(result>=360):
+            raise Unsupported('Elongation is nonfinite or indistinguishable from wrap')
+        return result
 
     def elongation(self, instant):
         return float(self._elongation(self.ts.from_datetime(aware(instant)).tt))
@@ -131,9 +139,14 @@ class Astronomy:
         DE440s. Six-hour samples must bracket exactly one or zero transitions.
         """
         first, last = self.ts.from_datetime(start).tt, self.ts.from_datetime(end).tt
+        if last<=first:
+            raise Unsupported('Search interval is below timescale precision')
         samples = np.linspace(first, last, max(2, math.ceil((last-first)*4)+1))
         phases = self._elongation(samples)
         bins = np.floor(phases / 12).astype(int)
+        advance = np.diff(phases) % 360
+        if np.any(advance<=0) or np.any(advance>=12):
+            raise Unsupported('Ambiguous six-hour sample motion')
         jumps = (np.diff(bins) % 30)
         if np.any(jumps > 1):
             raise Unsupported('Ambiguous transition bracket')
@@ -150,22 +163,41 @@ class Astronomy:
                 for t, l, target in zip(high, low, targets)]
 
     def transitions(self, start, end):
+        """Transitions in (start,end], allowing MAXIMUM only as end sentinel."""
         start = aware(start)
         if not isinstance(end, datetime) or end.tzinfo is None or end.utcoffset() is None:
             raise Unsupported('An explicit timezone-aware interval is required')
-        end = end.astimezone(UTC)
+        try:
+            end = end.astimezone(UTC)
+        except (ValueError,OverflowError):
+            raise Unsupported('Unsupported interval endpoint') from None
         if not start < end <= MAXIMUM or end-start > timedelta(days=370):
             raise Unsupported('Transition interval must be ordered, supported and at most 370 days')
-        return self._transitions(start, end)
+        # Search endpoint membership is also ambiguous within solver precision.
+        # Inspect tiny internal pads; never expose them as public calendar claims.
+        for endpoint in (start,end):
+            nearby=self._transitions(endpoint-timedelta(seconds=.2),endpoint+timedelta(seconds=.2))
+            if any(abs((datetime.fromisoformat(r['at'])-endpoint).total_seconds())<=.1 for r in nearby):
+                raise Unsupported('Search endpoint is inside numerical transition uncertainty')
+        return [row for row in self._transitions(start,end)
+                if start<datetime.fromisoformat(row['at'])<=end]
+
+    @staticmethod
+    def _complete_bounds(start,end):
+        if not MINIMUM<=start<end<=MAXIMUM:
+            raise Unsupported('Complete interval is outside supported range; padding is not a calendar claim')
 
     def tithi_interval(self, instant):
         instant = aware(instant)
         transitions = self._transitions(instant-timedelta(days=2), instant+timedelta(days=2))
+        if any(abs((datetime.fromisoformat(r['at'])-instant).total_seconds())<=0.1 for r in transitions):
+            raise Unsupported('Instant is inside numerical transition uncertainty')
         before = [row for row in transitions if datetime.fromisoformat(row['at']) <= instant]
         after = [row for row in transitions if datetime.fromisoformat(row['at']) > instant]
         if not before or not after:
             raise Unsupported('Unbracketed tithi interval')
         start, end = before[-1], after[0]
+        self._complete_bounds(datetime.fromisoformat(start['at']),datetime.fromisoformat(end['at']))
         ordinal = self.tithi_at(instant)
         if ordinal != start['ordinal']:
             # A solved transition has finite numerical uncertainty; never return
@@ -178,7 +210,8 @@ class Astronomy:
                     review_required=distance<=self.boundary_guard_seconds)
 
     def sunrise(self, day, model='upper_limb_50'):
-        if type(day) is not date or not 1900 <= day.year <= 2100 or model not in MODELS:
+        if (type(day) is not date or not 1900 <= day.year <= 2100
+                or not isinstance(model,str) or model not in MODELS):
             raise Unsupported('Unsupported civil date or sunrise hypothesis')
         key = (day,model)
         if key not in self._sunrises:
@@ -188,7 +221,7 @@ class Astronomy:
                 horizon_degrees=MODELS[model])
             if len(times)!=1 or not bool(found[0]):
                 raise Unsupported('Missing or ambiguous sunrise')
-            self._sunrises[key] = times[0].utc_datetime()
+            self._sunrises[key] = aware(times[0].utc_datetime())
         return self._sunrises[key]
 
     def at_sunrise(self, day, model='upper_limb_50'):
@@ -205,10 +238,13 @@ class Astronomy:
         ordinal = 1 if convention=='amanta' else 16
         rows = [r for r in self._transitions(instant-timedelta(days=40),instant+timedelta(days=40))
                 if r['ordinal']==ordinal]
+        if any(abs((datetime.fromisoformat(r['at'])-instant).total_seconds())<=.1 for r in rows):
+            raise Unsupported('Instant is inside numerical month-boundary uncertainty')
         before = [r for r in rows if datetime.fromisoformat(r['at'])<=instant]
         after = [r for r in rows if datetime.fromisoformat(r['at'])>instant]
         if not before or not after:
             raise Unsupported('Unbracketed lunar month boundaries')
+        self._complete_bounds(datetime.fromisoformat(before[-1]['at']),datetime.fromisoformat(after[0]['at']))
         return dict(convention=convention,start=before[-1]['at'],end=after[0]['at'],
                     month_name=None,intercalation_status='unsupported_without_validated_ayanamsa')
 
@@ -238,7 +274,7 @@ class Astronomy:
         """Ephemeral personal/generic tithi preview only; no schedule persistence."""
         valid_tithi(ordinal)
         if (type(start_day) is not date or type(end_day) is not date
-                or not 1900 <= start_day.year <= end_day.year <= 2100
+                or not date(1900,1,1)<=start_day<end_day<=date(2101,1,1)
                 or not 0 < (end_day-start_day).days <= 366):
             raise Unsupported('Preview must be ordered and bounded to 366 civil days')
         start = datetime.combine(start_day,datetime.min.time(),DELHI).astimezone(UTC)
@@ -249,10 +285,14 @@ class Astronomy:
             if first['ordinal']!=ordinal:
                 continue
             a,b = datetime.fromisoformat(first['at']),datetime.fromisoformat(last['at'])
+            if b<=start or a>=end:
+                continue
+            self._complete_bounds(a,b)
             dates=[]; nearby=False
-            day=a.astimezone(DELHI).date()-timedelta(days=1)
-            while day<=b.astimezone(DELHI).date()+timedelta(days=1):
-                # Internal search pads may leave public range; fail closed, not extrapolate.
+            day=a.astimezone(DELHI).date()
+            while day<=b.astimezone(DELHI).date():
+                if day>=date(2101,1,1):
+                    break  # This sunrise must be beyond MAXIMUM UTC for Delhi.
                 sunrise=self.sunrise(day)
                 if min(abs((sunrise-a).total_seconds()),abs((sunrise-b).total_seconds()))<=120:
                     nearby=True

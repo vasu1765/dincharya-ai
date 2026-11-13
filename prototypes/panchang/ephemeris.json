@@ -15,7 +15,8 @@
     "jplephem": "2.23",
     "numpy": "2.3.4",
     "sgp4": "2.25",
-    "skyfield": "1.55"
+    "skyfield": "1.55",
+    "pyerfa": "2.0.1.5"
   },
   "wheel_artifacts": [
     {
@@ -37,6 +38,10 @@
     {
       "filename": "skyfield-1.55-py3-none-any.whl",
       "sha256": "9f98964855067460c94aa81a337194136f4a97a62ba8bbbfac1b8556f2b66ad4"
+    },
+    {
+      "filename": "pyerfa-2.0.1.5-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "0e43c7194e3242083f2350b46c09fd4bf8ba1bcc0ebd1460b98fc47fe2389906"
     }
   ],
   "skyfield_data_sha256": {

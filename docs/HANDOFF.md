@@ -3,92 +3,82 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint
+## Current checkpoint — 2F focused validation, stop for review
 
-Entry branch `development/m2-recovery-acceptance`, pushed base `9524757` (full SHA
-952475720e1990f635eed7f1710b123018262db0). Working tree was clean; HEAD and origin
-tracking ref agreed and GitHub confirmed the commit. No open PR found. Earlier
-cb6fdd7-based/uncommitted design instructions are superseded. PR #1 is merged.
+Entry and current branch `development/m2f-skyfield-feasibility`; latest pushed
+commit `6f1f0b72729023d84123891725fd0b018bc1c584`. Entry tree clean; HEAD/tracking
+and GitHub agreed. No open PR found. This supersedes the old 9524757-base branch
+creation instructions. Existing committed prototype is preserved; current changes
+are uncommitted because Git metadata remains read-only. No write/bypass attempted.
 
-Owner D14 authorized an isolated offline Skyfield/DE440s feasibility prototype,
-not final adoption, festivals, persistent scheduling or reminder integration.
-[Prototype README](../prototypes/panchang/README.md) gives exact reproduction;
-[results](M2F_FEASIBILITY_RESULTS.md) distinguish scoped tests from accuracy gates.
+Owner accepted prior prototype as research, **not engine adoption or scheduling**.
+[Validation report](M2F_FEASIBILITY_RESULTS.md) and
+[recorded numeric evidence](../prototypes/panchang/validation-results.json) are current.
+Original references.json and feasibility-results.json remain unchanged.
 
-Implemented: pinned local astronomy dependencies/data, geocentric elongation and
-all tithi transitions, instant/sunrise distinction, two labelled Delhi sunrise
-hypotheses, physical Amanta/Purnimanta boundaries and generic monthly previews.
-Repeated sunrise chooses first once; skipped/near-boundary cases need review.
-Known 2023 intercalary period has zero ingress under three constant-offset
-sensitivity hypotheses, explicitly not exact Lahiri or a month-naming engine.
+- **PASS scoped regressions:** 23 tests, final run 4.531 s. Fixed modulo/wrap,
+  indistinguishable sample motion, numerical endpoint/interval ambiguity,
+  unsupported padded interval exposure, lower/upper preview edges and sanitized
+  bad sunrise-model rejection. Exact/near transitions and 1900/2100 exercised.
+- **FAIL original accuracy:** +85.886/+75.668 s Drik deltas reproduced. Nine
+  apparent/astrometric/geometric and true-date/mean-date/J2000 experiments do not
+  explain them. Original 60-second gate unchanged; no fixture replacement.
+- **Mixed new public evidence:** USNO 1/1 and IMD PAC 3/3 within 60 s; Himalayan
+  Academy 1/2, another -154.138 s mismatch. Metadata/extraction limits recorded.
+- Explicit ERFA-based Lahiri candidate: selected three vendor epoch reproductions
+  within 0.002 arcsecond, four independent PAC ingresses within 27 seconds and
+  three selected Amanta cases (ordinary Chaitra, Adhika/ordinary Shravana) agree.
+  This is limited research, not general month validation. Public month names,
+  Purnimanta conversion, Kshaya and annual birthdays/anniversaries remain disabled.
+- Added hash-locked pyerfa 2.0.1.5 (ERFA 2.0.1, SOFA 20231011) in isolated /tmp
+  environment. No Swiss implementation installed/copied. Public PAC PDF extracted
+  with research-only pypdf 6.1.1 outside Git; archive/PDF hashes and exact pages
+  recorded. No raw publication, kernel or wheel added to the repository.
+- New offline validation CLI exits 2, usable_for_scheduling=false; 2.254 s wall,
+  peak RSS 56,792 KiB on development host under 512 MiB/60 CPU-second limits.
+  Runtime has no network fallback; Python audit guards are not an OS sandbox.
+- Only affected prototype tests/research/checks ran. No unrelated 2C/2D/2E,
+  reconciliation, Docker/n8n/live acceptance; no DB migration, Telegram operation,
+  private backup/2B search, production access, deployment or main merge.
 
-**Incomplete for scheduling:** 11 focused tests passed, NASA phase differences
-within provisional 60 seconds, but two Drik tithi endpoints differ by about
-86/76 seconds, outside the unchanged threshold. Sunrise is numerically close to
-one rounded reference but exact coordinate/model metadata is unconfirmed; USNO
-lookup failed DNS. Exact Lahiri, named-month/intercalary conversion and annual
-birthday/anniversary output are unsupported and fail closed. Do not widen tests,
-guess names or treat physical month bounds as verified calendar label conversion.
-CLI deliberately exits 2 with usable_for_scheduling=false. No engine adopted.
-
-Measured: 371 transitions for 2026 in 0.305 seconds; complete experiment after
-imports 1.154 seconds wall, peak RSS 75.14 MiB under 512 MiB address-space/60 CPU
-second limits. Development Linux host only, not VPS capacity or physical timing
-accuracy. Exact dependency/kernel/timezone/timescale hashes and observed metrics
-are recorded in source metadata and the sanitized public result JSON.
-
-Dependencies/kernel were acquired from public PyPI/JPL into a separate /tmp venv;
-no application environment or package credentials used. Runtime has explicit
-local-only file loading, no network fallback and Python socket audit guards
-(not an OS network namespace). New assets/fixtures are public numeric facts or
-invented data; BSP/wheels remain outside Git. No Docker/DB/n8n/Telegram/production,
-private backup/2B search, migration, deployment, merge or unrelated suite ran.
-Only 11 new focused tests, explicit safe-source/AST/JSON/local-link/whitespace/diff
-checks. Existing services and lease/receipt/audit infrastructure are untouched.
-
-Owner religious profile is **neutral**. Future supported festivals should show
-labelled Smarta/Vaishnava dates in one consolidated reminder when different;
-shared dates deduplicate. Proposed named reference pair: Drik New Delhi Smartha
-and ISKCON/Gaudiya GBC Calendar Committee GCal 11. Export/build/settings verification
-is still pending; no festival rule implemented or owner sampradaya assigned.
-
-Stop at isolated feasibility. Next review: resolve tithi reference discrepancies,
-obtain matched Delhi sunrise evidence and validate one exact Lahiri convention
-before month names/annual rules. Persistent identity/slot storage and delivery
-integration require further review; n8n stays. 2B provenance remains blocked;
-no search/replacement/capture. All Milestone 2 including Panchang/operations
-precedes other orchestrators. Production reconciliation/resend/reset remain disabled.
-GitHub issue #2 is updated with scope, outcomes, limitations and the neutral profile.
-
-Git metadata is mounted read-only; no write/bypass attempted. A separate branch
-is practical from your normal WSL terminal, carrying this working tree forward.
-Review only these 15 safe files and the index; no binaries, /tmp files or private
-inputs belong in the commit. Commands below do not push, deploy or merge:
+Next gates: explain independent timing failures; obtain matched Delhi sunrise
+metadata, precise independent Lahiri epoch data and multi-year Amanta/exception
+fixtures; separately validate Purnimanta names. Stop after this checkpoint for
+ChatGPT review; no persistent integration or festival implementation. n8n and
+PostgreSQL approvals/identity/lease/receipt/audit safeguards remain unchanged.
+Religiously neutral user profile and consolidated labelled future Smarta/Vaishnava
+reminders remain intended behavior. 2B manifest remains unknown/unauthorized;
+no search or substitute. Complete all Milestone 2 before any other orchestrator.
+GitHub issue #2 is updated with this checkpoint; implementation remains local
+until the owner runs these commands in normal WSL. Inspect staged changes before
+committing; only the following 16 explicit safe files belong in this commit.
 
 ```bash
 git status --short
-git switch -c development/m2f-skyfield-feasibility
+git branch --show-current
 git diff --check
 git add -- \
-  .gitignore \
   prototypes/panchang/astronomy.py \
-  prototypes/panchang/feasibility.py \
+  prototypes/panchang/investigation.py \
+  prototypes/panchang/validation.py \
   prototypes/panchang/requirements.txt \
   prototypes/panchang/ephemeris.json \
-  prototypes/panchang/references.json \
-  prototypes/panchang/feasibility-results.json \
+  prototypes/panchang/research-references.json \
+  prototypes/panchang/validation-results.json \
   prototypes/panchang/README.md \
   tests/panchang/test_astronomy.py \
+  tests/panchang/test_validation.py \
+  tests/panchang/test_investigation.py \
   docs/M2F_FEASIBILITY_RESULTS.md \
   docs/M2F_PANCHANG_DESIGN.md \
-  docs/HANDOFF.md \
   docs/MILESTONE2_PLAN.md \
-  docs/DECISIONS.md \
-  docs/ROADMAP.md
+  docs/ROADMAP.md \
+  docs/HANDOFF.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "feat: add isolated offline Panchang astronomy feasibility prototype"
+git commit -m "test: investigate Panchang timing and harden boundary validation"
+git push origin development/m2f-skyfield-feasibility
 ```
 
 ## Prior integration evidence (historical)

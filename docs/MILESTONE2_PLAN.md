@@ -41,7 +41,7 @@ See [restart/outage evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
 Remaining recovery work is operational: gateway supervision, wall-clock policy,
 host/disk/durable restore and adopted workflow acceptance. Restart/outage acceptance
 is pushed at `ff6198d`; 2D recurrence API acceptance is pushed at `cb6fdd7`.
-2F design is pushed at `9524757`; the current isolated feasibility checkpoint awaits owner review/commit; Git metadata is read-only;
+2F design is pushed at `9524757`; prototype research is pushed at 6f1f0b7 and accepted as evidence only; follow-up validation awaits review/commit; Git metadata is read-only;
 [handoff](HANDOFF.md) contains the exact safe-file commands.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
@@ -118,21 +118,21 @@ migration, Telegram operation, deployment or merge in this phase.
 
 ## 2F isolated feasibility checkpoint after owner authorization
 
-D14 authorizes the standalone offline Skyfield/DE440s prototype only. See
-[M2F_FEASIBILITY_RESULTS.md](M2F_FEASIBILITY_RESULTS.md): 11 focused tests passed,
-three NASA phase comparisons within the unchanged 60-second threshold and two
-Drik tithi endpoint discrepancies about 86/76 seconds still outside it. One rounded
-sunrise reference is numerically close but metadata/model matching is incomplete.
-A year of 371 transitions took about 0.305 seconds, measured peak RSS 75.14 MiB;
-these are host measurements, not VPS or physical timing-accuracy guarantees.
+D14 authorizes standalone offline research only. Prototype `6f1f0b7` is pushed
+on development/m2f-skyfield-feasibility and accepted as evidence, not scheduling.
+See [M2F_FEASIBILITY_RESULTS.md](M2F_FEASIBILITY_RESULTS.md) for the current matrix:
+23 focused tests pass after numerical/range fixes; original +85.886/+75.668 s
+Drik differences remain unexplained across nine coordinate hypotheses. The
+60-second gate is unchanged and failed. Additional public USNO/IMD evidence
+passes selected cases, while Himalayan evidence adds another mismatch.
 
-Physical Amanta/Purnimanta bounds and known intercalary-period sensitivity are
-investigated, but exact Lahiri and named-month/exceptional conversion remain
-unsupported. Annual birthdays/anniversaries cannot yield guessed dates; generic
-monthly preview handles first repeated sunrise/skipped-tithi review experimentally.
-No scheduling integration follows from focused-test success; CLI release gate is
-incomplete. Next review: resolve independent timing differences, match sunrise
-metadata and validate an exact ayanamsa against independent epoch tables.
+Explicit ERFA-based Lahiri research reproduces three vendor epoch values and
+matches four independent PAC ingresses plus three Amanta cases, including 2023
+Adhika Shravana. This is selected-case research only. General named months,
+Purnimanta conversion, Kshaya and annual dates remain unsupported; no integration
+follows from passing unit tests. Next actionable gate is independently precise
+epoch/multi-year evidence and explanation of timing failures, not calendar storage.
+No previously accepted unrelated suites were repeated. Stop for review.
 
 The owner is religiously neutral: future supported festivals should consolidate
 labelled Smarta/Vaishnava dates in one reminder when different. Proposed Vaishnava

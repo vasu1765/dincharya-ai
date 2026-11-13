@@ -1,0 +1,812 @@
+{
+  "additional_transitions": [
+    {
+      "calculated_at": "2026-01-13T09:48:25.861823+00:00",
+      "delta_seconds": -154.138177,
+      "reference": {
+        "at": "2026-01-13T15:21:00+05:30",
+        "ordinal": 26,
+        "source": "himalayan2025",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": false
+    },
+    {
+      "calculated_at": "2026-01-14T12:23:15.655530+00:00",
+      "delta_seconds": 15.65553,
+      "reference": {
+        "at": "2026-01-14T17:53:00+05:30",
+        "ordinal": 27,
+        "source": "himalayan2025",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2026-01-18T19:51:58.928849+00:00",
+      "delta_seconds": -1.071151,
+      "reference": {
+        "at": "2026-01-18T19:52:00+00:00",
+        "ordinal": 1,
+        "source": "usno2026",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-07-17T18:31:50.194682+00:00",
+      "delta_seconds": -9.805318,
+      "reference": {
+        "at": "2023-07-18T00:02:00+05:30",
+        "ordinal": 1,
+        "pdf_page_1based": 51,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-07-18T20:40:23.208610+00:00",
+      "delta_seconds": 23.20861,
+      "reference": {
+        "at": "2023-07-19T02:10:00+05:30",
+        "ordinal": 2,
+        "pdf_page_1based": 51,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-08-16T09:38:11.260972+00:00",
+      "delta_seconds": 11.260972,
+      "reference": {
+        "at": "2023-08-16T15:08:00+05:30",
+        "ordinal": 1,
+        "pdf_page_1based": 59,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    }
+  ],
+  "baseline_reference_sha256": "25978108a2800699e1b90d5fee1c189390283a30b90cb4d28fae46ee43047e62",
+  "controlled_conventions": [
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:31:50.194682+00:00",
+          "delta_seconds": -9.805318,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:31:40.319821+00:00",
+          "delta_seconds": 40.319821,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:11.260972+00:00",
+          "delta_seconds": 11.260972,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:48:25.885600+00:00",
+          "delta_seconds": 85.8856,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:23:15.668324+00:00",
+          "delta_seconds": 75.668324,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "true_date",
+      "position": "apparent"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:31:50.194682+00:00",
+          "delta_seconds": -9.805318,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:31:40.319821+00:00",
+          "delta_seconds": 40.319821,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:11.260972+00:00",
+          "delta_seconds": 11.260972,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:48:25.885600+00:00",
+          "delta_seconds": 85.8856,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:23:15.668324+00:00",
+          "delta_seconds": 75.668324,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "mean_date",
+      "position": "apparent"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:31:51.238410+00:00",
+          "delta_seconds": -8.76159,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:31:41.418468+00:00",
+          "delta_seconds": 41.418468,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:12.908921+00:00",
+          "delta_seconds": 12.908921,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:48:24.622199+00:00",
+          "delta_seconds": 84.622199,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:23:14.871829+00:00",
+          "delta_seconds": 74.871829,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "J2000",
+      "position": "apparent"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:31:50.029887+00:00",
+          "delta_seconds": -9.970113,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:32:47.968137+00:00",
+          "delta_seconds": 107.968137,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:11.123656+00:00",
+          "delta_seconds": 11.123656,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:48:48.764655+00:00",
+          "delta_seconds": 108.764655,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:23:30.664662+00:00",
+          "delta_seconds": 90.664662,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "true_date",
+      "position": "astrometric"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:31:50.029887+00:00",
+          "delta_seconds": -9.970113,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:32:47.968137+00:00",
+          "delta_seconds": 107.968137,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:11.123656+00:00",
+          "delta_seconds": 11.123656,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:48:48.764655+00:00",
+          "delta_seconds": 108.764655,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:23:30.664662+00:00",
+          "delta_seconds": 90.664662,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "mean_date",
+      "position": "astrometric"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:31:51.073615+00:00",
+          "delta_seconds": -8.926385,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:32:49.066783+00:00",
+          "delta_seconds": 109.066783,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:12.771605+00:00",
+          "delta_seconds": 12.771605,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:48:47.528694+00:00",
+          "delta_seconds": 107.528694,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:23:29.868167+00:00",
+          "delta_seconds": 89.868167,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "J2000",
+      "position": "astrometric"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:32:32.464580+00:00",
+          "delta_seconds": 32.46458,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:32:12.811900+00:00",
+          "delta_seconds": 72.8119,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:54.409802+00:00",
+          "delta_seconds": 54.409802,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:49:10.599983+00:00",
+          "delta_seconds": 130.599983,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:24:00.217911+00:00",
+          "delta_seconds": 120.217911,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "true_date",
+      "position": "geometric"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:32:32.464580+00:00",
+          "delta_seconds": 32.46458,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:32:12.811900+00:00",
+          "delta_seconds": 72.8119,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:54.382323+00:00",
+          "delta_seconds": 54.382323,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:49:10.599983+00:00",
+          "delta_seconds": 130.599983,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:24:00.217911+00:00",
+          "delta_seconds": 120.217911,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "mean_date",
+      "position": "geometric"
+    },
+    {
+      "comparisons": [
+        {
+          "calculated_at": "2023-07-17T18:32:33.508308+00:00",
+          "delta_seconds": 33.508308,
+          "reference": {
+            "at": "2023-07-17T18:32:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2023-08-01T18:32:13.910506+00:00",
+          "delta_seconds": 73.910506,
+          "reference": {
+            "at": "2023-08-01T18:31:00+00:00",
+            "ordinal": 16,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2023-08-16T09:38:56.057752+00:00",
+          "delta_seconds": 56.057752,
+          "reference": {
+            "at": "2023-08-16T09:38:00+00:00",
+            "ordinal": 1,
+            "source": "nasa_phases",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": true
+        },
+        {
+          "calculated_at": "2026-01-13T09:49:09.364021+00:00",
+          "delta_seconds": 129.364021,
+          "reference": {
+            "at": "2026-01-13T15:17:00+05:30",
+            "ordinal": 26,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        },
+        {
+          "calculated_at": "2026-01-14T12:23:59.421376+00:00",
+          "delta_seconds": 119.421376,
+          "reference": {
+            "at": "2026-01-14T17:52:00+05:30",
+            "ordinal": 27,
+            "source": "drik_ekadashi",
+            "tolerance_seconds": 60
+          },
+          "within_numeric_threshold": false
+        }
+      ],
+      "frame": "J2000",
+      "position": "geometric"
+    }
+  ],
+  "dependencies": {
+    "certifi": "2025.10.5",
+    "jplephem": "2.23",
+    "numpy": "2.3.4",
+    "pyerfa": "2.0.1.5",
+    "sgp4": "2.25",
+    "skyfield": "1.55"
+  },
+  "ephemeris_sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+  "erfa_version": "2.0.1",
+  "lahiri_epoch_checks": [
+    {
+      "delta_arcsec": -0.0011202467049997722,
+      "reference": {
+        "at": "2019-01-01T00:00:00+00:00",
+        "degrees": 24.118329555555555,
+        "source": "swe_lahiri",
+        "tolerance_arcsec": 0.1
+      },
+      "uncorrected_anchor_delta_arcsec": -0.6591202430954013,
+      "within_numeric_threshold": true
+    },
+    {
+      "delta_arcsec": -0.0011125582375370868,
+      "reference": {
+        "at": "2019-01-04T00:00:00+00:00",
+        "degrees": 24.118499333333332,
+        "source": "swe_lahiri",
+        "tolerance_arcsec": 0.1
+      },
+      "uncorrected_anchor_delta_arcsec": -0.6591125546279386,
+      "within_numeric_threshold": true
+    },
+    {
+      "delta_arcsec": -0.001085682929158338,
+      "reference": {
+        "at": "2019-01-07T00:00:00+00:00",
+        "degrees": 24.118702333333335,
+        "source": "swe_lahiri",
+        "tolerance_arcsec": 0.1
+      },
+      "uncorrected_anchor_delta_arcsec": -0.6590856793195599,
+      "within_numeric_threshold": true
+    }
+  ],
+  "limitations": [
+    "Drik differences unexplained; original 60-second gate failed",
+    "Himalayan parsed evidence provisional; numerical lineage unknown",
+    "Epoch table vendor reproduction, not independent PAC epoch validation",
+    "Selected 2023 ingress/Amanta agreement is not general month validation",
+    "Purnimanta naming, Kshaya and annual APIs remain unsupported",
+    "Sunrise model and long-range timing accuracy not independently validated"
+  ],
+  "metrics": {
+    "cpu_seconds": 2.2557718479999997,
+    "peak_rss_kib": 56792,
+    "wall_seconds": 2.2535128440067638
+  },
+  "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1",
+  "selected_amanta_cases": [
+    {
+      "actual": {
+        "candidate_amanta_month": "chaitra",
+        "candidate_intercalation": "ordinary",
+        "end": "2023-04-20T04:12:32.027907+00:00",
+        "ingress_count": 1,
+        "ingresses": [
+          {
+            "at": "2023-04-14T09:28:57.803665+00:00",
+            "sign": 0
+          }
+        ],
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1",
+        "start": "2023-03-21T17:23:08.699355+00:00",
+        "status": "research_only_not_calendar_enablement"
+      },
+      "matches_selected_reference": true,
+      "reference": {
+        "at": "2023-03-22T06:00:00+00:00",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "pdf_page_1based": 22,
+        "source": "pac2023"
+      }
+    },
+    {
+      "actual": {
+        "candidate_amanta_month": "shravana",
+        "candidate_intercalation": "adhika",
+        "end": "2023-08-16T09:38:11.267409+00:00",
+        "ingress_count": 0,
+        "ingresses": [],
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1",
+        "start": "2023-07-17T18:31:50.220351+00:00",
+        "status": "research_only_not_calendar_enablement"
+      },
+      "matches_selected_reference": true,
+      "reference": {
+        "at": "2023-07-18T06:00:00+00:00",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "pdf_page_1based": 51,
+        "printed": "Mala Sravana Sukla",
+        "source": "pac2023"
+      }
+    },
+    {
+      "actual": {
+        "candidate_amanta_month": "shravana",
+        "candidate_intercalation": "ordinary",
+        "end": "2023-09-15T01:39:48.688674+00:00",
+        "ingress_count": 1,
+        "ingresses": [
+          {
+            "at": "2023-08-17T08:02:33.808608+00:00",
+            "sign": 4
+          }
+        ],
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1",
+        "start": "2023-08-16T09:38:11.267409+00:00",
+        "status": "research_only_not_calendar_enablement"
+      },
+      "matches_selected_reference": true,
+      "reference": {
+        "at": "2023-08-17T06:00:00+00:00",
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "pdf_page_1based": 59,
+        "printed": "Suddha Sravana Sukla",
+        "source": "pac2023"
+      }
+    }
+  ],
+  "sofa_version": "20231011",
+  "solar_ingresses": [
+    {
+      "calculated_at": "2023-04-14T09:28:57.775269+00:00",
+      "delta_seconds": -2.224731,
+      "reference": {
+        "at": "2023-04-14T14:59:00+05:30",
+        "pdf_page_1based": 178,
+        "sign": 0,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-07-16T23:37:06.303406+00:00",
+      "delta_seconds": 6.303406,
+      "reference": {
+        "at": "2023-07-17T05:07:00+05:30",
+        "pdf_page_1based": 178,
+        "printed": "16 July 29h07m IST",
+        "sign": 3,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-08-17T08:02:33.838807+00:00",
+      "delta_seconds": -26.161193,
+      "reference": {
+        "at": "2023-08-17T13:33:00+05:30",
+        "pdf_page_1based": 178,
+        "sign": 4,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-09-17T08:00:56.250916+00:00",
+      "delta_seconds": -3.749084,
+      "reference": {
+        "at": "2023-09-17T13:31:00+05:30",
+        "pdf_page_1based": 178,
+        "sign": 5,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    }
+  ],
+  "status": "validation_incomplete_not_for_scheduling",
+  "usable_for_scheduling": false
+}

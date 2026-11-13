@@ -113,7 +113,8 @@ class AstronomyTests(unittest.TestCase):
     def test_supported_instant_endpoints(self):
         for value in (datetime(1900,1,1,tzinfo=UTC),datetime(2100,12,31,23,59,tzinfo=UTC)):
             self.assertIn(self.a.tithi_at(value),range(1,31))
-            self.assertIn(self.a.tithi_interval(value)['ordinal'],range(1,31))
+            # Raw instants are supported; complete straddling intervals are not.
+            with self.assertRaises(Unsupported): self.a.tithi_interval(value)
 
     def test_missing_symlink_wrong_size_digest_and_dependency_reject(self):
         with tempfile.TemporaryDirectory() as d:

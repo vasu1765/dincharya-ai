@@ -1,3 +1,201 @@
+# Milestone 2F — focused validation checkpoint
+
+Latest pushed base: `6f1f0b72729023d84123891725fd0b018bc1c584` on
+`development/m2f-skyfield-feasibility`; entry tree clean, local/tracking and GitHub
+commit agreed. No open PR found. The owner accepted that prototype as research,
+**not scheduling engine adoption**. This follow-up is uncommitted until the owner
+runs the explicit safe-file commands in [HANDOFF](HANDOFF.md); Git is read-only.
+The original feasibility report below is historical evidence, not current Git state.
+
+## Current pass/fail matrix
+
+| Gate | Result | Scope / limitation |
+| --- | --- | --- |
+| Reproduce original comparisons | PASS reproduction | Unchanged reference bytes; original Drik +85.886/+75.668 seconds reproduced. |
+| Original 60-second tithi accuracy gate | **FAIL** | Drik differences remain unexplained; no tolerance increase, timestamp correction or fixture substitution. |
+| Controlled coordinate hypotheses | No explanation | Nine position/frame combinations; none brings both Drik rows within 60 seconds. |
+| Additional independent publication evidence | Mixed | USNO 1/1 and IMD PAC 3/3 within 60 seconds; Himalayan Academy 1/2, with another 154-second discrepancy. Publisher independence is not guaranteed engine independence. |
+| Boundary/range regressions | PASS | Wrap, tiny search intervals, exact/near boundaries, lower/upper range, sunrise and monthly previews tested; unsupported full intervals fail closed. |
+| Exact versioned Lahiri candidate | Selected checks PASS; adoption incomplete | Three vendor-reproduced epoch values within 0.002 arcsecond; independent PAC sub-arcsecond epoch validation remains missing. |
+| Sidereal solar ingress | Selected 2023 cases PASS | Four PAC increasing-ayanamsa ingress times within 27 seconds, using unchanged 60-second comparison threshold. Not a 1900–2100 certification. |
+| Amanta naming | Selected research cases PASS; public API disabled | Chaitra ordinary, Shravana Adhika, Shravana ordinary match PAC. No general named-calendar claim. |
+| Purnimanta naming / Kshaya / annual dates | **UNSUPPORTED** | Physical full-moon boundaries are distinct from verified name conversion; public named-month/annual APIs still reject. |
+| Scheduling adoption | **BLOCKED** | Accuracy, sunrise metadata, general month/exception validation and further owner review remain gates. |
+
+23 focused tests passed in **4.531 seconds**. Only affected astronomy tests ran;
+no 2C/2D/2E, reconciliation, Docker/n8n/live Telegram acceptance was repeated.
+The validation CLI exited **2**, intentionally retaining `usable_for_scheduling=false`.
+Full numeric comparisons and source metadata are in
+[validation-results.json](../prototypes/panchang/validation-results.json) and
+[research-references.json](../prototypes/panchang/research-references.json).
+The original references.json and feasibility-results.json remain byte-for-byte
+unchanged, preserving accepted research evidence.
+
+## Controlled tithi investigation
+
+All rows use the same DE440s, timescale data, bisection and five original fixtures.
+Apparent includes light-time, aberration and deflection; astrometric retains
+light-time without apparent corrections; geometric uses simultaneous geocentric
+vectors. Frames are Skyfield true ecliptic/equinox of date, mean ecliptic/equinox
+of date, and fixed J2000 ecliptic. Mean-date rotation uses Skyfield's pinned
+mean-obliquity/precession implementation. These are labelled diagnostic choices,
+not changes to default geocentric apparent true-date behavior.
+
+Deltas below are calculated minus published seconds, ordered NASA Jul 17 new
+moon, Aug 1 full moon, Aug 16 new moon, Drik Jan 13 and Jan 14 2026:
+
+| Position | Frame | NASA three deltas (s) | Drik two deltas (s) |
+| --- | --- | --- | --- |
+| apparent | true_date | -9.805 / +40.320 / +11.261 | +85.886 / +75.668 |
+| apparent | mean_date | -9.805 / +40.320 / +11.261 | +85.886 / +75.668 |
+| apparent | J2000 | -8.762 / +41.418 / +12.909 | +84.622 / +74.872 |
+| astrometric | true_date | -9.970 / +107.968 / +11.124 | +108.765 / +90.665 |
+| astrometric | mean_date | -9.970 / +107.968 / +11.124 | +108.765 / +90.665 |
+| astrometric | J2000 | -8.926 / +109.067 / +12.772 | +107.529 / +89.868 |
+| geometric | true_date | +32.465 / +72.812 / +54.410 | +130.600 / +120.218 |
+| geometric | mean_date | +32.465 / +72.812 / +54.382 | +130.600 / +120.218 |
+| geometric | J2000 | +33.508 / +73.911 / +56.058 | +129.364 / +119.421 |
+
+True versus mean date cancels almost entirely in the Moon-minus-Sun longitude;
+fixed J2000 shifts these examples by only about 1–2 seconds. Removing apparent
+corrections does not resolve Drik and worsens some phase comparisons. Geometric
+positions do not resolve it either. No claim that location, publisher rounding,
+time scale or ayanamsa explains the residual: the two tithi longitudes share the
+same sidereal offset, so substituting a Lahiri offset cannot repair elongation.
+Unknown publisher numerical lineage/model remains a limitation, not an explanation.
+The numerical solver's <=0.05-second bracket is not physical timing accuracy.
+
+## Additional public reference evidence
+
+- [USNO 2026 phases](https://aa.usno.navy.mil/calculated/moon/phases?year=2026):
+  Jan 18 new moon 19:52 Universal Time. Delta **-1.071 seconds**. Modern UT/UTC
+  difference is sub-second; whole-minute publication does not establish
+  sub-second accuracy. This successful lookup supersedes the prior DNS failure.
+- [IMD PAC Rashtriya Panchang 1945 SE / 2023–24 archive](https://packolkata.imd.gov.in/download/EnglishRP2324.zip):
+  PDF pages 51/59 give Jul 17 Amavasya ending 24:02 IST, Jul 18 Pratipad ending
+  26:10 IST and Aug 16 Amavasya ending 15:08 IST. Normalize >24h onto the next
+  civil day. Deltas **-9.805 / +23.209 / +11.261 seconds**. These are global
+  geocentric transition times, not matching-model Delhi sunrise validation.
+- [Himalayan Academy/Gurudeva New Delhi 2025–26 calendar](https://minimela.com/wp-content/uploads/panchangam/2025-2026/world/new_delhi_india.pdf),
+  PDF page 38: Jan 13 Dashami until 15:21 IST; Jan 14 Ekadashi until 17:53 IST.
+  Deltas **-154.138 / +15.656 seconds**. Footer reports calculation Dec 20, 2023,
+  local standard time. Exact coordinates, horizon and engine lineage unknown.
+  Web-parsed text only; screenshot unavailable, so reading remains provisional.
+  This disagreement is retained, not used to replace the Drik fixtures.
+
+IMD archive: 16,495,663 bytes, SHA-256
+`38c50c8d11071369e895ec21e09120be49ab576f6a40334965da7eb22b7b8522`.
+Known ZIP member `RP_1945SE.pdf`: 17,605,534 bytes, SHA-256
+`9ba9dd3970a45787edafd619787b91d83557fa4b7c9344738316e8b8d73757c4`.
+Only numeric excerpts are recorded in Git. The public PDF stayed outside Git;
+known-member BytesIO parsing with pypdf 6.1.1 avoided archive extraction. This
+research parser is not a runtime dependency. Page numbers above are one-based
+PDF pages; ingress page 178 is printed page 158. Text extraction has not been
+visually certified. Publication precision is whole minutes / whole arcseconds;
+rounding direction and exact computation models are not assumed.
+
+## Range and numerical fixes
+
+Demonstrated failures before the fixes included an IEEE tiny-negative modulo
+rounding to 360 (possible ordinal 31), constant/indistinguishable sample motion,
+contradictory classification within a solved transition's numerical bracket,
+exposed month/tithi bounds outside 1900–2100, valid lower previews failing because
+of unrelated padding and upper previews rejecting the exclusive end sentinel.
+A bad sunrise model type raised TypeError instead of a sanitized Unsupported.
+
+- Six-hour brackets must show finite strictly positive motion below 12 degrees,
+  with no multi-bin jump. All 30 ordinals and 30→1 wrap are tested. This validates
+  the physical-model sampling hypothesis for exercised cases, not arbitrary
+  adversarial motion completing a hidden full revolution between samples.
+- Algebraic exact angles follow half-open bins. Reported transition instants and
+  +/-millisecond neighborhoods fail closed within **0.1 seconds** for interval,
+  month-boundary and search-endpoint membership. Search endpoints use tiny
+  internal pads to avoid silently dropping/doubling an uncertain crossing.
+  +/-1-second interval results require review under the existing **120-second**
+  astronomical review guard. Raw tithi_at remains an experimental point estimate,
+  not a boundary-safe scheduling decision. No physical accuracy gate is loosened.
+- Raw instants are supported on `[1900-01-01 UTC, 2101-01-01 UTC)`; transition
+  windows allow the upper instant only as end sentinel. Complete tithi/month
+  intervals must lie wholly inside that range. Padding may solve roots internally
+  but cannot extend calendar claims. Thus raw sunrise Jan 1, 1900 computes while
+  its straddling tithi interval fails closed; raw upper-end tithi computes while
+  its straddling interval also fails closed. The original endpoint test was
+  corrected to assert this stricter distinction, not removed.
+- Monthly Jan 2, 1900 and Dec 31, 2100 previews pass; partial lower-bound tithi
+  and unsupported civil windows reject. Out-of-range sunrise/month searches and
+  sub-timescale-resolution transition searches reject. Unaffected recurrence,
+  first-of-repeated and skipped-at-sunrise policies remain as before.
+
+## Reproducible Lahiri hypothesis and limited month evidence
+
+Research-only profile:
+`lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1`.
+Anchor a fixed J2000-mean-equator direction to true tropical ecliptic longitude
+23°15′00.658″ at **JD TT 2435553.5** (1956-03-21 00 TT). Transport it with
+ERFA IAU1976 precession, IAU1980 nutation and IAU1980 obliquity. Transform the
+apparent solar ICRS vector into the same frame before subtracting the origin;
+never combine mismatched tropical/true/mean coordinate conventions.
+This is an explicit reproducible candidate, not every system called “Lahiri”.
+
+[Swiss Ephemeris documentation Appendix E](https://www.astro.com/swisseph/swisseph.htm)
+provides this reproduction convention and 2019 Jan 1/4/7 epoch values.
+Candidate errors are -0.001120/-0.001113/-0.001086 arcseconds against that table;
+a separately retained uncorrected 23°15′00″ anchor misses by about -0.659 arcsecond.
+This table is a vendor reproduction of IAE, **not independent PAC epoch data**.
+No Swiss library was installed and no AGPL code copied. New hash-locked
+pyerfa **2.0.1.5**, embedded ERFA **2.0.1**, SOFA **20231011**, supplies the matrices
+under its permissive distribution notices; exact wheel/hash is in the lock and
+metadata. Existing Skyfield baseline calculations and original fixtures stay fixed.
+
+PAC explanatory page 12 distinguishes fixed 23°15′ civil solar-month calculations
+from **increasing ayanamsa used for lunar intercalation**. Do not validate lunar
+names against the fixed civil table. Its page 178 increasing-ayanamsa ingress table
+supports these comparisons:
+
+| Ingress | Published IST | Candidate minus reference |
+| --- | --- | --- |
+| Mesha | Apr 14, 2023 14:59 | -2.225 s |
+| Karkata | Jul 16 29:07 = Jul 17 05:07 | +6.303 s |
+| Simha | Aug 17 13:33 | -26.161 s |
+| Kanya | Sep 17 13:31 | -3.749 s |
+
+The candidate has one ingress for ordinary Chaitra (March 21–April 20 lunation),
+zero for Adhika Shravana (July 17–August 16), and one for ordinary Shravana
+(August 16–September 15). PAC pages 22/51/59 independently name these periods.
+These **three selected Amanta research cases** agree. A diagnostic returns
+explicitly labelled candidate fields only. Public month_label and annual_preview
+still reject; Purnimanta physical full-moon bounds are not name conversion.
+Two ingresses (Kshaya) and solar ingress within 120 seconds on either side of a
+lunar boundary reject, including an ingress just outside the lunation. Kshaya,
+exceptional conversions and general years remain unsupported.
+PAC's March 22 ayanamsa 24°10′43″ has no specified instant within the day, so no
+sub-arcsecond epoch pass is claimed from that rounded datum. Before adoption,
+obtain independently specified epoch instants/models and multi-year fixtures,
+validate seasonal/month transitions, Purnimanta naming and exception policies.
+
+## Reproduction and remaining gate
+
+Use the exact offline commands in [prototype README](../prototypes/panchang/README.md).
+The new validation runner checks the unchanged original-reference SHA, runs all
+nine hypotheses and every recorded additional fixture, and records failures as
+well as passes. Network/DNS/bind audit guards precede astronomy imports. Same
+512 MiB address-space / 60 CPU-second limits, one-thread BLAS. Recorded follow-up
+experiment after imports: **2.254 s wall, 2.256 s CPU, peak RSS 56,792 KiB** on this
+development host; not VPS capacity or historical/future timing certification.
+Resource limits contain the process but are not an OS network sandbox.
+
+Stop for ChatGPT/owner review. No engine adoption, persistent schedules, annual
+output, festivals, migrations, n8n modifications, Telegram calls, private inputs,
+production access, deployments or merges. Remaining blockers: unexplained Drik
+and provisional second-publisher differences, matched sunrise metadata, independent
+precise epoch data, broader Amanta validation, Purnimanta/exception semantics and
+separate integration approval. 2B original-manifest identification/access is still
+blocked and is unrelated to this public-data research checkpoint.
+
+---
+
+## Historical accepted feasibility checkpoint (before follow-up validation)
+
 # Milestone 2F — isolated Skyfield feasibility checkpoint
 
 Base: pushed `952475720e1990f635eed7f1710b123018262db0`, branch

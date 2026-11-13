@@ -1,0 +1,165 @@
+{
+  "baseline_reference_sha256": "25978108a2800699e1b90d5fee1c189390283a30b90cb4d28fae46ee43047e62",
+  "sources": {
+    "pac2023": {
+      "url": "https://packolkata.imd.gov.in/download/EnglishRP2324.zip",
+      "entry": "RP_1945SE.pdf",
+      "archive_sha256": "38c50c8d11071369e895ec21e09120be49ab576f6a40334965da7eb22b7b8522",
+      "pdf_sha256": "9ba9dd3970a45787edafd619787b91d83557fa4b7c9344738316e8b8d73757c4",
+      "publisher": "India Meteorological Department, Positional Astronomy Centre",
+      "edition": "1945 Saka Era, 2023-24",
+      "extraction": "pypdf 6.1.1; text extraction, not visual facsimile verification",
+      "rounding": "whole minutes / whole arcseconds, rounding method not stated",
+      "time_scale": "IST UTC+05:30; >24h rolls to next civil day",
+      "model": "increasing ayanamsa for lunar intercalation, not fixed 23d15m civil solar-month system",
+      "location": "geocentric tithi/ingress; central station day labels, not Delhi sunrise"
+    },
+    "himalayan2025": {
+      "url": "https://minimela.com/wp-content/uploads/panchangam/2025-2026/world/new_delhi_india.pdf",
+      "publisher": "Himalayan Academy / Gurudeva Panchang, distributed by Minimela",
+      "pdf_page_1based": 38,
+      "location": "New Delhi; exact coordinates/horizon not retrieved",
+      "calculated_date": "2023-12-20 as printed",
+      "time_scale": "local standard time, interpreted IST",
+      "rounding": "whole minutes, method not stated",
+      "verification": "web parsed text; visual screenshot unavailable, provisional reading",
+      "numerical_lineage": "not established; independent publisher not guaranteed independent ephemeris"
+    },
+    "usno2026": {
+      "url": "https://aa.usno.navy.mil/calculated/moon/phases?year=2026",
+      "publisher": "US Naval Observatory",
+      "rounding": "whole minutes",
+      "time_scale": "Universal Time (modern UTC comparison within one second)"
+    },
+    "swe_lahiri": {
+      "url": "https://www.astro.com/swisseph/swisseph.htm",
+      "section": "Appendix E: reproduce true ayanamshas in IAE",
+      "profile": "1956-03-21 00 TT true longitude 23d15m00.658s, IAU1976 and IAU1980",
+      "independence": "vendor reproduction table, not an independent PAC epoch table"
+    }
+  },
+  "additional_transitions": [
+    {
+      "source": "himalayan2025",
+      "at": "2026-01-13T15:21:00+05:30",
+      "ordinal": 26,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "himalayan2025",
+      "at": "2026-01-14T17:53:00+05:30",
+      "ordinal": 27,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "usno2026",
+      "at": "2026-01-18T19:52:00+00:00",
+      "ordinal": 1,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 51,
+      "at": "2023-07-18T00:02:00+05:30",
+      "ordinal": 1,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 51,
+      "at": "2023-07-19T02:10:00+05:30",
+      "ordinal": 2,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 59,
+      "at": "2023-08-16T15:08:00+05:30",
+      "ordinal": 1,
+      "tolerance_seconds": 60
+    }
+  ],
+  "solar_ingresses": [
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 178,
+      "at": "2023-04-14T14:59:00+05:30",
+      "sign": 0,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 178,
+      "at": "2023-07-17T05:07:00+05:30",
+      "printed": "16 July 29h07m IST",
+      "sign": 3,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 178,
+      "at": "2023-08-17T13:33:00+05:30",
+      "sign": 4,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 178,
+      "at": "2023-09-17T13:31:00+05:30",
+      "sign": 5,
+      "tolerance_seconds": 60
+    }
+  ],
+  "amanta_cases": [
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 22,
+      "at": "2023-03-22T06:00:00+00:00",
+      "month": "chaitra",
+      "intercalation": "ordinary"
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 51,
+      "at": "2023-07-18T06:00:00+00:00",
+      "month": "shravana",
+      "intercalation": "adhika",
+      "printed": "Mala Sravana Sukla"
+    },
+    {
+      "source": "pac2023",
+      "pdf_page_1based": 59,
+      "at": "2023-08-17T06:00:00+00:00",
+      "month": "shravana",
+      "intercalation": "ordinary",
+      "printed": "Suddha Sravana Sukla"
+    }
+  ],
+  "epoch_checks": [
+    {
+      "source": "swe_lahiri",
+      "at": "2019-01-01T00:00:00+00:00",
+      "degrees": 24.118329555555555,
+      "tolerance_arcsec": 0.1
+    },
+    {
+      "source": "swe_lahiri",
+      "at": "2019-01-04T00:00:00+00:00",
+      "degrees": 24.118499333333332,
+      "tolerance_arcsec": 0.1
+    },
+    {
+      "source": "swe_lahiri",
+      "at": "2019-01-07T00:00:00+00:00",
+      "degrees": 24.118702333333335,
+      "tolerance_arcsec": 0.1
+    }
+  ],
+  "pac_ayanamsa_context": {
+    "source": "pac2023",
+    "pdf_page_1based": 22,
+    "date": "2023-03-22",
+    "degrees": 24.178611111111113,
+    "instant_within_day": "not specified; no sub-arcsecond validation claimed"
+  }
+}
