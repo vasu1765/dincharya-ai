@@ -78,3 +78,19 @@ cover first isolated startup/teardown, synthetic DB initialization, and any
 synthetic workflow imports/executions/activation. No Code nodes or production
 workflows are part of that proposed approval. Production and source promotion
 remain separately gated.
+
+## Runtime evidence superseding the prepared-only checkpoint
+
+Synthetic 2C integration subsequently passed. Inspection of the pinned image's
+schedule-trigger registrar/task handler and test database showed the default
+durable engine intercepting these rules. It persists scheduled_job/scheduled_task
+state and builds emissions from durable scheduled times. The node helper's legacy
+recurrenceCheck path therefore cannot alone predict the default engine's emission
+timing. A synthetic seven-minute rule becomes a 420-second interval, rather than
+proving a legacy per-minute filter. No scheduler mode was switched to obtain a pass.
+
+Create API dropped invented staticData; CLI import preserved it. The test verified
+retained arrays, durable job/occurrence persistence, non-regressing clocks and
+successful fast scheduling after n8n-only restart, with no observed duplicates.
+This does not clear real native state, historical compatibility, Code conversion
+or production workflow adoption; the seven-minute interval was not waited out.

@@ -1,22 +1,17 @@
 # Application migrations
 
-The live application schema, once reviewed, becomes an immutable baseline for
-empty development/test databases. The `m2a/` directory is historical and is not
-the migration chain. n8n manages its own internal database migrations.
+0001_gregorian_occurrences.sql and 0002_occurrence_reminders.sql extend the reviewed
+PostgreSQL schema. The baseline remains outside Git; its original provenance
+manifest path has not been confirmed. Historical m2a SQL must not be replayed.
 
-Future application changes use `NNNN_description.sql`, immutable SHA-256 checksums,
-and a ledger recording version, checksum, application timestamp, and tool version.
-A future runner must require an explicit target, acquire a migration lock, stop
-on mismatches, and run each supported migration in a transaction with failure-on-
-error behavior. Nontransactional operations require a separate reviewed procedure.
-No runner or ledger is installed by Phase A.
+../migrate.py renders explicitly ordered migrations into a psql transaction with
+a target guard, advisory lock and immutable SHA-256 ledger. It performs no I/O to
+services itself and deliberately supports only dincharya_app_test. The isolated
+application runner installed the authorized baseline unchanged and applied/replayed
+the migrations successfully. The subsequently added corrupt-checksum runtime test
+and multi-session checks remain unverified; see ../../docs/HANDOFF.md.
 
-Existing production must not replay the baseline. A later adoption operation
-requires a normalized schema comparison, role/privilege reconciliation, backup,
-and explicit approval before recording the baseline version. Restoring a backup
-is a separate recovery operation, not a substitute for a migration rollback.
-
-Verify future migrations in empty and previous-version isolated databases using
-synthetic fixtures. Prefer compatible expand/contract changes. Pair workflow
-changes with the application schema versions they require. Deployment, imports,
-activation, production ledger creation, and migrations require separate approval.
+Never apply the baseline to existing production. Production adoption, privileges,
+recovery/rollback procedures and migration execution require separate review and
+authorization. Keep n8n metadata migrations separate from application migrations.
+No production role, ledger, schema or workflow was changed.

@@ -111,3 +111,25 @@ pinning, reliable reminder delivery, full restore readiness and VPS hardening re
 separate work. Current source does not reproduce the entire working system from
 scratch. Private conversion, static tests and matching version identifiers do not
 prove deployed behavior or authorize real-state changes.
+
+## Superseding synthetic integration checkpoint
+
+2C has now passed on the pinned n8n 2.47.3 / nodes-base 2.47.2 image. Its default
+durable scheduler intercepts Schedule Trigger registrations and persists jobs
+and occurrences in scheduled_job/scheduled_task. The earlier node-source findings
+about recurrence arrays remain valid source findings but do not establish which
+engine controlled historical production executions. Synthetic durable job IDs,
+clocks, occurrence identities, successful fast emissions and n8n-only restart
+recovery were verified; imported legacy arrays were retained. The seven-minute
+rule's full interval was not observed.
+
+The test create API drops staticData; native CLI import preserves it. A bounded
+cache tmpfs is required for read-only test n8n startup. All successful test runs
+verified project teardown and unchanged original running container IDs.
+
+New application migrations extend the authorized schema without copying it into
+Git. Gregorian occurrence/approval and reminder SQL assertions passed on a fresh
+disposable application DB. The injected worker has offline tests; production
+adapters/workflow wiring remain absent. The newly added multi-session and
+checksum-corruption checks are not integration-tested. Original provenance
+manifest location remains unconfirmed; see HANDOFF.md for the stop checkpoint.

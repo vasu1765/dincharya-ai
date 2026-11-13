@@ -53,6 +53,8 @@ class IntegrationConfigTests(unittest.TestCase):
         services=self.config['services']
         self.assertTrue(any('/var/lib/postgresql/data' in path for path in services['postgres-test']['tmpfs']))
         self.assertTrue(any('/home/node/.n8n' in path for path in services['n8n-test']['tmpfs']))
+        self.assertIn('/home/node/.cache:size=32m,uid=1000,gid=1000,mode=0700',
+                      services['n8n-test']['tmpfs'])
         text=json.dumps(self.config)
         for forbidden in ('api.telegram.org','host.docker.internal','docker.sock','postgres_data','n8n_data','dincharya_app"'):
             self.assertNotIn(forbidden,text)

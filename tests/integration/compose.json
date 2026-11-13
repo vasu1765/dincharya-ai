@@ -148,7 +148,8 @@
       ],
       "tmpfs": [
         "/home/node/.n8n:size=64m,uid=1000,gid=1000,mode=0700",
-        "/tmp:size=32m,uid=1000,gid=1000"
+        "/tmp:size=32m,uid=1000,gid=1000",
+        "/home/node/.cache:size=32m,uid=1000,gid=1000,mode=0700"
       ],
       "depends_on": {
         "postgres-test": {

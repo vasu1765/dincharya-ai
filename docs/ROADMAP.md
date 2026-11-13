@@ -1,63 +1,54 @@
 # Dincharya AI roadmap
 
-Finish all of Milestone 2 before Milestone 3 or another orchestrator. Status and
-recipes are not authorization. Read [HANDOFF](HANDOFF.md), [decisions](DECISIONS.md)
-and [policy](DEVELOPMENT_POLICY.md) before proceeding.
+Finish Milestone 2 before Milestone 3 or another orchestrator. Status is not
+production authorization. See [handoff](HANDOFF.md), [policy](DEVELOPMENT_POLICY.md)
+and [decisions](DECISIONS.md).
 
 ## Current checkpoint
 
-147 offline tests pass. Milestone 2A is complete and recorded in Git HEAD
-62e96e6 (feat: complete Milestone 2A offline source tooling). The earlier sandbox
-commit failure is historical; do not treat it as the current Git state. Later
-2B/C source and documentation changes remain in the working tree, including
-untracked files. Nothing is staged by the handoff task. Do not reset or clean them.
+196 offline tests passed at the last full regression checkpoint. Final focused
+checks passed: four migration-renderer tests, six worker tests and relevant Python
+AST checks. The user requested stopping further development/testing to preserve
+usage. Work is uncommitted and unstaged; preserve all working-tree changes.
 
 | Phase | Status | Remaining exit criteria |
 | --- | --- | --- |
-| 2A — offline hardening | Complete | Private-only preparation, strict source/provenance checks, synthetic tests; original checkpoint was 52 tests. Current suite includes subsequent regressions. |
-| 2B — reviewed source synchronization | Private investigation complete; source adoption incomplete | Approved schema/snapshot/extraction/source evidence reviewed privately. 94 history versions; current/published preserved separately. 2/4 current structural candidates. Native scheduler state identified as class B, unchanged. Approve faithful native-state/Code representation and adopt reviewed source only after relevant validation; do not claim the live baseline is already in Git. |
-| 2C — isolated integration | Configuration prepared; not executed | Approve first synthetic-only startup/DB initialization/import/execution/activation/restart/teardown scope. Verify health, isolation, fixture behavior and native import/persistence contracts. No production inputs or Code nodes. |
-| 2D — advanced Gregorian recurrence | Not started | Reviewed source and integration evidence first; implement add/edit/remove, occurrence/series scopes, conflicts, proposals and approvals. |
-| 2E — occurrence reminders | Not started | Stable occurrence identity, deduplication, retries, concurrency and outage-recovery tests. |
-| 2F — Delhi Hindu recurrence | Not started | Agree source/calculation/tradition/location and reference dates; Panchang, Ekadashi and festivals with tested recurrence semantics. |
-| 2G — integration/deployment preparation | Not started | Full regression and restore rehearsal, reviewed migrations/workflow diffs, recovery plan. Production execution/deployment needs separate approval. |
+| 2A — offline hardening | Complete | Original tooling recorded at HEAD 62e96e6; subsequent regressions included. |
+| 2B — source synchronization | Investigation complete; adoption incomplete | Exact schema inspected under operator authorization. Original provenance manifest path is missing from the named docs; no private search permitted. Workflow/Code acceptance and reviewed source adoption remain gated. |
+| 2C — isolated integration | Passed for synthetic default runtime | Health/isolation, manual output, activation/successful scheduling, n8n-only restart, durable job/occurrence persistence, observed duplicate checks and teardown passed. Historical/legacy engine behavior and real workflow import are not certified. |
+| 2D — advanced Gregorian recurrence | Initial migration and isolated SQL assertions passed | Add/update/remove, occurrence/series scopes, calendar boundaries, conflicts, stale proposals and approval foundations implemented. Expanded multi-session checks remain unverified; legacy API interaction, broader adversarial cases and application/workflow adapters need review. |
+| 2E — occurrence reminders | Initial migration/SQL assertions and offline worker tests passed | Identity, deduplication, claims/leases, retry/backoff, uncertainty quarantine and bounded recovery foundations implemented. Concurrent claim check newly added but not integration-tested. Retry exhaustion, wider recovery tests, real adapter wiring and uncertain-send reconciliation remain. |
+| 2F — Delhi Hindu recurrence | Not started | Agree calculation/source/tradition/location and reference dates; no new feature work in current stop scope. |
+| 2G — deployment preparation | Not started | Restore/recovery rehearsal, full acceptance, reviewed migrations/workflow diffs and explicit production approval. |
 
-## Next implementation sequence
+## Preserved next-session work
 
-1. Read the handoff and inspect Git; rerun the offline suite. Do not reopen private
-   data automatically. No Docker/import approval is currently in force for 2C.
-2. Obtain an explicit scope for only the disposable 2C project and supplied
-   synthetic non-Code fixtures. Verify local image IDs and host resource/UID needs;
-   generate session-only test secrets without printing them or reading production .env.
-3. After approval, use only tests/integration/compose.json with project
-   dincharya-m2c-synthetic, --env-file /dev/null and --profile integration. Establish
-   startup/health/isolation before any test DB query or synthetic import.
-4. Configure a fresh synthetic owner/project if required. Import inactive manual
-   smoke only within approved scope; execute and assert its synthetic Set result.
-5. Inspect synthetic scheduler-state import preservation before activation. Then,
-   if approved, exercise activation/recurrence/re-arming and restart n8n-test only
-   while PostgreSQL stays up. Capture private results, including unexpected state
-   changes. Do not infer persistence from manual triggering or reset real state.
-6. Perform approved test teardown; PostgreSQL/tmpfs teardown loses synthetic data.
-   Clear session secrets. Record integration evidence and limitations.
-7. Use the evidence to resolve remaining private conversion contracts. Review source
-   adoption separately before advanced feature work. Production imports/migrations,
-   real Code execution, source promotion and deployment remain distinct gates.
+1. Read the handoff; inspect status and preserve changes. Do not repeat the full
+   integration suite without a functional change or unresolved runtime concern.
+2. Obtain the exact provenance manifest path from the operator; do not guess or
+   scan private directories. The authorized schema remains outside Git.
+3. Review the new application-runner checksum-mismatch and concurrent decision/
+   reminder checks. They were added after the last passing SQL run and were not
+   executed; record this gap before selectively verifying them in the approved
+   disposable stack in a resumed session.
+4. Continue 2D/2E acceptance and adapters before declaring those milestones complete.
+   Infinite-series conflict freedom and external exactly-once Telegram delivery
+   are not claimed. The default conflict horizon is 730 days; reminder catch-up
+   defaults to six hours and uncertain sends are never blindly retried.
+5. Stage/commit only when authorized, using explicit safe paths in HANDOFF.md.
+   Production SQL, bot use, real Code, source promotion and deployment remain
+   separately gated. Do not replay the baseline against an existing database.
 
-## Evidence and validation limits
+## Important integration findings
 
-Private manifest types private_extracted_workflow_analysis_v2 and
-native_scheduler_state_review_v1 were checked for this checkpoint. Published nodes
-and connections were located; only one node position differs. Historical settings,
-state, executing-version proof and import/persistence behavior remain unverified.
-Detailed source hashes, identities and raw records stay private, not in this file.
-Do not assume temporary report paths survive or that documentation grants access.
+The tested n8n 2.47.3 / nodes-base 2.47.2 image defaults to durable scheduling.
+It stores active jobs/occurrences in scheduled_job/scheduled_task; legacy native
+arrays remain preserved but were not proven to drive this execution path. Create
+API drops staticData; native CLI import preserves it. Successful test teardown
+removed disposable resources and confirmed original running container IDs unchanged.
+No production resources/data, credentials, bot, Code nodes or scheduler state were
+used. The latest expanded application-test execution request was interrupted; it
+must not replace the recorded successful integration result.
 
-Offline checks: unittest discovery; Python and embedded-Python AST parsing; bash -n;
-Node syntax checking for the mock only; integration JSON/contracts; explicit
-safe-source scans; Git whitespace/index checks. These do not execute Docker,
-SQL, native Schedule helpers or workflow Code. See [2C runbook](../tests/integration/README.md).
-
-After Milestone 2: Adhyayan (spiritual/career learning), Arogya (fitness/vegetarian
-nutrition), Atma-Chintan (accountability/reflection), Vittiya (recurring invoices
-and approvals), then India-based VPS deployment and operational hardening.
+After Milestone 2: Adhyayan, Arogya, Atma-Chintan, Vittiya, then operational
+hardening and separately approved India-based VPS deployment.
