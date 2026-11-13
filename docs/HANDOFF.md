@@ -5,6 +5,29 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
+Pre-merge review at committed/pushed head `43ad653`: GitHub reports MERGEABLE,
+CLEAN, draft=true, no checks/review requirement shown. The merge UI is blocked
+by draft status, not a demonstrated conflict. Review found one blocker: HTTP 429
+ignored Telegram retry_after and entered ordinary short backoff. Local adapter
+fix quarantines all 429s for manual recovery without changing migration checksums.
+Regression reproduced before fix; all 15 focused reminder tests passed after.
+No live test, credential access or Docker execution repeated. No other critical
+PR-diff blocker found. See [pre-merge review](PR1_PREMERGE_REVIEW.md).
+Acceptance evidence below was committed by the owner at `43ad653`; its old
+uncommitted instructions are superseded by these commands for the new fix:
+
+```bash
+git diff -- dincharya/reminder_adapters.py tests/test_reminder_adapters.py telegram-gateway/README.md docs/HANDOFF.md docs/ROADMAP.md
+git diff --no-index -- /dev/null docs/PR1_PREMERGE_REVIEW.md
+git add -- dincharya/reminder_adapters.py tests/test_reminder_adapters.py telegram-gateway/README.md docs/HANDOFF.md docs/ROADMAP.md docs/PR1_PREMERGE_REVIEW.md
+git commit -m "fix: quarantine Telegram rate limits instead of retrying early"
+git push origin development/telegram-reminder
+```
+
+Git remains read-only in this sandbox; no commit/push attempted here. Current
+remote head is not ready to merge until this tested fix is pushed. Then obtain
+owner final merge approval and leave draft status; do not deploy or merge here.
+
 2026-11-13: **PR #1 single live reminder acceptance passed** on
 `development/telegram-reminder` at `aa05dd280ff6c90c510bc60c7351d1503a825cac`.
 WSL Codex is primary while ChatGPT Work is paused. See the sanitized

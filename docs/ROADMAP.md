@@ -6,6 +6,12 @@ and [decisions](DECISIONS.md).
 
 ## Reminder gateway development branch
 
+Final review at `43ad653`: no merge conflict; PR is draft. A reproduced HTTP 429
+early-retry defect is fixed locally by quarantining flood-control responses for
+manual recovery; automatic retry_after support remains follow-up work. Fifteen
+focused reminder tests pass. Owner commit/push is needed because Git metadata is
+read-only; see HANDOFF.md and PR1_PREMERGE_REVIEW.md. No live test repeated.
+
 2026-11-13: WSL Codex resumed as primary developer at PR head `aa05dd2`.
 With owner-authorized scoped execution, daemon/image/isolation, focused reminder
 SQL (approval and retry cap), concurrent decisions/claims/acknowledgement and

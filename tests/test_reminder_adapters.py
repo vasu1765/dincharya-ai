@@ -6,7 +6,7 @@ from uuid import UUID
 from zoneinfo import ZoneInfo
 
 from dincharya.reminder_adapters import PostgresReminders, TelegramReminders, parse_reminder
-from dincharya.reminders import NotAccepted, process_batch
+from dincharya.reminders import Claim, DeliveryUncertain, NotAccepted, process_batch
 
 
 class ReminderAdapterTests(unittest.TestCase):
@@ -56,8 +56,8 @@ class ReminderAdapterTests(unittest.TestCase):
 
     def test_telegram_errors_distinguish_rejection_from_uncertainty(self):
         response = self.post.return_value
-        response.status_code = 429
-        response.json.return_value = {'ok': False, 'error_code': 429}
+        response.status_code = 403
+        response.json.return_value = {'ok': False, 'error_code': 403}
         with self.assertRaises(NotAccepted):
             self.transport.send(self.payload)
         response.status_code = 502
@@ -67,6 +67,38 @@ class ReminderAdapterTests(unittest.TestCase):
         self.post.side_effect = TimeoutError('private URL')
         with self.assertRaisesRegex(RuntimeError, '^Telegram acknowledgement unavailable$'):
             self.transport.send(self.payload)
+
+    def test_rate_limit_is_quarantined_instead_of_ignoring_telegram_wait(self):
+        # The SQL rejection policy starts at 30s and has no retry_after input.
+        # Even a well-formed 429 must not take that ordinary retry path.
+        for parameters in ({'retry_after': 3600}, {'retry_after': 1},
+                           {'retry_after': 'invalid'}, None):
+            with self.subTest(parameters=parameters):
+                self.post.reset_mock()
+                self.post.return_value.status_code = 429
+                self.post.return_value.json.return_value = {
+                    'ok': False, 'error_code': 429, 'parameters': parameters,
+                }
+                repository = Mock()
+                claim = Claim(5, 'synthetic-lease', self.payload)
+                repository.claim.return_value = [claim]
+                repository.finish.return_value = True
+                with self.assertRaises(DeliveryUncertain):
+                    process_batch(repository, self.transport, lambda: self.now, 1)
+                repository.finish.assert_called_once_with(claim, 'uncertain', self.now)
+                self.post.assert_called_once()
+
+    def test_confirmed_non_rate_limit_rejections_keep_bounded_retry_policy(self):
+        for code in (400, 401, 403, 404):
+            with self.subTest(code=code):
+                self.post.return_value.status_code = code
+                self.post.return_value.json.return_value = {'ok': False, 'error_code': code}
+                repository = Mock()
+                claim = Claim(5, 'synthetic-lease', self.payload)
+                repository.claim.return_value = [claim]
+                repository.finish.return_value = True
+                self.assertEqual(process_batch(repository, self.transport, lambda: self.now, 1), 0)
+                repository.finish.assert_called_once_with(claim, 'not_accepted', self.now)
 
     def test_parser_rejects_past_and_noncanonical_times(self):
         for date, time in [('2032-01-02', '03:03'), ('2032-1-02', '03:06'), ('2032-02-30', '03:06')]:

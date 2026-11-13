@@ -76,7 +76,12 @@ class TelegramReminders:
             raise RuntimeError('Telegram acknowledgement unavailable') from None
         if not isinstance(body, dict):
             raise RuntimeError('Unexpected Telegram response')
-        if (response.status_code in {400, 401, 403, 404, 429}
+        # SQL's bounded rejection backoff cannot persist Telegram's retry_after.
+        # Quarantine flood-control responses rather than retrying too early or
+        # sleeping with a live lease. This also fails closed on malformed 429s.
+        if response.status_code == 429:
+            raise RuntimeError('Telegram rate limit requires manual recovery')
+        if (response.status_code in {400, 401, 403, 404}
                 and body.get('ok') is False and body.get('error_code') == response.status_code):
             raise NotAccepted('Telegram rejected the reminder')
         result = body.get('result')

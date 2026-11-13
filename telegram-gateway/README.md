@@ -55,8 +55,14 @@ Each tick claims at most one reminder.
 The gateway handles the explicit commands. In regular mode, ordinary chat
 goes to n8n/Ollama. The first command supports one-time Gregorian reminders. Recurring
 series and occurrence edits use the existing PostgreSQL proposal API. Definitive
-Bot API rejections follow database retry policy. Timeouts and ambiguous responses
-are quarantined for operator reconciliation.
+Bot API rejections (400/401/403/404 with matching failure envelopes) follow the
+database retry policy: 30/60/120/240-second waits and a five-attempt cap. HTTP 429
+is quarantined using the existing `uncertain` state for manual recovery, even
+when Telegram confirms rejection: the current database API cannot persist its
+`retry_after` minimum wait. No immediate resend or sleep under a lease occurs.
+Automatic rate-limit recovery requires a durable cooldown implementation; do not
+manually retry before Telegram's wait expires. Timeouts, malformed responses and
+5xx responses also remain quarantined for operator reconciliation.
 
 ## Delivery reconciliation
 
