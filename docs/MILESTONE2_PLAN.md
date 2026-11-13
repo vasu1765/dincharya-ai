@@ -161,3 +161,14 @@ cleanup and unchanged unrelated container IDs confirmed. See
 execution gate for the completed scoped run only. No open synthetic acceptance
 failure remains. Preview ingestion, advance slots, astronomical release and full
 operational acceptance remain pending; no production or workflow adoption.
+
+## Current 2F synthetic E2E — passed
+
+On development/m2f-synthetic-e2e, the fixture-only n8n request/explicit approvals/
+native projection/existing worker/simulated receipt journey passes E01–E05,
+including two process/n8n restart cycles, duplicate/history and failure handling.
+46 offline tests pass. The older standalone fixture now explicitly initializes
+host SCRAM; reviewed digest updated after demonstrated failure. No T00–T26 rerun.
+See [evidence and live-test blockers](M2F_SYNTHETIC_E2E_RESULTS.md). Real authenticated
+gateway/driver/transport binding, separate private test-bot authorization, validated
+calendar adoption, advance slots and operational acceptance remain outstanding.

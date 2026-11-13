@@ -194,3 +194,17 @@ Owner-authorized T00–T26 passed on disposable PostgreSQL with migrations0001�
 recurrence-sync invoker helper’s search path without changing its body. Cleanup
 and unchanged unrelated containers passed;20 offline tests passed. No production
 auth rollout, model adoption or live scheduling follows from synthetic acceptance.
+
+## Synthetic lunar journey — integration evidence, not a live route
+
+[End-to-end evidence](M2F_SYNTHETIC_E2E_RESULTS.md) connects a fabricated private
+gateway envelope through a real native n8n webhook to the existing lunar SQL
+adapter, Gregorian projection and reminder worker. A separate Python test process
+uses real scoped SCRAM sessions; deterministic transport writes every attempt to
+an append-only synthetic journal and returns receipts/failure/uncertainty. E01–E05
+and two worker/n8n restart cycles pass; unrelated service IDs remain unchanged.
+No Code node or second scheduler/worker is added. Fixture-only predictions keep
+astronomy disabled. Docker/psql/stdio plumbing is test instrumentation, not a
+production authentication/driver boundary; real gateway registration is unchanged.
+A private Telegram test requires reviewed authenticated command/transport binding
+and new live-delivery approval. No deployment or astronomical adoption follows.

@@ -19,7 +19,7 @@ HERE = ROOT / 'tests/integration'
 PROJECT = 'dincharya-m2c-synthetic'
 NETWORK = PROJECT + '_synthetic-only'
 ENDPOINT = 'unix:///var/run/docker.sock'
-COMPOSE_DIGEST = '7092ccdca86520b106aeba528b43340842f18f07d0816ab96ea1f05c797f1f22'
+COMPOSE_DIGEST = '2b24c44fcebefd4f73824a4b1e3cfb8331c4dc99d8b8df509786e97217fb8a28'
 IMAGES = {
     'postgres-test': 'sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f',
     'n8n-test': 'sha256:6723b440354bb8e1395a1ecee12685fe03923f897bf6e4d5bb2c6c2bd2051697',

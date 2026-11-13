@@ -76,3 +76,13 @@ The unchanged safe-source heuristic flags generated/in-memory and invented test
 password assignments. Matches were manually reviewed; no scanner was weakened.
 External exactly-once delivery, real Telegram compatibility, all legacy functions
 and historical runtime behavior are not established by these synthetic tests.
+
+## Lunar synthetic end-to-end runner
+
+synthetic_e2e_runner.py reuses this same standalone compose/project and pinned
+images for a fixture-only native n8n webhook -> existing lunar adapter/worker ->
+simulated transport journey. It does not rerun the old cadence or T00–T26 suite.
+Compose explicitly configures host SCRAM and container-local socket trust. See
+[actual E01–E05 evidence/command](../../docs/M2F_SYNTHETIC_E2E_RESULTS.md). The new
+HTTP/stdio/psql bridge is test instrumentation, not a production route/driver.
+No host port or new scheduler/worker, Code node or real Telegram call is added.

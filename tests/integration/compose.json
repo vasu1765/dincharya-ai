@@ -18,7 +18,8 @@
         "POSTGRES_USER": "synthetic_test",
         "POSTGRES_DB": "dincharya_n8n_test",
         "POSTGRES_PASSWORD": "${DINCHARYA_TEST_DB_PASSWORD:?Generate a synthetic session-only password}",
-        "TZ": "Asia/Kolkata"
+        "TZ": "Asia/Kolkata",
+        "POSTGRES_INITDB_ARGS": "--auth-local=trust --auth-host=scram-sha-256"
       },
       "tmpfs": [
         "/var/lib/postgresql/data:size=256m",

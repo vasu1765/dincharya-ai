@@ -328,3 +328,20 @@ bytes remain immutable. No authorization/history checks were weakened.
 See M2F_POSTGRESQL_RESULTS.md for failure evidence, complete passing cycle and
 remaining limits. No production access, live Telegram/n8n tests, astronomical
 adoption, deployment, main merge or other orchestrator is authorized.
+
+## D23 — Synthetic end-to-end journey using existing components
+
+Owner requests a real isolated synthetic reminder journey, including n8n/worker
+restart, simulated delivery, receipt/history/duplicate and failure checks, while
+keeping astronomy/live delivery disabled. Use the existing standalone synthetic
+stack/project and native webhook/HTTP nodes; reuse SyntheticLunarPostgres,
+PostgresReminders, process_batch and the existing SQL state machine. No second
+scheduler or delivery worker. Test-only bridge/cursor instrumentation is not a
+production gateway, authentication boundary or database driver adoption.
+
+A demonstrated Compose initdb loopback-trust failure requires explicit host SCRAM
+and local-socket trust settings. Update the reviewed test configuration digest;
+preserve no-host-port/internal-network/pinned-image isolation and all assertions.
+E01–E05 now pass with actual process/n8n restarts and teardown/service invariance.
+See M2F_SYNTHETIC_E2E_RESULTS.md. No live Telegram permission, production, merge,
+engine adoption or other orchestrator is authorized by this checkpoint.

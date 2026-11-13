@@ -114,3 +114,8 @@ additive0007/0008, plus20 offline tests. Disposable cleanup and unchanged unrela
 container IDs passed. Earlier runtime-pending notes describe prior checkpoints;
 see M2F_POSTGRESQL_RESULTS.md. Full scheduling/model/operational adoption remains
 unapproved and incomplete.
+
+Current synthetic E2E checkpoint: E01–E05 passed through real n8n/Python/PostgreSQL
+and deterministic simulated delivery, with duplicate/history and worker/n8n restart
+checks;46 offline tests passed. See M2F_SYNTHETIC_E2E_RESULTS.md. No real gateway
+lunar route, live Telegram, astronomy enablement or production adoption follows.

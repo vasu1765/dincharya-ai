@@ -3,68 +3,74 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — lunar PostgreSQL T00–T26 passed
+## Current checkpoint — synthetic lunar E2E passed
 
-Pushed implementation HEAD `599113826a6052fa89389f3b4c61a3b9c370a559` verified on
-`development/m2f-postgres-integration`; entry working tree clean. Git metadata is
-still mounted read-only. New fixes/evidence are uncommitted; no Git bypass,
-stage/commit/push attempted. Previous “uncommitted implementation/runtime gated”
-instructions are superseded for this owner-authorized isolated acceptance cycle.
+Pushed base `5cf007f536aaaac2708238f20b1add10f2c27489` verified, entry tree clean.
+Owner created and agent verified `development/m2f-synthetic-e2e`. Git metadata
+remains mounted read-only; new15-file checkpoint is uncommitted, no Git write or
+bypass attempted. Previous “uncommitted PostgreSQL acceptance” commands superseded.
 
-- Owner authorized the exact pinned daemon/schema lunar command and demonstrated
-  defect fixes. Scoped sandbox execution permission granted for Docker access;
-  no socket permission changes. Only named schema read, no other backup artifacts.
-- Final run: **T00–T26 all passed, exit0**, migrations0001–0008 installed in fresh
-  network-none/no-port/read-only-root/tmpfs-only disposable PostgreSQL17. Daemon
-  `44c1ef83-c50e-4ecc-8f19-4b112bc40f29` verified before creation.
-- Synthetic API proposal/approval->native projection->refresh->real server-clock
-  due claim->synthetic receipt passed; no actual Telegram transport. Concurrency,
-  stale/ABA, audit rollback/replay, replacement/cancel/history and disposable
-  postmaster crash/restart tests passed. SCRAM and scoped privileges retained.
-- Demonstrated42702 fixed additively in0007: qualify calculation local command
-  binding.42P01 fixed in0008: set reviewed baseline recurrence-sync invoker
-  helper’s safe search_path; preserve its body/ACL/owner/security mode.
-  Committed0001–0006 files remain byte-identical.
-- Runner now extracts sanitized function/line diagnostics and handles terse/verbose
-  SQLSTATE separators. Added focused SQLSTATE regression; **20 offline tests pass**.
-  No relaxation of authorization, isolation, history or concurrency checks.
-- Every diagnostic/final disposable run verified cleanup and unchanged original
-  running-container IDs. Existing PostgreSQL/n8n services untouched. No live tests,
-  production, deployment, merge or private2B access. No unrelated suites repeated.
-- [Results](M2F_POSTGRESQL_RESULTS.md) records failures, corrections, complete
-  acceptance and limits. Architecture/decisions/roadmap/plan and GitHub issue2
-  updated. AGENTS unchanged.
+- Owner authorized isolated synthetic request->preview->explicit approvals->native
+  PostgreSQL projection->existing worker->simulated delivery->receipt journey.
+  Scoped sandbox Docker permission granted for the exact new runner command.
+- **E01–E05 all passed, exit0** through real native n8n webhook, a separate Python
+  process, existing SyntheticLunarPostgres/PostgresReminders/process_batch and real
+  scoped SCRAM PostgreSQL sessions. No repository/DB success mocks in runtime.
+- Invented birthday fixtures only; astronomy_enabled=false, no model/predictions.
+  Separate rule/occurrence approvals, stale/rejected decisions and cancellation
+  tested. Three eligible delivery attempts recorded exactly once: sent+receipt,
+  definitive failed (then approved cancellation), and uncertain. No other sends.
+- Two actual worker-process/n8n restart cycles, unchanged PostgreSQL ID/start time,
+  repeated/concurrent ticks and exact durable delivery history pass. Simulated
+  transport has no dedupe masking worker defects. No second scheduler/worker.
+- Demonstrated SCRAM assertion initially failed: older2C initdb loopback TCP trust.
+  Added explicit host SCRAM/local socket trust to ONLY test compose environment;
+  reviewed validator digest updated. No check weakened. Final isolation/cleanup
+  and original unrelated running-container IDs unchanged; failed run also cleaned.
+- **46 focused offline tests pass** (7 new+39 affected runner).14 explicit source
+  scans pass; shared runner has two pre-existing variable-reference false positives,
+  human-reviewed (only its digest changed). Scanner rules unchanged. AST/JSON/link/
+  diff/immutability checks pass. No T00–T26 or old cadence/live suite
+  rerun. Existing application migrations, engine, gateway and worker untouched.
+- [Actual evidence/command/limits](M2F_SYNTHETIC_E2E_RESULTS.md), architecture,
+  D23, milestone plan, roadmap and integration README updated; GitHub issue2
+  updated. AGENTS unchanged. No production, live Telegram/n8n service, private2B,
+  deployment or main merge. Only the named authorized schema was read.
 
-No unresolved synthetic acceptance failure. Next separate work: validated preview
-input adoption, advance/multiple reminder slots, astronomical release gates and
-operational acceptance; no scheduling/production/workflow adoption inferred.
-Do not repeat successful acceptance without materially affected code.
+No unresolved synthetic E2E failure. First private Telegram test is NOT ready:
+needs reviewed real authenticated gateway lunar-command/driver/transport binding
+(the Docker/stdio/psql bridge is test instrumentation), scoped credential setup
+outside Git and fresh explicit dedicated-bot delivery approval. Scheduling still
+requires explicit owner approval; actual astronomy remains disabled. General
+calendar/advance-slot/operational adoption and other orchestrators remain gated.
 
-Safe consolidated normal-WSL commands (13 files; review index before commit):
+Normal-WSL consolidated commands (15 explicit safe files):
 
 ```bash
 git branch --show-current
 git status --short
 git diff --check
 git add -- \
-  database/migrations/0007_lunar_calculation_binding.sql \
-  database/migrations/0008_lunar_projection_trigger_path.sql \
-  database/migrations/README.md \
-  tests/integration/focused_application_runner.py \
-  tests/test_lunar_postgres.py \
-  tests/test_focused_application_runner.py \
-  docs/M2F_POSTGRESQL_RESULTS.md \
+  tests/integration/compose.json \
+  tests/integration/runner.py \
+  tests/integration/e2e_bridge.js \
+  tests/integration/e2e_n8n_client.js \
+  tests/integration/e2e_worker.py \
+  tests/integration/e2e_fixture.sql \
+  tests/integration/synthetic_e2e_runner.py \
+  tests/test_synthetic_e2e.py \
+  tests/integration/README.md \
+  docs/M2F_SYNTHETIC_E2E_RESULTS.md \
   docs/HANDOFF.md \
   docs/ARCHITECTURE.md \
   docs/DECISIONS.md \
   docs/MILESTONE2_PLAN.md \
-  docs/ROADMAP.md \
-  docs/M2F_POSTGRESQL_DESIGN.md
+  docs/ROADMAP.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "fix: validate synthetic lunar PostgreSQL acceptance"
-git push origin development/m2f-postgres-integration
+git commit -m "test: integrate synthetic lunar reminder end to end"
+git push -u origin development/m2f-synthetic-e2e
 ```
 
 ## Prior integration evidence (historical)
