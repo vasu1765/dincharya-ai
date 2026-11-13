@@ -3,17 +3,80 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current authority and approval gate
+## Current checkpoint
 
-On 2026-11-13 the user resumed work and authorized reviewing changed files and
-staging only safe project source, migrations, tests and documentation. A commit
-requires explicit approval of the proposed file list/message; do not commit yet.
-After the approved commit, prioritize completing 2D/2E and the first end-to-end
-Telegram reminder within existing boundaries. Production changes and use of the
-production bot remain excluded; a test transport/bot needs the appropriate scope.
-Do not rerun previously successful integration tests without relevant code changes.
-The last application integration passed. New runner checks listed below remain
-integration-unverified. Preserve all pre-existing working-tree work.
+Pre-merge review at committed/pushed head `43ad653`: GitHub reports MERGEABLE,
+CLEAN, draft=true, no checks/review requirement shown. The merge UI is blocked
+by draft status, not a demonstrated conflict. Review found one blocker: HTTP 429
+ignored Telegram retry_after and entered ordinary short backoff. Local adapter
+fix quarantines all 429s for manual recovery without changing migration checksums.
+Regression reproduced before fix; all 15 focused reminder tests passed after.
+No live test, credential access or Docker execution repeated. No other critical
+PR-diff blocker found. See [pre-merge review](PR1_PREMERGE_REVIEW.md).
+Acceptance evidence below was committed by the owner at `43ad653`; its old
+uncommitted instructions are superseded by these commands for the new fix:
+
+```bash
+git diff -- dincharya/reminder_adapters.py tests/test_reminder_adapters.py telegram-gateway/README.md docs/HANDOFF.md docs/ROADMAP.md
+git diff --no-index -- /dev/null docs/PR1_PREMERGE_REVIEW.md
+git add -- dincharya/reminder_adapters.py tests/test_reminder_adapters.py telegram-gateway/README.md docs/HANDOFF.md docs/ROADMAP.md docs/PR1_PREMERGE_REVIEW.md
+git commit -m "fix: quarantine Telegram rate limits instead of retrying early"
+git push origin development/telegram-reminder
+```
+
+Git remains read-only in this sandbox; no commit/push attempted here. Current
+remote head is not ready to merge until this tested fix is pushed. Then obtain
+owner final merge approval and leave draft status; do not deploy or merge here.
+
+2026-11-13: **PR #1 single live reminder acceptance passed** on
+`development/telegram-reminder` at `aa05dd280ff6c90c510bc60c7351d1503a825cac`.
+WSL Codex is primary while ChatGPT Work is paused. See the sanitized
+[acceptance report](PR1_FOCUSED_ACCEPTANCE_RESULTS.md).
+
+- Pinned daemon/image and disposable PostgreSQL 17 isolation verified. Only the
+  exact owner-authorized schema file was loaded, unchanged. Approval/retry-cap
+  SQL and concurrent decision/claim/acknowledgement passed. Lock-only harness
+  timeout was corrected; only that check was repeated and passed.
+- After explicit owner live-test authorization, a fresh tmpfs PostgreSQL database
+  and dedicated network were used with only 127.0.0.1:55432 exposed. Dedicated
+  test-bot identity and private credential-file permissions were verified without
+  displaying credentials. Exactly one gateway poller started.
+- Observed one pending proposal, null event ID and zero deliveries. Owner then
+  sent `/approve_reminder 1` directly in Telegram; only then was one event created.
+  Lock contention suppressed all attempts through due time plus 35 seconds.
+  Disconnecting the lock holder allowed one acknowledged send: `sent`, attempts
+  `1`, send timestamp present and worker token cleared. Ledger remained unchanged
+  over two further ticks. Owner confirmed exactly one reminder in the test chat.
+- Gateway stopped and lock reacquisition passed. Disposable container/network
+  removed, loopback port closed, original running container IDs unchanged.
+  Production credentials/services were never used. No deploy, merge or push.
+- The owner's original private credential file remains outside Git; temporary
+  gateway environment was stopped. Temporary acceptance virtualenv remains at
+  `/tmp/dincharya-acceptance-venv`. Further Telegram sends require new authorization.
+
+Local source/documentation changes remain uncommitted because Git metadata is
+mounted read-only. Pre-existing untracked
+`docs/WSL2_REMINDER_ACCEPTANCE_RESULTS.md` is preserved as historical blocked
+results; it is superseded by the new report. No unrelated suites were repeated.
+Documentation safety scan and diff checks passed. Keep PR #1 draft for final
+review; remaining 2D/2E coverage is not declared complete. Message-ID persistence
+remains a separate follow-up; it was not required to fix a demonstrated failure.
+Sanitized evidence was posted to [PR #1](https://github.com/vasu1765/dincharya-ai/pull/1#issuecomment-6846033279).
+
+Exact normal-WSL commands for the owner after reviewing the changes (the two
+`--no-index` review commands return 1 when showing a new file):
+
+```bash
+cd /home/vasu1765/projects/dincharya-ai
+git diff -- AGENTS.md docs/HANDOFF.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md
+git diff --no-index -- /dev/null scripts/prepare-acceptance-secrets.py
+git diff --no-index -- /dev/null docs/PR1_FOCUSED_ACCEPTANCE_RESULTS.md
+git add -- AGENTS.md docs/HANDOFF.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md scripts/prepare-acceptance-secrets.py docs/PR1_FOCUSED_ACCEPTANCE_RESULTS.md
+git commit -m "test: record successful isolated Telegram reminder acceptance"
+```
+
+Next: review PR #1 evidence and remaining 2D/2E gaps; do not repeat live acceptance,
+merge, deploy or extend milestone scope without the applicable authorization.
 
 ## Last successful evidence
 
@@ -78,17 +141,16 @@ or daemon failure can still leave disposable resources.
   preserve sent history; guard edits while a send is in flight.
 - dincharya/reminders.py is an adapter-injected single-batch worker, tested offline.
   It opens no connections and performs no real Telegram I/O itself. Database and
-  transport adapters, workflow/gateway wiring, operator resolution of uncertain
-  sends and deployment remain future integration work. A batch abort can leave
+  transport adapters and one-time gateway wiring now passed isolated acceptance.
+  Operator resolution of uncertain sends and deployment remain future work.
+  A batch abort can leave
   remaining claims to expire into quarantine; external exactly-once is not claimed.
-- ApplicationRunner's **new checksum-corruption rejection**, **parallel duplicate
-  decision check**, **competing reminder-claim check** and final concurrent
-  acknowledgement are source-reviewed/syntax-checked only, not runtime verified.
-  They were added after the last passing SQL integration. Existing concurrency
-  safety assertions must not be presented as passing multi-session evidence.
-- Retry exhaustion, broad outage/recovery permutations, adversarial API cases,
-  legacy API interaction with managed series, and worker transport wiring need
-  further focused coverage before declaring all of 2D/2E complete.
+- Parallel duplicate decisions, competing reminder claims and concurrent
+  acknowledgement now passed multi-session acceptance. Checksum-corruption
+  rejection remains source-reviewed/syntax-checked only; it was not rerun here.
+- Five-attempt exhaustion and one-time gateway transport wiring now passed. Broad
+  outage/recovery permutations, adversarial API cases, legacy API interaction and
+  uncertain-send reconciliation still need coverage before closing all of 2D/2E.
 
 ## Source/provenance boundaries
 
@@ -99,66 +161,12 @@ review/provenance manifest path**. Manifest location remains missing; do not gue
 or search private directories. The user's source authorization does not certify
 all schema functions or authorize production application/source promotion.
 
-Git status verified for the consolidated report: branch main; latest commit
-ceeba98 (feat: complete offline source tooling and integration preparation).
-62e96e6 is the earlier 2A tooling checkpoint, not current HEAD. The integration,
-migration, worker, tests and documentation changes remain uncommitted; current
-staging status is determined by git status during the commit-preparation task.
-2C is complete for its synthetic scope; 2D and 2E are partially complete and are
-not production-ready. No tests or Docker operations were rerun for this report.
+Historical foundation checkpoint was `ceeba98`; the foundation commit
+`b80a91d8` subsequently landed on main. 2C is complete for its synthetic scope.
+2D and 2E remain partially complete.
 
 Historical 2B evidence remains: four
 current workflows, 94 history versions, two structural candidates; current and
 published bodies remain separate; seven Code bodies were neither executed nor
 cleared. No complete production workflow/schema baseline has been adopted in Git.
 
-## Commit preparation
-
-Review explicit safe paths only: docs/HANDOFF.md, docs/ROADMAP.md,
-docs/ARCHITECTURE.md, docs/native-scheduler-state.md,
-database/migrations/README.md, tests/integration/README.md,
-tests/integration/compose.json, tests/integration/runner.py,
-tests/integration/api-client.js, tests/integration/test-api-client.js,
-tests/integration/application_runner.py, tests/test_integration_config.py,
-tests/test_integration_runner.py, database/migrate.py,
-database/migrations/0001_gregorian_occurrences.sql,
-database/migrations/0002_occurrence_reminders.sql, tests/sql/gregorian.sql,
-tests/sql/reminders.sql, tests/test_migrations.py, dincharya/__init__.py,
-dincharya/reminders.py and tests/test_reminder_worker.py.
-
-Keep temporary debugging scripts, daemon pins, logs, raw schema and private source
-outside Git. Stage only the reviewed paths above if Git metadata is writable;
-never escalate or relocate .git to bypass metadata restrictions. No commit until
-user approval. Proposed subject: feat: add isolated recurrence and reminder foundations.
-
-The unchanged safe-source heuristic flags generated/in-memory and invented test
-password assignments in integration source. These matches were manually reviewed
-as false positives; do not weaken the scanner or report an unconditional code-scan
-pass. Documentation, migration and application source scan results are recorded
-in the final checkpoint report; human privacy/diff review is still required.
-
-## 2026-11-13 commit-preparation result
-
-All 22 modified/untracked candidate files were reviewed as explicit regular text
-source, migrations, tests or documentation. No credentials, raw/private baseline
-data, logs, backups, binary files or generated artifacts were found in that
-inventory. Eighteen files passed the safe-source scanner; six generated/in-memory
-or invented password assignments in four integration files were manually reviewed
-as false positives. No scanner was weakened. No integration tests were rerun.
-
-Staging was explicitly authorized, but git add failed because .git/index.lock
-cannot be created on the read-only Git filesystem. Nothing was staged or committed.
-Do not escalate, relocate .git or alter permissions to bypass this restriction.
-The reviewed file list above and proposed commit message await user approval;
-staging/committing additionally require operator-provided writable Git metadata.
-
-Proposed message: feat: add isolated recurrence and reminder foundations
-
-- Add Gregorian change/occurrence migrations and an injected reminder worker.
-- Add isolated n8n/application runners, synthetic tests and migration checksums.
-- Record passing integration evidence and outstanding 2D/2E acceptance gaps.
-
-The expanded concurrent/checksum-corruption runtime checks remain unverified.
-After an approved commit, prioritize their focused verification, remaining 2D/2E
-acceptance, and a first end-to-end reminder using a separately authorized test
-Telegram transport/bot; do not use or modify production.
