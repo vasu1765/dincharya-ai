@@ -1,3 +1,11 @@
+# Current checkpoint: authorized in-memory simulation
+
+Owner authorized the previously proposed offline seam after pushed9eaf859.
+See [M2F_MEMORY_CONTRACT.md](M2F_MEMORY_CONTRACT.md) for implemented contract,
+29 focused passes, SQL differences and remaining approval gates. Earlier
+not-implemented statements below describe the historical assessment. This does
+not approve real storage, engine adoption, scheduling or delivery.
+
 # Milestone 2F — bounded personal recurrence pre-integration assessment
 
 Pushed base `34b6270901d0d09ba0d96e445185277cc2090f4d`, branch

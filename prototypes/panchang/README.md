@@ -226,3 +226,13 @@ DINCHARYA_PUBLIC_DE440S=/EXTERNAL/PUBLIC/de440s.bsp \
 
 preintegration-results.json records the bounded run/public fixtures and two affected
 comparison regressions. No need to rerun unrelated integration/timing experiments.
+
+## Isolated memory contract (base9eaf859)
+
+The owner authorized memory_contract.py after the earlier assessment. It reuses
+research validation/logical identity and DeliveryReceipt, with distinct immutable
+birthday/wedding series, explicit frozen approvals and fake ledger/history. No
+connection factory, claim/send, worker loop or persistence. See
+[contract and29-test acceptance](../../docs/M2F_MEMORY_CONTRACT.md) for exact API,
+model-input trust boundary, SQL differences and owner-gated PostgreSQL next step.
+Accepted astronomical evidence/model files are unchanged. Stop offline here.

@@ -268,3 +268,15 @@ See M2F_PREINTEGRATION_ASSESSMENT.md for classifications and limitations. The
 recommended in-memory synthetic contract adapter requires explicit approval and
 is NOT implemented. No DB/n8n/Telegram/production/private access, migration,
 resend, festival, deployment or merge follows. AGENTS already covers boundaries.
+
+## D19 — Isolated in-memory recurrence integration authorized
+
+Owner authorizes a synthetic offline proposal/approval/ledger adapter for birthday
+and wedding series, not real storage, delivery or deployment. Immutable series ID
+scopes the existing lunar key; each occurrence/rule snapshot needs explicit owner
+approval. Recalculations cannot replace materialized entries or sent/uncertain
+history. Opaque in-process owner capability is test authority, not production auth.
+The adapter reuses preview validation and DeliveryReceipt and does not implement
+SQL conflicts/leases/retries. See M2F_MEMORY_CONTRACT.md for divergences and tests.
+Stop after offline checkpoint. PostgreSQL design/execution/migration, n8n/Telegram,
+production/private access, deployment and merging remain unapproved.

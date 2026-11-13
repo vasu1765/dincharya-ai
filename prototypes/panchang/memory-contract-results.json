@@ -1,0 +1,46 @@
+{
+  "status": "offline_memory_contract_checkpoint_not_database_or_scheduling_approval",
+  "base_commit": "9eaf859ccd6fe99cb77a02d3758817ff551399c7",
+  "branch": "development/m2f-memory-contract",
+  "tests": 29,
+  "wall_seconds": 0.47980668900709134,
+  "network_guard": true,
+  "usable_for_scheduling": false,
+  "accepted_sha256": {
+    "references.json": "25978108a2800699e1b90d5fee1c189390283a30b90cb4d28fae46ee43047e62",
+    "research-references.json": "c7e36e1dbf18c57ea6b09e1526e71ec0c1b7b3e2ec946560be05413e38be12fa",
+    "month-references.json": "8d8210c495e4aa02d7458ddd49221896ba9d88ac1cc35282fe110df59c445d19",
+    "calendar-references.json": "218989c875197d0a37fda34d72a453a22bbf44f15f5a3eaf2320ed3623a5ca5e",
+    "coverage-references.json": "6f0ff2997b3001bfb755473f4027308970889c8874b6d4312e4b83f2e7d6baa9",
+    "feasibility-results.json": "9ef5f2a217ac9ecda87af4214e07c2b7472052f34c8402cb5c490bbb91fbec09",
+    "validation-results.json": "84a78b83b557accc97822fc3f34597bce6724a7717b866f72d9f05696a802829",
+    "month-results.json": "e1a1afe46499e353282546d1fe3f99a8d5ed762c18d1b4b69a9e23c060ff1ec9",
+    "recurrence-results.json": "f48f7d98cd8be03e8d66ed719f120d9796d42f6fe6e2d5be45154f7ac4ca6357",
+    "coverage-results.json": "91ae1ee0e14612a3686c63e87d630a2a01263ab525d7526f58216c079646e538",
+    "preintegration-results.json": "e945d36325c1e6279086fe6260e94135d738dc217cdda0143fe7d0fa8d05380e"
+  },
+  "red_before_fix": "Forged selected2030 civil day outside2023 physical interval was accepted; now rejects atomically.",
+  "requirements": {
+    "unapproved_blocked": true,
+    "idempotent_submissions": true,
+    "series_scoped_calendar_identity": true,
+    "immutable_approval_snapshots": true,
+    "changed_date_review_no_replacement": true,
+    "changed_rule_fresh_approval": true,
+    "overlap_deduplication": true,
+    "sent_uncertain_preserved": true,
+    "no_send_or_claim_api": true,
+    "invalid_batches_atomic": true,
+    "per_occurrence_approval": true,
+    "application_payload_reconciliation_rejected": true
+  },
+  "limitations": [
+    "single_process_single_thread_no_durability",
+    "trusted_in_process_owner_capability_not_network_auth",
+    "no_lease_retry_conflict_or_database_simulation",
+    "trusted_engine_origin_not_cryptographically_verified",
+    "approved_ledger_replacement_not_implemented",
+    "no_scheduling_or_delivery"
+  ],
+  "followup": "Strengthened stale approval replay and unauthorized replay test passed0.001s; immutable replay does not restore freshness."
+}

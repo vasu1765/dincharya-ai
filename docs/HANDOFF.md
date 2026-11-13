@@ -3,76 +3,78 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — bounded pre-integration assessment, stop for approval
+## Current checkpoint — authorized isolated in-memory lunar contract, stop offline
 
-Branch development/m2f-skyfield-feasibility, pushed base
-`34b6270901d0d09ba0d96e445185277cc2090f4d`. Entry clean; HEAD/tracking/GitHub
-agree, no open PR. Prior uncommitted0a1cae6-base instructions are superseded.
-Git remains read-only; no stage/commit/bypass. Current local assessment ready for
-review, NOT engine adoption or permission to integrate.
+Base `9eaf859ccd6fe99cb77a02d3758817ff551399c7`; entry clean on
+ development/m2f-skyfield-feasibility. Owner created separate
+`development/m2f-memory-contract`; agent verified it, with clean tree before edits.
+Old uncommitted34b6270-base instructions superseded. Git metadata remains mounted
+read-only; no stage/commit/push/bypass attempted. Current changes uncommitted;
+no new commit SHA can be reported until owner executes the explicit commands.
 
-- Independently inspected lunation_cycle/_label/preview/logical_key/comparison.
-  Calendar key is not a user series/event ID.2,487 analytic centers with+/-8h
-  shifts and50 actual new moons at1900/1950/2050/2100 preserve identity arithmetic;
-  this does not certify all-year calendar accuracy.
-- Fixed two demonstrated comparator gaps: approval/delivery/series fields could
-  be silently discarded; changed birth/repetition policy could pass on same date.
-  Strict research-only shapes/statuses now reject application payloads; changed
-  policy/date retains key but withholds date. No ledger/transport or stored action.
-- Bounded accepted reference panel covers actual near-Delhi sunrise, repeated/
-  skipped dates, ordinary/Adhika choices, Purnimanta split halves and Kshaya
-  rejection. Existing public source limitations remain. No new astronomy research,
-  new download or minute-level discrepancy rerun;60s diagnostics unchanged.
-- Personal birthday/anniversary policy explicit: instant versus sunrise input,
-  sunrise future assignment, repeated first/last/review, skipped review, ordinary/
-  Adhika/both choices including no-Adhika years. No fallback date or festival rule.
--12 distinct focused tests verified: initial11 in14.017s; new same-date policy
-  plus2 affected regressions in4.262s. Red-before-fix evidence recorded. Existing10
-  fixture/result files preserved. No unrelated integration suite repeated.
-- Performance:1.963s cold month cache /0.104ms warm, no extra month calculations;
-  shared sunrise cache may be warm. Bounds unchanged; not a VPS certification.
+- Owner authorized this in-memory proposal/approval/ledger simulation only. No DB,
+  n8n, Telegram, actual delivery or scheduling enablement. AGENTS unchanged.
+- Separate immutable UUID series for synthetic birthday/wedding share the same
+  lunar key without collision. Ledger key is series UUID + existing logical key.
+- Reuses LunarRule/logical_key/research comparison boundary and DeliveryReceipt;
+  no duplicate astronomy, worker/lease/retry implementation. SQL approval source
+  reviewed for snapshot/ownership/atomicity expectations; no SQL executed.
+- Immutable proposals, approval action/snapshots and ledger/history records.
+  Explicit owner capability, per-occurrence approval, observation/candidate-rule
+  generations, stale/ABA/action replay guards. Changed dates/rules require review;
+  already materialized entries cannot be replaced, even after new approval.
+- Validated batch is atomic in process; repeated submission/recalculation/overlap
+  idempotent. Unsupported/unselected/ambiguous/skipped input rejects; empty result
+  no-op. Test-only sent/uncertain fixture records/receipts immutable, no resend path.
+-29 focused tests pass0.480s (15 adapter+2 comparison+12 mocked worker regressions).
+  Stale/unauthorized replay strengthened test passes0.001s. Red forged2030 date
+  outside2023 physical interval rejected after adding interval-containment check.
+- Actual engine-to-adapter overlap test runs offline.11 accepted reference/result
+  files unchanged; astronomical model/dependencies/diagnostics untouched. No
+  unrelated integration/accuracy/coordinate suite rerun or new packages/data.
 
-[Readiness matrix / policy / next-step proposal](M2F_PREINTEGRATION_ASSESSMENT.md)
-is authoritative for this checkpoint. Pure preview/identity/change detection ready
-for a proposed isolated contract test; general astronomy/calendar validation still
-limited; persistence/approval/delivery safety unsupported and disabled. Cannot
-claim preservation of stored sent/uncertain records without a future adapter test.
-AGENTS unchanged because existing boundaries suffice. Source-safety/AST/JSON/link/
-diff/evidence checks passed; GitHub issue2 updated.
+See [contract/API/acceptance/risks](M2F_MEMORY_CONTRACT.md),
+[tests](../tests/panchang/test_memory_contract.py),
+[synthetic fixtures](../tests/panchang/fixtures/memory-contract.synthetic.json) and
+[results](../prototypes/panchang/memory-contract-results.json). Source-safety,
+AST/JSON/link/diff and accepted-evidence checks pass; GitHub issue2 updated.
 
-Next step recommended only: owner-approved in-memory fake proposal/approval/ledger
-adapter dry run for two synthetic personal series, no transport/database. NOT
-implemented. Owner must approve scope before integration, persisted v1 mapping,
-series identity or engine/date-policy adoption. All current outputs research-only.
-No production/private backup/2B access, migration, n8n/Telegram, live scheduling,
-festival implementation, deployment, main merge or other orchestrator. Neutral
-profile and future consolidated Smarta/Vaishnava design preserved. Stop here.
+Readiness: in-memory contract accepted by focused tests, ready for separate owner
+review of PostgreSQL mapping/transaction/auth/locking design and finite synthetic
+acceptance plan. NOT ready for DB execution, migration, persistence/delivery or
+live adoption. Trusted capability is not production auth; no concurrency/durability,
+conflict checks or ledger replacement. Existing n8n/SQL/leases/history untouched.
+No production/private backup/2B access, migration, live Telegram, deployment/main
+merge or other orchestrator. Neutral profile/consolidated future observances stay.
+Stop after offline checkpoint; any next DB design/execution scope needs approval.
 
-Normal WSL commands, confirming branch and reviewing index;13 explicit safe files:
+Normal WSL commands (branch already created),14 explicit safe files; inspect index:
 
 ```bash
 git branch --show-current
 git status --short
 git diff --check
 git add -- \
-  prototypes/panchang/recurrence.py \
-  prototypes/panchang/preintegration-results.json \
-  tests/panchang/test_preintegration.py \
-  docs/M2F_PREINTEGRATION_ASSESSMENT.md \
-  docs/M2F_RECURRENCE_PREVIEW.md \
-  docs/M2F_FEASIBILITY_RESULTS.md \
+  prototypes/panchang/memory_contract.py \
+  prototypes/panchang/memory-contract-results.json \
+  tests/panchang/test_memory_contract.py \
+  tests/panchang/fixtures/memory-contract.synthetic.json \
+  docs/M2F_MEMORY_CONTRACT.md \
   docs/HANDOFF.md \
+  docs/ARCHITECTURE.md \
+  docs/DECISIONS.md \
   docs/MILESTONE2_PLAN.md \
   docs/ROADMAP.md \
-  docs/DECISIONS.md \
-  docs/ARCHITECTURE.md \
-  docs/M2F_PANCHANG_DESIGN.md \
+  docs/M2F_RECURRENCE_PREVIEW.md \
+  docs/M2F_FEASIBILITY_RESULTS.md \
+  docs/M2F_PREINTEGRATION_ASSESSMENT.md \
   prototypes/panchang/README.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "fix: bound lunar preview comparison and assess integration readiness"
-git push origin development/m2f-skyfield-feasibility
+git commit -m "feat: add isolated in-memory lunar approval contract"
+git push -u origin development/m2f-memory-contract
+git rev-parse HEAD
 ```
 
 ## Prior integration evidence (historical)

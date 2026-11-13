@@ -1,0 +1,128 @@
+{
+  "source": "Committed public/synthetic preintegration-results.json 2023 Shravana9 rows; no personal record",
+  "series": [
+    {
+      "series_id": "10000000-0000-4000-8000-000000000001",
+      "kind": "birthday"
+    },
+    {
+      "series_id": "10000000-0000-4000-8000-000000000002",
+      "kind": "wedding_anniversary"
+    }
+  ],
+  "ordinary": {
+    "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7",
+    "occurrences": [
+      {
+        "end": "2023-08-25T20:32:56.097094+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "lunation_cycle": 292,
+          "month": "shravana",
+          "paksha": "shukla",
+          "tithi": 9,
+          "version": 2
+        },
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "paksha": "shukla",
+        "provenance": {
+          "canonical_new_moon_date": "2023-08-16",
+          "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2023-08-25",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2023-08-24T21:41:04.988696+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-08-25"
+        ],
+        "tithi": 9
+      }
+    ],
+    "status": "experimental_preview",
+    "birth_basis": "explicit_rule",
+    "assignment": "sunrise",
+    "calendar_date_gate": "not_adopted",
+    "validation_scope": "all_names_selected_cases_not_calendar_adoption",
+    "usable_for_scheduling": false
+  },
+  "both": {
+    "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7",
+    "occurrences": [
+      {
+        "end": "2023-07-27T10:18:10.214526+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "adhika",
+          "lunation_cycle": 291,
+          "month": "shravana",
+          "paksha": "shukla",
+          "tithi": 9,
+          "version": 2
+        },
+        "intercalation": "adhika",
+        "month": "shravana",
+        "paksha": "shukla",
+        "provenance": {
+          "canonical_new_moon_date": "2023-07-17",
+          "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2023-07-27",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2023-07-26T10:22:59.553210+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-07-27"
+        ],
+        "tithi": 9
+      },
+      {
+        "end": "2023-08-25T20:32:56.097094+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "lunation_cycle": 292,
+          "month": "shravana",
+          "paksha": "shukla",
+          "tithi": 9,
+          "version": 2
+        },
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "paksha": "shukla",
+        "provenance": {
+          "canonical_new_moon_date": "2023-08-16",
+          "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2023-08-25",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2023-08-24T21:41:04.988696+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-08-25"
+        ],
+        "tithi": 9
+      }
+    ],
+    "status": "experimental_preview",
+    "birth_basis": "explicit_rule",
+    "assignment": "sunrise",
+    "calendar_date_gate": "not_adopted",
+    "validation_scope": "all_names_selected_cases_not_calendar_adoption",
+    "usable_for_scheduling": false
+  }
+}

@@ -1,3 +1,11 @@
+# Current checkpoint: authorized in-memory simulation
+
+Owner authorized the previously proposed offline seam after pushed9eaf859.
+See [M2F_MEMORY_CONTRACT.md](M2F_MEMORY_CONTRACT.md) for implemented contract,
+29 focused passes, SQL differences and remaining approval gates. Earlier
+not-implemented statements below describe the historical assessment. This does
+not approve real storage, engine adoption, scheduling or delivery.
+
 # Current review: bounded pre-integration assessment (base34b6270)
 
 See [readiness and personal policy matrix](M2F_PREINTEGRATION_ASSESSMENT.md).

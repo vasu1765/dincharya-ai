@@ -162,3 +162,13 @@ rejects approval/delivery application state and withholds policy changes on matc
 calendar keys. It cannot preserve or mutate a real approval/delivery ledger because
 there is no lunar adapter. A synthetic in-memory contract-adapter test is proposed
 only; owner approval is required before implementation. No live architecture changed.
+
+## Authorized synthetic in-memory lunar contract
+
+The owner subsequently authorized the [in-memory contract](M2F_MEMORY_CONTRACT.md)
+on development/m2f-memory-contract. Two synthetic immutable series scope calendar
+keys; per-occurrence frozen approval snapshots gate an immutable fake ledger.
+Sent/uncertain fixtures cannot be changed and no worker/transport/database exists.
+This implements the previous proposed offline seam only, not the live diagram or
+SQL architecture. PostgreSQL mapping/auth/transaction/locking review remains a
+separate approval gate; no migration or n8n/Telegram change is included.

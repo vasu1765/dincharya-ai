@@ -21,7 +21,9 @@ arbitrary bounded rules, with canonical identities, explicit birth/repeat/skip
 policies and bounded caches. Selected calendar-date checks pass; timing diagnostics
 and overall adoption remain incomplete. General live scheduling stays disabled.
 Pushed34b6270 now has a [bounded pre-integration assessment](M2F_PREINTEGRATION_ASSESSMENT.md);
-the next synthetic adapter step requires owner approval and is not implemented.
+the owner subsequently authorized the [offline in-memory seam](M2F_MEMORY_CONTRACT.md),
+now implemented on development/m2f-memory-contract. PostgreSQL integration remains
+a separate design/approval gate; no live scheduling or architecture change.
 Current all12-name selected research and identityv2 separate logical keys from
 provenance/date policy; see [coverage matrix](M2F_MONTH_COVERAGE.md). Direct
 publisher labels and inferred comparisons remain distinguished.

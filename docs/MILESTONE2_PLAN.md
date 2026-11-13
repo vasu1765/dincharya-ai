@@ -120,14 +120,14 @@ migration, Telegram operation, deployment or merge in this phase.
 
 ## 2F isolated feasibility checkpoint after owner authorization
 
-Bounded pre-integration assessment now reviews pushed34b6270. See
-[M2F_PREINTEGRATION_ASSESSMENT.md](M2F_PREINTEGRATION_ASSESSMENT.md) for explicit
-ready/requires-validation/unsupported classifications, personal recurrence policy,
-12 distinct focused tests, comparator fixes and remaining persistence risks.
-No open-ended astronomy cycle. Existing timing diagnostics/fixtures retained.
-Smallest proposed next step is an owner-approved in-memory fake proposal/approval/
-ledger contract test for synthetic birthday/wedding series. NOT implemented;
-no database, migration, workflow, scheduling or delivery integration authorized.
+Owner authorized the isolated in-memory seam after pushed assessment9eaf859.
+Current branch development/m2f-memory-contract implements two synthetic personal
+series, immutable proposal/approval snapshots and fake ledger/history.29 focused
+checks pass; no DB/worker/delivery integration. See
+[M2F_MEMORY_CONTRACT.md](M2F_MEMORY_CONTRACT.md) for contract, SQL differences,
+readiness and risks. Next PostgreSQL mapping/auth/transaction/locking design and
+finite synthetic test plan need separate approval before implementation/execution.
+Existing calendar/astronomy validation limits and no-scheduling boundary remain.
 
 The owner is religiously neutral: future supported festivals should consolidate
 labelled Smarta/Vaishnava dates in one reminder when different. Proposed Vaishnava
