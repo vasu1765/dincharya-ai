@@ -5,68 +5,81 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-Branch `development/m2-recovery-acceptance`, pushed base `cb6fdd7` (full SHA
-cb6fdd73686fbdb19b29aea1011585faf4205e46). Working tree was clean at entry;
-HEAD and origin tracking ref matched, GitHub confirmed the commit, and no open
-PR was found for this branch. The prior 2D checkpoint is committed/pushed; old
-ff6198d/uncommitted references are superseded. PR #1 remains merged.
+Entry branch `development/m2-recovery-acceptance`, pushed base `9524757` (full SHA
+952475720e1990f635eed7f1710b123018262db0). Working tree was clean; HEAD and origin
+tracking ref agreed and GitHub confirmed the commit. No open PR found. Earlier
+cb6fdd7-based/uncommitted design instructions are superseded. PR #1 is merged.
 
-Owner authorized **Milestone 2F Phase 1 research/design only**. New
-[M2F_PANCHANG_DESIGN.md](M2F_PANCHANG_DESIGN.md) records primary research sources,
-confirmed facts versus recommendations/unresolved decisions, functional/calendar
-requirements, engine/reference comparisons, stable occurrence/approval/reminder
-integration, fixture criteria and phased implementation gates. No engine,
-dependency, migration or n8n change has been implemented.
+Owner D14 authorized an isolated offline Skyfield/DE440s feasibility prototype,
+not final adoption, festivals, persistent scheduling or reminder integration.
+[Prototype README](../prototypes/panchang/README.md) gives exact reproduction;
+[results](M2F_FEASIBILITY_RESULTS.md) distinguish scoped tests from accuracy gates.
 
-Recommendation pending approval: evaluate Skyfield with pinned local DE440s
-first; keep astronomical tithi intervals, sunrise-based dates, personal recurrence
-policies and festival observance profiles distinct. Delhi/Asia-Kolkata and
-Purnimanta default/Amanta configuration reflect owner requirements; exact profile,
-ayanamsa/sunrise and exceptional-date choices remain pending. Swiss Ephemeris is
-an alternative with explicit license/binding-support review. PAC and Skyfield
-sunrise models differ, so reference comparisons must bind coordinates/conventions.
+Implemented: pinned local astronomy dependencies/data, geocentric elongation and
+all tithi transitions, instant/sunrise distinction, two labelled Delhi sunrise
+hypotheses, physical Amanta/Purnimanta boundaries and generic monthly previews.
+Repeated sunrise chooses first once; skipped/near-boundary cases need review.
+Known 2023 intercalary period has zero ingress under three constant-offset
+sensitivity hypotheses, explicitly not exact Lahiri or a month-naming engine.
 
-Proposed personal defaults: first repeated sunrise once, skipped-tithi/Kshaya-month
-cases require review, ordinary-month anniversaries unless explicitly selected,
-adhika-origin rules clarified. Propose North-Indian Smarta as a candidate profile,
-not an inferred owner tradition. Each requested observance needs independent
-verification; tithi-only matching cannot silently schedule every festival.
+**Incomplete for scheduling:** 11 focused tests passed, NASA phase differences
+within provisional 60 seconds, but two Drik tithi endpoints differ by about
+86/76 seconds, outside the unchanged threshold. Sunrise is numerically close to
+one rounded reference but exact coordinate/model metadata is unconfirmed; USNO
+lookup failed DNS. Exact Lahiri, named-month/intercalary conversion and annual
+birthday/anniversary output are unsupported and fail closed. Do not widen tests,
+guess names or treat physical month bounds as verified calendar label conversion.
+CLI deliberately exits 2 with usable_for_scheduling=false. No engine adopted.
 
-Storage approval needed: current ledger allows one event/date delivery and due
-at event time. Stable Hindu logical identity, independent notification due time,
-bounded lead-aware lookahead and multiple slots require reviewed additive design.
-Preferred candidate keeps old history/uniqueness and adds companion jobs for extra
-slots with shared lease/receipt/quarantine semantics. This is a proposal only.
+Measured: 371 transitions for 2026 in 0.305 seconds; complete experiment after
+imports 1.154 seconds wall, peak RSS 75.14 MiB under 512 MiB address-space/60 CPU
+second limits. Development Linux host only, not VPS capacity or physical timing
+accuracy. Exact dependency/kernel/timezone/timescale hashes and observed metrics
+are recorded in source metadata and the sanitized public result JSON.
 
-Stop for owner decisions before implementation: engine/licensing, Delhi/sunrise/
-ayanamsa profile, personal exception policies, ritual authority/tradition and
-staged identity/notification storage. See the numbered approval list in the design.
-No choice is recorded as accepted merely because it is recommended.
+Dependencies/kernel were acquired from public PyPI/JPL into a separate /tmp venv;
+no application environment or package credentials used. Runtime has explicit
+local-only file loading, no network fallback and Python socket audit guards
+(not an OS network namespace). New assets/fixtures are public numeric facts or
+invented data; BSP/wheels remain outside Git. No Docker/DB/n8n/Telegram/production,
+private backup/2B search, migration, deployment, merge or unrelated suite ran.
+Only 11 new focused tests, explicit safe-source/AST/JSON/local-link/whitespace/diff
+checks. Existing services and lease/receipt/audit infrastructure are untouched.
 
-Only documentation checks ran: explicit five-file safe-source scan, local-link
-checks, whitespace and diff review. No Docker/SQL/Panchang runtime tests, package
-installation, Telegram, n8n operation, private backup/manifest access, production,
-deployment or merge. No runtime accuracy/performance or golden fixture is claimed.
-Source and engine/data/reference license verification remain implementation gates.
-GitHub issue #2 reflects the pushed 2D checkpoint and current design status.
+Owner religious profile is **neutral**. Future supported festivals should show
+labelled Smarta/Vaishnava dates in one consolidated reminder when different;
+shared dates deduplicate. Proposed named reference pair: Drik New Delhi Smartha
+and ISKCON/Gaudiya GBC Calendar Committee GCal 11. Export/build/settings verification
+is still pending; no festival rule implemented or owner sampradaya assigned.
 
-2D synthetic database/API acceptance remains passed at cb6fdd7; full trusted
-application/workflow adoption is blocked by 2B. The owner confirmed original
-manifest path is unknown and authorizes no private searches, unknown artifacts,
-manifest replacement or capture. Repository-only contract/test-gap/checklist work
-can proceed later; this phase does not unblock provenance or private-source
-adoption. Production reconciliation and all resend/reset operations stay disabled.
-All Milestone 2, including Panchang and operations, precedes other orchestrators.
+Stop at isolated feasibility. Next review: resolve tithi reference discrepancies,
+obtain matched Delhi sunrise evidence and validate one exact Lahiri convention
+before month names/annual rules. Persistent identity/slot storage and delivery
+integration require further review; n8n stays. 2B provenance remains blocked;
+no search/replacement/capture. All Milestone 2 including Panchang/operations
+precedes other orchestrators. Production reconciliation/resend/reset remain disabled.
+GitHub issue #2 is updated with scope, outcomes, limitations and the neutral profile.
 
-Git metadata is still mounted read-only; no Git write/bypass attempted. After
-reviewing the design and index, use these exact five-safe-file commands in your
-normal WSL terminal; committing documentation does not authorize implementation:
+Git metadata is mounted read-only; no write/bypass attempted. A separate branch
+is practical from your normal WSL terminal, carrying this working tree forward.
+Review only these 15 safe files and the index; no binaries, /tmp files or private
+inputs belong in the commit. Commands below do not push, deploy or merge:
 
 ```bash
 git status --short
-git branch --show-current
+git switch -c development/m2f-skyfield-feasibility
 git diff --check
 git add -- \
+  .gitignore \
+  prototypes/panchang/astronomy.py \
+  prototypes/panchang/feasibility.py \
+  prototypes/panchang/requirements.txt \
+  prototypes/panchang/ephemeris.json \
+  prototypes/panchang/references.json \
+  prototypes/panchang/feasibility-results.json \
+  prototypes/panchang/README.md \
+  tests/panchang/test_astronomy.py \
+  docs/M2F_FEASIBILITY_RESULTS.md \
   docs/M2F_PANCHANG_DESIGN.md \
   docs/HANDOFF.md \
   docs/MILESTONE2_PLAN.md \
@@ -75,7 +88,7 @@ git add -- \
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "docs: propose Hindu Panchang scheduling design and approval gates"
+git commit -m "feat: add isolated offline Panchang astronomy feasibility prototype"
 ```
 
 ## Prior integration evidence (historical)

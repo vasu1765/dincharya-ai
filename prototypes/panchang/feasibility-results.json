@@ -1,0 +1,183 @@
+{
+  "comparisons": [
+    {
+      "calculated_at": "2023-07-17T18:31:50.194682+00:00",
+      "delta_seconds": -9.805318,
+      "ordinal": 1,
+      "published_at": "2023-07-17T18:32:00+00:00",
+      "source": "nasa_phases",
+      "tolerance_seconds": 60,
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-08-01T18:31:40.319821+00:00",
+      "delta_seconds": 40.319821,
+      "ordinal": 16,
+      "published_at": "2023-08-01T18:31:00+00:00",
+      "source": "nasa_phases",
+      "tolerance_seconds": 60,
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-08-16T09:38:11.260972+00:00",
+      "delta_seconds": 11.260972,
+      "ordinal": 1,
+      "published_at": "2023-08-16T09:38:00+00:00",
+      "source": "nasa_phases",
+      "tolerance_seconds": 60,
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2026-01-13T09:48:25.885600+00:00",
+      "delta_seconds": 85.8856,
+      "ordinal": 26,
+      "published_at": "2026-01-13T15:17:00+05:30",
+      "source": "drik_ekadashi",
+      "tolerance_seconds": 60,
+      "within_numeric_threshold": false
+    },
+    {
+      "calculated_at": "2026-01-14T12:23:15.668324+00:00",
+      "delta_seconds": 75.668324,
+      "ordinal": 27,
+      "published_at": "2026-01-14T17:52:00+05:30",
+      "source": "drik_ekadashi",
+      "tolerance_seconds": 60,
+      "within_numeric_threshold": false
+    }
+  ],
+  "dependencies": {
+    "certifi": "2025.10.5",
+    "jplephem": "2.23",
+    "numpy": "2.3.4",
+    "sgp4": "2.25",
+    "skyfield": "1.55"
+  },
+  "engine": "Skyfield",
+  "ephemeris_sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+  "known_intercalary_sensitivity": {
+    "constant_offset_ingress_counts": {
+      "24.0": 0,
+      "24.2": 0,
+      "24.5": 0
+    },
+    "convention": "amanta",
+    "end": "2023-08-16T09:38:11.267409+00:00",
+    "intercalation_status": "unsupported_without_validated_ayanamsa",
+    "month_name": null,
+    "start": "2023-07-17T18:31:50.220351+00:00",
+    "status": "unvalidated_hypothesis_not_lahiri_or_named_month",
+    "tropical_sun_end": 143.28769985136665,
+    "tropical_sun_start": 114.9359495734089
+  },
+  "metrics": {
+    "kernel_and_data_load_seconds": 0.025613806006731465,
+    "max_transition_bracket_seconds": 0.04119873046875,
+    "peak_rss_kib": 76948,
+    "total_cpu_seconds": 1.151976549,
+    "total_wall_seconds": 1.1536044959939318,
+    "year_transition_count": 371,
+    "year_transition_seconds": 0.3049466030061012
+  },
+  "month_boundaries": {
+    "amanta": {
+      "convention": "amanta",
+      "end": "2023-08-16T09:38:11.267409+00:00",
+      "intercalation_status": "unsupported_without_validated_ayanamsa",
+      "month_name": null,
+      "start": "2023-07-17T18:31:50.220351+00:00"
+    },
+    "purnimanta": {
+      "convention": "purnimanta",
+      "end": "2023-08-01T18:31:40.332656+00:00",
+      "intercalation_status": "unsupported_without_validated_ayanamsa",
+      "month_name": null,
+      "start": "2023-07-03T11:38:41.768203+00:00"
+    }
+  },
+  "ordinary_lunation_sensitivity": {
+    "constant_offset_ingress_counts": {
+      "24.0": 1,
+      "24.2": 1,
+      "24.5": 1
+    },
+    "convention": "amanta",
+    "end": "2023-09-15T01:39:48.688674+00:00",
+    "intercalation_status": "unsupported_without_validated_ayanamsa",
+    "month_name": null,
+    "start": "2023-08-16T09:38:11.267409+00:00",
+    "status": "unvalidated_hypothesis_not_lahiri_or_named_month",
+    "tropical_sun_end": 171.97823627054422,
+    "tropical_sun_start": 143.28769985136665
+  },
+  "platform": "Linux x86_64",
+  "profile": {
+    "coordinates": "WGS84",
+    "default_month_convention": "purnimanta",
+    "elevation_m": 0,
+    "latitude": 28.6139,
+    "longitude": 77.209,
+    "longitudes": "geocentric apparent true ecliptic/equinox of date",
+    "sunrise_model": "upper_limb_50",
+    "timezone": "Asia/Kolkata"
+  },
+  "python": "3.12.3",
+  "repeated_tithi": [
+    {
+      "end": "2026-11-19T01:36:42.992236+00:00",
+      "ordinal": 9,
+      "reason": "first_of_repeated_sunrises",
+      "selected_date": "2026-11-18",
+      "start": "2026-11-18T00:35:39.971911+00:00",
+      "status": "experimental_first_sunrise",
+      "sunrise_dates": [
+        "2026-11-18",
+        "2026-11-19"
+      ]
+    }
+  ],
+  "skipped_tithi": [
+    {
+      "end": "2026-11-21T01:02:01.549975+00:00",
+      "ordinal": 11,
+      "reason": "skipped_at_sunrise",
+      "selected_date": null,
+      "start": "2026-11-20T01:46:10.422351+00:00",
+      "status": "needs_review",
+      "sunrise_dates": []
+    }
+  ],
+  "skyfield_data_sha256": {
+    "delta_t.npz": "2d12bd3e789543b78a1f53c8b76ed7fecffdf7e5149cfb6a0aed21a8b3db5ff6",
+    "historic_deltat.npy": "f5346b780b36a0325b1847dc6c0083d66edc7e88b7f648b4c98a67bbd02b5d3f",
+    "iers.npz": "c7d7536d898dfa9f8cd43e8044ff51e108cc8289675a13fee9822010a1c4935c",
+    "morrison_stephenson_deltat.npy": "439e05269890df41dd75820f3f2ef467539e36eb36753e8ee8b4b78d29baad52",
+    "nutation.npz": "db231254da3bcbef24faa994eadb80f378d39460aa407026c156e6627c30f11a"
+  },
+  "status": "feasibility_incomplete_not_for_scheduling",
+  "sunrise": {
+    "calendar_status": "experimental_sunrise_model",
+    "date": "2026-01-14",
+    "end": "2026-01-14T12:23:15.684136+00:00",
+    "matching_reference_metadata_validated": false,
+    "model": "upper_limb_50",
+    "ordinal": 26,
+    "pac47_sunrise": "2026-01-14T01:45:19.886581+00:00",
+    "paksha": "krishna",
+    "paksha_day": 11,
+    "reference_delta_seconds": 4.924866,
+    "review_required": false,
+    "start": "2026-01-13T09:48:25.864800+00:00",
+    "sunrise": "2026-01-14T01:45:04.924866+00:00"
+  },
+  "timezone_tzif_sha256": "e90c341036cb7203200e293cb3b513267e104a39a594f35e195254e6bc0a17cf",
+  "unsupported": [
+    "validated Lahiri ayanamsa",
+    "named lunar months and exceptional Purnimanta conversion",
+    "general validated Adhika/Kshaya detection",
+    "annual lunar birthday/anniversary dates",
+    "festival rules",
+    "persistent schedules or delivery"
+  ],
+  "usable_for_scheduling": false
+}

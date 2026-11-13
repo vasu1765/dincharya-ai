@@ -187,3 +187,24 @@ private-file/manifest access, Telegram operation, production capture/adoption,
 deployment or merge is authorized. 2B stays blocked; no replacement manifest.
 All Milestone 2 including Panchang and operational acceptance precedes other
 orchestrators. Production reconciliation and resend/reset remain disabled.
+
+
+## D14 — Isolated astronomy feasibility; neutral religious profile
+
+Owner authorizes only a standalone offline Skyfield + pinned local DE440s
+prototype, not final adoption. Delhi/Asia-Kolkata, Purnimanta default and explicit
+Amanta remain; sunrise model/exact Lahiri are hypotheses. Validate intervals,
+sunrise classification, physical month boundaries and public reference times;
+mark unvalidated month/exception rules unsupported and never guess annual dates.
+
+The owner profile is religiously neutral, superseding D13's pending first-profile
+choice. Future supported festivals display named Smarta and Vaishnava dates in
+one consolidated reminder when different, with shared dates deduplicated. No
+owner sampradaya is assigned. Research the specifically named ISKCON/Gaudiya GCal
+11 reference alongside Smarta; do not implement festival rules at this checkpoint.
+
+Preserve cautious exceptional-tithi handling, n8n/PostgreSQL authorization/stable
+identity and delivery safeguards. Stop after feasibility; no migrations, persistent
+scheduling/reminder integration, private backup/2B search, live Telegram, production,
+deployment or merge. See [results](M2F_FEASIBILITY_RESULTS.md) for failed accuracy
+gates and unsupported areas. Storage/ritual profiles still need later review.

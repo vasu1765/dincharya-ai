@@ -15,7 +15,7 @@ Track remaining work in [GitHub issue #2](https://github.com/vasu1765/dincharya-
 | P2: 2D compatibility and adversarial acceptance | 0001/0003 and focused SQL cover recurrence, D10 coexistence/boundaries and the requested adversarial API matrix | Synthetic tests prove old decision dispatch remains functional, cannot bypass managed snapshots/approval or mutate in-flight sends; malformed selectors/bounds reject atomically; occurrence/series edits preserve identity and sent history. Add corrective migrations only when a failure requires them. |
 | P3: 2E recovery and receipts | 0002/0004 cover retries, claims and atomic nullable receipts; read-only inspection and owner-approved synthetic reconciliation implemented; production actions disabled | Cover recovery at/outside lookback, lease expiry, stale ack, cancelled/replanned work, restart and duplicate suppression; no blind resend after ambiguous acceptance. Add nullable chat/message receipt with lease-checked atomic acknowledgement and legacy compatibility, then explicit operator reconciliation audit tests. Further live tests need new approval. |
 | P4: 2B reproducible source | baseline/ and workflows/ contain guidance only; native/Code source provenance gates remain | Obtain exact missing manifest path, never search backups; hash-bound reviewed schema and current/published workflow provenance; decide adopted vs archived items, preserve Code/state bytes; owner approval before private-source promotion or execution. Prove clean synthetic reconstruction from reviewed source. |
-| P5: 2F Hindu Panchang | Phase 1 public research/design drafted; engine, policy and storage approvals pending; no implementation | Owner chooses calculation/reference source, tradition and geographic parameters before engine/schema commitment. Define sunrise/day-boundary, tithi/paksha/month, amanta/purnimanta, adhika/kshaya, skipped/repeated tithi and observance policy. Compare versioned Delhi reference fixtures across ordinary, transition and leap-month cases; generate stable occurrences with overrides/conflicts/explicit approvals and deduplicated reminders. See M2F_PANCHANG_DESIGN.md for sources, proposed phases and owner decisions; no dependencies/migrations before approval. |
+| P5: 2F Hindu Panchang | Phase 1 pushed at 9524757; isolated Skyfield feasibility implemented, incomplete for scheduling; storage/festival integration still gated | Owner chooses calculation/reference source, tradition and geographic parameters before engine/schema commitment. Define sunrise/day-boundary, tithi/paksha/month, amanta/purnimanta, adhika/kshaya, skipped/repeated tithi and observance policy. Compare versioned Delhi reference fixtures across ordinary, transition and leap-month cases; generate stable occurrences with overrides/conflicts/explicit approvals and deduplicated reminders. See M2F_PANCHANG_DESIGN.md for sources, proposed phases and owner decisions; isolated prototype dependencies approved; no migration or persistent integration. |
 | P6: 2G operational acceptance | Existing tests are disposable; production readiness is not established | Least-privilege roles, webhook auth, pinned dependencies/images, supervision, redacted logs, health and backlog visibility, restore rehearsal, migration/rollback and recovery runbooks all validated in isolated synthetic environment. Review diff/evidence and obtain explicit owner approval before production access, cutover or deployment. |
 
 P0/P1 are committed (P1 at `120b28a`); D10/recovery is pushed at `db87193`;
@@ -41,7 +41,7 @@ See [restart/outage evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
 Remaining recovery work is operational: gateway supervision, wall-clock policy,
 host/disk/durable restore and adopted workflow acceptance. Restart/outage acceptance
 is pushed at `ff6198d`; 2D recurrence API acceptance is pushed at `cb6fdd7`.
-The current 2F design-only checkpoint awaits owner review/commit; Git metadata is read-only;
+2F design is pushed at `9524757`; the current isolated feasibility checkpoint awaits owner review/commit; Git metadata is read-only;
 [handoff](HANDOFF.md) contains the exact safe-file commands.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
@@ -114,3 +114,30 @@ logical identities and staged additive reminder jobs. The design's six numbered
 questions remain unresolved, not accepted decisions. 2B provenance remains blocked;
 2F research does not authorize private capture/adoption or live tests. No engine,
 migration, Telegram operation, deployment or merge in this phase.
+
+
+## 2F isolated feasibility checkpoint after owner authorization
+
+D14 authorizes the standalone offline Skyfield/DE440s prototype only. See
+[M2F_FEASIBILITY_RESULTS.md](M2F_FEASIBILITY_RESULTS.md): 11 focused tests passed,
+three NASA phase comparisons within the unchanged 60-second threshold and two
+Drik tithi endpoint discrepancies about 86/76 seconds still outside it. One rounded
+sunrise reference is numerically close but metadata/model matching is incomplete.
+A year of 371 transitions took about 0.305 seconds, measured peak RSS 75.14 MiB;
+these are host measurements, not VPS or physical timing-accuracy guarantees.
+
+Physical Amanta/Purnimanta bounds and known intercalary-period sensitivity are
+investigated, but exact Lahiri and named-month/exceptional conversion remain
+unsupported. Annual birthdays/anniversaries cannot yield guessed dates; generic
+monthly preview handles first repeated sunrise/skipped-tithi review experimentally.
+No scheduling integration follows from focused-test success; CLI release gate is
+incomplete. Next review: resolve independent timing differences, match sunrise
+metadata and validate an exact ayanamsa against independent epoch tables.
+
+The owner is religiously neutral: future supported festivals should consolidate
+labelled Smarta/Vaishnava dates in one reminder when different. Proposed Vaishnava
+reference is ISKCON/Gaudiya GBC Calendar Committee GCal 11 alongside Drik New Delhi
+Smartha; current exports/build/settings remain unverified. No festival rule,
+persistent schema/identity/slot/notification integration is authorized now. n8n
+and existing approval/lease/receipt/quarantine safeguards remain unchanged. Stop
+at isolated feasibility; 2B/private access and production remain blocked/gated.

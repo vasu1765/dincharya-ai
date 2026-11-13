@@ -50,6 +50,9 @@ globals.sql
 venv/
 __pycache__/
 *.py[cod]
+# Public astronomy assets are pinned by metadata and kept outside Git.
+*.bsp
+*.whl
 .pytest_cache/
 .coverage
 htmlcov/

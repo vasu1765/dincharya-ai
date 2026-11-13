@@ -1,11 +1,38 @@
 # Milestone 2F — Hindu Panchang scheduling design
 
-Status: **Phase 1 research/design for owner approval; no implementation authorized**.
-Research checked 2026-11-13. Branch development/m2-recovery-acceptance entered
-clean at pushed `cb6fdd73686fbdb19b29aea1011585faf4205e46`; HEAD and origin tracking
-ref agree and GitHub confirms the commit. Gregorian recurrence acceptance is
-committed. Earlier handoff references to its uncommitted ff6198d-based patch are
-superseded. All recommendations below remain proposals, not accepted decisions.
+Status: **isolated Skyfield/DE440s feasibility authorized; final engine adoption,
+festival rules and persistent integration are not authorized**. The Phase 1 design
+was pushed at `952475720e1990f635eed7f1710b123018262db0`; this checkpoint entered
+clean on development/m2-recovery-acceptance. See
+[measured feasibility results](M2F_FEASIBILITY_RESULTS.md) for implemented scope,
+failed reference comparisons, unsupported month/annual-rule paths and next gates.
+Original recommendations below are historical proposals where superseded by the
+owner decisions in the next section; do not infer approval for storage changes.
+
+## Owner decisions governing the isolated feasibility
+
+- Skyfield with pinned local DE440s is approved as an isolated prototype, not final
+  engine adoption. Delhi/Asia-Kolkata and Purnimanta default/Amanta configuration
+  remain; exact sunrise model and Lahiri formulation are validation hypotheses.
+- Personal tithi birthdays/anniversaries and generic monthly recurrence remain
+  intended scope. Runtime currently previews generic tithis, but named months and
+  annual lunar dates explicitly fail closed pending exact month validation.
+- The user profile is **religiously neutral**. Future supported festivals should
+  show both labelled Smarta and Vaishnava dates in one consolidated reminder when
+  different. No user sampradaya is assigned; this supersedes the first-Smarta-user
+  suggestion below. Shared dates should not produce duplicate reminders.
+- Do not implement festival rules now. Proposed named Vaishnava reference is
+  ISKCON/Gaudiya, GBC Calendar Committee GCal 11, alongside Drik New Delhi Smartha;
+  reference version/settings/independent output still require verification.
+- Cautious exception policies and existing n8n/PostgreSQL authorization, identity
+  and delivery safeguards remain. No migration, persistent scheduling, slot/job
+  integration, private access, live send or deployment is authorized.
+
+Prototype checkpoint: 11 focused tests passed; NASA phase comparisons within the
+provisional 60-second threshold, but two Drik endpoints differ by about 86/76
+seconds. Physical month boundaries and a known intercalary period were studied;
+exact Lahiri, named-month conversion/general Adhika/Kshaya and annual anniversaries
+are unsupported. CLI returns feasibility incomplete, never usable for scheduling.
 
 ## Scope and requirements
 
@@ -20,14 +47,16 @@ superseded. All recommendations below remain proposals, not accepted decisions.
 
 Owner-specified starting context: Delhi, Asia/Kolkata, Purnimanta preferred with
 Amanta configurable. Exact coordinates/sunrise model and observance tradition
-still need approval. No other orchestrator begins before all Milestone 2 closes.
+remain validation hypotheses/reference decisions. No owner sampradaya is assigned.
+No other orchestrator begins before all Milestone 2 closes.
 
 ## Confirmed research facts and source assessment
 
 Only first-party project documentation, publisher material and original calendar
 research were used for the comparisons below. Published accuracy statements are
-claims, not results verified by Dincharya. No package, ephemeris or dataset was
-installed/downloaded for execution; no timings or festival dates are certified.
+claims, not results verified at Phase 1. No package or dataset was executed in
+that design checkpoint. The later authorized prototype acquisition and measured
+results are recorded separately; no festival dates or final engine are certified.
 
 ### Calculation engines
 
@@ -176,8 +205,8 @@ Drik Ram Navami/Diwali page paths were inaccessible during research; no date or
 complete rule is claimed from them. Obtain verified current publisher/profile
 references before those observances are enabled.
 
-Recommend a North-Indian Smarta profile as the first **candidate for review**,
-not infer it from Delhi/Purnimanta or from the owner's personal tradition.
+Historical Phase 1 suggestion was a first Smarta profile. The owner now requires
+a neutral user profile and paired labelled references; no sampradaya is assigned.
 Unknown tradition, unsupported tie or conflicting references yields needs review.
 Personal anniversary policy never inherits festival fasting rules automatically.
 
@@ -349,12 +378,12 @@ A synthetic anomaly alone cannot certify its real month naming/ritual handling.
 
 | Phase | Work after explicit approval | Gate / output |
 | --- | --- | --- |
-| F1 — current | Requirements, sources, engine/reference comparison, policies and architecture proposal | This document only; no engine, dependencies, migration or n8n change. |
+| F1 — completed design | Requirements, sources, engine/reference comparison, policies and architecture proposal | This document only; no engine, dependencies, migration or n8n change. |
 | F2 — personal tithi first | Offline astronomy adapter feasibility, pinned profiles and independent fixtures; personal annual and generic monthly rules, ambiguity preview | Approve engine/license, Delhi/sunrise/ayanamsa choices and personal exception policy first. Then separate additive schema/API review; synthetic approval/identity/lead-time tests. |
 | F3 — verified observances | Implement each named tradition's reviewed rule module with independent golden evidence | Owner chooses tradition and references. Keep unverified festivals disabled; all four requested profiles must pass before claiming complete 2F. |
 | F4 — integration/acceptance | Approved companion slot/identity migration, n8n/gateway conversation wiring, configurable advance notifications, query API and full isolated acceptance | Preserve n8n and old APIs; 2B adoption still gates real workflow integration. Any real Telegram acceptance, production access or deployment needs separate approval. |
 
-Owner decisions requested before implementation:
+Original Phase 1 approval questions (scope now superseded only as recorded above):
 
 1. Approve **Skyfield + pinned local DE440s** as the first feasibility candidate,
    with no AGPL dependency adoption; or choose Swiss with an explicit licensing
@@ -383,10 +412,12 @@ not an LLM guess. Additional festivals remain disabled until independently teste
 
 ## Checkpoint validation and boundaries
 
-Only documentation/source-safety, local-link, whitespace and diff checks are
-appropriate here; no runtime accuracy is claimed. No Docker, SQL execution,
+The original Phase 1 checkpoint used documentation-only checks. The separately
+authorized isolated feasibility now has its own focused tests/report; no final
+calendar accuracy or scheduling integration is accepted. No Docker, SQL execution,
 package installation, private backup/manifest access, Telegram operation,
-production change, deployment or merge. No engine or migration implemented.
+production change, deployment or merge. Phase 1 implemented no engine or migration; the later checkpoint adds only a
+standalone astronomy prototype, with no persistent schema or integration.
 2B remains blocked by unknown original manifest and missing exact-file read
 approval; public Panchang research does not authorize private source adoption.
-Stop for owner design decisions before implementation.
+Stop after isolated feasibility for further review before persistent integration.

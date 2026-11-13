@@ -1,0 +1,50 @@
+{
+  "filename": "de440s.bsp",
+  "url": "https://ssd.jpl.nasa.gov/ftp/eph/planets/bsp/de440s.bsp",
+  "sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+  "size_bytes": 32726016,
+  "retrieved_utc": "2026-11-13",
+  "hash_provenance": "Computed on HTTPS-acquired public JPL file; not an independently signed publisher checksum",
+  "supported_public_years": [
+    1900,
+    2100
+  ],
+  "python": "3.12.3",
+  "dependencies": {
+    "certifi": "2025.10.5",
+    "jplephem": "2.23",
+    "numpy": "2.3.4",
+    "sgp4": "2.25",
+    "skyfield": "1.55"
+  },
+  "wheel_artifacts": [
+    {
+      "filename": "certifi-2025.10.5-py3-none-any.whl",
+      "sha256": "0f212c2744a9bb6de0c56639a6f68afe01ecd92d91f14ae897c4fe7bbeeef0de"
+    },
+    {
+      "filename": "jplephem-2.23-py3-none-any.whl",
+      "sha256": "66110814810b0b30213bdd058a85a41bedbc030bb8a365c85088674fe02546cf"
+    },
+    {
+      "filename": "numpy-2.3.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "4121c5beb58a7f9e6dfdee612cb24f4df5cd4db6e8261d7f4d7450a997a65d6a"
+    },
+    {
+      "filename": "sgp4-2.25-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "911460477f1c52dcda2b3eb20538435b89b0a43668bcb5edd1e7700b7a1a0225"
+    },
+    {
+      "filename": "skyfield-1.55-py3-none-any.whl",
+      "sha256": "9f98964855067460c94aa81a337194136f4a97a62ba8bbbfac1b8556f2b66ad4"
+    }
+  ],
+  "skyfield_data_sha256": {
+    "iers.npz": "c7d7536d898dfa9f8cd43e8044ff51e108cc8289675a13fee9822010a1c4935c",
+    "delta_t.npz": "2d12bd3e789543b78a1f53c8b76ed7fecffdf7e5149cfb6a0aed21a8b3db5ff6",
+    "historic_deltat.npy": "f5346b780b36a0325b1847dc6c0083d66edc7e88b7f648b4c98a67bbd02b5d3f",
+    "morrison_stephenson_deltat.npy": "439e05269890df41dd75820f3f2ef467539e36eb36753e8ee8b4b78d29baad52",
+    "nutation.npz": "db231254da3bcbef24faa994eadb80f378d39460aa407026c156e6627c30f11a"
+  },
+  "timezone_tzif_sha256": "e90c341036cb7203200e293cb3b513267e104a39a594f35e195254e6bc0a17cf"
+}

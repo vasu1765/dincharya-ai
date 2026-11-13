@@ -1,0 +1,78 @@
+{
+  "reviewed_on": "2026-11-13",
+  "scope": "Short public numeric facts; not full calendar tables or festival rules",
+  "sources": {
+    "nasa_phases": {
+      "url": "https://eclipse.gsfc.nasa.gov/phase/phase2001gmt.html",
+      "publisher": "Fred Espenak, NASA GSFC",
+      "time_scale": "Universal Time, treated as UTC to within one second for these modern fixtures",
+      "rounding": "Published whole minutes; rounding algorithm not stated; no sub-minute accuracy inferred",
+      "coordinates": "geocentric; not location-specific",
+      "convention": "new/full moon phase instants, not ritual dates"
+    },
+    "drik_ekadashi": {
+      "url": "https://www.drikpanchang.com/vrats/ekadashidates.html?year=2026&geoname-id=1261481",
+      "publisher": "Drik Panchang",
+      "time_scale": "Asia/Kolkata, UTC+05:30",
+      "rounding": "published whole minutes; exact rounding algorithm not stated",
+      "coordinates": "New Delhi; explicit geoname-id=1261481; geocentric tithi timing",
+      "convention": "Smartha listing, Purnimanta displayed; tithi endpoints only, not a fasting-date implementation",
+      "ephemeris_and_longitude_flags": "Not established from the page"
+    },
+    "drik_sunrise": {
+      "url": "https://www.drikpanchang.com/telugu/panchanga/telugu-day-panchanga.html?date=14/01/2026&lang=en",
+      "publisher": "Drik Panchang",
+      "time_scale": "Asia/Kolkata, UTC+05:30",
+      "rounding": "published whole minutes; exact rounding algorithm not stated",
+      "coordinates": "Page explicitly New Delhi; exact coordinates/elevation not given in retrieved text",
+      "convention": "Telugu/Amanta page; sunrise is location dependent; solar horizon flags not established"
+    }
+  },
+  "transitions": [
+    {
+      "source": "nasa_phases",
+      "at": "2023-07-17T18:32:00+00:00",
+      "ordinal": 1,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "nasa_phases",
+      "at": "2023-08-01T18:31:00+00:00",
+      "ordinal": 16,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "nasa_phases",
+      "at": "2023-08-16T09:38:00+00:00",
+      "ordinal": 1,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "drik_ekadashi",
+      "at": "2026-01-13T15:17:00+05:30",
+      "ordinal": 26,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "drik_ekadashi",
+      "at": "2026-01-14T17:52:00+05:30",
+      "ordinal": 27,
+      "tolerance_seconds": 60
+    }
+  ],
+  "sunrise": {
+    "source": "drik_sunrise",
+    "date": "2026-01-14",
+    "at": "2026-01-14T07:15:00+05:30",
+    "tolerance_seconds": 120,
+    "metadata_match_complete": false
+  },
+  "intercalary_period": {
+    "source_url": "https://www.mypanchang.com/phppanchang.php?cityhead=Pune%2C+Maharastra&cityname=Pune-Maharastra-India&mn=6&monthtype=1&yr=2023",
+    "publisher": "mypanchang.com",
+    "date": "2023-07-18",
+    "displayed_calendar_fact": "Purnimant Adhika Shravana Shukla Paksha",
+    "location": "Pune, not a Delhi sunrise reference",
+    "use": "Known intercalary period for solar-ingress sensitivity investigation, not a validated Purnimanta naming oracle"
+  }
+}
