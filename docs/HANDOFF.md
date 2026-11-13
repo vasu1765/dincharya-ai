@@ -5,63 +5,92 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-Branch `development/m2-recovery-acceptance`, pushed base `db87193` (D10 and prior
-recovery checkpoint). Current local task completes the requested 2D adversarial
-API matrix and adds nullable Telegram receipt persistence. [Issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
-tracks ALL Milestone 2, including Hindu Panchang and operational acceptance before
-other domains/orchestrators. PR #1 remains merged; no deployment or main merge here.
+Branch `development/m2-recovery-acceptance`, pushed base `d987b69` (receipt and
+adversarial checkpoint). Existing uncommitted reconciliation work was preserved,
+reviewed and completed after interrupted sessions. [Issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
+tracks all Milestone 2, including Hindu Panchang and operational acceptance before
+other orchestrators. PR #1 is merged; no deployment or main merge here.
 
-Migration 0004 adds paired nullable chat/message IDs and unique receipt identity.
-The new acknowledgement function delegates the unchanged old token/lease check,
-then stores receipt in the same transaction as sent state. Historical IDs stay
-NULL; old workers retain the four-argument API. New typed transport receipts must
-match destination and have a usable message ID. Worker/commit failure never
-replays the HTTP call. Gateway preflight requires all four migrations/API before
-registering ticks. Migrations 0001–0003 and original baseline bytes are unchanged.
+The owner approved **confirmed already-delivered reconciliation in isolated
+synthetic PostgreSQL only**. New migration 0005 installs private immutable
+evidence, independent destination pins, expiring explicit permits, append-only
+audit and a default-disabled synthetic gate. A dedicated authenticated DB login
+supplies operator identity; payload actor IDs/GUCs/SET ROLE cannot substitute it.
+The API locks configuration and the delivery, validates a fresh UTC row version,
+and atomically records sent state, receipt and audit. Exact replay is idempotent;
+changed replay, duplicate receipt, invalid evidence, stale/leased/resolved rows
+reject safely. Separate NOLOGIN executors and scoped operator/worker wrappers
+preserve least privilege. Original migrations 0001–0004 and worker functions are
+unchanged; restricted worker mode is opt-in. No historical receipt backfill.
 
-New adversarial SQL passed invalid action/scope/identity, malformed/non-Gregorian
-rules, requester/force/horizon/decision checks and event/rule/override snapshot
-staleness. Multi-session conflict, stale update, approve/reject and authorization
-races passed. Receipt upgrade/history, wrong/expired token, invalid pair/outcome,
-atomic failure rollback, replay/uniqueness and competing acknowledgements passed.
-35 unique focused unit/preflight tests passed across scoped runs (26 reminder/
-config checks, 2 optional gateway-dependency checks, 4 renderer and 3 runner tests).
-No full suite result is claimed. See [sanitized results](M2_RECEIPTS_ADVERSARIAL_RESULTS.md).
+Retained successful `reconciliation-concurrency` evidence covers actual SCRAM
+logins/wrong passwords, privilege boundaries, evidence/permit/destination checks,
+concurrent decisions and replay, audit fault/caller rollback, receipt uniqueness,
+history preservation and normal worker acknowledgement. 24 focused unit tests
+passed in the completed checkpoint. See [sanitized evidence](M2_RECONCILIATION_RESULTS.md)
+and [design/trust boundaries](RECONCILIATION_DESIGN.md).
 
-Read-only quarantine inspection now enforces read-only UTC transactions and
-returns bounded metadata, receipt presence and an opaque row-state observation
-version. The [audited reconciliation design](RECONCILIATION_DESIGN.md) is ready for
-review, but no resolution/reset/resend, audit write API or operator grant is
-enabled. Owner approval is required before enabling any such operation. The row
-hash is not authorization or proof of non-delivery; absent receipt is not proof
-that Telegram did not accept a send. A commit error may still hide a successful
-commit: inspect durable state, never blindly replay.
+Resume security review fixed permit expiry during a row-lock wait and hardened
+synthetic server statement/error/parameter/duration logging around password DDL.
+Only the new `reconciliation-review` runtime case was run: effective logging and
+SCRAM negative authentication passed; a permit valid before a confirmed lock wait
+expired before lock release and rejected with no delivery/audit writes. Seven
+affected renderer/runner offline tests passed. Completed concurrency/receipt/2C/
+live acceptance suites were not repeated. Explicit safe-source scan and diff
+checks and changed-Python AST checks passed; the scanner was not weakened. GitHub
+issue #2 was updated with these results and remaining gates. No full-suite rerun
+is claimed.
 
-Only the exact previously authorized schema input was accessed read-only. All
-runtime checks used pinned daemon/image and fresh PostgreSQL 17, tmpfs/read-only
-root, no network/ports/host mounts; teardown passed with original running container
-IDs unchanged. No Telegram API call, n8n/full completed integration rerun,
-production credential/service access, deployment or merge. Git metadata is still
-read-only; current changes are uncommitted. Source scan/diff review passed.
+All runtime checks verified pinned daemon/image, fresh PostgreSQL 17, tmpfs and
+read-only root, no network/ports/host mounts, disabled final synthetic gate,
+container removal and unchanged original running container IDs. Only the exact
+authorized schema file was read unchanged. No Telegram calls, resend/reset,
+production credentials/services, deployment or merge. Production reconciliation
+remains disabled, with no gateway resolution command or production provisioning.
+Trusted real evidence/destination/permit authority, production identity/TLS and
+operational procedures remain design/approval gates; admin tamper resistance and
+external exactly-once delivery are not claimed.
 
-Owner commit commands after review (explicit safe paths only):
+Git metadata is mounted read-only, confirmed with `findmnt`; no bypass, stage or
+commit attempted. The exact safe-file list is the `git add` below. Run in your
+normal WSL terminal after reviewing the untracked new files as well as the diff;
+verify the branch is still `development/m2-recovery-acceptance` and the index has
+no unrelated changes. These commands do not push, deploy or merge:
 
 ```bash
 git status --short
-git diff -- dincharya/reminders.py dincharya/reminder_adapters.py telegram-gateway/gateway.py telegram-gateway/reminder_handlers.py telegram-gateway/README.md database/migrations/README.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/DECISIONS.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md tests/integration/application_runner.py tests/integration/focused_application_runner.py tests/sql/README.md tests/test_migrations.py tests/test_reminder_adapters.py tests/test_reminder_worker.py
-git add -- database/migrations/0004_telegram_receipts.sql database/migrations/README.md dincharya/reminders.py dincharya/reminder_adapters.py telegram-gateway/gateway.py telegram-gateway/reminder_handlers.py telegram-gateway/README.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/DECISIONS.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md docs/RECONCILIATION_DESIGN.md docs/M2_RECEIPTS_ADVERSARIAL_RESULTS.md tests/integration/application_runner.py tests/integration/focused_application_runner.py tests/integration/adversarial_checks.py tests/sql/gregorian_adversarial.sql tests/sql/telegram_receipts.sql tests/sql/README.md tests/test_migrations.py tests/test_reminder_adapters.py tests/test_reminder_worker.py tests/test_reminder_gateway_preflight.py
+git diff --check
+git diff -- AGENTS.md database/migrations/0005_synthetic_reconciliation.sql database/migrations/README.md dincharya/reconciliation.py dincharya/reminder_adapters.py tests/integration/focused_application_runner.py tests/integration/reconciliation_checks.py tests/test_migrations.py tests/test_reconciliation.py tests/sql/README.md docs/DECISIONS.md docs/HANDOFF.md docs/MILESTONE2_PLAN.md docs/ROADMAP.md docs/RECONCILIATION_DESIGN.md docs/M2_RECONCILIATION_RESULTS.md
+git add -- \
+  AGENTS.md \
+  database/migrations/0005_synthetic_reconciliation.sql \
+  database/migrations/README.md \
+  dincharya/reconciliation.py \
+  dincharya/reminder_adapters.py \
+  tests/integration/focused_application_runner.py \
+  tests/integration/reconciliation_checks.py \
+  tests/test_migrations.py \
+  tests/test_reconciliation.py \
+  tests/sql/README.md \
+  docs/DECISIONS.md \
+  docs/HANDOFF.md \
+  docs/MILESTONE2_PLAN.md \
+  docs/ROADMAP.md \
+  docs/RECONCILIATION_DESIGN.md \
+  docs/M2_RECONCILIATION_RESULTS.md
 git diff --cached --check
+git diff --cached --stat
 git diff --cached
-git commit -m "feat: persist lease-checked Telegram receipts and expand API regression coverage"
+git commit -m "feat: add synthetic audited delivery reconciliation"
 ```
 
-Next significant gate: approve the proposed audited resolution policy before any
-operator mutation/resend is enabled; no action is authorized by inspection alone.
-Independent remaining work includes recovery restart/outage permutations, source
-adoption/provenance, Panchang provider/tradition/reference decision and isolated
-operational acceptance. Do not repeat completed live acceptance or use production.
+Next work: remaining targeted 2E restart/outage recovery and operational planning,
+review full 2D exit evidence, source-adoption provenance, and the owner decision
+on Panchang source/tradition/reference fixtures. No production enablement or
+resend is authorized. Avoid repeating completed acceptance without a relevant
+functional change. Complete all Milestone 2 before other orchestrators.
 
-## Last successful evidence
+## Prior integration evidence (historical)
 
 - Last full offline suite: **196 tests passed**. Final focused checkpoint: four
   migration-renderer tests and six reminder-worker tests passed; application

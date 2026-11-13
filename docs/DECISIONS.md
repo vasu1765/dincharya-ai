@@ -132,6 +132,35 @@ never causes a transport replay. Require migration 0004 before gateway ticks.
 Inspection is a bounded read-only transaction returning metadata, receipt
 presence and a UTC-normalized row-state digest; the digest is not authorization
 or proof of non-delivery. [Audited resolution design](RECONCILIATION_DESIGN.md)
-remains proposed. No resolution/resend action, privilege grant or audit write API
-is enabled. Owner approval is required before enabling metadata resolution or
-any resend; a resend must be a separate explicit authorization, not a status reset.
+was proposed at D11. D12 supersedes only the isolated synthetic resolution hold.
+Production resolution and any resend still require separate owner approval; a
+resend must be a separate explicit authorization, not a status reset.
+
+
+## D12 — Synthetic audited confirmed-delivered reconciliation
+
+Owner approved implementation, enablement and testing only in isolated synthetic
+PostgreSQL, with invented positive evidence and no Telegram I/O. Implement a
+separate operator API using authenticated SESSION_USER name/OID, no request actor
+ID, an independently pinned destination, immutable verified evidence and an
+approved expiring permit bound to the exact action/observation/reason/operator.
+Explicit request confirmation is also mandatory. Default-disable the synthetic
+gate and hard-refuse non-test migration/API targets; do not provision production.
+
+Use the common advisory transaction lock, configuration/row locks and fresh UTC
+observation versions; recheck permit expiry after a blocking row lock. Persist
+only the permitted sent/receipt transition and append-only audit atomically.
+Exact action replay reports the prior fact without another write; modified replay
+and conflicting receipt/action/delivery identities reject. Preserve attempt,
+payload and lease/claim history. Separate NOLOGIN executor and caller roles so
+ordinary workers cannot reconcile or edit evidence/audit/permits. Existing worker
+leases/acknowledgement and migrations 0001–0004 remain unchanged.
+
+The trusted fixture administrator attests evidence and provisions permits; tests
+prove consistency and permissions, not real Telegram receipt authenticity or
+protection from a privileged administrator. Real evidence authority/provisioning,
+production authentication/roles/TLS and operational enablement need separate
+review and authorization. No resend/reset implementation or production gateway
+resolution command is authorized. See [design](RECONCILIATION_DESIGN.md) and
+[evidence](M2_RECONCILIATION_RESULTS.md). All Milestone 2 including Panchang remains
+required before other orchestrators.

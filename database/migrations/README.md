@@ -46,3 +46,21 @@ Additional focused cases: gregorian_adversarial.sql, telegram_receipts.sql,
 adversarial-concurrency and receipt-concurrency. Run one committing concurrency
 case last; use separate invocations for multiple concurrency cases. New cases
 verify authorization/staleness/conflicts and receipt upgrade/failure/race safety.
+
+0005_synthetic_reconciliation.sql is optional **synthetic-only** infrastructure,
+not a production enablement migration. It refuses any database/admin other than
+dincharya_app_test/synthetic_test and refuses existing fixed roles: use a fresh
+disposable cluster. It adds NOLOGIN executors, separate operator/worker group
+roles, private immutable destination/evidence/authorization records, append-only
+audit and a default-disabled synthetic gate. Callers have only scoped API access;
+fixture-admin provisioning is not a production trust workflow. No original
+migration/function body or historical delivery is rewritten. Gateway preflight
+still requires only 0001–0004; do not install 0005 on existing services.
+
+The focused runner applies all five in a disposable PostgreSQL cluster. Select
+`reconciliation-concurrency` for full synthetic action/privilege/rollback/race
+coverage, or `reconciliation-review` only for post-row-lock permit expiry,
+effective credential-safe logging settings and SCRAM negative authentication.
+Reconciliation cases run individually. Successful existing acceptance should not
+be repeated without a relevant change. No Telegram API call occurs. See
+../../docs/M2_RECONCILIATION_RESULTS.md for observed results and limitations.

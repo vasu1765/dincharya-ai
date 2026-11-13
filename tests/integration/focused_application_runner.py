@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import secrets
 import subprocess
@@ -16,12 +17,15 @@ from database.migrate import render_migrations
 from source_sync import validate_schema
 from legacy_boundary_checks import concurrent_legacy_boundary
 from adversarial_checks import adversarial_decisions, concurrent_receipt
+from reconciliation_checks import run_reconciliation, ACTORS
 
 MIGRATIONS = ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql',
-              '0003_managed_legacy_boundary.sql', '0004_telegram_receipts.sql')
+              '0003_managed_legacy_boundary.sql', '0004_telegram_receipts.sql',
+              '0005_synthetic_reconciliation.sql')
 CASES = ('legacy_coexistence.sql', 'legacy_managed_boundary.sql', 'reminder_recovery.sql',
          'legacy-concurrency', 'gregorian_adversarial.sql', 'telegram_receipts.sql',
-         'adversarial-concurrency', 'receipt-concurrency')
+         'adversarial-concurrency', 'receipt-concurrency', 'reconciliation', 'reconciliation-concurrency',
+         'reconciliation-review')
 
 
 def execute(baseline, expected_daemon, cases):
@@ -29,11 +33,14 @@ def execute(baseline, expected_daemon, cases):
     require(bool(cases) and all(case in CASES for case in cases), 'Unknown focused test case')
     require(len(cases) == len(set(cases)), 'Duplicate focused cases are not allowed')
     require(not any(case.endswith('-concurrency') for case in cases[:-1]), 'Run the committing concurrency case last')
+    require(not any(case.startswith('reconciliation') for case in cases) or len(cases)==1,
+            'Run synthetic reconciliation cases individually')
     with tempfile.TemporaryDirectory(prefix='dincharya-focused-sql-') as directory:
         env = client_environment(os.environ, directory)
         docker = ['docker', '--config', directory, '--host', ENDPOINT]
         container = None
         original_ids = None
+        actor_passwords = {}
 
         def command(args, data=None, *, timeout=90):
             try:
@@ -41,12 +48,46 @@ def execute(baseline, expected_daemon, cases):
                                         env=env, timeout=timeout)
             except subprocess.TimeoutExpired:
                 raise Failure('Focused test command timed out; private output suppressed') from None
-            require(result.returncode == 0, 'Focused test command failed; private output suppressed')
+            state = re.search(r'ERROR:\s+([A-Z0-9]{5})(?:\s|$)', result.stderr)
+            require(result.returncode == 0, 'Focused test command failed; private output suppressed'
+                    + ('; SQLSTATE '+state.group(1) if state else ''))
             return result.stdout.strip()
 
         def sql(statement):
-            return command(['exec', '-i', container, 'psql', '-XAt', '-v', 'ON_ERROR_STOP=1',
+            return command(['exec', '-i', container, 'psql', '-XAt', '-v', 'ON_ERROR_STOP=1', '-v', 'VERBOSITY=sqlstate',
                             '-U', 'synthetic_test', '-d', 'dincharya_app_test'], statement)
+
+        def actor_sql(actor, statement, expected_state=None):
+            require(actor in (*ACTORS,'synthetic_test'), 'Unapproved synthetic actor')
+            actor_env = dict(env)
+            auth_args = []
+            exec_args = ['exec','-i']
+            if actor in ACTORS:
+                actor_env['PGPASSWORD'] = secrets.token_hex(24) if expected_state=='AUTH' else actor_passwords[actor]
+                exec_args += ['-e','PGPASSWORD']
+                auth_args = ['-h','127.0.0.1','-w']
+            result = subprocess.run(docker+exec_args+[container,'psql','-XAt','-v','ON_ERROR_STOP=1',
+                '-v','VERBOSITY=sqlstate',*auth_args,'-U',actor,'-d','dincharya_app_test'], input=statement,
+                text=True,capture_output=True,env=actor_env,timeout=90)
+            actor_env.pop('PGPASSWORD',None)
+            state = re.search(r'ERROR:\s+([A-Z0-9]{5})(?:\s|$)',result.stderr)
+            if expected_state=='AUTH':
+                require(result.returncode!=0 and 'password authentication failed' in result.stderr,
+                        'Incorrect operator password was not rejected')
+            elif expected_state:
+                require(result.returncode!=0 and state is not None and state.group(1)==expected_state,
+                        'Expected scoped SQL rejection did not occur')
+            else:
+                require(result.returncode==0,'Synthetic actor command failed; private output suppressed'
+                        + ('; SQLSTATE '+state.group(1) if state else ''))
+            return result.stdout.strip()
+
+        def provision_actor(actor):
+            require(actor in ACTORS,'Unapproved synthetic actor')
+            actor_passwords[actor] = secrets.token_hex(24)
+            # Separate the SQL literal from its template; no source credential.
+            credential_literal = "'" + actor_passwords[actor].replace("'", "''") + "'"
+            sql('ALTER ROLE %s PASSWORD %s' % (actor,credential_literal))
 
         try:
             validate_daemon(json.loads(command(['info', '--format', '{{json .}}'])), expected_daemon)
@@ -60,7 +101,15 @@ def execute(baseline, expected_daemon, cases):
                 '--memory', '512m', '--tmpfs', '/var/lib/postgresql/data:size=256m',
                 '--tmpfs', '/var/run/postgresql:size=16m', '--tmpfs', '/tmp:size=32m',
                 '-e', 'POSTGRES_PASSWORD', '-e', 'POSTGRES_USER=synthetic_test',
-                '-e', 'POSTGRES_DB=dincharya_app_test', image])
+                '-e', 'POSTGRES_HOST_AUTH_METHOD=scram-sha-256',
+                '-e', 'POSTGRES_INITDB_ARGS=--auth-local=trust --auth-host=scram-sha-256',
+                '-e', 'POSTGRES_DB=dincharya_app_test', image, 'postgres',
+                # Password DDL travels only on stdin. Suppress statement/parameter
+                # logging even on provisioning errors in this disposable server.
+                '-c', 'log_statement=none', '-c', 'log_min_error_statement=panic',
+                '-c', 'log_min_duration_statement=-1', '-c', 'log_min_duration_sample=-1',
+                '-c', 'log_duration=off', '-c', 'log_transaction_sample_rate=0',
+                '-c', 'log_parameter_max_length=0', '-c', 'log_parameter_max_length_on_error=0'])
             env.pop('POSTGRES_PASSWORD', None)
             info = json.loads(command(['inspect', container]))[0]
             host = info['HostConfig']
@@ -88,7 +137,8 @@ def execute(baseline, expected_daemon, cases):
                 return sql("SELECT proowner,proacl,prosecdef,proconfig,provolatile,proparallel "
                            "FROM pg_proc WHERE oid='" + sig + "'::regprocedure")
             attributes = {sig: properties(sig) for sig in signatures}
-            sql(render_migrations([ROOT / 'database/migrations' / name for name in MIGRATIONS[:-1]]))
+            sql(render_migrations([ROOT / 'database/migrations' / name for name in
+                                   MIGRATIONS[:MIGRATIONS.index('0004_telegram_receipts.sql')]]))
             old_ack = sql("SELECT prosrc FROM pg_proc WHERE oid='public.finish_occurrence_reminder(bigint,uuid,text,timestamp with time zone)'::regprocedure")
             historical_event = None
             if any('receipt' in case for case in cases):
@@ -114,7 +164,7 @@ def execute(baseline, expected_daemon, cases):
                 require(bodies[sig] in sql("SELECT prosrc FROM pg_proc WHERE oid='" + sig + "'::regprocedure")
                         and properties(sig) == attributes[sig], 'Legacy body or function properties changed')
             require(baseline.read_bytes() == raw, 'Authorized schema input changed')
-            print('PASS pinned daemon/image, no-network isolation, fresh DB, four migrations and preserved legacy contracts', flush=True)
+            print(f'PASS pinned daemon/image, no-network isolation, fresh DB, {len(MIGRATIONS)} migrations and preserved legacy contracts', flush=True)
             for case in cases:
                 print('RUN focused case: ' + case, flush=True)
                 if case == 'legacy-concurrency':
@@ -123,12 +173,16 @@ def execute(baseline, expected_daemon, cases):
                     adversarial_decisions(sql)
                 elif case == 'receipt-concurrency':
                     concurrent_receipt(sql)
+                elif case.startswith('reconciliation'):
+                    run_reconciliation(sql,actor_sql,provision_actor,concurrent=(case=='reconciliation-concurrency'),
+                                       review_only=(case=='reconciliation-review'))
                 else:
                     require(sql((ROOT / 'tests/sql' / case).read_text()).endswith('ROLLBACK'),
                             'Focused SQL did not roll back')
                     print('PASS ' + case, flush=True)
         finally:
             env.pop('POSTGRES_PASSWORD', None)
+            actor_passwords.clear()
             if container:
                 command(['rm', '-f', '-v', container])
                 require(container not in command(['ps', '-aq', '--no-trunc']).splitlines(), 'Cleanup incomplete')

@@ -27,6 +27,10 @@ Use only exact authorized private inputs and dedicated test credentials.
 Never read production credentials or modify production services without
 explicit approval. Preserve existing acceptance checks and security boundaries.
 
+Migration 0005/operator reconciliation is approved only in fresh isolated
+synthetic PostgreSQL with invented evidence. Production reconciliation and all
+resend/reset operations remain disabled; see docs/RECONCILIATION_DESIGN.md.
+
 ## Source, state and validation rules
 
 Never print secrets, commit credentials/raw backups/private records/personal data,

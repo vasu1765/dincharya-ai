@@ -22,8 +22,11 @@ class QuarantinedReminder:
 class PostgresReminders:
     """Use a fresh psycopg connection per operation and commit before returning."""
 
-    def __init__(self, connect):
+    def __init__(self, connect, *, restricted_worker=False):
+        if type(restricted_worker) is not bool:
+            raise ValueError('Invalid worker API selection')
         self.connect = connect
+        self.worker_schema = 'reminder_worker_api' if restricted_worker else 'public'
 
     def propose(self, user_id, when, title):
         data = {
@@ -57,7 +60,7 @@ class PostgresReminders:
         with self.connect() as connection:
             rows = connection.execute(
                 'SELECT delivery_id, worker_token, payload '
-                'FROM public.claim_occurrence_reminders(%s,%s)',
+                f'FROM {self.worker_schema}.claim_occurrence_reminders(%s,%s)',
                 (now, limit),
             ).fetchall()
         return [Claim(delivery_id, str(worker_token), payload)
@@ -69,12 +72,12 @@ class PostgresReminders:
         with self.connect() as connection:
             if receipt is None:
                 row = connection.execute(
-                    'SELECT public.finish_occurrence_reminder(%s,%s,%s,%s)',
+                    f'SELECT {self.worker_schema}.finish_occurrence_reminder(%s,%s,%s,%s)',
                     (claim.delivery_id, UUID(claim.worker_token), outcome, now),
                 ).fetchone()
             else:
                 row = connection.execute(
-                    'SELECT public.acknowledge_occurrence_reminder(%s,%s,%s,%s,%s,%s)',
+                    f'SELECT {self.worker_schema}.acknowledge_occurrence_reminder(%s,%s,%s,%s,%s,%s)',
                     (claim.delivery_id, UUID(claim.worker_token), outcome, now,
                      receipt.chat_id, receipt.message_id),
                 ).fetchone()

@@ -27,10 +27,27 @@ acknowledgement, rollback and duplicate prevention. Receipt cases seed an old
 historical row before migration 0004, verify it is unchanged, then remove only
 that synthetic setup fixture before running the selected assertions.
 
-This runs PostgreSQL only, applies all four migrations, has no network/ports/host
+The focused runner runs PostgreSQL only, applies all five migrations (0005 is
+synthetic-only), has no network/ports/host
 mounts, prints no raw schema/errors/credentials and verifies cleanup. The three
 SQL scripts roll back their fixtures.
 Run one concurrency case last when selecting multiple cases; duplicate selections
 are rejected before Docker starts. The original integration runner includes
 these scripts for a future justified full application run; it was not rerun here.
 See docs/M2_COMPATIBILITY_RECOVERY_RESULTS.md for observed evidence and limits.
+
+Reconciliation uses Python-controlled multi-session assertions in
+integration/reconciliation_checks.py, selected with `--case reconciliation` or
+`--case reconciliation-concurrency`, individually. Invented private evidence and
+permits are provisioned by the synthetic administrator; separate operator/worker
+logins authenticate with random session-only SCRAM passwords over container-local
+TCP. No password values are placed in arguments, output or repository files;
+statement/error/duration/parameter logging is explicitly constrained. No Telegram
+transport or external network is used. The gate starts disabled and ends disabled.
+
+`--case reconciliation-review` selects only the resume-review regression: check
+effective logging, wrong-password rejection and expiry of an initially valid
+permit while waiting on a held row lock, asserting no delivery/audit writes.
+It does not rerun the completed reconciliation-concurrency acceptance. See
+../../docs/M2_RECONCILIATION_RESULTS.md and the reconciliation design for trust
+boundaries, migration/role guards and production limitations.
