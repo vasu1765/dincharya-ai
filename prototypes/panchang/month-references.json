@@ -1,0 +1,879 @@
+{
+  "status": "research_fixture_corpus_not_general_validation",
+  "retrieved_utc_date": "2026-11-13",
+  "sources": {
+    "pac2023": {
+      "url": "https://packolkata.imd.gov.in/download/EnglishRP2324.zip",
+      "entry": "RP_1945SE.pdf",
+      "archive_sha256": "38c50c8d11071369e895ec21e09120be49ab576f6a40334965da7eb22b7b8522",
+      "pdf_sha256": "9ba9dd3970a45787edafd619787b91d83557fa4b7c9344738316e8b8d73757c4",
+      "publisher": "India Meteorological Department, Positional Astronomy Centre",
+      "edition": "1945 Saka Era, 2023-24",
+      "extraction": "pypdf 6.1.1; text extraction, not visual facsimile verification",
+      "rounding": "whole minutes / whole arcseconds, rounding method not stated",
+      "time_scale": "IST UTC+05:30; >24h rolls to next civil day",
+      "model": "increasing ayanamsa for lunar intercalation, not fixed 23d15m civil solar-month system",
+      "location": "geocentric tithi/ingress; central station day labels, not Delhi sunrise"
+    },
+    "pac2024": {
+      "url": "https://packolkata.imd.gov.in/download/EnglishRP2425.zip",
+      "entry": "RP_1946SE.pdf",
+      "publisher": "IMD Positional Astronomy Centre",
+      "edition": "1946 SE, 2024-25",
+      "archive_sha256": "e8aff02c95c47556e05ecab776fd2641ee6e5c4d2ec5f5d16652843c62546fb0",
+      "pdf_sha256": "226f8657efb4feaeb5840268bc8958af2229a8ee42ef175c55c6102e16255197",
+      "time_scale": "IST UTC+05:30; hours >24 roll forward",
+      "extraction": "pypdf 6.1.1 known-member BytesIO; selected date/tithi lines manually checked, not visual facsimile",
+      "location": "Central Station day labels; geocentric boundaries, not matching Delhi sunrise certification"
+    },
+    "drik2023pdf": {
+      "url": "https://www.drikpanchang.com/download/hindu-calendar/2023/delhi/purnimanta/Hindu-Calendar-2023.pdf",
+      "sha256": "2ec0b3eda6a7b6ac7c1a662fabb3e498b393fce4ebeafeb5968cb6632da834b0",
+      "size_bytes": 1239904,
+      "edition": "v1.0.1, created 2022-10-01",
+      "location": "Delhi 28d39m07sN 77d13m53sE elevation227m Asia/Kolkata",
+      "extraction": "pypdf 6.1.1; month headers/day grids and full-moon month labels; no visual facsimile certification",
+      "independence": "Independent publisher from PAC; numerical lineage unknown"
+    },
+    "drik2024chaitra": {
+      "url": "https://www.drikpanchang.com/festivals/lunar-month/festivals-chaitra.html?lang=en&year=2024",
+      "publisher": "Drik Panchang",
+      "verification": "indexed primary publication; selected month/paksha/date facts only; not festival algorithms",
+      "location": "New Delhi as fetched"
+    },
+    "drik2024april1": {
+      "url": "https://www.drikpanchang.com/panchang/month-panchang.html?date=01/04/2024",
+      "publisher": "Drik Panchang",
+      "verification": "web parsed explicit Amanta/Purnimanta names and Krishna Saptami",
+      "location": "New Delhi as fetched; URL alone does not pin dynamic location"
+    },
+    "drik2023adhika": {
+      "url": "https://www.drikpanchang.com/panchang/month-panchang.html?date=10/08/2023",
+      "publisher": "Drik Panchang",
+      "location": "Washington DC as fetched; used ONLY geocentric month names, not Delhi tithi/date/solar timing",
+      "verification": "explicit Amanta and Purnimanta Shravana Adhik, Krishna paksha; corroborates Delhi PDF named Adhika month"
+    },
+    "drik2023before": {
+      "url": "https://www.drikpanchang.com/panchang/day-panchang.html?date=10%2F07%2F2023&time-format=24hour",
+      "publisher": "Drik Panchang",
+      "location": "Bhadra Rajasthan as fetched; only geocentric month names",
+      "verification": "indexed explicit Shravana Purnimanta / Ashadha Amanta"
+    },
+    "drik2024newyear": {
+      "url": "https://www.drikpanchang.com/festivals/samvat-newyear/new-hindu-samvata-year-begins.html?time-format=24hour&year=2024",
+      "verification": "Primary publisher April9 Chaitra Shukla Pratipada new year; used to corroborate anchor transition, not era conversion"
+    }
+  },
+  "cases": [
+    {
+      "id": "2023-03-22",
+      "at": "2023-03-22T00:30:00+00:00",
+      "amanta": "chaitra",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 1,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 22
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 6
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-03-30",
+      "at": "2023-03-30T00:30:00+00:00",
+      "amanta": "chaitra",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 9,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 23
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 6
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-04-02",
+      "at": "2023-04-02T00:30:00+00:00",
+      "amanta": "chaitra",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 12,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 24
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 8
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-07-03",
+      "at": "2023-07-03T00:30:00+00:00",
+      "amanta": "ashadha",
+      "purnimanta": "ashadha",
+      "intercalation": "ordinary",
+      "ordinal": 15,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 48
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 14
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-07-04",
+      "at": "2023-07-04T00:30:00+00:00",
+      "amanta": "ashadha",
+      "purnimanta": "shravana",
+      "intercalation": "ordinary",
+      "ordinal": 16,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 48
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 14
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-07-10",
+      "at": "2023-07-10T00:30:00+00:00",
+      "amanta": "ashadha",
+      "purnimanta": "shravana",
+      "intercalation": "ordinary",
+      "ordinal": 23,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 49
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 14
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "direct_publisher_label",
+      "purnimanta_corroboration": "drik2023before"
+    },
+    {
+      "id": "2023-07-25",
+      "at": "2023-07-25T00:30:00+00:00",
+      "amanta": "shravana",
+      "purnimanta": "shravana",
+      "intercalation": "adhika",
+      "ordinal": 7,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 54
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 14
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "direct_publisher_label",
+      "purnimanta_corroboration": "https://www.drikpanchang.com/panchang/month-panchang.html?date=25%2F07%2F2023"
+    },
+    {
+      "id": "2023-08-01",
+      "at": "2023-08-01T00:30:00+00:00",
+      "amanta": "shravana",
+      "purnimanta": "shravana",
+      "intercalation": "adhika",
+      "ordinal": 15,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 56
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 16
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-08-02",
+      "at": "2023-08-02T00:30:00+00:00",
+      "amanta": "shravana",
+      "purnimanta": "shravana",
+      "intercalation": "adhika",
+      "ordinal": 16,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 56
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 16
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-08-10",
+      "at": "2023-08-10T00:30:00+00:00",
+      "amanta": "shravana",
+      "purnimanta": "shravana",
+      "intercalation": "adhika",
+      "ordinal": 25,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 57
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 16
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "direct_publisher_label",
+      "purnimanta_corroboration": "drik2023adhika"
+    },
+    {
+      "id": "2023-08-17",
+      "at": "2023-08-17T00:30:00+00:00",
+      "amanta": "shravana",
+      "purnimanta": "shravana",
+      "intercalation": "ordinary",
+      "ordinal": 1,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 59
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 16
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2023-08-25",
+      "at": "2023-08-25T00:30:00+00:00",
+      "amanta": "shravana",
+      "purnimanta": "shravana",
+      "intercalation": "ordinary",
+      "ordinal": 9,
+      "sources": [
+        {
+          "source": "pac2023",
+          "pdf_page_1based": 60
+        },
+        {
+          "source": "drik2023pdf",
+          "scope": "Purnimanta month/date; day grid + named full-moon context",
+          "pdf_page_1based": 16
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2024-03-25",
+      "at": "2024-03-25T00:30:00+00:00",
+      "amanta": "phalguna",
+      "purnimanta": "phalguna",
+      "intercalation": "ordinary",
+      "ordinal": 15,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 23
+        },
+        {
+          "source": "drik2024chaitra",
+          "scope": "Chaitra month/paksha transition"
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2024-03-26",
+      "at": "2024-03-26T00:30:00+00:00",
+      "amanta": "phalguna",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 16,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 23
+        },
+        {
+          "source": "drik2024chaitra",
+          "scope": "Chaitra month/paksha transition"
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "direct_publisher_label",
+      "purnimanta_corroboration": "drik2024chaitra"
+    },
+    {
+      "id": "2024-04-01",
+      "at": "2024-04-01T00:30:00+00:00",
+      "amanta": "phalguna",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 22,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 24
+        },
+        {
+          "source": "drik2024chaitra",
+          "scope": "Chaitra month/paksha transition"
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "direct_publisher_label",
+      "purnimanta_corroboration": "drik2024april1"
+    },
+    {
+      "id": "2024-04-08",
+      "at": "2024-04-08T00:30:00+00:00",
+      "amanta": "phalguna",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 30,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 25
+        },
+        {
+          "source": "drik2024chaitra",
+          "scope": "Chaitra month/paksha transition"
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "calendar_context_inference"
+    },
+    {
+      "id": "2024-04-09",
+      "at": "2024-04-09T00:30:00+00:00",
+      "amanta": "chaitra",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 1,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 26
+        },
+        {
+          "source": "drik2024chaitra",
+          "scope": "Chaitra month/paksha transition"
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "direct_publisher_label",
+      "purnimanta_corroboration": "drik2024newyear"
+    },
+    {
+      "id": "2024-04-17",
+      "at": "2024-04-17T00:30:00+00:00",
+      "amanta": "chaitra",
+      "purnimanta": "chaitra",
+      "intercalation": "ordinary",
+      "ordinal": 9,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 28
+        },
+        {
+          "source": "drik2024chaitra",
+          "scope": "Chaitra month/paksha transition"
+        }
+      ],
+      "purnimanta_evidence": "selected publisher labels/day-grid context, not general exception proof",
+      "purnimanta_evidence_kind": "direct_publisher_label",
+      "purnimanta_corroboration": "drik2024chaitra"
+    },
+    {
+      "id": "2024-05-10",
+      "at": "2024-05-10T00:30:00+00:00",
+      "amanta": "vaishakha",
+      "purnimanta": null,
+      "intercalation": "ordinary",
+      "ordinal": 3,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 34
+        }
+      ],
+      "purnimanta_evidence": "unvalidated_not_asserted",
+      "purnimanta_evidence_kind": "unvalidated"
+    },
+    {
+      "id": "2025-01-20",
+      "at": "2025-01-20T00:30:00+00:00",
+      "amanta": "pausha",
+      "purnimanta": null,
+      "intercalation": "ordinary",
+      "ordinal": 21,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 100
+        }
+      ],
+      "purnimanta_evidence": "unvalidated_not_asserted",
+      "purnimanta_evidence_kind": "unvalidated"
+    },
+    {
+      "id": "2025-02-09",
+      "at": "2025-02-09T00:30:00+00:00",
+      "amanta": "magha",
+      "purnimanta": null,
+      "intercalation": "ordinary",
+      "ordinal": 12,
+      "sources": [
+        {
+          "source": "pac2024",
+          "pdf_page_1based": 106
+        }
+      ],
+      "purnimanta_evidence": "unvalidated_not_asserted",
+      "purnimanta_evidence_kind": "unvalidated"
+    }
+  ],
+  "transitions": [
+    {
+      "at": "2023-03-30T23:31:00+05:30",
+      "ordinal": 10,
+      "source": "pac2023",
+      "pdf_page_1based": 23,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2023-04-02T04:20:00+05:30",
+      "ordinal": 12,
+      "source": "pac2023",
+      "pdf_page_1based": 24,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2023-04-03T06:25:00+05:30",
+      "ordinal": 13,
+      "source": "pac2023",
+      "pdf_page_1based": 24,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2024-03-25T12:30:00+05:30",
+      "ordinal": 16,
+      "source": "pac2024",
+      "pdf_page_1based": 23,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2024-04-07T06:54:00+05:30",
+      "ordinal": 29,
+      "source": "pac2024",
+      "pdf_page_1based": 25,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2024-04-08T03:22:00+05:30",
+      "ordinal": 30,
+      "source": "pac2024",
+      "pdf_page_1based": 25,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2024-04-08T23:51:00+05:30",
+      "ordinal": 1,
+      "source": "pac2024",
+      "pdf_page_1based": 25,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2024-04-17T15:15:00+05:30",
+      "ordinal": 10,
+      "source": "pac2024",
+      "pdf_page_1based": 28,
+      "tolerance_seconds": 60
+    },
+    {
+      "at": "2024-04-01T21:10:00+05:30",
+      "ordinal": 23,
+      "source": "pac2024",
+      "pdf_page_1based": 24,
+      "tolerance_seconds": 60
+    }
+  ],
+  "annual_examples": [
+    {
+      "id": "2023-amanta-chaitra-9",
+      "year": 2023,
+      "month": "chaitra",
+      "ordinal": 9,
+      "intercalation": "ordinary",
+      "convention": "amanta",
+      "window": [
+        "2023-03-28",
+        "2023-04-01"
+      ],
+      "selected_date": "2023-03-30",
+      "sunrise_dates": [
+        "2023-03-30"
+      ],
+      "source": "pac2023",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2023-purnimanta-chaitra-9",
+      "year": 2023,
+      "month": "chaitra",
+      "ordinal": 9,
+      "intercalation": "ordinary",
+      "convention": "purnimanta",
+      "window": [
+        "2023-03-28",
+        "2023-04-01"
+      ],
+      "selected_date": "2023-03-30",
+      "sunrise_dates": [
+        "2023-03-30"
+      ],
+      "source": "pac2023",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2024-amanta-chaitra-9",
+      "year": 2024,
+      "month": "chaitra",
+      "ordinal": 9,
+      "intercalation": "ordinary",
+      "convention": "amanta",
+      "window": [
+        "2024-04-15",
+        "2024-04-20"
+      ],
+      "selected_date": "2024-04-17",
+      "sunrise_dates": [
+        "2024-04-17"
+      ],
+      "source": "pac2024",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2024-purnimanta-chaitra-9",
+      "year": 2024,
+      "month": "chaitra",
+      "ordinal": 9,
+      "intercalation": "ordinary",
+      "convention": "purnimanta",
+      "window": [
+        "2024-04-15",
+        "2024-04-20"
+      ],
+      "selected_date": "2024-04-17",
+      "sunrise_dates": [
+        "2024-04-17"
+      ],
+      "source": "pac2024",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2023-amanta-chaitra-12",
+      "year": 2023,
+      "month": "chaitra",
+      "ordinal": 12,
+      "intercalation": "ordinary",
+      "convention": "amanta",
+      "window": [
+        "2023-04-01",
+        "2023-04-05"
+      ],
+      "selected_date": "2023-04-02",
+      "sunrise_dates": [
+        "2023-04-02",
+        "2023-04-03"
+      ],
+      "source": "pac2023",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2023-purnimanta-chaitra-12",
+      "year": 2023,
+      "month": "chaitra",
+      "ordinal": 12,
+      "intercalation": "ordinary",
+      "convention": "purnimanta",
+      "window": [
+        "2023-04-01",
+        "2023-04-05"
+      ],
+      "selected_date": "2023-04-02",
+      "sunrise_dates": [
+        "2023-04-02",
+        "2023-04-03"
+      ],
+      "source": "pac2023",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2024-amanta-phalguna-29",
+      "year": 2024,
+      "month": "phalguna",
+      "ordinal": 29,
+      "intercalation": "ordinary",
+      "convention": "amanta",
+      "window": [
+        "2024-04-06",
+        "2024-04-09"
+      ],
+      "selected_date": null,
+      "sunrise_dates": [],
+      "source": "pac2024",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2024-purnimanta-chaitra-29",
+      "year": 2024,
+      "month": "chaitra",
+      "ordinal": 29,
+      "intercalation": "ordinary",
+      "convention": "purnimanta",
+      "window": [
+        "2024-04-06",
+        "2024-04-09"
+      ],
+      "selected_date": null,
+      "sunrise_dates": [],
+      "source": "pac2024",
+      "qualification": "Month/tithi evidence public; first-sunrise selection uses experimental Delhi model, not a festival rule or certified sunrise authority"
+    },
+    {
+      "id": "2023-amanta-shravana-adhika-9",
+      "year": 2023,
+      "month": "shravana",
+      "ordinal": 9,
+      "intercalation": "adhika",
+      "convention": "amanta",
+      "window": [
+        "2023-07-25",
+        "2023-07-30"
+      ],
+      "selected_date": "2023-07-27",
+      "sunrise_dates": [
+        "2023-07-27"
+      ],
+      "source": "pac2023",
+      "pdf_page_1based": 55,
+      "qualification": "Public month/tithi, experimental Delhi first-sunrise policy; not festival rules"
+    },
+    {
+      "id": "2023-purnimanta-shravana-adhika-9",
+      "year": 2023,
+      "month": "shravana",
+      "ordinal": 9,
+      "intercalation": "adhika",
+      "convention": "purnimanta",
+      "window": [
+        "2023-07-25",
+        "2023-07-30"
+      ],
+      "selected_date": "2023-07-27",
+      "sunrise_dates": [
+        "2023-07-27"
+      ],
+      "source": "pac2023",
+      "pdf_page_1based": 55,
+      "qualification": "Public month/tithi, experimental Delhi first-sunrise policy; not festival rules"
+    },
+    {
+      "id": "2023-amanta-shravana-ordinary-9",
+      "year": 2023,
+      "month": "shravana",
+      "ordinal": 9,
+      "intercalation": "ordinary",
+      "convention": "amanta",
+      "window": [
+        "2023-08-23",
+        "2023-08-28"
+      ],
+      "selected_date": "2023-08-25",
+      "sunrise_dates": [
+        "2023-08-25"
+      ],
+      "source": "pac2023",
+      "pdf_page_1based": 60,
+      "qualification": "Public month/tithi, experimental Delhi first-sunrise policy; not festival rules"
+    },
+    {
+      "id": "2023-purnimanta-shravana-ordinary-9",
+      "year": 2023,
+      "month": "shravana",
+      "ordinal": 9,
+      "intercalation": "ordinary",
+      "convention": "purnimanta",
+      "window": [
+        "2023-08-23",
+        "2023-08-28"
+      ],
+      "selected_date": "2023-08-25",
+      "sunrise_dates": [
+        "2023-08-25"
+      ],
+      "source": "pac2023",
+      "pdf_page_1based": 60,
+      "qualification": "Public month/tithi, experimental Delhi first-sunrise policy; not festival rules"
+    },
+    {
+      "id": "2025-amanta-magha-12",
+      "year": 2025,
+      "month": "magha",
+      "ordinal": 12,
+      "intercalation": "ordinary",
+      "convention": "amanta",
+      "window": [
+        "2025-02-07",
+        "2025-02-12"
+      ],
+      "selected_date": "2025-02-09",
+      "sunrise_dates": [
+        "2025-02-09"
+      ],
+      "source": "pac2024",
+      "pdf_page_1based": 106,
+      "qualification": "Source names Magha Shukla Dvadasi; Delhi sunrise remains experimental"
+    },
+    {
+      "id": "2024-amanta-phalguna-22",
+      "year": 2024,
+      "month": "phalguna",
+      "ordinal": 22,
+      "intercalation": "ordinary",
+      "convention": "amanta",
+      "window": [
+        "2024-03-30",
+        "2024-04-04"
+      ],
+      "selected_date": "2024-04-01",
+      "sunrise_dates": [
+        "2024-04-01"
+      ],
+      "source": "pac2024",
+      "pdf_page_1based": 24,
+      "corroboration_source": "drik2024april1",
+      "qualification": "Explicit independent Amanta/Purnimanta Krishna Saptami labels; Delhi sunrise model still experimental"
+    },
+    {
+      "id": "2024-purnimanta-chaitra-22",
+      "year": 2024,
+      "month": "chaitra",
+      "ordinal": 22,
+      "intercalation": "ordinary",
+      "convention": "purnimanta",
+      "window": [
+        "2024-03-30",
+        "2024-04-04"
+      ],
+      "selected_date": "2024-04-01",
+      "sunrise_dates": [
+        "2024-04-01"
+      ],
+      "source": "pac2024",
+      "pdf_page_1based": 24,
+      "corroboration_source": "drik2024april1",
+      "qualification": "Explicit independent Amanta/Purnimanta Krishna Saptami labels; Delhi sunrise model still experimental"
+    }
+  ],
+  "accepted_fixture_sha256": {
+    "references.json": "25978108a2800699e1b90d5fee1c189390283a30b90cb4d28fae46ee43047e62",
+    "research-references.json": "c7e36e1dbf18c57ea6b09e1526e71ec0c1b7b3e2ec946560be05413e38be12fa",
+    "feasibility-results.json": "9ef5f2a217ac9ecda87af4214e07c2b7472052f34c8402cb5c490bbb91fbec09",
+    "validation-results.json": "84a78b83b557accc97822fc3f34597bce6724a7717b866f72d9f05696a802829"
+  },
+  "limitations": [
+    "Three Gregorian years (2023,2024,2025), selected seven names only; not all months or all years",
+    "Parsed PDF and primary web/index facts; no visual facsimile verification",
+    "Dynamic-location web pages only corroborate geocentric month labels; not Delhi sunrise",
+    "2024 Delhi PDF URL returned404; no guessed substitute",
+    "Kshaya and other intercalary years unvalidated",
+    "Original Drik/Himalayan timing gate unresolved; no new distinguishing evidence",
+    "Purnimanta 7 explicit publisher labels and 11 calendar-context inferences are distinguished; not 18 independent direct goldens"
+  ],
+  "chaitra_anchor_cases": [
+    {
+      "at": "2023-03-22T06:00:00+00:00",
+      "expected_year": 2023,
+      "meaning": "Gregorian year of most recent ordinary Chaitra Shukla new moon; not era conversion"
+    },
+    {
+      "at": "2024-04-08T06:00:00+00:00",
+      "expected_year": 2023,
+      "meaning": "Gregorian year of most recent ordinary Chaitra Shukla new moon; not era conversion"
+    },
+    {
+      "at": "2024-04-09T06:00:00+00:00",
+      "expected_year": 2024,
+      "meaning": "Gregorian year of most recent ordinary Chaitra Shukla new moon; not era conversion"
+    }
+  ],
+  "unsupported_cases": [
+    {
+      "at": "1983-01-25T06:00:00+00:00",
+      "reason": "Multiple solar ingresses; refuse Kshaya interpretation; not a validated historical label",
+      "context_url": "https://www.mypanchang.com/historycalformat.php?cityhead=Indian&cityname=IST&mn=1&monthtype=1&yr=1983"
+    }
+  ]
+}

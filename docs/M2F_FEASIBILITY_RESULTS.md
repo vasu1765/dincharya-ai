@@ -1,3 +1,211 @@
+# Milestone 2F — lunar-month research validation checkpoint
+
+Entry/current branch `development/m2f-skyfield-feasibility`, pushed base
+`452bbcd28653ae8a8530ada57c3e0bd33e2f2d6b`; entry tree clean, HEAD and tracking
+ref agreed and GitHub confirmed the pushed commit. This supersedes older
+uncommitted-checkpoint/branch instructions below. The owner approved continued
+research only, **not scheduling-engine adoption**. Git metadata is mounted read-only;
+new changes are local until the explicit commands in [HANDOFF](HANDOFF.md) run.
+
+## Current acceptance matrix
+
+| Area | Result | Limit |
+| --- | --- | --- |
+| Multi-year Amanta | **21/21 selected date/ordinal/name/flag cases match** | 2023, 2024, early 2025; seven month names, not all 12 or whole years. Independent IMD PAC facts. |
+| Purnimanta conversion | **18/18 selected comparisons match** | Seven explicit publisher-label corroborations; eleven calendar-context inferences, not 18 independently direct golden labels. Three remaining dates unvalidated for Purnimanta. |
+| Adhika Shravana 2023 | Selected Shukla/Krishna and adjacent ordinary halves match | Does not certify other intercalary years or Kshaya neighbors. |
+| New numeric tithi boundaries | **9/9 within unchanged 60 s gate** | Maximum absolute residual 24.829 s; whole-minute PAC references, not sub-second physical accuracy. |
+| Lunar-year transition | **3/3 research-anchor checks match** | Ordinary Chaitra Shukla anchor year only; no Vikrama/Shaka/regional-era conversion. |
+| Experimental annual examples | **15/15 evidence-bounded comparisons pass** | Includes two withheld skipped-tithi results; bounded examples, not exhaustive annual occurrence enumeration. Delhi sunrise remains a hypothesis. |
+| Regression tests | **9 distinct new tests verified** | Initial eight passed; after adding final evidence examples, three affected/new tests passed. Existing accepted tests preserved. |
+| Kshaya | **Rejects** | 1983-01-25 multiple-ingress period refuses both month conventions; no Kshaya naming/anniversary behavior inferred. |
+| Original Drik/Himalayan timing gate | **Still failed/unexplained** | Original +85.886/+75.668 s and second-publisher discrepancy unchanged. No new distinguishing hypothesis evidence, so nine old experiments were not repeated. |
+| General annual scheduling / adoption | **Disabled** | Public Astronomy.month_label/annual_preview still Unsupported. No scheduling integration. |
+
+[month-results.json](../prototypes/panchang/month-results.json) records calculations;
+[month-references.json](../prototypes/panchang/month-references.json) records public
+facts, exact source pages, hashes, limitations and the explicit preview allowlist.
+Previous references.json, research-references.json, feasibility-results.json and
+validation-results.json are byte-for-byte preserved and hash-checked by the new
+runner/tests. No old tolerance or assertion was removed.
+
+## Public evidence, independence and provenance
+
+Reused the accepted, pinned Skyfield/DE440s/ERFA environment; no new package or
+kernel acquired. No private files or personal dates. Two finite public publication
+downloads, with selected pages examined; no bulk site scraper or date-range crawl:
+
+- [IMD PAC Rashtriya Panchang 1946 SE, 2024–25](https://packolkata.imd.gov.in/download/EnglishRP2425.zip),
+  downloaded from the publisher's indexed English archive. ZIP 18,221,644 bytes,
+  SHA-256 `e8aff02c95c47556e05ecab776fd2641ee6e5c4d2ec5f5d16652843c62546fb0`.
+  Only known member RP_1946SE.pdf read through BytesIO (no extraction):
+  19,037,639 bytes, SHA-256
+  `226f8657efb4feaeb5840268bc8958af2229a8ee42ef175c55c6102e16255197`.
+  Pages 23–28, 34, 100 and 106 provide selected daily lunar labels/time facts.
+  This extends the already pinned 2023–24 PAC archive, not a replacement.
+- [Drik Delhi 2023 Purnimanta calendar](https://www.drikpanchang.com/download/hindu-calendar/2023/delhi/purnimanta/Hindu-Calendar-2023.pdf),
+  v1.0.1 created October 1, 2022; 1,239,904 bytes, SHA-256
+  `2ec0b3eda6a7b6ac7c1a662fabb3e498b393fce4ebeafeb5968cb6632da834b0`.
+  Page 1 specifies Delhi 28°39′07″ N, 77°13′53″ E, elevation 227 m,
+  Asia/Kolkata. Pages 6/8/14/16 month headers/day grids and named full moons
+  corroborate calendar context. These coordinates differ from prototype Delhi
+  28.6139 N/77.2090 E and zero computational height; no matching-sunrise claim.
+- [Drik Chaitra 2024](https://www.drikpanchang.com/festivals/lunar-month/festivals-chaitra.html?lang=en&year=2024)
+  explicitly places northern Chaitra Krishna from March 26 and Chaitra Shukla
+  new year April 9; April 17 has Chaitra Shukla Navami. Its festival listings
+  corroborate labels only; **no festival rule is implemented or inferred**.
+- [Drik April 1, 2024](https://www.drikpanchang.com/panchang/month-panchang.html?date=01/04/2024)
+  explicitly distinguishes Phalguna Amanta / Chaitra Purnimanta, Krishna Saptami.
+  [Drik new-year reference](https://www.drikpanchang.com/festivals/samvat-newyear/new-hindu-samvata-year-begins.html?time-format=24hour&year=2024)
+  confirms the Chaitra Shukla transition. Dynamic pages can change location;
+  metadata records the location actually returned. No raw-page hash claimed.
+- The selected July 10 and August 10, 2023 primary Drik pages returned Bhadra
+  (Rajasthan) and Washington DC respectively. They corroborate **only geocentric
+  month names**, not Delhi sunrise, exact timing or location-equivalent daily
+  tithi assignment. Both Adhika pakshas keep Shravana. Exact URLs/reading scope
+  are recorded; July 25 has an explicit indexed primary Adhika label too.
+
+Independent means separate from this implementation and, for Drik versus IMD,
+a separate publisher. Shared engine/ephemeris lineage is unknown. PDF readings
+used existing research-only pypdf 6.1.1 and manual selected date/tithi-line checks;
+**no visual facsimile certification** is claimed. Dynamic primary/index readings
+and calendar-context deductions are explicitly distinguished in the fixtures.
+Raw ZIP/PDF/HTML captures remain outside Git. Minute rounding direction and
+publisher internal numerical model are not invented. The attempted Delhi 2024
+PDF URL returned 404; no third-party replacement was silently substituted.
+
+## Model and month identities
+
+[month_research.py](../prototypes/panchang/month_research.py) wraps the existing
+explicit Lahiri candidate; it does not change that candidate or default astronomy.
+Version: `lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1`.
+All candidate labels carry an unvalidated-research status and
+usable_for_scheduling=false. Point queries remain hypotheses outside the corpus.
+
+- Amanta: name and zero/one-ingress flag from the existing diagnostic. Multiple
+  ingresses and ingress within 120 seconds of a new moon reject. No Kshaya name.
+- Ordinary Purnimanta Shukla: same name as Amanta. Ordinary Purnimanta Krishna:
+  following Amanta name, retaining the current **ordinary** flag even when the
+  following lunation is Adhika. Adhika: retain current Amanta name/flag in both
+  pakshas. This exception is validated for the selected 2023 Shravana cases,
+  not every possible intercalation pattern.
+- Consequently ordinary Shravana Krishna (July 4–17) and ordinary Shravana
+  Shukla (August 17–31) surround the July 18–August 16 Adhika period. Do not
+  assign Adhika to the preceding Krishna half or assume a Purnimanta named month
+  must always be one contiguous full-moon interval. Returned amanta_start/end
+  describe the physical backing lunation, not fictional Purnimanta month bounds.
+- Research year token is the Gregorian year containing the most recent ordinary
+  Chaitra Shukla new moon. It is not an era-year formula. March/April 2024
+  Purnimanta Chaitra begins in Krishna before the April 9 new-year transition;
+  the name can stay Chaitra while the research year anchor changes. Year search
+  is bounded to 15 lunations and fails closed on an unsupported intervening case.
+- Preview identity includes model version, convention, explicit Gregorian search
+  year, month, ordinary/Adhika flag and ordinal. Repeated sunrises share one
+  research identity; ordinary/Adhika identities differ. These are ephemeral
+  research keys, **not approved PostgreSQL occurrence IDs**.
+
+## Exact selected month cases
+
+All instants below are 00:30 UTC (06:00 IST); these are **event-time classifications**,
+not claims of identical tithi at a publisher's sunrise. Independent numeric boundary
+fixtures and separate Delhi first-sunrise previews provide the date-selection checks.
+
+| Date | Amanta | Purnimanta | Flag | Ordinal |
+| --- | --- | --- | --- | --- |
+| 2023-03-22 | chaitra | chaitra | ordinary | 1 |
+| 2023-03-30 | chaitra | chaitra | ordinary | 9 |
+| 2023-04-02 | chaitra | chaitra | ordinary | 12 |
+| 2023-07-03 | ashadha | ashadha | ordinary | 15 |
+| 2023-07-04 | ashadha | shravana | ordinary | 16 |
+| 2023-07-10 | ashadha | shravana | ordinary | 23 |
+| 2023-07-25 | shravana | shravana | adhika | 7 |
+| 2023-08-01 | shravana | shravana | adhika | 15 |
+| 2023-08-02 | shravana | shravana | adhika | 16 |
+| 2023-08-10 | shravana | shravana | adhika | 25 |
+| 2023-08-17 | shravana | shravana | ordinary | 1 |
+| 2023-08-25 | shravana | shravana | ordinary | 9 |
+| 2024-03-25 | phalguna | phalguna | ordinary | 15 |
+| 2024-03-26 | phalguna | chaitra | ordinary | 16 |
+| 2024-04-01 | phalguna | chaitra | ordinary | 22 |
+| 2024-04-08 | phalguna | chaitra | ordinary | 30 |
+| 2024-04-09 | chaitra | chaitra | ordinary | 1 |
+| 2024-04-17 | chaitra | chaitra | ordinary | 9 |
+| 2024-05-10 | vaishakha | unvalidated | ordinary | 3 |
+| 2025-01-20 | pausha | unvalidated | ordinary | 21 |
+| 2025-02-09 | magha | unvalidated | ordinary | 12 |
+
+Purnimanta evidence kinds: seven direct publisher-label corroborations and eleven
+context deductions are recorded per row. A numerical match to a deduction does
+not promote it to an independently direct reference. 2024 Vaishakha and 2025
+Pausha/Magha Purnimanta were not asserted merely because the candidate computes them.
+
+Nine new boundary deltas (calculated minus PAC, seconds):
+-7.910, +17.606, -11.453, +19.638, +21.890, -20.462, -8.432, -24.829, +15.298.
+The original 60-second gate is unchanged; these passes do not resolve the old
+Drik/Himalayan failures. No generic correction or tolerance change was attempted.
+
+## Experimental anniversary previews: tightly bounded evidence examples
+
+`annual_example(year, month, ordinal, intercalation, convention)` accepts only
+15 exact allowlisted combinations. year is an explicit **Gregorian search year**;
+ordinary/Adhika must be supplied. It calculates the occurrence, checks month/flag,
+compares sunrise list and selected date to the evidence fixture, and rejects
+ambiguous/mismatched results. It never returns a stored date instead of computing.
+These are bounded examples around an attested occurrence, not proof of finding
+all matches in a full year. An unknown rule/year rejects rather than returning
+an empty list or extrapolated birthday. No personal data or persistent approval
+API is involved. No holiday/ritual authority is assigned to the owner.
+
+| Search year / rule | Experimental date result | Conventions |
+| --- | --- | --- |
+| 2023 Chaitra Shukla 9 | March 30 | Both |
+| 2024 Chaitra Shukla 9 | April 17 | Both |
+| 2023 Chaitra Shukla 12 | April 2, first of April 2/3 repeated sunrises; one preview | Both |
+| 2024 Krishna 14 | No sunrise match; needs_review, no selected date | Amanta Phalguna / Purnimanta Chaitra |
+| 2023 Shravana Shukla 9, Adhika | July 27 | Both |
+| 2023 Shravana Shukla 9, ordinary | August 25 | Both |
+| 2025 Magha Shukla 12 | February 9 | Amanta only |
+| 2024 Krishna 7 | April 1 | Amanta Phalguna / Purnimanta Chaitra |
+
+The 120-second boundary-review policy remains. Exact/near numerical full/new moons
+reject. Repeated dates select first once; skipped dates return no guessed fallback.
+No date substitution, previous-day observance, automatic Adhika anniversary choice
+or Kshaya handling is introduced. Publisher minute rounding and experimental
+sunrise-model limitations remain material; this is not scheduling adoption.
+
+## Verification, performance and remaining blockers
+
+Nine distinct new regression tests cover independent multi-year labels and pakshas,
+ordinary/Adhika identity, year transition, all allowlisted examples, repeated/skipped
+selection, stable/different research keys, discrepant calculation or unsupported rule/year
+rejection, exact/near boundaries, out-of-range inputs, real multiple-ingress
+rejection and network-free computation. Initial eight tests passed in 36.669 s;
+final three affected/new tests passed in 41.061 s after extending evidence.
+No unrelated suites or previously accepted coordinate experiments were rerun.
+The offline runner checked every selected case and previous evidence hashes;
+exit **2**, never an adoption success signal.
+
+Final recorded metrics: 40.546 s wall, 40.543 s CPU, peak RSS 56,008 KiB.
+Same pinned dependencies, explicit local DE440s, one-thread BLAS, Python network
+connection/DNS/bind audit guards, 512 MiB address-space / 60 CPU-second limits.
+The bounded Chaitra back-search is deliberately simple and relatively expensive;
+no small-VPS runtime or long-range physical timing certification is claimed.
+Failure/resource-limit exhaustion yields no preview fallback.
+
+Remaining: five untested month names, broader years/Adhika patterns, direct
+Purnimanta golden coverage replacing context deductions, precise independent
+Lahiri epoch verification, matching Delhi sunrise metadata and original timing
+failures. Kshaya neighbors/era conversion/general annual enumeration remain
+unvalidated. Continued research may extend public numeric fixtures; engine
+adoption, birth-record interpretation/policy and persistent integration need
+further review. Neutral profile and future consolidated labelled Smarta/Vaishnava
+observances stay unchanged; no festival rules, n8n/database/Telegram operations,
+production/private backup/2B access, deployment or merge. Stop for ChatGPT review.
+
+---
+
+## Prior pushed validation evidence (452bbcd; historical below)
+
 # Milestone 2F — focused validation checkpoint
 
 Latest pushed base: `6f1f0b72729023d84123891725fd0b018bc1c584` on

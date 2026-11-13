@@ -3,81 +3,80 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — 2F focused validation, stop for review
+## Current checkpoint — 2F lunar-month research, stop for review
 
-Entry and current branch `development/m2f-skyfield-feasibility`; latest pushed
-commit `6f1f0b72729023d84123891725fd0b018bc1c584`. Entry tree clean; HEAD/tracking
-and GitHub agreed. No open PR found. This supersedes the old 9524757-base branch
-creation instructions. Existing committed prototype is preserved; current changes
-are uncommitted because Git metadata remains read-only. No write/bypass attempted.
+Branch `development/m2f-skyfield-feasibility`; pushed base
+`452bbcd28653ae8a8530ada57c3e0bd33e2f2d6b`. Entry tree clean; HEAD/tracking agree,
+GitHub confirmed the commit. Previous 6f1f0b7-based uncommitted instructions are
+superseded. Owner/ChatGPT accepted prior validation for **continued research only**.
+Git metadata remains mounted read-only; no stage/commit/bypass attempted. Preserve
+current local additions. Source and previous evidence bytes are unchanged.
 
-Owner accepted prior prototype as research, **not engine adoption or scheduling**.
-[Validation report](M2F_FEASIBILITY_RESULTS.md) and
-[recorded numeric evidence](../prototypes/panchang/validation-results.json) are current.
-Original references.json and feasibility-results.json remain unchanged.
+- New separate MonthResearch candidate/annual-example layer; approved/general
+  month_label and annual_preview remain Unsupported. No scheduling adoption.
+- **21 Amanta selected dates match** across 2023/2024/early2025 (seven names).
+  **18 Purnimanta comparisons match**, but only seven have direct publisher-label
+  corroboration; eleven are calendar-context deductions. Not a general validation.
+- Adhika Shravana keeps its name/flag in both pakshas. Ordinary Krishna before it
+  uses Shravana ordinary, with the ordinary Shukla half after Adhika. No false
+  contiguous Purnimanta month bounds. Kshaya/multiple-ingress 1983 period rejects.
+- **Nine new PAC boundaries within unchanged 60 s**, max residual 24.829 s.
+  Original Drik/Himalayan timing failures remain unchanged/unexplained; no new
+  distinguishing evidence warranted repeating old coordinate experiments.
+- **15 explicit experimental previews** match evidence, including repeated once,
+  skipped withheld, ordinary/Adhika separation, Krishna conversion and multi-year
+  Shukla examples. Unknown rule/year rejects. These are bounded attested examples,
+  not complete annual enumeration. Delhi sunrise remains experimental.
+- Three year-anchor checks match Chaitra Shukla transition. This token is the
+  Gregorian year of that new moon, not Vikrama/Shaka/regional era conversion.
+- Nine distinct new tests verified: initial eight passed 36.669 s; final three
+  affected/new cases passed 41.061 s. No unrelated 2C/2D/2E or accepted coordinate,
+  Docker/n8n/live suites repeated. Previous source/tests/tolerances retained.
+- Offline evidence runner exit2 with usable_for_scheduling=false; 40.546 s wall,
+  peak RSS 56,008 KiB under 512 MiB/60 CPU-second limits. Back-search is expensive;
+  no VPS capacity claim. Pinned environment/kernel reused; no dependency changes.
+- Public IMD 2024–25 ZIP and Drik Delhi2023 PDF acquired outside Git; source hashes,
+  editions, precise pages, coordinate differences and parsing/context limitations
+  documented. No bulk scraper; Delhi2024 PDF404 is recorded, no substitute.
 
-- **PASS scoped regressions:** 23 tests, final run 4.531 s. Fixed modulo/wrap,
-  indistinguishable sample motion, numerical endpoint/interval ambiguity,
-  unsupported padded interval exposure, lower/upper preview edges and sanitized
-  bad sunrise-model rejection. Exact/near transitions and 1900/2100 exercised.
-- **FAIL original accuracy:** +85.886/+75.668 s Drik deltas reproduced. Nine
-  apparent/astrometric/geometric and true-date/mean-date/J2000 experiments do not
-  explain them. Original 60-second gate unchanged; no fixture replacement.
-- **Mixed new public evidence:** USNO 1/1 and IMD PAC 3/3 within 60 s; Himalayan
-  Academy 1/2, another -154.138 s mismatch. Metadata/extraction limits recorded.
-- Explicit ERFA-based Lahiri candidate: selected three vendor epoch reproductions
-  within 0.002 arcsecond, four independent PAC ingresses within 27 seconds and
-  three selected Amanta cases (ordinary Chaitra, Adhika/ordinary Shravana) agree.
-  This is limited research, not general month validation. Public month names,
-  Purnimanta conversion, Kshaya and annual birthdays/anniversaries remain disabled.
-- Added hash-locked pyerfa 2.0.1.5 (ERFA 2.0.1, SOFA 20231011) in isolated /tmp
-  environment. No Swiss implementation installed/copied. Public PAC PDF extracted
-  with research-only pypdf 6.1.1 outside Git; archive/PDF hashes and exact pages
-  recorded. No raw publication, kernel or wheel added to the repository.
-- New offline validation CLI exits 2, usable_for_scheduling=false; 2.254 s wall,
-  peak RSS 56,792 KiB on development host under 512 MiB/60 CPU-second limits.
-  Runtime has no network fallback; Python audit guards are not an OS sandbox.
-- Only affected prototype tests/research/checks ran. No unrelated 2C/2D/2E,
-  reconciliation, Docker/n8n/live acceptance; no DB migration, Telegram operation,
-  private backup/2B search, production access, deployment or main merge.
+See [report/matrix](M2F_FEASIBILITY_RESULTS.md),
+[fixtures](../prototypes/panchang/month-references.json) and
+[recorded results](../prototypes/panchang/month-results.json). Old references.json,
+research-references.json, feasibility-results.json and validation-results.json are
+byte-preserved. Source-safety/AST/JSON/local-link/diff checks and issue #2 updated.
 
-Next gates: explain independent timing failures; obtain matched Delhi sunrise
-metadata, precise independent Lahiri epoch data and multi-year Amanta/exception
-fixtures; separately validate Purnimanta names. Stop after this checkpoint for
-ChatGPT review; no persistent integration or festival implementation. n8n and
-PostgreSQL approvals/identity/lease/receipt/audit safeguards remain unchanged.
-Religiously neutral user profile and consolidated labelled future Smarta/Vaishnava
-reminders remain intended behavior. 2B manifest remains unknown/unauthorized;
-no search or substitute. Complete all Milestone 2 before any other orchestrator.
-GitHub issue #2 is updated with this checkpoint; implementation remains local
-until the owner runs these commands in normal WSL. Inspect staged changes before
-committing; only the following 16 explicit safe files belong in this commit.
+Stop for ChatGPT review. Remaining: other five month names, multi-year/direct
+Purnimanta goldens and other intercalations, independent precise Lahiri epochs,
+matched sunrise, unresolved timing, Kshaya/era/general annual behavior. No engine
+adoption, persistent schedules, migrations, n8n change, festival rules, Telegram,
+private backup/2B search, production, deployment or main merge. Neutral religious
+profile, future consolidated labelled Smarta/Vaishnava design and all PostgreSQL
+approval/identity/lease/receipt/audit safeguards unchanged. All Milestone 2 first.
+
+Run in normal WSL, confirming the branch above. Only these 12 explicit safe files
+belong in this checkpoint; review the index before committing/pushing:
 
 ```bash
-git status --short
 git branch --show-current
+git status --short
 git diff --check
 git add -- \
-  prototypes/panchang/astronomy.py \
-  prototypes/panchang/investigation.py \
-  prototypes/panchang/validation.py \
-  prototypes/panchang/requirements.txt \
-  prototypes/panchang/ephemeris.json \
-  prototypes/panchang/research-references.json \
-  prototypes/panchang/validation-results.json \
+  prototypes/panchang/month_research.py \
+  prototypes/panchang/month_validation.py \
+  prototypes/panchang/month-references.json \
+  prototypes/panchang/month-results.json \
+  tests/panchang/test_month_research.py \
   prototypes/panchang/README.md \
-  tests/panchang/test_astronomy.py \
-  tests/panchang/test_validation.py \
-  tests/panchang/test_investigation.py \
   docs/M2F_FEASIBILITY_RESULTS.md \
   docs/M2F_PANCHANG_DESIGN.md \
   docs/MILESTONE2_PLAN.md \
   docs/ROADMAP.md \
+  docs/DECISIONS.md \
   docs/HANDOFF.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "test: investigate Panchang timing and harden boundary validation"
+git commit -m "feat: add evidence-bounded lunar month research previews"
 git push origin development/m2f-skyfield-feasibility
 ```
 

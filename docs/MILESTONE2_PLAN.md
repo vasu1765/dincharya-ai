@@ -41,7 +41,9 @@ See [restart/outage evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
 Remaining recovery work is operational: gateway supervision, wall-clock policy,
 host/disk/durable restore and adopted workflow acceptance. Restart/outage acceptance
 is pushed at `ff6198d`; 2D recurrence API acceptance is pushed at `cb6fdd7`.
-2F design is pushed at `9524757`; prototype research is pushed at 6f1f0b7 and accepted as evidence only; follow-up validation awaits review/commit; Git metadata is read-only;
+2F design is pushed at `9524757`; prototype research at `6f1f0b7` and timing/range
+validation at `452bbcd` are accepted as research only. Current month research
+awaits review/commit; Git metadata is read-only;
 [handoff](HANDOFF.md) contains the exact safe-file commands.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
@@ -118,21 +120,23 @@ migration, Telegram operation, deployment or merge in this phase.
 
 ## 2F isolated feasibility checkpoint after owner authorization
 
-D14 authorizes standalone offline research only. Prototype `6f1f0b7` is pushed
-on development/m2f-skyfield-feasibility and accepted as evidence, not scheduling.
-See [M2F_FEASIBILITY_RESULTS.md](M2F_FEASIBILITY_RESULTS.md) for the current matrix:
-23 focused tests pass after numerical/range fixes; original +85.886/+75.668 s
-Drik differences remain unexplained across nine coordinate hypotheses. The
-60-second gate is unchanged and failed. Additional public USNO/IMD evidence
-passes selected cases, while Himalayan evidence adds another mismatch.
+Research continues from pushed timing/range checkpoint `452bbcd` on
+`development/m2f-skyfield-feasibility`; owner/ChatGPT acceptance is research only.
+Selected 21 Amanta dates (2023–2025, seven names) and 18 Purnimanta comparisons
+match; seven direct Purnimanta labels are distinguished from eleven calendar-context
+inferences. Adhika Shravana 2023 conversion includes both pakshas and neighboring
+ordinary halves. Kshaya/multiple-ingress rejects; five other month names and other
+intercalary/exception patterns remain unvalidated.
 
-Explicit ERFA-based Lahiri research reproduces three vendor epoch values and
-matches four independent PAC ingresses plus three Amanta cases, including 2023
-Adhika Shravana. This is selected-case research only. General named months,
-Purnimanta conversion, Kshaya and annual dates remain unsupported; no integration
-follows from passing unit tests. Next actionable gate is independently precise
-epoch/multi-year evidence and explanation of timing failures, not calendar storage.
-No previously accepted unrelated suites were repeated. Stop for review.
+Fifteen allowlisted experimental annual examples calculate and match evidence,
+including repeated/skipped, ordinary/Adhika, Krishna and year-to-year cases.
+These are bounded research examples, not exhaustive annual scheduling. General
+month_label/annual_preview remain disabled. Nine new PAC boundaries pass the
+unchanged 60-second threshold; original Drik/Himalayan discrepancies still block
+adoption. No old coordinate or unrelated suites repeated. See
+[M2F_FEASIBILITY_RESULTS.md](M2F_FEASIBILITY_RESULTS.md) for the exact matrix,
+source qualifications and nine new regression tests. Stop for review before
+engine adoption, persistent integration or festival implementation.
 
 The owner is religiously neutral: future supported festivals should consolidate
 labelled Smarta/Vaishnava dates in one reminder when different. Proposed Vaishnava

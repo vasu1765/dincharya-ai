@@ -117,3 +117,33 @@ Jan 1, 1900 sunrise computes but its straddling interval rejects. Jan 2, 1900 an
 Dec 31, 2100 monthly previews have focused passing fixtures; partial edge intervals
 reject. Neither endpoint computability nor selected month evidence is global
 astronomical accuracy certification.
+
+## Evidence-bounded month research
+
+From pushed timing checkpoint 452bbcd, month_research.py adds separate labelled
+Amanta/Purnimanta candidate conversion and annual_example. Public/general
+Astronomy.month_label/annual_preview remain Unsupported. Read month-references.json
+and month-results.json: only 21 selected dates over 2023–2025 and 15 exact rule/year
+preview combinations are evidenced. Purnimanta direct labels versus context
+inferences are explicit. Unknown combinations reject; no Kshaya name or skipped
+fallback is guessed. Research identities and Chaitra-anchor tokens are not database
+IDs or era-year conversions. All outputs are unusable for scheduling.
+
+```bash
+DINCHARYA_PUBLIC_DE440S=/EXTERNAL/PUBLIC/de440s.bsp \
+  OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m unittest discover \
+  -s tests/panchang -p test_month_research.py -v
+
+OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m prototypes.panchang.month_validation \
+  --ephemeris /EXTERNAL/PUBLIC/de440s.bsp
+```
+
+Runner intentionally exits2, checks preserved accepted evidence hashes, blocks
+runtime network and uses existing resource limits. Research fixture metadata pins
+public documents, exact selected pages and qualifications; no raw publication is
+committed. A full example run currently uses about 40.5 CPU seconds on this host;
+bounded back-search has not been optimized/certified for a small VPS. No package,
+ephemeris or existing fixture change is needed. Stop for review; this is not final
+month-engine or scheduling adoption.

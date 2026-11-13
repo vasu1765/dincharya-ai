@@ -208,3 +208,20 @@ identity and delivery safeguards. Stop after feasibility; no migrations, persist
 scheduling/reminder integration, private backup/2B search, live Telegram, production,
 deployment or merge. See [results](M2F_FEASIBILITY_RESULTS.md) for failed accuracy
 gates and unsupported areas. Storage/ritual profiles still need later review.
+
+## D15 — Evidence-bounded lunar-month and annual-preview research
+
+Owner authorizes further isolated multi-year Amanta/Purnimanta research and
+experimental anniversary previews only for validated cases, not engine adoption
+or general annual scheduling. Keep research APIs separate. Selected Purnimanta
+conversion including 2023 Adhika is implemented as a labelled candidate; direct
+reference labels and calendar-context inference must remain distinguishable.
+An explicit rule/year allowlist bounds previews; unknown or discrepant cases
+reject, skipped dates stay withheld, ordinary/Adhika is explicit and no Kshaya
+behavior is guessed. Chaitra Shukla anchor year is only a research token, not an
+approved regional-era/identity/storage design. See results for evidence limits.
+The 60-second accuracy gate is unchanged; old timing failures still block adoption.
+Preserve D14 neutral profile, future consolidated named observance design and
+all existing architecture/authorization safeguards. Stop at validation checkpoint;
+no persistent integration, migration, n8n/Telegram/production/private access,
+2B search, festival implementation, deployment or main merge follows.

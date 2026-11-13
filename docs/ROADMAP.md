@@ -15,7 +15,10 @@ orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
 2D synthetic recurrence/API acceptance is pushed at `cb6fdd7`; 2F design at
 `9524757`. The owner then authorized an isolated offline Skyfield/DE440s feasibility
 prototype, not final adoption or integration. [Feasibility results](M2F_FEASIBILITY_RESULTS.md)
-record the pushed prototype at 6f1f0b7 and current 23-test focused validation.
+record pushed prototype 6f1f0b7 and timing/range checkpoint 452bbcd.
+Current research matches 21 Amanta dates over 2023–2025, 18 qualified Purnimanta
+comparisons and 15 allowlisted annual examples; general annual scheduling remains
+disabled. Direct publisher labels and context inferences are distinguished.
 Nine coordinate hypotheses do not resolve the failed Drik timing gate. Selected
 explicit Lahiri/PAC ingress/Amanta research agrees, but broader month validation,
 Purnimanta, Kshaya and annual rules remain unsupported. No calendar

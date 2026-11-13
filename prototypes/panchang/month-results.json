@@ -1,0 +1,1119 @@
+{
+  "annual_examples": [
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "amanta",
+      "end": "2023-03-30T18:00:52.102649+00:00",
+      "evidence_id": "2023-amanta-chaitra-9",
+      "gregorian_search_year": 2023,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2023/chaitra/ordinary/9",
+      "selected_date": "2023-03-30",
+      "start": "2023-03-29T15:37:51.684253+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-03-30"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "purnimanta",
+      "end": "2023-03-30T18:00:52.102649+00:00",
+      "evidence_id": "2023-purnimanta-chaitra-9",
+      "gregorian_search_year": 2023,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/purnimanta/2023/chaitra/ordinary/9",
+      "selected_date": "2023-03-30",
+      "start": "2023-03-29T15:37:51.684253+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-03-30"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2024,
+      "convention": "amanta",
+      "end": "2024-04-17T09:44:35.184619+00:00",
+      "evidence_id": "2024-amanta-chaitra-9",
+      "gregorian_search_year": 2024,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2024/chaitra/ordinary/9",
+      "selected_date": "2024-04-17",
+      "start": "2024-04-16T07:54:33.211657+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2024-04-17"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2024,
+      "convention": "purnimanta",
+      "end": "2024-04-17T09:44:35.184619+00:00",
+      "evidence_id": "2024-purnimanta-chaitra-9",
+      "gregorian_search_year": 2024,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/purnimanta/2024/chaitra/ordinary/9",
+      "selected_date": "2024-04-17",
+      "start": "2024-04-16T07:54:33.211657+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2024-04-17"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "amanta",
+      "end": "2023-04-03T00:54:48.551318+00:00",
+      "evidence_id": "2023-amanta-chaitra-12",
+      "gregorian_search_year": 2023,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 12,
+      "reason": "first_of_repeated_sunrises",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2023/chaitra/ordinary/12",
+      "selected_date": "2023-04-02",
+      "start": "2023-04-01T22:50:17.614733+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-04-02",
+        "2023-04-03"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "purnimanta",
+      "end": "2023-04-03T00:54:48.551318+00:00",
+      "evidence_id": "2023-purnimanta-chaitra-12",
+      "gregorian_search_year": 2023,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 12,
+      "reason": "first_of_repeated_sunrises",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/purnimanta/2023/chaitra/ordinary/12",
+      "selected_date": "2023-04-02",
+      "start": "2023-04-01T22:50:17.614733+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-04-02",
+        "2023-04-03"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "amanta",
+      "end": "2024-04-07T21:51:39.531543+00:00",
+      "evidence_id": "2024-amanta-phalguna-29",
+      "gregorian_search_year": 2024,
+      "intercalation": "ordinary",
+      "month": "phalguna",
+      "ordinal": 29,
+      "reason": "skipped_at_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2024/phalguna/ordinary/29",
+      "selected_date": null,
+      "start": "2024-04-07T01:24:21.868274+00:00",
+      "status": "needs_review",
+      "sunrise_dates": [],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "purnimanta",
+      "end": "2024-04-07T21:51:39.531543+00:00",
+      "evidence_id": "2024-purnimanta-chaitra-29",
+      "gregorian_search_year": 2024,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 29,
+      "reason": "skipped_at_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/purnimanta/2024/chaitra/ordinary/29",
+      "selected_date": null,
+      "start": "2024-04-07T01:24:21.868274+00:00",
+      "status": "needs_review",
+      "sunrise_dates": [],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "amanta",
+      "end": "2023-07-27T10:18:10.214526+00:00",
+      "evidence_id": "2023-amanta-shravana-adhika-9",
+      "gregorian_search_year": 2023,
+      "intercalation": "adhika",
+      "month": "shravana",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2023/shravana/adhika/9",
+      "selected_date": "2023-07-27",
+      "start": "2023-07-26T10:22:59.553210+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-07-27"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "purnimanta",
+      "end": "2023-07-27T10:18:10.214526+00:00",
+      "evidence_id": "2023-purnimanta-shravana-adhika-9",
+      "gregorian_search_year": 2023,
+      "intercalation": "adhika",
+      "month": "shravana",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/purnimanta/2023/shravana/adhika/9",
+      "selected_date": "2023-07-27",
+      "start": "2023-07-26T10:22:59.553210+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-07-27"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "amanta",
+      "end": "2023-08-25T20:32:56.097094+00:00",
+      "evidence_id": "2023-amanta-shravana-ordinary-9",
+      "gregorian_search_year": 2023,
+      "intercalation": "ordinary",
+      "month": "shravana",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2023/shravana/ordinary/9",
+      "selected_date": "2023-08-25",
+      "start": "2023-08-24T21:41:04.988696+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-08-25"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "purnimanta",
+      "end": "2023-08-25T20:32:56.097094+00:00",
+      "evidence_id": "2023-purnimanta-shravana-ordinary-9",
+      "gregorian_search_year": 2023,
+      "intercalation": "ordinary",
+      "month": "shravana",
+      "ordinal": 9,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/purnimanta/2023/shravana/ordinary/9",
+      "selected_date": "2023-08-25",
+      "start": "2023-08-24T21:41:04.988696+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2023-08-25"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2024,
+      "convention": "amanta",
+      "end": "2025-02-09T13:55:46.833789+00:00",
+      "evidence_id": "2025-amanta-magha-12",
+      "gregorian_search_year": 2025,
+      "intercalation": "ordinary",
+      "month": "magha",
+      "ordinal": 12,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2025/magha/ordinary/12",
+      "selected_date": "2025-02-09",
+      "start": "2025-02-08T14:46:28.165271+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2025-02-09"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "amanta",
+      "end": "2024-04-01T15:40:15.303027+00:00",
+      "evidence_id": "2024-amanta-phalguna-22",
+      "gregorian_search_year": 2024,
+      "intercalation": "ordinary",
+      "month": "phalguna",
+      "ordinal": 22,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/amanta/2024/phalguna/ordinary/22",
+      "selected_date": "2024-04-01",
+      "start": "2024-03-31T16:01:32.504870+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2024-04-01"
+      ],
+      "usable_for_scheduling": false
+    },
+    {
+      "chaitra_anchor_year": 2023,
+      "convention": "purnimanta",
+      "end": "2024-04-01T15:40:15.303027+00:00",
+      "evidence_id": "2024-purnimanta-chaitra-22",
+      "gregorian_search_year": 2024,
+      "intercalation": "ordinary",
+      "month": "chaitra",
+      "ordinal": 22,
+      "reason": "single_sunrise",
+      "research_identity": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1/purnimanta/2024/chaitra/ordinary/22",
+      "selected_date": "2024-04-01",
+      "start": "2024-03-31T16:01:32.504870+00:00",
+      "status": "evidence_bounded_experimental_preview",
+      "sunrise_dates": [
+        "2024-04-01"
+      ],
+      "usable_for_scheduling": false
+    }
+  ],
+  "dependencies": {
+    "certifi": "2025.10.5",
+    "jplephem": "2.23",
+    "numpy": "2.3.4",
+    "pyerfa": "2.0.1.5",
+    "sgp4": "2.25",
+    "skyfield": "1.55"
+  },
+  "ephemeris_sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+  "fixture_sha256": "8d8210c495e4aa02d7458ddd49221896ba9d88ac1cc35282fe110df59c445d19",
+  "latest_pushed_base": "452bbcd28653ae8a8530ada57c3e0bd33e2f2d6b",
+  "limitations": [
+    "Three Gregorian years (2023,2024,2025), selected seven names only; not all months or all years",
+    "Parsed PDF and primary web/index facts; no visual facsimile verification",
+    "Dynamic-location web pages only corroborate geocentric month labels; not Delhi sunrise",
+    "2024 Delhi PDF URL returned404; no guessed substitute",
+    "Kshaya and other intercalary years unvalidated",
+    "Original Drik/Himalayan timing gate unresolved; no new distinguishing evidence",
+    "Purnimanta 7 explicit publisher labels and 11 calendar-context inferences are distinguished; not 18 independent direct goldens"
+  ],
+  "metrics": {
+    "cpu_seconds": 40.542838209,
+    "peak_rss_kib": 56008,
+    "wall_seconds": 40.546253952008556
+  },
+  "month_cases": [
+    {
+      "actual": {
+        "amanta_end": "2023-04-20T04:12:32.055346+00:00",
+        "amanta_start": "2023-03-21T17:23:08.685595+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-03-22"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-04-20T04:12:32.055346+00:00",
+        "amanta_start": "2023-03-21T17:23:08.685595+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-03-22"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-04-20T04:12:32.055346+00:00",
+        "amanta_start": "2023-03-21T17:23:08.685595+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 9,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-03-30"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-04-20T04:12:32.055346+00:00",
+        "amanta_start": "2023-03-21T17:23:08.685595+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 9,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-03-30"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-04-20T04:12:32.055346+00:00",
+        "amanta_start": "2023-03-21T17:23:08.685595+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 12,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-04-02"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-04-20T04:12:32.055346+00:00",
+        "amanta_start": "2023-03-21T17:23:08.685595+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 12,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-04-02"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-07-17T18:31:50.206591+00:00",
+        "amanta_start": "2023-06-18T04:37:09.153430+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "ashadha",
+        "ordinal": 15,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-03"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-07-17T18:31:50.206591+00:00",
+        "amanta_start": "2023-06-18T04:37:09.153430+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "ashadha",
+        "ordinal": 15,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-03"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-07-17T18:31:50.206591+00:00",
+        "amanta_start": "2023-06-18T04:37:09.153430+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "ashadha",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-04"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-07-17T18:31:50.206591+00:00",
+        "amanta_start": "2023-06-18T04:37:09.153430+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "ordinary_krishna_uses_following_amanta_name",
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-04"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-07-17T18:31:50.206591+00:00",
+        "amanta_start": "2023-06-18T04:37:09.153430+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "ashadha",
+        "ordinal": 23,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-10"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-07-17T18:31:50.206591+00:00",
+        "amanta_start": "2023-06-18T04:37:09.153430+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "ordinary_krishna_uses_following_amanta_name",
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "ordinal": 23,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-10"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 7,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-25"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "adhika_retains_amanta_name_and_paksha",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 7,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-07-25"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 15,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-01"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "adhika_retains_amanta_name_and_paksha",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 15,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-01"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-02"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "adhika_retains_amanta_name_and_paksha",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-02"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 25,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-10"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-08-16T09:38:11.253649+00:00",
+        "amanta_start": "2023-07-17T18:31:50.206591+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "adhika_retains_amanta_name_and_paksha",
+        "intercalation": "adhika",
+        "month": "shravana",
+        "ordinal": 25,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-10"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-09-15T01:39:48.674914+00:00",
+        "amanta_start": "2023-08-16T09:38:11.253649+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-17"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-09-15T01:39:48.674914+00:00",
+        "amanta_start": "2023-08-16T09:38:11.253649+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-17"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-09-15T01:39:48.674914+00:00",
+        "amanta_start": "2023-08-16T09:38:11.253649+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "ordinal": 9,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-25"
+    },
+    {
+      "actual": {
+        "amanta_end": "2023-09-15T01:39:48.674914+00:00",
+        "amanta_start": "2023-08-16T09:38:11.253649+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "ordinal": 9,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2023-08-25"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "phalguna",
+        "ordinal": 15,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-03-25"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "phalguna",
+        "ordinal": 15,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-03-25"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "phalguna",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-03-26"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "ordinary_krishna_uses_following_amanta_name",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-03-26"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "phalguna",
+        "ordinal": 22,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-01"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "ordinary_krishna_uses_following_amanta_name",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 22,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-01"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "phalguna",
+        "ordinal": 30,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-08"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-04-08T18:20:51.562487+00:00",
+        "amanta_start": "2024-03-10T09:00:26.312243+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "ordinary_krishna_uses_following_amanta_name",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 30,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-08"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-05-08T03:21:56.120898+00:00",
+        "amanta_start": "2024-04-08T18:20:51.562487+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-09"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-05-08T03:21:56.120898+00:00",
+        "amanta_start": "2024-04-08T18:20:51.562487+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-09"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-05-08T03:21:56.120898+00:00",
+        "amanta_start": "2024-04-08T18:20:51.562487+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 9,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-17"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-05-08T03:21:56.120898+00:00",
+        "amanta_start": "2024-04-08T18:20:51.562487+00:00",
+        "convention": "purnimanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "ordinal": 9,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-04-17"
+    },
+    {
+      "actual": {
+        "amanta_end": "2024-06-06T12:37:44.309680+00:00",
+        "amanta_start": "2024-05-08T03:21:56.120898+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "vaishakha",
+        "ordinal": 3,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2024-05-10"
+    },
+    {
+      "actual": {
+        "amanta_end": "2025-01-29T12:35:58.923327+00:00",
+        "amanta_start": "2024-12-30T22:26:47.958972+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "pausha",
+        "ordinal": 21,
+        "paksha": "krishna",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2025-01-20"
+    },
+    {
+      "actual": {
+        "amanta_end": "2025-02-28T00:44:49.521777+00:00",
+        "amanta_start": "2025-01-29T12:35:58.923327+00:00",
+        "convention": "amanta",
+        "conversion_rule": "same_amanta_lunation",
+        "intercalation": "ordinary",
+        "month": "magha",
+        "ordinal": 12,
+        "paksha": "shukla",
+        "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+        "status": "candidate_not_general_validation",
+        "usable_for_scheduling": false
+      },
+      "matches_reference": true,
+      "reference_id": "2025-02-09"
+    }
+  ],
+  "new_transition_comparisons": [
+    {
+      "calculated_at": "2023-03-30T18:00:52.089854+00:00",
+      "delta_seconds": -7.910146,
+      "reference": {
+        "at": "2023-03-30T23:31:00+05:30",
+        "ordinal": 10,
+        "pdf_page_1based": 23,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-04-01T22:50:17.605601+00:00",
+      "delta_seconds": 17.605601,
+      "reference": {
+        "at": "2023-04-02T04:20:00+05:30",
+        "ordinal": 12,
+        "pdf_page_1based": 24,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2023-04-03T00:54:48.546731+00:00",
+      "delta_seconds": -11.453269,
+      "reference": {
+        "at": "2023-04-03T06:25:00+05:30",
+        "ordinal": 13,
+        "pdf_page_1based": 24,
+        "source": "pac2023",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2024-03-25T07:00:19.638076+00:00",
+      "delta_seconds": 19.638076,
+      "reference": {
+        "at": "2024-03-25T12:30:00+05:30",
+        "ordinal": 16,
+        "pdf_page_1based": 23,
+        "source": "pac2024",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2024-04-07T01:24:21.890241+00:00",
+      "delta_seconds": 21.890241,
+      "reference": {
+        "at": "2024-04-07T06:54:00+05:30",
+        "ordinal": 29,
+        "pdf_page_1based": 25,
+        "source": "pac2024",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2024-04-07T21:51:39.537980+00:00",
+      "delta_seconds": -20.46202,
+      "reference": {
+        "at": "2024-04-08T03:22:00+05:30",
+        "ordinal": 30,
+        "pdf_page_1based": 25,
+        "source": "pac2024",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2024-04-08T18:20:51.567999+00:00",
+      "delta_seconds": -8.432001,
+      "reference": {
+        "at": "2024-04-08T23:51:00+05:30",
+        "ordinal": 1,
+        "pdf_page_1based": 25,
+        "source": "pac2024",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2024-04-17T09:44:35.170899+00:00",
+      "delta_seconds": -24.829101,
+      "reference": {
+        "at": "2024-04-17T15:15:00+05:30",
+        "ordinal": 10,
+        "pdf_page_1based": 28,
+        "source": "pac2024",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    },
+    {
+      "calculated_at": "2024-04-01T15:40:15.298481+00:00",
+      "delta_seconds": 15.298481,
+      "reference": {
+        "at": "2024-04-01T21:10:00+05:30",
+        "ordinal": 23,
+        "pdf_page_1based": 24,
+        "source": "pac2024",
+        "tolerance_seconds": 60
+      },
+      "within_numeric_threshold": true
+    }
+  ],
+  "profile": "lahiri1956-true-plus0.658as-iau1976-nut1980-fixed-origin-v1/paksha-conversion-v1",
+  "status": "selected_month_research_not_general_validation",
+  "usable_for_scheduling": false,
+  "year_anchor_checks": [
+    {
+      "actual": 2023,
+      "matches_reference": true,
+      "reference": {
+        "at": "2023-03-22T06:00:00+00:00",
+        "expected_year": 2023,
+        "meaning": "Gregorian year of most recent ordinary Chaitra Shukla new moon; not era conversion"
+      }
+    },
+    {
+      "actual": 2023,
+      "matches_reference": true,
+      "reference": {
+        "at": "2024-04-08T06:00:00+00:00",
+        "expected_year": 2023,
+        "meaning": "Gregorian year of most recent ordinary Chaitra Shukla new moon; not era conversion"
+      }
+    },
+    {
+      "actual": 2024,
+      "matches_reference": true,
+      "reference": {
+        "at": "2024-04-09T06:00:00+00:00",
+        "expected_year": 2024,
+        "meaning": "Gregorian year of most recent ordinary Chaitra Shukla new moon; not era conversion"
+      }
+    }
+  ]
+}

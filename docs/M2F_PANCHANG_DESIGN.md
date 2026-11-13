@@ -3,8 +3,8 @@
 Status: **isolated Skyfield/DE440s feasibility authorized; final engine adoption,
 festival rules and persistent integration are not authorized**. The Phase 1 design
 was pushed at `952475720e1990f635eed7f1710b123018262db0`; the prototype is now
-pushed at `6f1f0b7` on development/m2f-skyfield-feasibility. The follow-up entered
-clean on that branch. See
+pushed at `6f1f0b7`; timing/range validation is pushed at `452bbcd` on
+development/m2f-skyfield-feasibility. The current research entered clean there. See
 [measured feasibility results](M2F_FEASIBILITY_RESULTS.md) for implemented scope,
 failed reference comparisons, unsupported month/annual-rule paths and next gates.
 Original recommendations below are historical proposals where superseded by the
@@ -29,16 +29,18 @@ owner decisions in the next section; do not infer approval for storage changes.
   and delivery safeguards remain. No migration, persistent scheduling, slot/job
   integration, private access, live send or deployment is authorized.
 
-Current validation checkpoint: 23 focused tests pass, including stricter numerical
-and 1900/2100 boundaries. Nine coordinate hypotheses leave the +85.886/+75.668 s
-Drik discrepancies unexplained; the 60-second gate remains failed. New USNO/IMD
-comparisons pass selected cases; a second publisher adds another timing mismatch.
-An explicit ERFA IAU1976/1980 epoch-anchored Lahiri candidate agrees with selected
-vendor epoch values, four PAC ingresses and three 2023 Amanta cases including
-Adhika Shravana. This limited research does not enable general names, Purnimanta
-conversion, Kshaya, annual dates or scheduling. Independent precise epoch data,
-multi-year validation and matched sunrise metadata remain gates. See the results
-report for exact sources, provenance and limitations. Stop for further review.
+Current month-research checkpoint: selected 21 Amanta dates across 2023–2025
+and 18 Purnimanta comparisons match. Purnimanta includes seven direct publisher
+labels and eleven context inferences; this distinction limits the validation claim.
+Research-only conversion preserves both Adhika pakshas and the surrounding ordinary
+halves; Kshaya/multiple-ingress and numerical ambiguity reject. Fifteen allowlisted
+anniversary examples compute/compare evidence; unknown rule/year rejects. Year
+anchor is an explicit Chaitra Shukla research token, not an era-year conversion.
+No general month/annual scheduling API is enabled. New nine PAC timing comparisons
+pass, while original Drik/Himalayan failures and the unchanged 60-second gate
+remain unresolved. See results for exact cases, sources, limitations and tests.
+Stop for review; five month names, broader years/direct Purnimanta fixtures, exact
+epoch/sunrise validation and general annual behavior remain gates.
 
 ## Scope and requirements
 
