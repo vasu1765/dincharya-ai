@@ -1,0 +1,168 @@
+{
+  "status": "selected_calendar_date_evidence_not_adoption",
+  "source": {
+    "url": "https://www.drikpanchang.com/download/hindu-calendar/2023/delhi/purnimanta/Hindu-Calendar-2023.pdf",
+    "sha256": "2ec0b3eda6a7b6ac7c1a662fabb3e498b393fce4ebeafeb5968cb6632da834b0",
+    "size_bytes": 1239904,
+    "edition": "v1.0.1, created 2022-10-01",
+    "location": "Delhi 28d39m07sN 77d13m53sE elevation227m Asia/Kolkata",
+    "extraction": "pypdf 6.1.1; month headers/day grids and full-moon month labels; no visual facsimile certification",
+    "independence": "Independent publisher from PAC; numerical lineage unknown",
+    "verification": "Selected day-grid tithi ordinals manually read from pinned public PDF text; not visual facsimile verified. Month context distinguished from direct daily tithi."
+  },
+  "calendar_days": [
+    {
+      "day": "2023-04-02",
+      "ordinal": 12,
+      "pdf_page_1based": 8,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2023-04-03",
+      "ordinal": 12,
+      "pdf_page_1based": 8,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2023-04-11",
+      "ordinal": 20,
+      "pdf_page_1based": 8,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2023-04-12",
+      "ordinal": 22,
+      "pdf_page_1based": 8,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2023-07-04",
+      "ordinal": 16,
+      "pdf_page_1based": 14,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2023-07-18",
+      "ordinal": 1,
+      "pdf_page_1based": 14,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2023-08-02",
+      "ordinal": 16,
+      "pdf_page_1based": 16,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2023-08-17",
+      "ordinal": 1,
+      "pdf_page_1based": 16,
+      "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+    },
+    {
+      "day": "2026-03-26",
+      "ordinal": 8,
+      "source": "drik2026before",
+      "verification": "Direct primary daily tithi before noon transition"
+    },
+    {
+      "day": "2026-03-27",
+      "ordinal": 9,
+      "source": "drik2026",
+      "verification": "Direct primary Navami at sunrise"
+    },
+    {
+      "day": "2026-03-27",
+      "ordinal": 9,
+      "source": "panchangam2026",
+      "verification": "Distinct publisher daily Navami at sunrise"
+    }
+  ],
+  "selection_cases": [
+    {
+      "id": "repeated-chaitra12",
+      "window": [
+        "2023-04-01",
+        "2023-04-05"
+      ],
+      "month": "chaitra",
+      "paksha": "shukla",
+      "tithi": 12,
+      "intercalation": "ordinary",
+      "sunrise_dates": [
+        "2023-04-02",
+        "2023-04-03"
+      ],
+      "first": "2023-04-02",
+      "last": "2023-04-03",
+      "pdf_page_1based": 8
+    },
+    {
+      "id": "skipped-vaishakha-krishna6",
+      "window": [
+        "2023-04-09",
+        "2023-04-14"
+      ],
+      "month": "vaishakha",
+      "paksha": "krishna",
+      "tithi": 6,
+      "intercalation": "ordinary",
+      "sunrise_dates": [],
+      "first": null,
+      "last": null,
+      "pdf_page_1based": 8
+    }
+  ],
+  "accepted_sha256": {
+    "references.json": "25978108a2800699e1b90d5fee1c189390283a30b90cb4d28fae46ee43047e62",
+    "research-references.json": "c7e36e1dbf18c57ea6b09e1526e71ec0c1b7b3e2ec946560be05413e38be12fa",
+    "month-references.json": "8d8210c495e4aa02d7458ddd49221896ba9d88ac1cc35282fe110df59c445d19",
+    "feasibility-results.json": "9ef5f2a217ac9ecda87af4214e07c2b7472052f34c8402cb5c490bbb91fbec09",
+    "validation-results.json": "84a78b83b557accc97822fc3f34597bce6724a7717b866f72d9f05696a802829",
+    "month-results.json": "e1a1afe46499e353282546d1fe3f99a8d5ed762c18d1b4b69a9e23c060ff1ec9"
+  },
+  "gate": {
+    "selected_cases": "Daily sunrise ordinal agreement, stable classification under both pinned sunrise hypotheses, >300s separation from tithi boundary; repeat/skip policy explicit",
+    "timing": "Original 60-second timing diagnostics unchanged and still failed for prior Drik rows",
+    "adoption": "Incomplete: coordinates/horizon not exactly matched, seven researched names only, broader multi-year/date-sensitive independent coverage missing; no scheduling approval",
+    "publisher_disagreement": "Record mismatches with metadata; do not call a confirmed defect without matched conventions and independently reproducible contrary evidence",
+    "separation_seconds": 300
+  },
+  "web_sources": {
+    "drik2026": {
+      "url": "https://www.drikpanchang.com/panchang/day-panchang.html?date=27%2F03%2F2026",
+      "publisher": "Drik Panchang",
+      "location": "New Delhi as fetched",
+      "retrieved": "2026-11-13",
+      "precision": "Whole minute local times; rounding direction, exact coordinates/model unknown",
+      "provenance": "Manually checked primary page parsed text, no raw-page hash asserted"
+    },
+    "drik2026before": {
+      "url": "https://www.drikpanchang.com/panchang/day-panchang.html?date=26%2F03%2F2026",
+      "publisher": "Drik Panchang",
+      "location": "New Delhi as fetched",
+      "provenance": "Primary daily Ashtami at sunrise; festival date is not sunrise Navami date"
+    },
+    "panchangam2026": {
+      "url": "https://hindi.panchangam.org/dailypanchangam.php?date=2026-03-27",
+      "publisher": "Panchangam.org",
+      "location": "New Delhi as fetched",
+      "precision": "Whole minute IST; exact coordinate/model and numerical lineage unknown",
+      "provenance": "Primary daily sheet: Navami at sunrise, end10:07; distinct publisher from Drik, engine independence not established"
+    }
+  },
+  "timing_diagnostics": [
+    {
+      "source": "drik2026",
+      "at": "2026-03-27T10:06:00+05:30",
+      "ordinal": 10,
+      "tolerance_seconds": 60
+    },
+    {
+      "source": "panchangam2026",
+      "at": "2026-03-27T10:07:00+05:30",
+      "ordinal": 10,
+      "tolerance_seconds": 60
+    }
+  ]
+}

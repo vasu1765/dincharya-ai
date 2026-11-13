@@ -1,3 +1,35 @@
+# Milestone 2F — general offline personal recurrence checkpoint
+
+Current pushed base `2bd37c09c4a3e25d4dcc3d6e7476c0665ac46b77` on
+`development/m2f-skyfield-feasibility`; entry tree clean, HEAD/tracking/GitHub agree.
+The owner authorizes general **research previews only**, not scheduling adoption.
+See [full design, gate and evidence](M2F_RECURRENCE_PREVIEW.md),
+[recorded results](../prototypes/panchang/recurrence-results.json) and
+[handoff/commit instructions](HANDOFF.md). Historical checkpoints below remain
+accepted evidence; old uncommitted state and allowlist-only scope are superseded.
+
+| Current gate | Result | Limit |
+| --- | --- | --- |
+| Arbitrary-rule annual/monthly enumeration | PASS scoped tests | Full civil-year/window calculation, no fixture lookup; selected unsupported names/context withheld. |
+| Identity / Purnimanta Adhika conversion | PASS | Canonical month anchor shared across separate ordinary halves, distinct Adhika; stable cold/window/policy identities. Research IDs only. |
+| Instant versus sunrise birth interpretation | PASS | Explicit choice retained; future date assignment stays sunrise-based. |
+| Repeat/skip/uncertainty | PASS | Default repetition review; explicit first/last; skipped/uncertain/Kshaya/unsupported months no selected date. |
+| Independent selected date gate | PASS | 11 reference rows,10 dates,22 sunrise-model comparisons; six policy checks. Not general calendar acceptance. |
+| 60-second timing diagnostics | **Still failed** | New March27,2026 +82.480s Drik failure, +22.494s Panchangam pass; old fixtures/failures unchanged. |
+| Bounded deterministic cache | PASS | Cold annual2.056s, identical warm0.000074s, no new month calculations; profile drift rejects. Host evidence only. |
+| Overall calendar/adoption gate | **Incomplete / disabled** | Coverage, matching source profiles and explicit owner approval remain missing. All outputs unusable for scheduling. |
+
+12 new focused tests passed; affected cases rerun after final additions. Source
+and six accepted reference/result files are unchanged. No unrelated suites, live
+operations or old coordinate experiment reruns. The new CLI exits2 deliberately.
+New 300-second date-selection guard is conservative withholding, not widening
+or replacing the unchanged60-second diagnostic. Publisher/observance differences
+are distinguished from demonstrated calculation defects. Stop for review.
+
+---
+
+## Prior pushed month research (2bd37c0; historical below)
+
 # Milestone 2F — lunar-month research validation checkpoint
 
 Entry/current branch `development/m2f-skyfield-feasibility`, pushed base

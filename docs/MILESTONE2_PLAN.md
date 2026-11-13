@@ -42,8 +42,8 @@ Remaining recovery work is operational: gateway supervision, wall-clock policy,
 host/disk/durable restore and adopted workflow acceptance. Restart/outage acceptance
 is pushed at `ff6198d`; 2D recurrence API acceptance is pushed at `cb6fdd7`.
 2F design is pushed at `9524757`; prototype research at `6f1f0b7` and timing/range
-validation at `452bbcd` are accepted as research only. Current month research
-awaits review/commit; Git metadata is read-only;
+validation at `452bbcd` are accepted as research only. Month research is pushed at2bd37c0; general offline preview
+research now awaits review/commit; Git metadata is read-only;
 [handoff](HANDOFF.md) contains the exact safe-file commands.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
@@ -120,23 +120,17 @@ migration, Telegram operation, deployment or merge in this phase.
 
 ## 2F isolated feasibility checkpoint after owner authorization
 
-Research continues from pushed timing/range checkpoint `452bbcd` on
-`development/m2f-skyfield-feasibility`; owner/ChatGPT acceptance is research only.
-Selected 21 Amanta dates (2023–2025, seven names) and 18 Purnimanta comparisons
-match; seven direct Purnimanta labels are distinguished from eleven calendar-context
-inferences. Adhika Shravana 2023 conversion includes both pakshas and neighboring
-ordinary halves. Kshaya/multiple-ingress rejects; five other month names and other
-intercalary/exception patterns remain unvalidated.
-
-Fifteen allowlisted experimental annual examples calculate and match evidence,
-including repeated/skipped, ordinary/Adhika, Krishna and year-to-year cases.
-These are bounded research examples, not exhaustive annual scheduling. General
-month_label/annual_preview remain disabled. Nine new PAC boundaries pass the
-unchanged 60-second threshold; original Drik/Himalayan discrepancies still block
-adoption. No old coordinate or unrelated suites repeated. See
-[M2F_FEASIBILITY_RESULTS.md](M2F_FEASIBILITY_RESULTS.md) for the exact matrix,
-source qualifications and nine new regression tests. Stop for review before
-engine adoption, persistent integration or festival implementation.
+Research continues from pushed month checkpoint2bd37c0. Owner permits general
+personal offline preview research, not adoption. See
+[recurrence design](M2F_RECURRENCE_PREVIEW.md): full civil-year/monthly enumeration
+without fixture lookup, canonical calendar identities, explicit birth basis and
+repeat/skip policies, fail-closed unsupported cases and bounded caches.
+12 new focused tests pass;11 selected date-reference rows pass both sunrise
+hypotheses. This is a separate selected calendar-date gate; overall adoption stays
+incomplete. Old and new outside60-second timing discrepancies remain recorded,
+not widened away. Seven selected-research names only; other names/contexts withhold
+dates. No scheduling integration. Next review: direct broader calendar/profile
+coverage, unresolved timing and final engine/identity policy. Stop offline here.
 
 The owner is religiously neutral: future supported festivals should consolidate
 labelled Smarta/Vaishnava dates in one reminder when different. Proposed Vaishnava

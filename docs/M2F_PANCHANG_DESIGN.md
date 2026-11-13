@@ -29,18 +29,15 @@ owner decisions in the next section; do not infer approval for storage changes.
   and delivery safeguards remain. No migration, persistent scheduling, slot/job
   integration, private access, live send or deployment is authorized.
 
-Current month-research checkpoint: selected 21 Amanta dates across 2023–2025
-and 18 Purnimanta comparisons match. Purnimanta includes seven direct publisher
-labels and eleven context inferences; this distinction limits the validation claim.
-Research-only conversion preserves both Adhika pakshas and the surrounding ordinary
-halves; Kshaya/multiple-ingress and numerical ambiguity reject. Fifteen allowlisted
-anniversary examples compute/compare evidence; unknown rule/year rejects. Year
-anchor is an explicit Chaitra Shukla research token, not an era-year conversion.
-No general month/annual scheduling API is enabled. New nine PAC timing comparisons
-pass, while original Drik/Himalayan failures and the unchanged 60-second gate
-remain unresolved. See results for exact cases, sources, limitations and tests.
-Stop for review; five month names, broader years/direct Purnimanta fixtures, exact
-epoch/sunrise validation and general annual behavior remain gates.
+Current offline recurrence checkpoint (base `2bd37c0`): separate immutable research
+rules enumerate arbitrary annual/monthly windows, with explicit birth interpretation,
+canonical profile/month/paksha/tithi identities and bounded caches. Purnimanta
+ordinary halves around Adhika share a canonical ordinary Shukla anchor. Default
+repetition review, skipped/uncertain/Kshaya and unsupported names withhold dates.
+The separate selected calendar-date gate passes while the 60-second physical timing
+remains diagnostically failed. Overall adoption is incomplete; no scheduling API
+or persistent integration enabled. See [preview design](M2F_RECURRENCE_PREVIEW.md)
+and results for exact scope, sources, tests, gates and performance. Stop for review.
 
 ## Scope and requirements
 

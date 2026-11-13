@@ -16,12 +16,14 @@ orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
 `9524757`. The owner then authorized an isolated offline Skyfield/DE440s feasibility
 prototype, not final adoption or integration. [Feasibility results](M2F_FEASIBILITY_RESULTS.md)
 record pushed prototype 6f1f0b7 and timing/range checkpoint 452bbcd.
-Current research matches 21 Amanta dates over 2023–2025, 18 qualified Purnimanta
-comparisons and 15 allowlisted annual examples; general annual scheduling remains
-disabled. Direct publisher labels and context inferences are distinguished.
+Month research is pushed at `2bd37c0`. Current general offline previews enumerate
+arbitrary bounded rules, with canonical identities, explicit birth/repeat/skip
+policies and bounded caches. Selected calendar-date checks pass; timing diagnostics
+and overall adoption remain incomplete. General live scheduling stays disabled.
+Direct publisher labels and context inferences are distinguished.
 Nine coordinate hypotheses do not resolve the failed Drik timing gate. Selected
 explicit Lahiri/PAC ingress/Amanta research agrees, but broader month validation,
-Purnimanta, Kshaya and annual rules remain unsupported. No calendar
+Purnimanta certification, Kshaya and live annual scheduling remain unsupported. No calendar
 release or persistent scheduling claim; no unrelated accepted suites were rerun.
 The owner profile remains neutral: future verified festivals should consolidate
 labelled Smarta/Vaishnava dates rather than assign a sampradaya. Festival rules,

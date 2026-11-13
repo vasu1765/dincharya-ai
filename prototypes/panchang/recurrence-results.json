@@ -1,0 +1,913 @@
+{
+  "arbitrary_annual": {
+    "assignment": "sunrise",
+    "birth_basis": "explicit_rule",
+    "calendar_date_gate": "not_adopted",
+    "occurrences": [
+      {
+        "end": "2026-03-27T04:37:22.501818+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "month_anchor": "2026-03-19",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 9,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "paksha": "shukla",
+        "reason": "single_sunrise",
+        "selected_date": "2026-03-27",
+        "start": "2026-03-26T06:19:22.284838+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2026-03-27"
+        ],
+        "tithi": 9
+      }
+    ],
+    "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+    "status": "experimental_preview",
+    "usable_for_scheduling": false,
+    "validation_scope": "selected_month_names_only_not_calendar_adoption"
+  },
+  "arbitrary_monthly": {
+    "assignment": "sunrise",
+    "birth_basis": "explicit_rule",
+    "calendar_date_gate": "not_adopted",
+    "occurrences": [
+      {
+        "end": "2024-01-14T02:30:22.673022+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "pausha",
+          "month_anchor": "2024-01-11",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 3,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "pausha",
+        "paksha": "shukla",
+        "reason": "single_sunrise",
+        "selected_date": "2024-01-14",
+        "start": "2024-01-13T05:41:29.350878+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2024-01-14"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-02-12T12:14:49.302050+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "magha",
+          "month_anchor": "2024-02-09",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 3,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "magha",
+        "paksha": "shukla",
+        "reason": "single_sunrise",
+        "selected_date": "2024-02-12",
+        "start": "2024-02-11T15:39:35.299060+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2024-02-12"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-03-12T22:34:21.021411+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "phalguna",
+          "month_anchor": "2024-03-10",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 3,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "phalguna",
+        "paksha": "shukla",
+        "reason": "skipped_at_sunrise",
+        "selected_date": null,
+        "start": "2024-03-12T01:43:35.515124+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [],
+        "tithi": 3
+      },
+      {
+        "end": "2024-04-11T09:33:44.945056+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "month_anchor": "2024-04-08",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 3,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "paksha": "shukla",
+        "reason": "single_sunrise",
+        "selected_date": "2024-04-11",
+        "start": "2024-04-10T12:02:45.646350+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2024-04-11"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-05-10T21:20:36.236560+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "vaishakha",
+          "month_anchor": "2024-05-08",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 3,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "vaishakha",
+        "paksha": "shukla",
+        "reason": "single_sunrise",
+        "selected_date": "2024-05-10",
+        "start": "2024-05-09T22:48:26.295764+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2024-05-10"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-06-09T10:14:52.707812+00:00",
+        "identity": null,
+        "intercalation": "ordinary",
+        "month": "jyeshtha",
+        "paksha": "shukla",
+        "reason": "unsupported_month_name",
+        "selected_date": null,
+        "start": "2024-06-08T10:26:02.022387+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [
+          "2024-06-09"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-07-09T00:39:12.268969+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "ashadha",
+          "month_anchor": "2024-07-05",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 3,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "ashadha",
+        "paksha": "shukla",
+        "reason": "repeated_requires_policy",
+        "selected_date": null,
+        "start": "2024-07-07T23:29:59.642932+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [
+          "2024-07-08",
+          "2024-07-09"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-08-07T16:36:24.246814+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "shravana",
+          "month_anchor": "2024-08-04",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 3,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "shravana",
+        "paksha": "shukla",
+        "reason": "single_sunrise",
+        "selected_date": "2024-08-07",
+        "start": "2024-08-06T14:22:58.015124+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2024-08-07"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-09-06T09:31:55.274035+00:00",
+        "identity": null,
+        "intercalation": "ordinary",
+        "month": "bhadrapada",
+        "paksha": "shukla",
+        "reason": "unsupported_month_name",
+        "selected_date": null,
+        "start": "2024-09-05T06:51:55.269458+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [
+          "2024-09-06"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-10-06T02:19:59.789416+00:00",
+        "identity": null,
+        "intercalation": "ordinary",
+        "month": "ashvina",
+        "paksha": "shukla",
+        "reason": "unsupported_month_name",
+        "selected_date": null,
+        "start": "2024-10-05T00:01:10.394885+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [
+          "2024-10-05",
+          "2024-10-06"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-11-04T17:54:44.074389+00:00",
+        "identity": null,
+        "intercalation": "ordinary",
+        "month": "kartika",
+        "paksha": "shukla",
+        "reason": "unsupported_month_name",
+        "selected_date": null,
+        "start": "2024-11-03T16:35:43.542468+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [
+          "2024-11-04"
+        ],
+        "tithi": 3
+      },
+      {
+        "end": "2024-12-04T07:40:48.701464+00:00",
+        "identity": null,
+        "intercalation": "ordinary",
+        "month": "margashirsha",
+        "paksha": "shukla",
+        "reason": "unsupported_month_name",
+        "selected_date": null,
+        "start": "2024-12-03T07:39:31.824633+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [
+          "2024-12-04"
+        ],
+        "tithi": 3
+      }
+    ],
+    "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+    "status": "needs_review",
+    "usable_for_scheduling": false,
+    "validation_scope": "selected_month_names_only_not_calendar_adoption"
+  },
+  "base_commit": "2bd37c09c4a3e25d4dcc3d6e7476c0665ac46b77",
+  "calendar_adoption_gate": "incomplete_profile_and_coverage_not_owner_approved",
+  "calendar_days": [
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 6626.692207,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 12,
+          "sunrise": "2023-04-02T00:40:44.284571+00:00"
+        },
+        {
+          "boundary_distance_seconds": 6640.411359,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 12,
+          "sunrise": "2023-04-02T00:40:58.014908+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-04-02",
+        "ordinal": 12,
+        "pdf_page_1based": 8,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 912.881484,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 12,
+          "sunrise": "2023-04-03T00:39:35.659414+00:00"
+        },
+        {
+          "boundary_distance_seconds": 899.121091,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 12,
+          "sunrise": "2023-04-03T00:39:49.400977+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-04-03",
+        "ordinal": 12,
+        "pdf_page_1based": 8,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 4669.793699,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 20,
+          "sunrise": "2023-04-11T00:30:38.036516+00:00"
+        },
+        {
+          "boundary_distance_seconds": 4655.950927,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 20,
+          "sunrise": "2023-04-11T00:30:51.895261+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-04-11",
+        "ordinal": 20,
+        "pdf_page_1based": 8,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 1170.785524,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 22,
+          "sunrise": "2023-04-12T00:29:32.688007+00:00"
+        },
+        {
+          "boundary_distance_seconds": 1184.669504,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 22,
+          "sunrise": "2023-04-12T00:29:46.564664+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-04-12",
+        "ordinal": 22,
+        "pdf_page_1based": 8,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 29445.185848,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 16,
+          "sunrise": "2023-07-03T23:57:55.726743+00:00"
+        },
+        {
+          "boundary_distance_seconds": 29429.901139,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 16,
+          "sunrise": "2023-07-03T23:58:11.048708+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-07-04",
+        "ordinal": 16,
+        "pdf_page_1based": 14,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 19966.676311,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 1,
+          "sunrise": "2023-07-18T00:04:36.871557+00:00"
+        },
+        {
+          "boundary_distance_seconds": 19981.713881,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 1,
+          "sunrise": "2023-07-18T00:04:51.923047+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-07-18",
+        "ordinal": 1,
+        "pdf_page_1based": 14,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 20475.398272,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 16,
+          "sunrise": "2023-08-02T00:12:55.724893+00:00"
+        },
+        {
+          "boundary_distance_seconds": 20490.065003,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 16,
+          "sunrise": "2023-08-02T00:13:10.366720+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-08-02",
+        "ordinal": 16,
+        "pdf_page_1based": 16,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 42290.332051,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 1,
+          "sunrise": "2023-08-17T00:21:13.921791+00:00"
+        },
+        {
+          "boundary_distance_seconds": 42276.118459,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 1,
+          "sunrise": "2023-08-17T00:21:28.144033+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2023-08-17",
+        "ordinal": 1,
+        "pdf_page_1based": 16,
+        "verification": "direct daily tithi grid; independent publisher, numerical lineage unknown"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 19852.803035,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 8,
+          "sunrise": "2026-03-26T00:48:29.478062+00:00"
+        },
+        {
+          "boundary_distance_seconds": 19839.125069,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 8,
+          "sunrise": "2026-03-26T00:48:43.153775+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2026-03-26",
+        "ordinal": 8,
+        "source": "drik2026before",
+        "verification": "Direct primary daily tithi before noon transition"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 13802.604656,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 9,
+          "sunrise": "2026-03-27T00:47:19.871534+00:00"
+        },
+        {
+          "boundary_distance_seconds": 13788.926706,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 9,
+          "sunrise": "2026-03-27T00:47:33.553024+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2026-03-27",
+        "ordinal": 9,
+        "source": "drik2026",
+        "verification": "Direct primary Navami at sunrise"
+      }
+    },
+    {
+      "hypotheses": [
+        {
+          "boundary_distance_seconds": 13802.604656,
+          "matches": true,
+          "model": "upper_limb_50",
+          "ordinal": 9,
+          "sunrise": "2026-03-27T00:47:19.871534+00:00"
+        },
+        {
+          "boundary_distance_seconds": 13788.926706,
+          "matches": true,
+          "model": "pac_47_hypothesis",
+          "ordinal": 9,
+          "sunrise": "2026-03-27T00:47:33.553024+00:00"
+        }
+      ],
+      "reference": {
+        "day": "2026-03-27",
+        "ordinal": 9,
+        "source": "panchangam2026",
+        "verification": "Distinct publisher daily Navami at sunrise"
+      }
+    }
+  ],
+  "existing_timing_gate": "still_failed_original_fixtures_unchanged",
+  "fixture_sha256": "218989c875197d0a37fda34d72a453a22bbf44f15f5a3eaf2320ed3623a5ca5e",
+  "metrics": {
+    "cold_annual_seconds": 2.056093820996466,
+    "month_cache_entries": 32,
+    "peak_rss_kib": 91504,
+    "preview_cache_entries": 8,
+    "total_wall_seconds": 8.558974597006454,
+    "warm_identical_seconds": 7.422600174322724e-05,
+    "warm_new_month_calculations": 0
+  },
+  "new_timing_diagnostics": [
+    {
+      "calculated_at": "2026-03-27T04:37:22.479851+00:00",
+      "delta_seconds": 82.479851,
+      "reference": {
+        "at": "2026-03-27T10:06:00+05:30",
+        "ordinal": 10,
+        "source": "drik2026",
+        "tolerance_seconds": 60
+      },
+      "within_original_sixty_second_gate": false
+    },
+    {
+      "calculated_at": "2026-03-27T04:37:22.494496+00:00",
+      "delta_seconds": 22.494496,
+      "reference": {
+        "at": "2026-03-27T10:07:00+05:30",
+        "ordinal": 10,
+        "source": "panchangam2026",
+        "tolerance_seconds": 60
+      },
+      "within_original_sixty_second_gate": true
+    }
+  ],
+  "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+  "purnimanta_adhika_pairs": [
+    {
+      "assignment": "sunrise",
+      "birth_basis": "explicit_rule",
+      "calendar_date_gate": "not_adopted",
+      "occurrences": [
+        {
+          "end": "2023-07-04T08:08:40.916735+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "month": "shravana",
+            "month_anchor": "2023-08-16",
+            "paksha": "krishna",
+            "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+            "tithi": 1,
+            "version": 1
+          },
+          "intercalation": "ordinary",
+          "month": "shravana",
+          "paksha": "krishna",
+          "reason": "single_sunrise",
+          "selected_date": "2023-07-04",
+          "start": "2023-07-03T11:38:41.754443+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-07-04"
+          ],
+          "tithi": 1
+        }
+      ],
+      "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+      "status": "experimental_preview",
+      "usable_for_scheduling": false,
+      "validation_scope": "selected_month_names_only_not_calendar_adoption"
+    },
+    {
+      "assignment": "sunrise",
+      "birth_basis": "explicit_rule",
+      "calendar_date_gate": "not_adopted",
+      "occurrences": [
+        {
+          "end": "2023-08-17T12:06:04.224231+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "ordinary",
+            "month": "shravana",
+            "month_anchor": "2023-08-16",
+            "paksha": "shukla",
+            "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+            "tithi": 1,
+            "version": 1
+          },
+          "intercalation": "ordinary",
+          "month": "shravana",
+          "paksha": "shukla",
+          "reason": "single_sunrise",
+          "selected_date": "2023-08-17",
+          "start": "2023-08-16T09:38:11.253649+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-08-17"
+          ],
+          "tithi": 1
+        }
+      ],
+      "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+      "status": "experimental_preview",
+      "usable_for_scheduling": false,
+      "validation_scope": "selected_month_names_only_not_calendar_adoption"
+    },
+    {
+      "assignment": "sunrise",
+      "birth_basis": "explicit_rule",
+      "calendar_date_gate": "not_adopted",
+      "occurrences": [
+        {
+          "end": "2023-08-02T14:36:11.008288+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "adhika",
+            "month": "shravana",
+            "month_anchor": "2023-07-17",
+            "paksha": "krishna",
+            "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+            "tithi": 1,
+            "version": 1
+          },
+          "intercalation": "adhika",
+          "month": "shravana",
+          "paksha": "krishna",
+          "reason": "single_sunrise",
+          "selected_date": "2023-08-02",
+          "start": "2023-08-01T18:31:40.318896+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-08-02"
+          ],
+          "tithi": 1
+        }
+      ],
+      "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+      "status": "experimental_preview",
+      "usable_for_scheduling": false,
+      "validation_scope": "selected_month_names_only_not_calendar_adoption"
+    },
+    {
+      "assignment": "sunrise",
+      "birth_basis": "explicit_rule",
+      "calendar_date_gate": "not_adopted",
+      "occurrences": [
+        {
+          "end": "2023-07-18T20:40:23.226916+00:00",
+          "identity": {
+            "convention": "purnimanta",
+            "intercalation": "adhika",
+            "month": "shravana",
+            "month_anchor": "2023-07-17",
+            "paksha": "shukla",
+            "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+            "tithi": 1,
+            "version": 1
+          },
+          "intercalation": "adhika",
+          "month": "shravana",
+          "paksha": "shukla",
+          "reason": "single_sunrise",
+          "selected_date": "2023-07-18",
+          "start": "2023-07-17T18:31:50.206591+00:00",
+          "status": "experimental_date",
+          "sunrise_dates": [
+            "2023-07-18"
+          ],
+          "tithi": 1
+        }
+      ],
+      "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+      "status": "experimental_preview",
+      "usable_for_scheduling": false,
+      "validation_scope": "selected_month_names_only_not_calendar_adoption"
+    }
+  ],
+  "selected_calendar_date_gate": true,
+  "selection_cases": [
+    {
+      "actual": {
+        "end": "2023-04-03T00:54:48.551318+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "month_anchor": "2023-03-21",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 12,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "paksha": "shukla",
+        "reason": "repeated_requires_policy",
+        "selected_date": null,
+        "start": "2023-04-01T22:50:17.614733+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [
+          "2023-04-02",
+          "2023-04-03"
+        ],
+        "tithi": 12
+      },
+      "matches": true,
+      "policy": "review",
+      "reference_id": "repeated-chaitra12"
+    },
+    {
+      "actual": {
+        "end": "2023-04-03T00:54:48.551318+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "month_anchor": "2023-03-21",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 12,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "paksha": "shukla",
+        "reason": "explicit_first_of_repeated",
+        "selected_date": "2023-04-02",
+        "start": "2023-04-01T22:50:17.614733+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-04-02",
+          "2023-04-03"
+        ],
+        "tithi": 12
+      },
+      "matches": true,
+      "policy": "first",
+      "reference_id": "repeated-chaitra12"
+    },
+    {
+      "actual": {
+        "end": "2023-04-03T00:54:48.551318+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "chaitra",
+          "month_anchor": "2023-03-21",
+          "paksha": "shukla",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 12,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "paksha": "shukla",
+        "reason": "explicit_last_of_repeated",
+        "selected_date": "2023-04-03",
+        "start": "2023-04-01T22:50:17.614733+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2023-04-02",
+          "2023-04-03"
+        ],
+        "tithi": 12
+      },
+      "matches": true,
+      "policy": "last",
+      "reference_id": "repeated-chaitra12"
+    },
+    {
+      "actual": {
+        "end": "2023-04-12T00:10:01.899707+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "vaishakha",
+          "month_anchor": "2023-04-20",
+          "paksha": "krishna",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 6,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "vaishakha",
+        "paksha": "krishna",
+        "reason": "skipped_at_sunrise",
+        "selected_date": null,
+        "start": "2023-04-11T01:48:27.820117+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [],
+        "tithi": 6
+      },
+      "matches": true,
+      "policy": "review",
+      "reference_id": "skipped-vaishakha-krishna6"
+    },
+    {
+      "actual": {
+        "end": "2023-04-12T00:10:01.899707+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "vaishakha",
+          "month_anchor": "2023-04-20",
+          "paksha": "krishna",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 6,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "vaishakha",
+        "paksha": "krishna",
+        "reason": "skipped_at_sunrise",
+        "selected_date": null,
+        "start": "2023-04-11T01:48:27.820117+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [],
+        "tithi": 6
+      },
+      "matches": true,
+      "policy": "first",
+      "reference_id": "skipped-vaishakha-krishna6"
+    },
+    {
+      "actual": {
+        "end": "2023-04-12T00:10:01.899707+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "month": "vaishakha",
+          "month_anchor": "2023-04-20",
+          "paksha": "krishna",
+          "profile": "personal-lunar-preview-v1/d0527531c66c941ed44749745dbeb065734411ac17106105f4603df924604e47",
+          "tithi": 6,
+          "version": 1
+        },
+        "intercalation": "ordinary",
+        "month": "vaishakha",
+        "paksha": "krishna",
+        "reason": "skipped_at_sunrise",
+        "selected_date": null,
+        "start": "2023-04-11T01:48:27.820117+00:00",
+        "status": "needs_review",
+        "sunrise_dates": [],
+        "tithi": 6
+      },
+      "matches": true,
+      "policy": "last",
+      "reference_id": "skipped-vaishakha-krishna6"
+    }
+  ],
+  "status": "research_checkpoint_not_scheduling",
+  "usable_for_scheduling": false
+}

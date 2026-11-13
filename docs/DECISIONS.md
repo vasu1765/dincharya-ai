@@ -225,3 +225,18 @@ Preserve D14 neutral profile, future consolidated named observance design and
 all existing architecture/authorization safeguards. Stop at validation checkpoint;
 no persistent integration, migration, n8n/Telegram/production/private access,
 2B search, festival implementation, deployment or main merge follows.
+
+## D16 — General offline personal lunar recurrence research
+
+Owner authorizes arbitrary-rule annual/monthly research previews beyond D15's
+attested example allowlist, not scheduling adoption. Add reusable versioned calendar
+identities, canonical ordinary/Adhika backing anchors, explicit instant/sunrise
+birth interpretation and repeated-date policy. Skipped/uncertain/Kshaya/unsupported
+month cases withhold dates; no automatic fallback. Preserve pinned model and old
+60-second timing diagnostics; separately document selected calendar-date acceptance
+and its incomplete adoption status. A conservative 300-second date guard and bounded,
+profile-scoped caches are research implementation choices, not approved physical
+error bounds, persisted schema or final calendar policy. Neutral user profile and
+future consolidated named Smarta/Vaishnava observances remain. See preview design.
+Stop after offline checkpoint; no DB/n8n/Telegram/production/private access,
+backup/2B search, festival implementation, deployment or main merge authorized.

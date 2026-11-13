@@ -147,3 +147,39 @@ committed. A full example run currently uses about 40.5 CPU seconds on this host
 bounded back-search has not been optimized/certified for a small VPS. No package,
 ephemeris or existing fixture change is needed. Stop for review; this is not final
 month-engine or scheduling adoption.
+
+## General personal recurrence research (base2bd37c0)
+
+recurrence.py adds fixture-independent LunarRule/RecurrenceResearch annual,
+monthly and bounded preview APIs. Separate from old annual_example and disabled
+Astronomy scheduling APIs. See [full API/identity/date-gate design](../../docs/M2F_RECURRENCE_PREVIEW.md).
+Rules accept month (annual) or no month (monthly), paksha/day1–15, explicit
+ordinary/adhika/both, convention and repeated=review/first/last. Birth interpretation
+must explicitly choose instant or sunrise. Date assignment remains sunrise-based.
+Unknown names/contexts, skipped/uncertain and Kshaya have no selected date.
+
+```python
+from prototypes.panchang.astronomy import Astronomy
+from prototypes.panchang.recurrence import LunarRule, RecurrenceResearch
+with Astronomy('/EXTERNAL/PUBLIC/de440s.bsp') as astronomy:
+    preview = RecurrenceResearch(astronomy)
+    result = preview.annual(LunarRule('shukla', 9, 'ordinary', month='chaitra'), 2026)
+    assert result['usable_for_scheduling'] is False
+```
+
+```bash
+DINCHARYA_PUBLIC_DE440S=/EXTERNAL/PUBLIC/de440s.bsp \
+  OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m unittest discover \
+  -s tests/panchang -p test_recurrence.py -v
+
+OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m prototypes.panchang.recurrence_validation \
+  --ephemeris /EXTERNAL/PUBLIC/de440s.bsp
+```
+
+The runner deliberately exits2. calendar-references.json and recurrence-results.json
+record separate selected date and unchanged60-second timing gates. Date matches do
+not approve engine adoption. Month LRU32/preview LRU8/sunrise800 bound memory;
+profile changes reject and cache outputs are deep copies. Evaluator owns its
+Astronomy cache and is single-threaded. No persistence, networking or live sends.
