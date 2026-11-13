@@ -39,8 +39,9 @@ controlled-clock worker reconnect/postmaster crash-recovery matrix passed with
 SCRAM/ACL/logging boundaries preserved; prior accepted suites were not rerun.
 See [restart/outage evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
 Remaining recovery work is operational: gateway supervision, wall-clock policy,
-host/disk/durable restore and adopted workflow acceptance. The local test-only
-checkpoint awaits owner commit because Git metadata is read-only;
+host/disk/durable restore and adopted workflow acceptance. Restart/outage acceptance
+is pushed at `ff6198d`. The next 2D fixture checkpoint awaits owner commit because
+Git metadata is read-only;
 [handoff](HANDOFF.md) contains the exact safe-file commands.
 
 2B, 2D, 2E, 2F and operational acceptance must each have reviewed evidence and
@@ -65,12 +66,25 @@ replanning, duplicate suppression, nullable receipts, synthetic audited resoluti
 and now committed-state/postmaster crash recovery are verified. See the linked
 results matrix for evidence scope; this is not full milestone closure.
 
-Pending 2D targeted evidence: full public API weekly/yearly interval and year-boundary
-fixtures, multi-selector monthly/yearly combinations, and approved series rule
-changes with existing overrides/future reminder materialization. Trusted managed-v2
-application/workflow adoption remains tied to 2B. The 730-day default/3660-day
-maximum conflict horizon and unsupported overnight schedules are current design
-limits. No new architecture decision was required by this checkpoint.
+The outstanding 2D targeted database/API matrix now passed: weekly/yearly
+intervals and year transitions, multi-selector monthly/yearly combinations,
+invalid dates/leap/century behavior and inclusive bounds through proposal/approval/
+occurrence APIs. Approved series edits over exceptions/cancellations/future
+reminders preserve stable identities and sent/uncertain history; explicit
+conflict approval and stale-decision rejection passed. No corrective migration
+was needed. See [complete 2D matrix](M2D_RECURRENCE_ACCEPTANCE.md).
+
+Full trusted managed-v2 application/workflow integration remains blocked by 2B
+reviewed source adoption. The smallest next 2B action is the exact original
+provenance manifest path and owner authorization to read that file alone. The
+owner confirmed the path is unknown and no private search/referenced-artifact
+access is authorized. Do not recreate or substitute a manifest without approval.
+Repository-only validator-contract review, synthetic test-gap review and adoption
+checklist preparation can proceed without private inputs; they cannot unblock
+provenance validation. No referenced artifact is implicitly authorized.
+The 730-day default/3660-day maximum conflict horizon, Asia/Kolkata model and
+unsupported overnight schedules are existing design limits, not failed cases.
+No new architecture decision was required by this acceptance checkpoint.
 
 Remaining 2E/2G: supervision/clock and broader outage/restore rehearsal, reviewed
 source adoption and real operator authority/identity procedures before any

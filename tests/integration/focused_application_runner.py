@@ -26,7 +26,8 @@ MIGRATIONS = ('0001_gregorian_occurrences.sql', '0002_occurrence_reminders.sql',
 CASES = ('legacy_coexistence.sql', 'legacy_managed_boundary.sql', 'reminder_recovery.sql',
          'legacy-concurrency', 'gregorian_adversarial.sql', 'telegram_receipts.sql',
          'adversarial-concurrency', 'receipt-concurrency', 'reconciliation', 'reconciliation-concurrency',
-         'reconciliation-review', 'restart-recovery')
+         'reconciliation-review', 'restart-recovery',
+         'gregorian_calendar_acceptance.sql', 'gregorian_series_acceptance.sql')
 
 
 def execute(baseline, expected_daemon, cases):

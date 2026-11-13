@@ -61,3 +61,14 @@ HBA/logging/ACL and default-off reconciliation checks run before/after the outag
 The existing exact boundary SQL and prior acceptance suites are not rerun.
 See ../../docs/M2_RESTART_RECOVERY_RESULTS.md for verified results and limitations;
 this does not establish durable-volume/host/restore or gateway-supervisor recovery.
+
+The focused 2D cases `gregorian_calendar_acceptance.sql` and
+`gregorian_series_acceptance.sql` use actual public proposal/approval/occurrence
+APIs, not only recurrence predicates. They roll back fixtures and can run together.
+Calendar cases cover weekly/yearly intervals, December–January, combined selectors,
+invalid dates, leap/century years and inclusive/until clipping. Series cases cover
+existing exceptions/cancellations/future reminders, conflict/force/stale decisions,
+stable identity and immutable sent/uncertain history. See
+../../docs/M2D_RECURRENCE_ACCEPTANCE.md for verified results and 2B adoption limits.
+No corrective migration was needed; do not rerun accepted 2C/2E/live suites for
+these test-only additions.

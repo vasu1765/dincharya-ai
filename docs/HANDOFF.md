@@ -5,75 +5,69 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-Branch `development/m2-recovery-acceptance`, committed base `3d46d8e`. The
-reconciliation checkpoint is committed; the working tree was clean at entry.
-PR #1 is merged. [Issue #2](https://github.com/vasu1765/dincharya-ai/issues/2)
-tracks all Milestone 2, including Panchang and operational acceptance before
-other orchestrators. No production authorization follows from these results.
+Branch `development/m2-recovery-acceptance`, pushed base `ff6198d` (restart/outage
+checkpoint). Working tree was clean at entry; local HEAD and origin tracking SHA
+matched and GitHub confirmed the commit. Issue #2 now records restart/outage as
+pushed and the current 2D results; no open PR was found for this branch. PR #1 remains merged.
 
-The missing 2E worker reconnect/postmaster outage matrix now passed in the new
-`restart-recovery` case. Committed sent/uncertain/leased/rejected/cancelled state
-survived immediate postmaster shutdown/start unchanged; an interrupted uncommitted
-claim rolled back. New SCRAM worker processes resumed safe rejection backoff at
-its boundary, quarantined exact lease expiry, rejected stale acknowledgements,
-recovered the inclusive lookback edge, excluded outside work, preserved sent/
-uncertain history and stable replanning identity, and suppressed duplicate claims.
-No application defect was demonstrated; no migration/worker behavior changed.
+Outstanding 2D synthetic recurrence/API acceptance now passed. Two new SQL cases
+cover weekly/yearly intervals and December–January transitions, combined selectors,
+inclusive start/until and beyond-until exclusion, invalid concrete dates/ranges,
+leap/century behavior, and approved series edits over existing exceptions,
+cancellations and future reminder rows. Deliberate series conflict rejects until
+explicit owner force approval; unauthorized force and stale decisions reject.
+Event/rule/ledger identities, unaffected override output and full sent/uncertain
+history remain stable; dormant explicit cancellations survive rule changes.
+No application defect was demonstrated; no migration or application change.
 
-The case uses the existing fresh disposable PostgreSQL infrastructure with a
-case-only supervisor to keep container tmpfs alive while the postmaster stops.
-It does not restart the container or establish persistent-volume/host recovery.
-Before/after restart, host HBA rules required SCRAM and trust was limited to
-container-local Unix sockets; incorrect passwords rejected. Worker/operator ACLs,
-secret-safe server logging, immutable audit infrastructure and the disabled
-reconciliation gate were preserved. Passwords remained stdin/environment-only,
-never values in argv, published output or repository files.
+Both new SQL cases passed; only the strengthened calendar case was rerun.
+Three affected runner preflight tests passed. Existing 2C/2E/reconciliation/n8n/
+live Telegram suites were not rerun. See [2D matrix/evidence](M2D_RECURRENCE_ACCEPTANCE.md)
+for passed cases, design limits and the 2B integration block. The new series test
+uses reminder APIs only to verify the effects of its newly tested rule changes.
+Restart/outage evidence remains at [prior checkpoint](M2_RESTART_RECOVERY_RESULTS.md).
 
-One new Docker case and three affected offline runner tests passed. Existing
-lookback/recovery SQL, receipt/concurrency/reconciliation, n8n and live Telegram
-acceptance were not repeated. Pinned daemon/image and exact schema-only input
-were verified unchanged; isolation/teardown passed and original running container
-IDs stayed unchanged. No production access, Telegram sends, reset/resend,
-deployment or merge. Explicit source-safety, changed-Python AST and safe-file
-whitespace/diff checks passed. GitHub issue #2 was updated; no open PR was found
-for this branch. See [evidence and 2D gap matrix](M2_RESTART_RECOVERY_RESULTS.md).
+Pinned daemon/image, exact schema-only input unchanged, no-network/tmpfs/read-only
+isolation, teardown and unchanged existing running container IDs were verified.
+Host HBA SCRAM/local-only trust, restricted worker access, disabled reconciliation
+and empty audit were checked. Credential/logging, executor roles and immutable
+audit code remain unchanged. Source-safety, changed Python AST and whitespace/diff
+checks passed. No production/private-directory access, Telegram sends, resend/
+reset, deployment or merge. All Milestone 2 including Hindu Panchang precedes
+other orchestrators; production reconciliation remains disabled.
 
-2D authorization/stale/conflict/race and D10 boundaries are satisfied in existing
-covered cases. Pending: full weekly/yearly and year-transition public API fixtures,
-series recurrence changes with existing overrides/future reminders, and trusted
-managed-v2 workflow adoption. Bounded conflict horizons/unsupported overnight
-schedules are intentional current limits. 2E controlled-clock restart matrix is
-covered; gateway supervision, host/disk/restore and broader operational acceptance
-remain. No external exactly-once or production-readiness claim is made.
+Full 2D application/workflow closure remains blocked by reviewed 2B adoption.
+The owner confirmed the original manifest path is not yet known and did not
+authorize private searches or referenced-artifact access. Provenance is blocked
+until the **exact original manifest path and explicit file-only authorization**
+are supplied; no search or manifest read was performed. Do not open referenced/adjacent artifacts
+without exact authorization or recreate/substitute a manifest without approval.
+Repository-only follow-up can map validator formats, audit synthetic-test gaps
+and refine the adoption checklist; it cannot establish original provenance.
+Details and follow-up validation boundaries are in the 2D report. Panchang source/tradition/reference,
+production operator evidence/identity, and 2G operations remain separate gates.
 
-Production reconciliation remains disabled; real evidence authority/provisioning
-and production identity/TLS need separate review. All resends remain prohibited.
-Next: targeted remaining 2D fixtures and 2G recovery/operational planning, then
-owner-gated source adoption and Panchang provider/tradition/reference decisions.
-No significant architecture decision arose in this test-only task.
-
-Git metadata is confirmed mounted read-only; no stage/commit or bypass attempted.
-Run these exact eight-safe-file commands in your normal WSL terminal after
-checking the branch/index and reviewing the new untracked file contents. No push,
-deployment or merge is included:
+Git metadata remains mounted read-only; no Git write/bypass attempted. Review the
+new untracked SQL/report as well as tracked diff, verify branch/index, then run
+these exact eight-safe-file commit commands in your normal WSL terminal:
 
 ```bash
 git status --short
 git branch --show-current
 git diff --check
 git add -- \
+  tests/sql/gregorian_calendar_acceptance.sql \
+  tests/sql/gregorian_series_acceptance.sql \
   tests/integration/focused_application_runner.py \
-  tests/integration/recovery_checks.py \
-  tests/test_focused_application_runner.py \
   tests/sql/README.md \
+  docs/M2D_RECURRENCE_ACCEPTANCE.md \
   docs/HANDOFF.md \
   docs/MILESTONE2_PLAN.md \
-  docs/ROADMAP.md \
-  docs/M2_RESTART_RECOVERY_RESULTS.md
+  docs/ROADMAP.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "test: verify synthetic reminder restart and outage recovery"
+git commit -m "test: complete Gregorian recurrence API acceptance matrix"
 ```
 
 ## Prior integration evidence (historical)
