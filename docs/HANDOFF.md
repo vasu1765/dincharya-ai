@@ -5,78 +5,44 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint
 
-Pre-merge review at committed/pushed head `43ad653`: GitHub reports MERGEABLE,
-CLEAN, draft=true, no checks/review requirement shown. The merge UI is blocked
-by draft status, not a demonstrated conflict. Review found one blocker: HTTP 429
-ignored Telegram retry_after and entered ordinary short backoff. Local adapter
-fix quarantines all 429s for manual recovery without changing migration checksums.
-Regression reproduced before fix; all 15 focused reminder tests passed after.
-No live test, credential access or Docker execution repeated. No other critical
-PR-diff blocker found. See [pre-merge review](PR1_PREMERGE_REVIEW.md).
-Acceptance evidence below was committed by the owner at `43ad653`; its old
-uncommitted instructions are superseded by these commands for the new fix:
+2026-11-13: GitHub confirms PR #1 merged into main at
+`f3db2ff600dbb417e8bd2c553aad5388697cbd9e`; merged feature head is `1c60fe1`.
+This includes the accepted single test-bot reminder and tested 429 quarantine.
+Owner reconfirmed ALL Milestone 2, including Hindu Panchang scheduling and
+operational acceptance, must finish before other domains or orchestrators.
+See [prioritized implementation plan](MILESTONE2_PLAN.md), with explicit 2B/2D/2E
+source/test gaps and milestone acceptance criteria.
+GitHub tracking: [Milestone 2 completion issue #2](https://github.com/vasu1765/dincharya-ai/issues/2).
+
+Owner completed synchronization and branch creation in normal WSL after the
+sandbox fetch failed on read-only Git metadata. Verified local main and
+`development/m2-recovery-acceptance` both start at `f3db2ff`, initially clean.
+No escalation or alternate Git store was used.
+
+Implemented the first focused 2E recovery fix: database finish exceptions and
+lease loss now raise sanitized DeliveryUncertain, without retrying transport or
+continuing the remaining claimed batch. Reproduced the prior raw-exception gap.
+Added tests across accepted/rejected/unknown send outcomes and multi-claim abort;
+all **17 focused reminder tests passed**. No services/private inputs needed.
+Remaining claims still expire into quarantine; no active lease reset was added.
+Source scan and diff review passed. Existing architecture/migrations unchanged.
+
+Git metadata remains read-only. Owner commands to record the reviewed changes:
 
 ```bash
-git diff -- dincharya/reminder_adapters.py tests/test_reminder_adapters.py telegram-gateway/README.md docs/HANDOFF.md docs/ROADMAP.md
-git diff --no-index -- /dev/null docs/PR1_PREMERGE_REVIEW.md
-git add -- dincharya/reminder_adapters.py tests/test_reminder_adapters.py telegram-gateway/README.md docs/HANDOFF.md docs/ROADMAP.md docs/PR1_PREMERGE_REVIEW.md
-git commit -m "fix: quarantine Telegram rate limits instead of retrying early"
-git push origin development/telegram-reminder
+git diff -- AGENTS.md dincharya/reminders.py tests/test_reminder_worker.py docs/HANDOFF.md docs/ROADMAP.md docs/ARCHITECTURE.md docs/DECISIONS.md docs/DEVELOPMENT_POLICY.md
+git diff --no-index -- /dev/null docs/MILESTONE2_PLAN.md
+git add -- AGENTS.md dincharya/reminders.py tests/test_reminder_worker.py docs/HANDOFF.md docs/ROADMAP.md docs/ARCHITECTURE.md docs/DECISIONS.md docs/DEVELOPMENT_POLICY.md docs/MILESTONE2_PLAN.md
+git commit -m "fix: harden reminder acknowledgement recovery and plan Milestone 2"
 ```
 
-Git remains read-only in this sandbox; no commit/push attempted here. Current
-remote head is not ready to merge until this tested fix is pushed. Then obtain
-owner final merge approval and leave draft status; do not deploy or merge here.
-
-2026-11-13: **PR #1 single live reminder acceptance passed** on
-`development/telegram-reminder` at `aa05dd280ff6c90c510bc60c7351d1503a825cac`.
-WSL Codex is primary while ChatGPT Work is paused. See the sanitized
-[acceptance report](PR1_FOCUSED_ACCEPTANCE_RESULTS.md).
-
-- Pinned daemon/image and disposable PostgreSQL 17 isolation verified. Only the
-  exact owner-authorized schema file was loaded, unchanged. Approval/retry-cap
-  SQL and concurrent decision/claim/acknowledgement passed. Lock-only harness
-  timeout was corrected; only that check was repeated and passed.
-- After explicit owner live-test authorization, a fresh tmpfs PostgreSQL database
-  and dedicated network were used with only 127.0.0.1:55432 exposed. Dedicated
-  test-bot identity and private credential-file permissions were verified without
-  displaying credentials. Exactly one gateway poller started.
-- Observed one pending proposal, null event ID and zero deliveries. Owner then
-  sent `/approve_reminder 1` directly in Telegram; only then was one event created.
-  Lock contention suppressed all attempts through due time plus 35 seconds.
-  Disconnecting the lock holder allowed one acknowledged send: `sent`, attempts
-  `1`, send timestamp present and worker token cleared. Ledger remained unchanged
-  over two further ticks. Owner confirmed exactly one reminder in the test chat.
-- Gateway stopped and lock reacquisition passed. Disposable container/network
-  removed, loopback port closed, original running container IDs unchanged.
-  Production credentials/services were never used. No deploy, merge or push.
-- The owner's original private credential file remains outside Git; temporary
-  gateway environment was stopped. Temporary acceptance virtualenv remains at
-  `/tmp/dincharya-acceptance-venv`. Further Telegram sends require new authorization.
-
-Local source/documentation changes remain uncommitted because Git metadata is
-mounted read-only. Pre-existing untracked
-`docs/WSL2_REMINDER_ACCEPTANCE_RESULTS.md` is preserved as historical blocked
-results; it is superseded by the new report. No unrelated suites were repeated.
-Documentation safety scan and diff checks passed. Keep PR #1 draft for final
-review; remaining 2D/2E coverage is not declared complete. Message-ID persistence
-remains a separate follow-up; it was not required to fix a demonstrated failure.
-Sanitized evidence was posted to [PR #1](https://github.com/vasu1765/dincharya-ai/pull/1#issuecomment-6846033279).
-
-Exact normal-WSL commands for the owner after reviewing the changes (the two
-`--no-index` review commands return 1 when showing a new file):
-
-```bash
-cd /home/vasu1765/projects/dincharya-ai
-git diff -- AGENTS.md docs/HANDOFF.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md
-git diff --no-index -- /dev/null scripts/prepare-acceptance-secrets.py
-git diff --no-index -- /dev/null docs/PR1_FOCUSED_ACCEPTANCE_RESULTS.md
-git add -- AGENTS.md docs/HANDOFF.md docs/ROADMAP.md docs/WSL2_REMINDER_ACCEPTANCE.md scripts/prepare-acceptance-secrets.py docs/PR1_FOCUSED_ACCEPTANCE_RESULTS.md
-git commit -m "test: record successful isolated Telegram reminder acceptance"
-```
-
-Next: review PR #1 evidence and remaining 2D/2E gaps; do not repeat live acceptance,
-merge, deploy or extend milestone scope without the applicable authorization.
+Do not repeat live Telegram acceptance. No production credentials/services,
+private inputs, Docker tests, deployment or merge used for this planning task.
+The prior sanitized [acceptance report](PR1_FOCUSED_ACCEPTANCE_RESULTS.md) and
+[review](PR1_PREMERGE_REVIEW.md) remain historical evidence, not pending PR gates.
+Next branch task after reviewing/recording this change: 2D legacy decision and
+managed-series coexistence tests, then targeted 2E recovery/receipt work. The
+missing exact provenance manifest and Panchang policy remain later owner gates.
 
 ## Last successful evidence
 

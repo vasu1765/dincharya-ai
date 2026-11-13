@@ -6,8 +6,11 @@ provide fresh approval to access private inputs or operate services. See
 
 ## D01 — Finish Milestone 2 before expanding domains
 
-Accepted. Complete schedules/recurrence/reminders/Panchang and validation before
-Adhyayan, Arogya, Atma-Chintan, Vittiya or VPS work. Offline preparatory work can
+Owner reconfirmed 2026-11-13: complete ALL Milestone 2, including source adoption,
+Gregorian recurrence, reminders, Hindu Panchang scheduling and operational
+acceptance before Adhyayan, Arogya, Atma-Chintan, Vittiya or other orchestrators.
+Production access and deployment still require separate approval. See
+[MILESTONE2_PLAN.md](MILESTONE2_PLAN.md). Offline preparatory work can
 continue autonomously; new feature scope and operational gates remain explicit.
 
 ## D02 — Separate private preparation from Git adoption
@@ -90,7 +93,8 @@ No production ledger, migration, restore or schema adoption was performed here.
 
 Accepted. Git HEAD 62e96e6 records 2A. Later source/config/docs may be uncommitted
 or untracked; inspect status before work, do not clean/reset them. General policy
-permits safe local commits when authorized, but the current hold forbids staging,
-commits and source promotion. Do not bypass sandbox read-only Git/Docker metadata
+permits safe local development-branch commits under the current owner instruction.
+Historical holds do not override later explicit scoped approvals; private source
+promotion, production access, deployments and merges remain gated. Do not bypass sandbox read-only Git/Docker metadata
 by escalation, permission changes or relocating .git. No remotes/push/deployment
 without explicit approval. Keep this distinction visible in new-session handoff.

@@ -6,6 +6,11 @@ semantics explicit. Planned domains and phase order are in ROADMAP.md.
 
 ## Authority and boundaries
 
+Complete all Milestone 2, including Hindu Panchang scheduling and operational
+acceptance, before other domains or orchestrators. The owner-confirmed order and
+exit criteria are in [MILESTONE2_PLAN.md](MILESTONE2_PLAN.md). Development approval
+does not authorize production access, deployment or merging into main.
+
 Approved source work is autonomous: inspect non-secret files, implement/refactor,
 create synthetic fixtures, run offline tests/linters/static checks, fix failures,
 self-review, update docs/roadmap, and commit validated safe changes locally.

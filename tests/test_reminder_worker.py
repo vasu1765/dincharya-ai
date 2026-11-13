@@ -36,6 +36,39 @@ class WorkerTests(unittest.TestCase):
         with self.assertRaises(DeliveryUncertain): process_batch(self.repository, self.transport, self.clock)
         self.transport.send.assert_called_once()
 
+    def test_database_finish_failure_is_safe_uncertainty_for_each_transport_outcome(self):
+        import traceback
+        for transport_error, outcome in ((None, 'sent'), (NotAccepted(), 'not_accepted'),
+                                          (TimeoutError('synthetic transport detail'), 'uncertain')):
+            with self.subTest(outcome=outcome):
+                self.repository.reset_mock()
+                self.transport.reset_mock()
+                self.transport.send.side_effect = transport_error
+                self.repository.finish.side_effect = RuntimeError('synthetic private database detail')
+                with self.assertRaises(DeliveryUncertain) as caught:
+                    process_batch(self.repository, self.transport, self.clock, 1)
+                formatted = ''.join(traceback.format_exception(caught.exception))
+                self.assertNotIn('synthetic private database detail', formatted)
+                self.assertNotIn('synthetic transport detail', formatted)
+                self.transport.send.assert_called_once()
+                self.repository.finish.assert_called_once_with(
+                    self.repository.claim.return_value[0], outcome, self.clock())
+
+    def test_failed_acknowledgement_aborts_batch_before_second_send(self):
+        first = self.repository.claim.return_value[0]
+        second = Claim(2, 'second-synthetic-lease', {'title': 'Other synthetic'})
+        self.repository.claim.return_value = [first, second]
+        for result in (False, RuntimeError('synthetic database detail')):
+            with self.subTest(result_type=type(result).__name__):
+                self.transport.reset_mock()
+                self.repository.finish.reset_mock()
+                self.repository.finish.side_effect = result if isinstance(result, Exception) else None
+                self.repository.finish.return_value = result
+                with self.assertRaises(DeliveryUncertain):
+                    process_batch(self.repository, self.transport, self.clock, 2)
+                self.transport.send.assert_called_once_with(first.payload)
+                self.repository.finish.assert_called_once()
+
     def test_no_due_work_makes_no_transport_call(self):
         self.repository.claim.return_value = []
         self.assertEqual(process_batch(self.repository, self.transport, self.clock), 0)

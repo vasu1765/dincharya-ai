@@ -4,30 +4,20 @@ Finish Milestone 2 before Milestone 3 or another orchestrator. Status is not
 production authorization. See [handoff](HANDOFF.md), [policy](DEVELOPMENT_POLICY.md)
 and [decisions](DECISIONS.md).
 
-## Reminder gateway development branch
+## Milestone 2 completion roadmap
 
-Final review at `43ad653`: no merge conflict; PR is draft. A reproduced HTTP 429
-early-retry defect is fixed locally by quarantining flood-control responses for
-manual recovery; automatic retry_after support remains follow-up work. Fifteen
-focused reminder tests pass. Owner commit/push is needed because Git metadata is
-read-only; see HANDOFF.md and PR1_PREMERGE_REVIEW.md. No live test repeated.
+PR #1 merged into main at `f3db2ff600dbb417e8bd2c553aad5388697cbd9e`, including
+owner-approved reminder evidence and HTTP 429 quarantine. Complete ALL Milestone 2,
+including Hindu Panchang and operational acceptance, before other domains or
+orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
+2B/2D/2E against existing source/tests and defines acceptance and approval gates.
 
-2026-11-13: WSL Codex resumed as primary developer at PR head `aa05dd2`.
-With owner-authorized scoped execution, daemon/image/isolation, focused reminder
-SQL (approval and retry cap), concurrent decisions/claims/acknowledgement and
-PostgreSQL advisory-lock checks passed. Disposable cleanup passed with original
-running container IDs unchanged. One explicitly owner-approved Telegram reminder
-passed pending-proposal, owner approval, scheduling, held-lock suppression, single
-delivery/acknowledgement, no-repeat observation and cleanup. Owner confirmed
-exactly one reminder; no production service was used.
-Git metadata remains read-only. See HANDOFF.md and PR1_FOCUSED_ACCEPTANCE_RESULTS.md.
-
-The opt-in PostgreSQL and Telegram adapters, explicit owner approval commands
-and due-work polling are implemented for the first one-time reminder path.
-Focused approval/retry-cap SQL, concurrency and one live dedicated-bot reminder
-now pass. PR #1 is ready for final evidence review and remains draft/unmerged.
-Recurring series and
-occurrence edits remain available through the PostgreSQL proposal API.
+First focused task implemented: 2E acknowledgement failure handling and synthetic
+recovery coverage, with 17 focused tests passing. Then close 2D compatibility/adversarial and 2E recovery/receipt
+and reconciliation gaps, finish reviewed 2B source adoption, implement 2F under
+owner-approved Panchang policy, and complete isolated 2G operational acceptance.
+Completed 2C/live-reminder acceptance will not be repeated without a relevant
+functional change and applicable approval. Source merge is not deployment.
 
 ## Historical checkpoint
 
@@ -43,7 +33,7 @@ usage. Work is uncommitted and unstaged; preserve all working-tree changes.
 | 2C — isolated integration | Passed for synthetic default runtime | Health/isolation, manual output, activation/successful scheduling, n8n-only restart, durable job/occurrence persistence, observed duplicate checks and teardown passed. Historical/legacy engine behavior and real workflow import are not certified. |
 | 2D — advanced Gregorian recurrence | Initial migration and isolated SQL assertions passed | Add/update/remove, occurrence/series scopes, calendar boundaries, conflicts, stale proposals and approval foundations implemented. Parallel duplicate decision check passed; legacy API interaction, broader adversarial cases and application/workflow adapters need review. |
 | 2E — occurrence reminders | Initial migration/SQL assertions and offline worker tests passed | Identity, deduplication, claims/leases, retry/backoff, uncertainty quarantine and bounded recovery foundations implemented. Concurrent claims, five-attempt cap and one-time gateway delivery passed. Wider recovery tests and uncertain-send reconciliation remain. |
-| 2F — Delhi Hindu recurrence | Not started | Agree calculation/source/tradition/location and reference dates; no new feature work in current stop scope. |
+| 2F — Delhi Hindu recurrence | Not started | Agree calculation/source/tradition/location and reference dates; implement and validate Hindu scheduling before completing Milestone 2. |
 | 2G — deployment preparation | Not started | Restore/recovery rehearsal, full acceptance, reviewed migrations/workflow diffs and explicit production approval. |
 
 ## Preserved next-session work

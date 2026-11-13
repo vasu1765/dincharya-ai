@@ -133,3 +133,14 @@ disposable application DB. The injected worker has offline tests; production
 adapters/workflow wiring remain absent. The newly added multi-session and
 checksum-corruption checks are not integration-tested. Original provenance
 manifest location remains unconfirmed; see HANDOFF.md for the stop checkpoint.
+
+## Post-PR #1 development boundary
+
+PR #1 merged at `f3db2ff` with isolated one-time Telegram reminder acceptance and
+HTTP 429 quarantine. This is an opt-in gateway/application adapter path, not a
+production cutover. Multi-session decisions/claims and acknowledgement passed;
+checksum-corruption rejection and broader legacy/recovery paths remain open.
+No Hindu Panchang calculation engine is adopted yet. Its source/tradition and
+geographic/reference policy require an owner decision before committing to an
+engine or schema. All Milestone 2, including Panchang and operational acceptance,
+precedes other domains/orchestrators; see [plan](MILESTONE2_PLAN.md).

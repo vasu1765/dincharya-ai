@@ -17,8 +17,10 @@ task. Preserve existing work.
 Put one executable task in the development branch and return sanitized results
 directly to the same PR. Keep AGENTS.md and docs/HANDOFF.md current.
 
-Deliver the first owner-approved Telegram reminder through draft PR #1, then
-close 2D/2E before starting another milestone. Make routine decisions, fixes
+PR #1 is merged with the first owner-approved reminder accepted. Complete ALL
+Milestone 2, including Hindu Panchang scheduling and operational acceptance, before
+Adhyayan, Arogya, Atma-Chintan, Vittiya or other orchestrators. Follow
+[Milestone 2 plan](docs/MILESTONE2_PLAN.md). Make routine decisions, fixes
 and development-branch commits autonomously. Ask the owner before major
 architecture changes, production access, deployments or merging to main.
 Use only exact authorized private inputs and dedicated test credentials.

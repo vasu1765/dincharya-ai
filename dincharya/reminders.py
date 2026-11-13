@@ -38,18 +38,27 @@ def process_batch(repository: Repository, transport: Transport, clock, limit: in
     if type(limit) is not int or not 1 <= limit <= 100:
         raise ValueError('Batch limit must be between 1 and 100')
     claims = repository.claim(clock(), limit)
+
+    def finish(claim, outcome):
+        # A database failure can occur after Telegram accepted a send. Surface a
+        # safe uncertainty signal and never retry the transport or acknowledgement.
+        try:
+            acknowledged = repository.finish(claim, outcome, clock())
+        except Exception:
+            raise DeliveryUncertain('Delivery outcome could not be persisted; reconciliation required') from None
+        if not acknowledged:
+            raise DeliveryUncertain('Delivery acknowledgement lease lost; reconciliation required') from None
+
     completed = 0
     for claim in claims:
         try:
             transport.send(claim.payload)
         except NotAccepted:
-            if not repository.finish(claim, 'not_accepted', clock()):
-                raise DeliveryUncertain('Delivery lease was lost after rejection') from None
+            finish(claim, 'not_accepted')
         except Exception:
-            repository.finish(claim, 'uncertain', clock())
+            finish(claim, 'uncertain')
             raise DeliveryUncertain('Transport outcome unknown; automatic resend blocked') from None
         else:
-            if not repository.finish(claim, 'sent', clock()):
-                raise DeliveryUncertain('Accepted delivery lost its acknowledgement lease')
+            finish(claim, 'sent')
             completed += 1
     return completed
