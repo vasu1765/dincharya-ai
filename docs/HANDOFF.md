@@ -3,30 +3,25 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Reminder gateway development branch
+## Current checkpoint
 
-GitHub main at `b80a91d8` contains the recurrence/reminder foundations described
-below. The old unstaged-files checkpoint is historical for the earlier workspace.
+[Draft PR #1](https://github.com/vasu1765/dincharya-ai/pull/1) on
+`development/telegram-reminder` owns the first owner-approved reminder. Main
+contains the recurrence and reminder foundations. ChatGPT Work coordinates
+implementation and review. WSL Codex handles local runtime acceptance and
+reports sanitized evidence directly on the PR.
 
-The opt-in gateway uses PostgreSQL proposal, decision, claim and finish functions.
-A private owner command creates a one-time proposal. Only a separate owner
-approval schedules it. The Telegram adapter uses the configured private chat.
-See [isolated reminder acceptance](../telegram-gateway/README.md).
-Ten focused offline Python tests passed, including adapter transactions and
-Telegram response classification. The added SQL approval and retry cap checks,
-expanded concurrency checks and test-bot acceptance require runtime verification.
+The gateway, separate owner approval, acceptance-mode credential checks and
+worker advisory lock are implemented. Thirteen focused offline tests passed.
+The first local attempt was blocked by missing prerequisites. Use the
+[consolidated WSL Codex task](WSL2_REMINDER_ACCEPTANCE.md) to reuse the pinned
+Docker PostgreSQL image and avoid installing a host database. The focused
+SQL assertions, competing-worker behavior and first dedicated bot delivery
+remain pending. Keep PR #1 draft pending evidence and owner approval to merge.
 
-## Historical authority and approval gate
-
-On 2026-11-13 the user resumed work and authorized reviewing changed files and
-staging only safe project source, migrations, tests and documentation. A commit
-requires explicit approval of the proposed file list/message; do not commit yet.
-After the approved commit, prioritize completing 2D/2E and the first end-to-end
-Telegram reminder within existing boundaries. Production changes and use of the
-production bot remain excluded; a test transport/bot needs the appropriate scope.
-Do not rerun previously successful integration tests without relevant code changes.
-The last application integration passed. New runner checks listed below remain
-integration-unverified. Preserve all pre-existing working-tree work.
+After the first accepted reminder, close the remaining 2D/2E acceptance gaps.
+Telegram message-ID persistence is a separate follow-up unless evidence shows
+it is needed to correct a failure.
 
 ## Last successful evidence
 
@@ -112,66 +107,12 @@ review/provenance manifest path**. Manifest location remains missing; do not gue
 or search private directories. The user's source authorization does not certify
 all schema functions or authorize production application/source promotion.
 
-Git status verified for the consolidated report: branch main; latest commit
-ceeba98 (feat: complete offline source tooling and integration preparation).
-62e96e6 is the earlier 2A tooling checkpoint, not current HEAD. The integration,
-migration, worker, tests and documentation changes remain uncommitted; current
-staging status is determined by git status during the commit-preparation task.
-2C is complete for its synthetic scope; 2D and 2E are partially complete and are
-not production-ready. No tests or Docker operations were rerun for this report.
+Historical foundation checkpoint was `ceeba98`; the foundation commit
+`b80a91d8` subsequently landed on main. 2C is complete for its synthetic scope.
+2D and 2E remain partially complete.
 
 Historical 2B evidence remains: four
 current workflows, 94 history versions, two structural candidates; current and
 published bodies remain separate; seven Code bodies were neither executed nor
 cleared. No complete production workflow/schema baseline has been adopted in Git.
 
-## Commit preparation
-
-Review explicit safe paths only: docs/HANDOFF.md, docs/ROADMAP.md,
-docs/ARCHITECTURE.md, docs/native-scheduler-state.md,
-database/migrations/README.md, tests/integration/README.md,
-tests/integration/compose.json, tests/integration/runner.py,
-tests/integration/api-client.js, tests/integration/test-api-client.js,
-tests/integration/application_runner.py, tests/test_integration_config.py,
-tests/test_integration_runner.py, database/migrate.py,
-database/migrations/0001_gregorian_occurrences.sql,
-database/migrations/0002_occurrence_reminders.sql, tests/sql/gregorian.sql,
-tests/sql/reminders.sql, tests/test_migrations.py, dincharya/__init__.py,
-dincharya/reminders.py and tests/test_reminder_worker.py.
-
-Keep temporary debugging scripts, daemon pins, logs, raw schema and private source
-outside Git. Stage only the reviewed paths above if Git metadata is writable;
-never escalate or relocate .git to bypass metadata restrictions. No commit until
-user approval. Proposed subject: feat: add isolated recurrence and reminder foundations.
-
-The unchanged safe-source heuristic flags generated/in-memory and invented test
-password assignments in integration source. These matches were manually reviewed
-as false positives; do not weaken the scanner or report an unconditional code-scan
-pass. Documentation, migration and application source scan results are recorded
-in the final checkpoint report; human privacy/diff review is still required.
-
-## 2026-11-13 commit-preparation result
-
-All 22 modified/untracked candidate files were reviewed as explicit regular text
-source, migrations, tests or documentation. No credentials, raw/private baseline
-data, logs, backups, binary files or generated artifacts were found in that
-inventory. Eighteen files passed the safe-source scanner; six generated/in-memory
-or invented password assignments in four integration files were manually reviewed
-as false positives. No scanner was weakened. No integration tests were rerun.
-
-Staging was explicitly authorized, but git add failed because .git/index.lock
-cannot be created on the read-only Git filesystem. Nothing was staged or committed.
-Do not escalate, relocate .git or alter permissions to bypass this restriction.
-The reviewed file list above and proposed commit message await user approval;
-staging/committing additionally require operator-provided writable Git metadata.
-
-Proposed message: feat: add isolated recurrence and reminder foundations
-
-- Add Gregorian change/occurrence migrations and an injected reminder worker.
-- Add isolated n8n/application runners, synthetic tests and migration checksums.
-- Record passing integration evidence and outstanding 2D/2E acceptance gaps.
-
-The expanded concurrent/checksum-corruption runtime checks remain unverified.
-After an approved commit, prioritize their focused verification, remaining 2D/2E
-acceptance, and a first end-to-end reminder using a separately authorized test
-Telegram transport/bot; do not use or modify production.
