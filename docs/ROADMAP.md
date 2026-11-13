@@ -16,11 +16,13 @@ orchestrators. The prioritized [implementation plan](MILESTONE2_PLAN.md) reviews
 `9524757`. The owner then authorized an isolated offline Skyfield/DE440s feasibility
 prototype, not final adoption or integration. [Feasibility results](M2F_FEASIBILITY_RESULTS.md)
 record pushed prototype 6f1f0b7 and timing/range checkpoint 452bbcd.
-Month research is pushed at `2bd37c0`. Current general offline previews enumerate
+Month research is pushed at `2bd37c0`, general preview at `0a1cae6`. Current general offline previews enumerate
 arbitrary bounded rules, with canonical identities, explicit birth/repeat/skip
 policies and bounded caches. Selected calendar-date checks pass; timing diagnostics
 and overall adoption remain incomplete. General live scheduling stays disabled.
-Direct publisher labels and context inferences are distinguished.
+Current all12-name selected research and identityv2 separate logical keys from
+provenance/date policy; see [coverage matrix](M2F_MONTH_COVERAGE.md). Direct
+publisher labels and inferred comparisons remain distinguished.
 Nine coordinate hypotheses do not resolve the failed Drik timing gate. Selected
 explicit Lahiri/PAC ingress/Amanta research agrees, but broader month validation,
 Purnimanta certification, Kshaya and live annual scheduling remain unsupported. No calendar

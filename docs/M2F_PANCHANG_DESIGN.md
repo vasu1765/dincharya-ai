@@ -29,15 +29,14 @@ owner decisions in the next section; do not infer approval for storage changes.
   and delivery safeguards remain. No migration, persistent scheduling, slot/job
   integration, private access, live send or deployment is authorized.
 
-Current offline recurrence checkpoint (base `2bd37c0`): separate immutable research
-rules enumerate arbitrary annual/monthly windows, with explicit birth interpretation,
-canonical profile/month/paksha/tithi identities and bounded caches. Purnimanta
-ordinary halves around Adhika share a canonical ordinary Shukla anchor. Default
-repetition review, skipped/uncertain/Kshaya and unsupported names withhold dates.
-The separate selected calendar-date gate passes while the 60-second physical timing
-remains diagnostically failed. Overall adoption is incomplete; no scheduling API
-or persistent integration enabled. See [preview design](M2F_RECURRENCE_PREVIEW.md)
-and results for exact scope, sources, tests, gates and performance. Stop for review.
+Current all-name/identity checkpoint (base0a1cae6): all12 ordinary names have
+selected PAC and qualified Purnimanta research coverage. Logical identityv2 is
+separate from profile provenance and date-selection policy. Proposed calendar-date
+gate requires civil-date disagreements to be investigated/withheld; the actual300s
+preview guard now matches documentation. Old60-second timing diagnostics remain
+unchanged and failed where recorded. No scheduling adoption or migration.
+See [coverage/identity/gate](M2F_MONTH_COVERAGE.md) for exact direct/inferred counts,
+per-month cases, performance, tests and owner-gated future persistence mapping.
 
 ## Scope and requirements
 

@@ -1,3 +1,28 @@
+# Current checkpoint — all12 month names / logical identity v2
+
+Base `0a1cae678dc9a00a120a56a703f74a23935bfde2`, branch
+development/m2f-skyfield-feasibility. Entry clean; GitHub/tracking confirmed.
+See [per-month coverage and gate](M2F_MONTH_COVERAGE.md) and
+[recorded evidence](../prototypes/panchang/coverage-results.json).
+
+| Gate | Result | Qualification |
+| --- | --- | --- |
+| All12 ordinary names / both pakshas | Selected coverage passes |47 direct PAC Amanta,47 inferred Purnimanta,5 additional direct Purnimanta. Direct/inferred never combined as direct goldens. |
+| Logical identity across profiles | Pass | Version2 excludes engine/profile/date/policy; strict cycle/duplicate/legacy checks and offline changed-date withholding. No DB adoption. |
+| Deliberately near sunrise | Selected case passes | PAC May1,2024 boundary vs computed Delhi dawn:403.895/389.546s margin; not central-station substitution. |
+| Documented300s guard | Defect fixed | Preview previously used120s; synthetic240s now withholds even with explicit first policy. |
+| Tests |19 focused tests verified |7 new plus12 affected existing; strengthened cases rerun. No unrelated suites. |
+| Performance | No material regression observed |Cold1.991s vs recorded2.056s, warm0.089ms, bounded caches; host sample only. |
+|60-second timing diagnostics | Still failed where recorded |Original bytes/tolerances retained; not rerun. Publisher disagreement is not proof of defect. |
+| Calendar/scheduling adoption | Incomplete / disabled |Direct-reference/profile/exception coverage and owner policy/adoption review remain. |
+
+Eight accepted fixture/result files unchanged. CLI exits2 intentionally. Stop for
+review; no live services, persistent scheduling, private access or migrations.
+
+---
+
+## Prior pushed general-preview checkpoint (0a1cae6; historical below)
+
 # Milestone 2F — general offline personal recurrence checkpoint
 
 Current pushed base `2bd37c09c4a3e25d4dcc3d6e7476c0665ac46b77` on

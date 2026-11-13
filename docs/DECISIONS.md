@@ -240,3 +240,18 @@ error bounds, persisted schema or final calendar policy. Neutral user profile an
 future consolidated named Smarta/Vaishnava observances remain. See preview design.
 Stop after offline checkpoint; no DB/n8n/Telegram/production/private access,
 backup/2B search, festival implementation, deployment or main merge authorized.
+
+## D17 — All-name reference coverage and provenance-independent research identity
+
+Owner requests completion of selected12-month coverage, explicit direct/inferred
+references, logical identity independent of calculation profile and a proposed
+calendar-date gate. Research v2 implements separate fixed-cycle logical keys,
+provenance and date policy. Profile changes do not create identities automatically;
+changed dates are withheld, changed keys/duplicates/legacy mappings require review.
+Fixed cycle-count constants are a proposed identity contract, not a phase model.
+All12 names are research-enabled after selected evidence; Kshaya/ambiguous cases
+remain unsupported. Actual preview300s guard corrected without changing pinned
+model or60s diagnostics. Final direct-reference/exception/date/engine approval
+and persisted v1 mapping/per-series identity adoption remain owner-gated. No DB
+migration, stored reconciliation, production/private access, n8n/Telegram/festival
+integration, deployment or merge. See M2F_MONTH_COVERAGE.md for exact limits.

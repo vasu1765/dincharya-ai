@@ -3,57 +3,55 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — general offline personal lunar preview, stop for review
+## Current checkpoint — all-name coverage / identity v2, stop offline for review
 
-Branch `development/m2f-skyfield-feasibility`, pushed base
-`2bd37c09c4a3e25d4dcc3d6e7476c0665ac46b77`. Entry tree clean; local HEAD/tracking
-and GitHub agree; no open PR. Prior uncommitted/allowlist-only instructions are
-superseded. Owner authorizes general offline research, NOT scheduling adoption.
-Git remains read-only; no stage/commit/bypass. Preserve current local work.
+Branch development/m2f-skyfield-feasibility, pushed base
+`0a1cae678dc9a00a120a56a703f74a23935bfde2`; entry clean, HEAD/tracking/GitHub
+agree, no open PR. Earlier uncommitted2bd37c0-base instructions are superseded
+by this pushed base. Current local work remains uncommitted; Git metadata read-only,
+no bypass/stage/commit. No scheduling adoption.
 
-- Added separate recurrence.py immutable rules, full Gregorian-year/monthly/custom
-  window enumeration, explicit instant/sunrise birth derivation. No fixture lookup
-  by evaluator. Old example API, original astronomy/model/tests remain unchanged.
-- Structured research identity: profile/convention/month/ordinary-Adhika/canonical
-  Shukla month-anchor UTC date/paksha/tithi. Ordinary Purnimanta Shravana halves
-  around Adhika now share August16 anchor; Adhika uses July17. No DB adoption.
-- Default repeated-date review; first/last must be explicit. Skipped/uncertain,
-  Kshaya, unsupported month names/backing contexts have no selected date. Seven
-  selected-research names; other five are withheld, not silently enabled.
-- New conservative300s calendar-date guard leaves original0.1s/120s policies and
-  60s timing diagnostic unchanged. Separate selected date gate passes11 reference
-  rows/10 dates/22 model comparisons and six repeat/skip policy checks. Overall
-  calendar adoption remains incomplete and usable_for_scheduling=false.
-- New public2026 evidence distinguishes personal sunrise Navami on March27 from
-  Smarta festival March26. Drik/Panchangam both agree on sunrise Navami but report
-  transition10:06/10:07 and sunrise06:17/06:20 respectively. Model transition
-  +82.480s/+22.494s means diagnostic fail/pass, not a proven calculation defect.
-  Old Drik/Himalayan failures remain unexplained, unchanged and not rerun.
-- Bounded LRU month32/preview8/owned sunrise800; exact containment, deep copies,
-  fixed profile invalidation, no interpolation/model changes or persistent cache.
-  Measured annual2.056s cold,0.000074s warm,zero new month calculations; complete
-  report8.559s,peak RSS91,504KiB. Not a like-for-like old workload/VPS claim.
-- 12 new focused tests passed18.563s; affected date/cold-identity/profile tests
-  rerun after additions. New runner exit2, network guarded, same pinned environment.
-  No new package/kernel. Six accepted evidence files byte-preserved.
+- All12 names selected research support:47 direct PAC Amanta name/paksha/tithi
+  cases across1945SE/1946SE editions,47 inferred Purnimanta comparisons and5 new
+  direct Purnimanta corroborations. No PAC station/solar-heading/Delhi confusion.
+  Direct Purnimanta coverage remains uneven; not full calendar certification.
+- New logical identityv2 excludes profile/date/policy. Fixed guarded lunation
+  cycle anchors canonical ordinary/Adhika month occurrences. Provenance and
+  selected-date policy separate. Profile changes retain key; offline comparison
+  withholds changed dates, rejects duplicate/legacy/changed identity sets.
+- Future persisted v1-to-v2 mapping, per-series scope, changed labels/cycles/date
+  reconciliation need explicit owner approval; no migration or stored change.
+- Confirmed source defect fixed: preview used120s despite documented300s guard.
+  It now actually withholds240s synthetic sunrise even with explicit first policy.
+  Pinned model, old astronomy guards and60s diagnostics unchanged.
+- Deliberate near-sunrise PAC May1,2024 boundary05:47IST vs computed Delhi dawn
+  gives403.895/389.546s margin, same Saptami/date under both hypotheses. This is
+  not a direct matching-profile Delhi sunrise publication. Date-changing
+  disagreements require investigation/withholding even beyond a heuristic guard.
+- Seven new focused tests verified plus12 affected existing recurrence tests
+  (22.265s). New strengthened guard/cycle cases rerun. All8 old fixture/result
+  bytes preserved. No unrelated integration/old coordinate experiments repeated.
+- Offline report exits2, not adoption. Cold annual1.991s vs recorded2.056s,
+  warm0.089ms, month32/preview8/sunrise800 bounds, peak RSS87,424KiB. Same pinned
+  local packages/kernel; no new download/dependency. Public archived PAC files
+  reused outside Git; finite selected primary web labels, no bulk scraper.
 
-See [design/API/gates](M2F_RECURRENCE_PREVIEW.md),
-[current matrix](M2F_FEASIBILITY_RESULTS.md),
-[fixtures](../prototypes/panchang/calendar-references.json) and
-[results](../prototypes/panchang/recurrence-results.json). Explicit source-safety,
-AST/JSON/link/diff and evidence checks passed; GitHub issue2 updated.
+See [full coverage matrix / contract / proposed gate](M2F_MONTH_COVERAGE.md),
+[preview design](M2F_RECURRENCE_PREVIEW.md),
+[results](../prototypes/panchang/coverage-results.json) and
+[fixtures](../prototypes/panchang/coverage-references.json). Source-safety,
+AST/JSON/link/diff and evidence checks passed; issue2 updated.
 
-Stop after offline checkpoint for review. Remaining: five names and broader
-multi-year/exception/calendar goldens, matched source sunrise profiles, unresolved
-physical timing, independent precise Lahiri epochs and adoption/identity policy
-review. Public general scheduling APIs remain disabled. No production/private
-backup/2B search, DB migration, n8n/Telegram, festival implementation, deployment,
-main merge or unrelated accepted integration tests. Neutral owner profile and
-future consolidated labelled Smarta/Vaishnava design unchanged. All Milestone2
-before another orchestrator. Existing authorization/lease/receipt/audit unchanged.
+Remaining: direct Purnimanta and multi-year exception/reference-profile coverage,
+Kshaya/ambiguous boundaries and identity mapping (withheld), independent precise
+Lahiri epochs and original timing failures.60-second timing diagnostic remains
+failed, separate from selected date checks. Overall date gate is proposed and
+incomplete; adoption/persistence policy requires owner review. Neutral profile,
+future consolidated Smarta/Vaishnava design and n8n/PostgreSQL safeguards remain.
+No production/private backups/2B search, migration, n8n/Telegram, festivals,
+deployment/main merge or other orchestrator. Stop after offline checkpoint.
 
-Normal WSL commands; confirm the branch above and inspect the index. Only these
-13 explicit safe files belong to this checkpoint:
+Normal WSL commands: confirm branch, inspect index; only these16 safe files:
 
 ```bash
 git branch --show-current
@@ -61,10 +59,12 @@ git status --short
 git diff --check
 git add -- \
   prototypes/panchang/recurrence.py \
-  prototypes/panchang/recurrence_validation.py \
-  prototypes/panchang/calendar-references.json \
-  prototypes/panchang/recurrence-results.json \
+  prototypes/panchang/coverage_validation.py \
+  prototypes/panchang/coverage-references.json \
+  prototypes/panchang/coverage-results.json \
   tests/panchang/test_recurrence.py \
+  tests/panchang/test_coverage.py \
+  docs/M2F_MONTH_COVERAGE.md \
   docs/M2F_RECURRENCE_PREVIEW.md \
   docs/M2F_FEASIBILITY_RESULTS.md \
   docs/HANDOFF.md \
@@ -72,11 +72,12 @@ git add -- \
   docs/MILESTONE2_PLAN.md \
   docs/ROADMAP.md \
   docs/DECISIONS.md \
+  docs/ARCHITECTURE.md \
   prototypes/panchang/README.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached
-git commit -m "feat: add general offline personal lunar recurrence previews"
+git commit -m "feat: validate all lunar names and separate logical occurrence identity"
 git push origin development/m2f-skyfield-feasibility
 ```
 

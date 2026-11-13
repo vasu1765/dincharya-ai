@@ -120,17 +120,15 @@ migration, Telegram operation, deployment or merge in this phase.
 
 ## 2F isolated feasibility checkpoint after owner authorization
 
-Research continues from pushed month checkpoint2bd37c0. Owner permits general
-personal offline preview research, not adoption. See
-[recurrence design](M2F_RECURRENCE_PREVIEW.md): full civil-year/monthly enumeration
-without fixture lookup, canonical calendar identities, explicit birth basis and
-repeat/skip policies, fail-closed unsupported cases and bounded caches.
-12 new focused tests pass;11 selected date-reference rows pass both sunrise
-hypotheses. This is a separate selected calendar-date gate; overall adoption stays
-incomplete. Old and new outside60-second timing discrepancies remain recorded,
-not widened away. Seven selected-research names only; other names/contexts withhold
-dates. No scheduling integration. Next review: direct broader calendar/profile
-coverage, unresolved timing and final engine/identity policy. Stop offline here.
+Research continues from pushed general preview0a1cae6. Current all-name evidence
+passes47 PAC Amanta +47 inferred Purnimanta +5 new direct Purnimanta comparisons.
+All12 ordinary names are research-enabled; direct convention/profile/exception
+coverage is not complete. Logical identityv2 excludes engine/profile/date/policy;
+offline comparison withholds changed civil dates and rejects changed identities.
+Actual300s guard defect fixed;60s diagnostics unchanged and still failed where
+recorded.19 focused tests verified; no material host performance regression.
+See [full matrix/contract/proposed date gate](M2F_MONTH_COVERAGE.md). Stop for owner
+review before adoption or persistent v1 mapping/schema/series/reconciliation work.
 
 The owner is religiously neutral: future supported festivals should consolidate
 labelled Smarta/Vaishnava dates in one reminder when different. Proposed Vaishnava

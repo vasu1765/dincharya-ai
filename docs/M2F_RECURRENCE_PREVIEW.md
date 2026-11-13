@@ -1,3 +1,11 @@
+# Current status: all-name coverage / identity v2 research
+
+Pushed base0a1cae6 on development/m2f-skyfield-feasibility. See
+[M2F_MONTH_COVERAGE.md](M2F_MONTH_COVERAGE.md) for current sources, per-month
+matrix, proposed date gate and remaining approval requirements. Older measurements
+below describe the prior checkpoint. No scheduling adoption. The preview loop's
+120s/300s discrepancy was fixed; the new layer now actually applies300 seconds.
+
 # Milestone 2F — general offline personal lunar previews
 
 Research checkpoint from pushed `2bd37c09c4a3e25d4dcc3d6e7476c0665ac46b77`
@@ -15,42 +23,25 @@ convention (purnimanta/amanta), optional month, repeated policy (review/first/la
 and birth_basis metadata. Invalid input rejects; ordinary/Adhika is never inferred
 from a religious profile. Default repeated behavior is review with no selected date.
 
-Identity is a structured versioned value:
+## Logical identity v2, calculation provenance and selected date
+
+Current research v2 separates the logical identity from calculation provenance:
 
 ```json
-{
-  "version": 1,
-  "profile": "personal-lunar-preview-v1/<profile-sha256>",
-  "convention": "purnimanta",
-  "month": "shravana",
-  "intercalation": "ordinary",
-  "month_anchor": "2023-08-16",
-  "paksha": "krishna",
-  "tithi": 1
-}
+{"version":2,"convention":"purnimanta","month":"chaitra",
+ "intercalation":"ordinary","lunation_cycle":324,"paksha":"shukla","tithi":9}
 ```
 
-Month anchor is the UTC civil date of the canonical named-month **Shukla backing
-new moon**, so it also distinguishes cycles/years. It is not a Gregorian search
-year or rounded transition timestamp. Reject if the canonical transition is within
-five minutes of UTC midnight, rather than let numerical rounding change the key.
-The profile fingerprint binds the explicit Lahiri/conversion version, dependency,
-kernel, timescale/nutation and timezone metadata, Delhi coordinates, zero observer
-height, chosen sunrise hypothesis, guards and supported-name scope. A profile
-change clears caches and rejects until a fresh evaluator is constructed.
-
-For ordinary Purnimanta Krishna, use the following Amanta month; if that is
-Adhika, require a following ordinary lunation with the same name and anchor to
-that ordinary lunation. Thus July 4, 2023 ordinary Shravana Krishna and August 17
-ordinary Shravana Shukla share month anchor August 16; Adhika Shravana's Shukla
-and Krishna use July 17. Paksha/tithi differentiate the occurrences within that
-month. No contiguous full-moon interval is fabricated across Adhika.
-
-First/last repetition policy, preview window and birth interpretation do not
-change the astronomical occurrence identity. Separate cold evaluators/windows
-produce the same identity. Ordinary/Adhika, convention and profile do change it.
-A future persisted event would need its own series ID composed with this calendar
-identity; **no PostgreSQL identity/schema adoption is approved here**.
+The fixed lunation-cycle discriminator is independent of ephemeris version and
+selected Gregorian date. Profile hash/canonical new-moon date are separate
+provenance; first/last/sunrise policy and selected civil date are separate selection
+fields. Canonical ordinary Shravana Krishna/Shukla around Adhika share a cycle;
+Adhika has another. The old v1 profile/date key is superseded for new research,
+not automatically migrated. See [full contract, counts and proposed acceptance
+gate](M2F_MONTH_COVERAGE.md) for fixed counting constants, conservative guard,
+strict duplicate checks and owner-gated future mapping/persistence policy.
+Engine/profile changes never authorize blind append/re-key. Offline comparison
+withholds changed selected dates and rejects changed logical identity sets.
 
 ## General evaluation and birth interpretation
 
@@ -71,12 +62,10 @@ identity; **no PostgreSQL identity/schema adoption is approved here**.
 - The evaluator opens no fixture JSON, calls no service and saves no record. It
   calculates all matches from the pinned model, including years/rules absent from
   the old allowlist. Reference fixtures are read only by tests/evidence runner.
-- Selected-research names: Chaitra, Vaishakha, Ashadha, Shravana, Pausha, Magha,
-  Phalguna. These have selected reference agreement, not general certification.
-  Jyeshtha, Bhadrapada, Ashvina, Kartika and Margashirsha remain unvalidated: an
-  otherwise matching rule returns needs_review, no identity and no selected date.
-  If an unvalidated backing/adjacent lunation is required for conversion, likewise
-  withhold the date even when the requested final name has selected support.
+- All12 lunar names now have selected ordinary research coverage:47 direct PAC
+  Amanta cases,47 explicitly inferred Purnimanta cases and5 new direct Purnimanta
+  corroborations. This is not full independent certification of every year or
+  exception. Unsupported context still returns no selected date/identity.
 - Multiple ingresses/Kshaya, ambiguous solar/lunar boundaries or exceptional
   adjacent conversions yield unlabelled needs_review rows, not guessed dates.
   Unlabelled rows cannot safely be filtered out by a named rule, so they remain

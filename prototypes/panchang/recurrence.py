@@ -12,8 +12,8 @@ from .investigation import LahiriHypothesis,PROFILE
 MONTHS=('chaitra','vaishakha','jyeshtha','ashadha','shravana','bhadrapada',
         'ashvina','kartika','margashirsha','pausha','magha','phalguna')
 # Selected agreement in accepted research, NOT general month certification.
-RESEARCH_NAMES=frozenset(('chaitra','vaishakha','ashadha','shravana','pausha','magha','phalguna'))
-VERSION='personal-lunar-preview-v1'
+RESEARCH_NAMES=frozenset(MONTHS)
+VERSION='personal-lunar-preview-v2'
 DATE_GUARD_SECONDS=300  # Separate conservative date gate, not a timing tolerance.
 
 
@@ -106,12 +106,9 @@ class RecurrenceResearch:
                         canonical['candidate_amanta_month']!=following['candidate_amanta_month']):
                     raise Unsupported('Exceptional adjacent month conversion requires review')
         start=datetime.fromisoformat(canonical['start'])
-        # A date discriminator must not flip due to solver rounding at UTC midnight.
-        midnight=datetime.combine(start.date(),datetime.min.time(),UTC)
-        if min((start-midnight).total_seconds(),(midnight+timedelta(days=1)-start).total_seconds())<=DATE_GUARD_SECONDS:
-            raise Unsupported('Month anchor date is numerically sensitive')
+        cycle=lunation_cycle(start)
         return dict(month=canonical['candidate_amanta_month'],intercalation=flag,
-                    month_anchor=start.date().isoformat(),supported=bool(supported and
+                    month_anchor=start.date().isoformat(),lunation_cycle=cycle,supported=bool(supported and
                         canonical['candidate_amanta_month'] in RESEARCH_NAMES))
 
     def _dawn(self,day):
@@ -170,7 +167,7 @@ class RecurrenceResearch:
             while day<=b.astimezone(DELHI).date():
                 if day>=date(2101,1,1):break
                 dawn=self._dawn(day)
-                uncertain |= min(abs((dawn-a).total_seconds()),abs((dawn-b).total_seconds()))<=120
+                uncertain |= min(abs((dawn-a).total_seconds()),abs((dawn-b).total_seconds()))<=DATE_GUARD_SECONDS
                 if a<=dawn<b:dawns.append(day.isoformat())
                 day+=timedelta(days=1)
             try:
@@ -197,21 +194,79 @@ class RecurrenceResearch:
                 if not any(start_day<=date.fromisoformat(d)<end_day for d in anchors):continue
             identity=None
             if label is not None and label['supported']:
-                identity=dict(version=1,profile=self.profile,convention=rule.convention,
+                identity=dict(version=2,convention=rule.convention,
                               month=label['month'],intercalation=label['intercalation'],
-                              month_anchor=label['month_anchor'],paksha=rule.paksha,tithi=rule.tithi)
-            occurrences.append(dict(identity=identity,month=label['month'] if label else None,
+                              lunation_cycle=label['lunation_cycle'],paksha=rule.paksha,tithi=rule.tithi)
+            occurrences.append(dict(identity=identity,provenance=dict(profile=self.profile,
+                canonical_new_moon_date=label['month_anchor'] if label else None),
+                selection_policy=dict(assignment='sunrise',repeated=rule.repeated),
+                month=label['month'] if label else None,
                 intercalation=label['intercalation'] if label else None,paksha=rule.paksha,tithi=rule.tithi,
                 start=iso(a),end=iso(b),sunrise_dates=dawns,selected_date=chosen,reason=reason,
                 status='experimental_date' if chosen else 'needs_review'))
-        ids=[json.dumps(r['identity'],sort_keys=True) for r in occurrences if r['identity'] is not None]
+        ids=[logical_key(r['identity']) for r in occurrences if r['identity'] is not None]
         if len(ids)!=len(set(ids)):
             raise Unsupported('Duplicate lunar identity; no preview can be trusted')
         result=dict(profile=self.profile,occurrences=occurrences,
                     status='needs_review' if any(r['selected_date'] is None for r in occurrences) else 'experimental_preview',
                     birth_basis=rule.birth_basis,assignment='sunrise',calendar_date_gate='not_adopted',
-                    validation_scope='selected_month_names_only_not_calendar_adoption',
+                    validation_scope='all_names_selected_cases_not_calendar_adoption',
                     usable_for_scheduling=False)
         self._previews[key]=deepcopy(result)
         while len(self._previews)>8:self._previews.popitem(last=False)
         return result
+
+
+def lunation_cycle(new_moon):
+    """Fixed counting convention only; never used to calculate phases/month names.
+
+    Cycle0 is the lunation near 2000-01-06 18:14 UTC. Model-independent key uses
+    fixed mean spacing; require the actual solved new moon within3 days of center.
+    A different cycle, label or convention requires explicit reconciliation.
+    """
+    new_moon=aware(new_moon)
+    epoch=datetime(2000,1,6,18,14,tzinfo=UTC)
+    spacing=29.530588861*86400
+    offset=(new_moon-epoch).total_seconds()
+    cycle=round(offset/spacing)
+    if abs(offset-cycle*spacing)>3*86400:
+        raise Unsupported('Ambiguous lunation cycle; reconciliation required')
+    return cycle
+
+
+def reconcile_calculations(prior,current):
+    """Pure offline comparison, NOT a persisted resolution/resend action.
+
+    Reject duplicate/legacy identities. Retain logical ID, withhold changed date,
+    and require review for cycle/name/identity changes rather than making new rows.
+    """
+    def indexed(result):
+        rows={}
+        for row in result['occurrences']:
+            identity=row['identity']
+            key=logical_key(identity)
+            if key in rows:raise Unsupported('Duplicate logical occurrence')
+            rows[key]=row
+        return rows
+    old,new=indexed(prior),indexed(current)
+    if old.keys()!=new.keys():
+        raise Unsupported('Logical month/cycle identity changed; explicit reconciliation required')
+    result=deepcopy(current)
+    for row in result['occurrences']:
+        previous=old[logical_key(row['identity'])]
+        if previous['selected_date']!=row['selected_date']:
+            row.update(selected_date=None,status='needs_review',reason='calculation_date_disagreement')
+    result['status']='needs_review' if any(r['selected_date'] is None for r in result['occurrences']) else 'experimental_preview'
+    result['usable_for_scheduling']=False
+    return result
+
+
+def logical_key(identity):
+    fields={'version','convention','month','intercalation','lunation_cycle','paksha','tithi'}
+    if not isinstance(identity,dict) or set(identity)!=fields or type(identity['version']) is not int or identity['version']!=2:
+        raise Unsupported('Unknown/legacy logical identity requires reconciliation')
+    if type(identity['lunation_cycle']) is not int or identity['intercalation'] not in ('ordinary','adhika'):
+        raise Unsupported('Ambiguous logical month identity')
+    LunarRule(identity['paksha'],identity['tithi'],identity['intercalation'],identity['convention'],identity['month'])
+    if identity['month'] is None:raise Unsupported('Logical occurrence needs a named month')
+    return json.dumps(identity,sort_keys=True,separators=(',',':'))

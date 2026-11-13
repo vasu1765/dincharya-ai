@@ -1,0 +1,1766 @@
+{
+  "adoption_gate": "incomplete_direct_reference_profile_exception_coverage_and_owner_approval",
+  "base_commit": "0a1cae678dc9a00a120a56a703f74a23935bfde2",
+  "cases": [
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 287,
+        "month": "chaitra",
+        "month_anchor": "2023-03-21",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 287,
+        "month": "chaitra",
+        "month_anchor": "2023-03-21",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "chaitra",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-03-22T06:04:00+05:30",
+        "id": "2324-chaitra-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 22,
+        "published_central_sunrise": "06:03",
+        "published_day": "2023-03-22",
+        "purnimanta": "chaitra",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 287,
+        "month": "chaitra",
+        "month_anchor": "2023-03-21",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 288,
+        "month": "vaishakha",
+        "month_anchor": "2023-04-20",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "chaitra",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-04-07T05:48:00+05:30",
+        "id": "2324-chaitra-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 25,
+        "published_central_sunrise": "05:47",
+        "published_day": "2023-04-07",
+        "purnimanta": "vaishakha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 288,
+        "month": "vaishakha",
+        "month_anchor": "2023-04-20",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 288,
+        "month": "vaishakha",
+        "month_anchor": "2023-04-20",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "vaishakha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-04-21T05:36:00+05:30",
+        "id": "2324-vaishakha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 30,
+        "published_central_sunrise": "05:35",
+        "published_day": "2023-04-21",
+        "purnimanta": "vaishakha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 288,
+        "month": "vaishakha",
+        "month_anchor": "2023-04-20",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 289,
+        "month": "jyeshtha",
+        "month_anchor": "2023-05-19",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "vaishakha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-05-06T05:25:00+05:30",
+        "id": "2324-vaishakha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 33,
+        "published_central_sunrise": "05:24",
+        "published_day": "2023-05-06",
+        "purnimanta": "jyeshtha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 289,
+        "month": "jyeshtha",
+        "month_anchor": "2023-05-19",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 289,
+        "month": "jyeshtha",
+        "month_anchor": "2023-05-19",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "jyeshtha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-05-20T05:18:00+05:30",
+        "id": "2324-jyeshtha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 36,
+        "published_central_sunrise": "05:17",
+        "published_day": "2023-05-20",
+        "purnimanta": "jyeshtha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 289,
+        "month": "jyeshtha",
+        "month_anchor": "2023-05-19",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 290,
+        "month": "ashadha",
+        "month_anchor": "2023-06-18",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "jyeshtha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-06-05T05:15:00+05:30",
+        "id": "2324-jyeshtha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 41,
+        "published_central_sunrise": "05:14",
+        "published_day": "2023-06-05",
+        "purnimanta": "ashadha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 290,
+        "month": "ashadha",
+        "month_anchor": "2023-06-18",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 290,
+        "month": "ashadha",
+        "month_anchor": "2023-06-18",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashadha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-06-19T05:16:00+05:30",
+        "id": "2324-ashadha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 43,
+        "published_central_sunrise": "05:15",
+        "published_day": "2023-06-19",
+        "purnimanta": "ashadha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 290,
+        "month": "ashadha",
+        "month_anchor": "2023-06-18",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 292,
+        "month": "shravana",
+        "month_anchor": "2023-08-16",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashadha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-07-04T05:20:00+05:30",
+        "id": "2324-ashadha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 48,
+        "published_central_sunrise": "05:19",
+        "published_day": "2023-07-04",
+        "purnimanta": "shravana",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 292,
+        "month": "shravana",
+        "month_anchor": "2023-08-16",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 292,
+        "month": "shravana",
+        "month_anchor": "2023-08-16",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "shravana",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-08-17T05:38:00+05:30",
+        "id": "2324-shravana-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 59,
+        "published_central_sunrise": "05:37",
+        "published_day": "2023-08-17",
+        "purnimanta": "shravana",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 292,
+        "month": "shravana",
+        "month_anchor": "2023-08-16",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 293,
+        "month": "bhadrapada",
+        "month_anchor": "2023-09-15",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "shravana",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-09-01T05:43:00+05:30",
+        "id": "2324-shravana-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 17,
+        "paksha": "krishna",
+        "pdf_page_1based": 64,
+        "published_central_sunrise": "05:42",
+        "published_day": "2023-09-01",
+        "purnimanta": "bhadrapada",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 2
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 293,
+        "month": "bhadrapada",
+        "month_anchor": "2023-09-15",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 293,
+        "month": "bhadrapada",
+        "month_anchor": "2023-09-15",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "bhadrapada",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-09-16T05:48:00+05:30",
+        "id": "2324-bhadrapada-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 67,
+        "published_central_sunrise": "05:47",
+        "published_day": "2023-09-16",
+        "purnimanta": "bhadrapada",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 293,
+        "month": "bhadrapada",
+        "month_anchor": "2023-09-15",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 294,
+        "month": "ashvina",
+        "month_anchor": "2023-10-14",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "bhadrapada",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-09-30T05:52:00+05:30",
+        "id": "2324-bhadrapada-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 71,
+        "published_central_sunrise": "05:51",
+        "published_day": "2023-09-30",
+        "purnimanta": "ashvina",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 294,
+        "month": "ashvina",
+        "month_anchor": "2023-10-14",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 294,
+        "month": "ashvina",
+        "month_anchor": "2023-10-14",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashvina",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-10-15T05:58:00+05:30",
+        "id": "2324-ashvina-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 75,
+        "published_central_sunrise": "05:57",
+        "published_day": "2023-10-15",
+        "purnimanta": "ashvina",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 294,
+        "month": "ashvina",
+        "month_anchor": "2023-10-14",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 295,
+        "month": "kartika",
+        "month_anchor": "2023-11-13",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashvina",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-10-29T06:05:00+05:30",
+        "id": "2324-ashvina-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 80,
+        "published_central_sunrise": "06:04",
+        "published_day": "2023-10-29",
+        "purnimanta": "kartika",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 295,
+        "month": "kartika",
+        "month_anchor": "2023-11-13",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 295,
+        "month": "kartika",
+        "month_anchor": "2023-11-13",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "kartika",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-11-14T06:14:00+05:30",
+        "id": "2324-kartika-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 83,
+        "published_central_sunrise": "06:13",
+        "published_day": "2023-11-14",
+        "purnimanta": "kartika",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 295,
+        "month": "kartika",
+        "month_anchor": "2023-11-13",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 296,
+        "month": "margashirsha",
+        "month_anchor": "2023-12-12",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "kartika",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-11-28T06:23:00+05:30",
+        "id": "2324-kartika-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 87,
+        "published_central_sunrise": "06:22",
+        "published_day": "2023-11-28",
+        "purnimanta": "margashirsha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 296,
+        "month": "margashirsha",
+        "month_anchor": "2023-12-12",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 296,
+        "month": "margashirsha",
+        "month_anchor": "2023-12-12",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "margashirsha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-12-13T06:33:00+05:30",
+        "id": "2324-margashirsha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 90,
+        "published_central_sunrise": "06:32",
+        "published_day": "2023-12-13",
+        "purnimanta": "margashirsha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 296,
+        "month": "margashirsha",
+        "month_anchor": "2023-12-12",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 297,
+        "month": "pausha",
+        "month_anchor": "2024-01-11",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "margashirsha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2023-12-29T06:41:00+05:30",
+        "id": "2324-margashirsha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 17,
+        "paksha": "krishna",
+        "pdf_page_1based": 95,
+        "published_central_sunrise": "06:40",
+        "published_day": "2023-12-29",
+        "purnimanta": "pausha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 2
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 297,
+        "month": "pausha",
+        "month_anchor": "2024-01-11",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 297,
+        "month": "pausha",
+        "month_anchor": "2024-01-11",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "pausha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-01-12T06:45:00+05:30",
+        "id": "2324-pausha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 98,
+        "published_central_sunrise": "06:44",
+        "published_day": "2024-01-12",
+        "purnimanta": "pausha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 297,
+        "month": "pausha",
+        "month_anchor": "2024-01-11",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 298,
+        "month": "magha",
+        "month_anchor": "2024-02-09",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "pausha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-01-26T06:43:00+05:30",
+        "id": "2324-pausha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 103,
+        "published_central_sunrise": "06:42",
+        "published_day": "2024-01-26",
+        "purnimanta": "magha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 298,
+        "month": "magha",
+        "month_anchor": "2024-02-09",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 298,
+        "month": "magha",
+        "month_anchor": "2024-02-09",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "magha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-02-10T06:37:00+05:30",
+        "id": "2324-magha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 106,
+        "published_central_sunrise": "06:36",
+        "published_day": "2024-02-10",
+        "purnimanta": "magha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 298,
+        "month": "magha",
+        "month_anchor": "2024-02-09",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 299,
+        "month": "phalguna",
+        "month_anchor": "2024-03-10",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "magha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-02-25T06:27:00+05:30",
+        "id": "2324-magha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 111,
+        "published_central_sunrise": "06:26",
+        "published_day": "2024-02-25",
+        "purnimanta": "phalguna",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 299,
+        "month": "phalguna",
+        "month_anchor": "2024-03-10",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 299,
+        "month": "phalguna",
+        "month_anchor": "2024-03-10",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "phalguna",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-03-11T06:14:00+05:30",
+        "id": "2324-phalguna-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 114,
+        "published_central_sunrise": "06:13",
+        "published_day": "2024-03-11",
+        "purnimanta": "phalguna",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2324",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 299,
+        "month": "phalguna",
+        "month_anchor": "2024-03-10",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 299,
+        "month": "phalguna",
+        "month_anchor": "2024-03-10",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "phalguna",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-03-21T06:04:00+05:30",
+        "id": "2425-phalguna-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 12,
+        "paksha": "shukla",
+        "pdf_page_1based": 22,
+        "published_central_sunrise": "06:03",
+        "published_day": "2024-03-21",
+        "purnimanta": "phalguna",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 12
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 299,
+        "month": "phalguna",
+        "month_anchor": "2024-03-10",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 300,
+        "month": "chaitra",
+        "month_anchor": "2024-04-08",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "phalguna",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-03-26T05:59:00+05:30",
+        "id": "2425-phalguna-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 23,
+        "published_central_sunrise": "05:58",
+        "published_day": "2024-03-26",
+        "purnimanta": "chaitra",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 300,
+        "month": "chaitra",
+        "month_anchor": "2024-04-08",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 300,
+        "month": "chaitra",
+        "month_anchor": "2024-04-08",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "chaitra",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-04-09T05:46:00+05:30",
+        "id": "2425-chaitra-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 26,
+        "published_central_sunrise": "05:45",
+        "published_day": "2024-04-09",
+        "purnimanta": "chaitra",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 300,
+        "month": "chaitra",
+        "month_anchor": "2024-04-08",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 301,
+        "month": "vaishakha",
+        "month_anchor": "2024-05-08",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "chaitra",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-04-24T05:33:00+05:30",
+        "id": "2425-chaitra-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 30,
+        "published_central_sunrise": "05:32",
+        "published_day": "2024-04-24",
+        "purnimanta": "vaishakha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 301,
+        "month": "vaishakha",
+        "month_anchor": "2024-05-08",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 301,
+        "month": "vaishakha",
+        "month_anchor": "2024-05-08",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "vaishakha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-05-09T05:23:00+05:30",
+        "id": "2425-vaishakha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 33,
+        "published_central_sunrise": "05:22",
+        "published_day": "2024-05-09",
+        "purnimanta": "vaishakha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 301,
+        "month": "vaishakha",
+        "month_anchor": "2024-05-08",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 302,
+        "month": "jyeshtha",
+        "month_anchor": "2024-06-06",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "vaishakha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-05-24T05:17:00+05:30",
+        "id": "2425-vaishakha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 38,
+        "published_central_sunrise": "05:16",
+        "published_day": "2024-05-24",
+        "purnimanta": "jyeshtha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 302,
+        "month": "jyeshtha",
+        "month_anchor": "2024-06-06",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 302,
+        "month": "jyeshtha",
+        "month_anchor": "2024-06-06",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "jyeshtha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-06-07T05:15:00+05:30",
+        "id": "2425-jyeshtha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 41,
+        "published_central_sunrise": "05:14",
+        "published_day": "2024-06-07",
+        "purnimanta": "jyeshtha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 302,
+        "month": "jyeshtha",
+        "month_anchor": "2024-06-06",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 303,
+        "month": "ashadha",
+        "month_anchor": "2024-07-05",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "jyeshtha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-06-23T05:17:00+05:30",
+        "id": "2425-jyeshtha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 17,
+        "paksha": "krishna",
+        "pdf_page_1based": 46,
+        "published_central_sunrise": "05:16",
+        "published_day": "2024-06-23",
+        "purnimanta": "ashadha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 2
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 303,
+        "month": "ashadha",
+        "month_anchor": "2024-07-05",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 303,
+        "month": "ashadha",
+        "month_anchor": "2024-07-05",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashadha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-07-06T05:21:00+05:30",
+        "id": "2425-ashadha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 49,
+        "published_central_sunrise": "05:20",
+        "published_day": "2024-07-06",
+        "purnimanta": "ashadha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 303,
+        "month": "ashadha",
+        "month_anchor": "2024-07-05",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 304,
+        "month": "shravana",
+        "month_anchor": "2024-08-04",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashadha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-07-22T05:28:00+05:30",
+        "id": "2425-ashadha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 52,
+        "published_central_sunrise": "05:27",
+        "published_day": "2024-07-22",
+        "purnimanta": "shravana",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 304,
+        "month": "shravana",
+        "month_anchor": "2024-08-04",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 304,
+        "month": "shravana",
+        "month_anchor": "2024-08-04",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "shravana",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-08-05T05:34:00+05:30",
+        "id": "2425-shravana-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 56,
+        "published_central_sunrise": "05:33",
+        "published_day": "2024-08-05",
+        "purnimanta": "shravana",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 304,
+        "month": "shravana",
+        "month_anchor": "2024-08-04",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 305,
+        "month": "bhadrapada",
+        "month_anchor": "2024-09-03",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "shravana",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-08-20T05:39:00+05:30",
+        "id": "2425-shravana-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 59,
+        "published_central_sunrise": "05:38",
+        "published_day": "2024-08-20",
+        "purnimanta": "bhadrapada",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 305,
+        "month": "bhadrapada",
+        "month_anchor": "2024-09-03",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 305,
+        "month": "bhadrapada",
+        "month_anchor": "2024-09-03",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "bhadrapada",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-09-04T05:45:00+05:30",
+        "id": "2425-bhadrapada-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 64,
+        "published_central_sunrise": "05:44",
+        "published_day": "2024-09-04",
+        "purnimanta": "bhadrapada",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 305,
+        "month": "bhadrapada",
+        "month_anchor": "2024-09-03",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 306,
+        "month": "ashvina",
+        "month_anchor": "2024-10-02",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "bhadrapada",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-09-19T05:49:00+05:30",
+        "id": "2425-bhadrapada-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 17,
+        "paksha": "krishna",
+        "pdf_page_1based": 68,
+        "published_central_sunrise": "05:48",
+        "published_day": "2024-09-19",
+        "purnimanta": "ashvina",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 2
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 306,
+        "month": "ashvina",
+        "month_anchor": "2024-10-02",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 306,
+        "month": "ashvina",
+        "month_anchor": "2024-10-02",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashvina",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-10-03T05:54:00+05:30",
+        "id": "2425-ashvina-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 72,
+        "published_central_sunrise": "05:53",
+        "published_day": "2024-10-03",
+        "purnimanta": "ashvina",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 306,
+        "month": "ashvina",
+        "month_anchor": "2024-10-02",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 307,
+        "month": "kartika",
+        "month_anchor": "2024-11-01",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "ashvina",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-10-18T06:00:00+05:30",
+        "id": "2425-ashvina-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 75,
+        "published_central_sunrise": "05:59",
+        "published_day": "2024-10-18",
+        "purnimanta": "kartika",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 307,
+        "month": "kartika",
+        "month_anchor": "2024-11-01",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 307,
+        "month": "kartika",
+        "month_anchor": "2024-11-01",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "kartika",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-11-02T06:07:00+05:30",
+        "id": "2425-kartika-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 80,
+        "published_central_sunrise": "06:06",
+        "published_day": "2024-11-02",
+        "purnimanta": "kartika",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 307,
+        "month": "kartika",
+        "month_anchor": "2024-11-01",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 308,
+        "month": "margashirsha",
+        "month_anchor": "2024-12-01",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "kartika",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-11-16T06:16:00+05:30",
+        "id": "2425-kartika-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 83,
+        "published_central_sunrise": "06:15",
+        "published_day": "2024-11-16",
+        "purnimanta": "margashirsha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 308,
+        "month": "margashirsha",
+        "month_anchor": "2024-12-01",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 308,
+        "month": "margashirsha",
+        "month_anchor": "2024-12-01",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "margashirsha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-12-02T06:27:00+05:30",
+        "id": "2425-margashirsha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 88,
+        "published_central_sunrise": "06:26",
+        "published_day": "2024-12-02",
+        "purnimanta": "margashirsha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 308,
+        "month": "margashirsha",
+        "month_anchor": "2024-12-01",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 309,
+        "month": "pausha",
+        "month_anchor": "2024-12-30",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "margashirsha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-12-16T06:36:00+05:30",
+        "id": "2425-margashirsha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 91,
+        "published_central_sunrise": "06:35",
+        "published_day": "2024-12-16",
+        "purnimanta": "pausha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 309,
+        "month": "pausha",
+        "month_anchor": "2024-12-30",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 309,
+        "month": "pausha",
+        "month_anchor": "2024-12-30",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "pausha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2024-12-31T06:42:00+05:30",
+        "id": "2425-pausha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 96,
+        "published_central_sunrise": "06:41",
+        "published_day": "2024-12-31",
+        "purnimanta": "pausha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 309,
+        "month": "pausha",
+        "month_anchor": "2024-12-30",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 310,
+        "month": "magha",
+        "month_anchor": "2025-01-29",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "pausha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2025-01-14T06:45:00+05:30",
+        "id": "2425-pausha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 98,
+        "published_central_sunrise": "06:44",
+        "published_day": "2025-01-14",
+        "purnimanta": "magha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 310,
+        "month": "magha",
+        "month_anchor": "2025-01-29",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 310,
+        "month": "magha",
+        "month_anchor": "2025-01-29",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "magha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2025-01-30T06:42:00+05:30",
+        "id": "2425-magha-shukla",
+        "intercalation": "ordinary",
+        "ordinal": 1,
+        "paksha": "shukla",
+        "pdf_page_1based": 104,
+        "published_central_sunrise": "06:41",
+        "published_day": "2025-01-30",
+        "purnimanta": "magha",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    },
+    {
+      "amanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 310,
+        "month": "magha",
+        "month_anchor": "2025-01-29",
+        "supported": true
+      },
+      "matches": true,
+      "purnimanta": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 311,
+        "month": "phalguna",
+        "month_anchor": "2025-02-28",
+        "supported": true
+      },
+      "reference": {
+        "amanta": "magha",
+        "amanta_evidence": "direct_daily_lunar_label",
+        "at": "2025-02-13T06:35:00+05:30",
+        "id": "2425-magha-krishna",
+        "intercalation": "ordinary",
+        "ordinal": 16,
+        "paksha": "krishna",
+        "pdf_page_1based": 106,
+        "published_central_sunrise": "06:34",
+        "published_day": "2025-02-13",
+        "purnimanta": "phalguna",
+        "purnimanta_evidence": "inferred_conversion_not_direct_PAC_purnimanta_label",
+        "source": "2425",
+        "tithi": 1
+      }
+    }
+  ],
+  "direct_purnimanta": [
+    {
+      "actual": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 302,
+        "month": "jyeshtha",
+        "month_anchor": "2024-06-06",
+        "supported": true
+      },
+      "matches": true,
+      "reference": {
+        "amanta": "jyeshtha",
+        "at": "2024-06-10T06:00:00+05:30",
+        "day": "2024-06-10",
+        "evidence": "explicit Amanta/Purnimanta daily labels",
+        "location": "New Delhi as indexed",
+        "paksha": "shukla",
+        "purnimanta": "jyeshtha",
+        "url": "https://www.drikpanchang.com/panchang/month-panchang.html?date=10%2F06%2F2024&time-format=12hour"
+      }
+    },
+    {
+      "actual": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 305,
+        "month": "bhadrapada",
+        "month_anchor": "2024-09-03",
+        "supported": true
+      },
+      "matches": true,
+      "reference": {
+        "amanta": "shravana",
+        "at": "2024-08-20T06:00:00+05:30",
+        "day": "2024-08-20",
+        "evidence": "explicit North Bhadrapada Krishna Pratipada; Amanta corroboration PAC2425 page59",
+        "location": "Amarnath Maharashtra as indexed; month labels only",
+        "paksha": "krishna",
+        "purnimanta": "bhadrapada",
+        "url": "https://www.drikpanchang.com/festivals/lunar-month/festivals-bhadrapada.html?lang=en&year=2024"
+      }
+    },
+    {
+      "actual": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 294,
+        "month": "ashvina",
+        "month_anchor": "2023-10-14",
+        "supported": true
+      },
+      "matches": true,
+      "reference": {
+        "amanta": "bhadrapada",
+        "at": "2023-10-10T06:00:00+05:30",
+        "day": "2023-10-10",
+        "evidence": "explicit Amanta Bhadrapada / Purnimanta Ashwin; spelling normalized",
+        "location": "New Delhi as indexed",
+        "paksha": "krishna",
+        "purnimanta": "ashvina",
+        "url": "https://panchang.astrosage.com/panchang/aajkapanchang?date=10-10-2023&language=en&view=amp"
+      }
+    },
+    {
+      "actual": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 295,
+        "month": "kartika",
+        "month_anchor": "2023-11-13",
+        "supported": true
+      },
+      "matches": true,
+      "reference": {
+        "amanta": "ashvina",
+        "at": "2023-11-10T06:00:00+05:30",
+        "day": "2023-11-10",
+        "evidence": "explicit Ashwina Amanta / Kartika Purnimanta",
+        "location": "Powai Maharashtra as indexed; month labels only",
+        "paksha": "krishna",
+        "purnimanta": "kartika",
+        "url": "https://www.drikpanchang.com/panchang/day-panchang.html?date=10%2F11%2F2023&lang=en"
+      }
+    },
+    {
+      "actual": {
+        "intercalation": "ordinary",
+        "lunation_cycle": 296,
+        "month": "margashirsha",
+        "month_anchor": "2023-12-12",
+        "supported": true
+      },
+      "matches": true,
+      "reference": {
+        "amanta": "kartika",
+        "at": "2023-12-10T06:00:00+05:30",
+        "day": "2023-12-10",
+        "evidence": "explicit Kartika Amanta / Margashirsha Purnimanta",
+        "location": "Hisar Haryana as indexed; month labels only",
+        "paksha": "krishna",
+        "purnimanta": "margashirsha",
+        "url": "https://www.drikpanchang.com/panchang/month-panchang.html?date=10%2F12%2F2023&lang=en"
+      }
+    }
+  ],
+  "fixture_sha256": "6f0ff2997b3001bfb755473f4027308970889c8874b6d4312e4b83f2e7d6baa9",
+  "identity_example": {
+    "end": "2026-03-27T04:37:22.501818+00:00",
+    "identity": {
+      "convention": "purnimanta",
+      "intercalation": "ordinary",
+      "lunation_cycle": 324,
+      "month": "chaitra",
+      "paksha": "shukla",
+      "tithi": 9,
+      "version": 2
+    },
+    "intercalation": "ordinary",
+    "month": "chaitra",
+    "paksha": "shukla",
+    "provenance": {
+      "canonical_new_moon_date": "2026-03-19",
+      "profile": "personal-lunar-preview-v2/b5b3a5facf63642ffe6c14833a07a851461da49d436988af7e0038d4ab361aa7"
+    },
+    "reason": "single_sunrise",
+    "selected_date": "2026-03-27",
+    "selection_policy": {
+      "assignment": "sunrise",
+      "repeated": "review"
+    },
+    "start": "2026-03-26T06:19:22.284838+00:00",
+    "status": "experimental_date",
+    "sunrise_dates": [
+      "2026-03-27"
+    ],
+    "tithi": 9
+  },
+  "logical_identity_stable_across_profiles": true,
+  "metrics": {
+    "cold_annual_seconds": 1.9905726689903531,
+    "cold_ratio_to_previous": 0.9681331895767487,
+    "historical_cold_annual_seconds": 2.056093820996466,
+    "month_cache_entries": 32,
+    "peak_rss_kib": 87424,
+    "preview_cache_entries": 1,
+    "total_wall_seconds": 7.930436550988816,
+    "warm_seconds": 8.888899174053222e-05
+  },
+  "near_sunrise": [
+    {
+      "delhi_sunrise": "2024-05-01T00:10:16.105319+00:00",
+      "delta_to_PAC_boundary_seconds": 403.894681,
+      "horizon": "upper_limb_50",
+      "matches": true,
+      "ordinal": 22,
+      "selected_date": "2024-05-01"
+    },
+    {
+      "delhi_sunrise": "2024-05-01T00:10:30.453677+00:00",
+      "delta_to_PAC_boundary_seconds": 389.546323,
+      "horizon": "pac_47_hypothesis",
+      "matches": true,
+      "ordinal": 22,
+      "selected_date": "2024-05-01"
+    }
+  ],
+  "reconciliation_same_date": {
+    "assignment": "sunrise",
+    "birth_basis": "explicit_rule",
+    "calendar_date_gate": "not_adopted",
+    "occurrences": [
+      {
+        "end": "2026-03-27T04:37:22.501818+00:00",
+        "identity": {
+          "convention": "purnimanta",
+          "intercalation": "ordinary",
+          "lunation_cycle": 324,
+          "month": "chaitra",
+          "paksha": "shukla",
+          "tithi": 9,
+          "version": 2
+        },
+        "intercalation": "ordinary",
+        "month": "chaitra",
+        "paksha": "shukla",
+        "provenance": {
+          "canonical_new_moon_date": "2026-03-19",
+          "profile": "personal-lunar-preview-v2/2074192c25eec7c1b6a867785f88218d1f7250e9bd43648f50db420780ae8ce4"
+        },
+        "reason": "single_sunrise",
+        "selected_date": "2026-03-27",
+        "selection_policy": {
+          "assignment": "sunrise",
+          "repeated": "review"
+        },
+        "start": "2026-03-26T06:19:22.284838+00:00",
+        "status": "experimental_date",
+        "sunrise_dates": [
+          "2026-03-27"
+        ],
+        "tithi": 9
+      }
+    ],
+    "profile": "personal-lunar-preview-v2/2074192c25eec7c1b6a867785f88218d1f7250e9bd43648f50db420780ae8ce4",
+    "status": "experimental_preview",
+    "usable_for_scheduling": false,
+    "validation_scope": "all_names_selected_cases_not_calendar_adoption"
+  },
+  "selected_calendar_checks_pass": true,
+  "status": "all_name_research_checkpoint_not_adoption",
+  "timing_diagnostics": "Original60-second gates/fixtures unchanged; old failures retained, not rerun",
+  "usable_for_scheduling": false
+}

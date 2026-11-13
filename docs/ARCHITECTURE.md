@@ -144,3 +144,14 @@ No Hindu Panchang calculation engine is adopted yet. Its source/tradition and
 geographic/reference policy require an owner decision before committing to an
 engine or schema. All Milestone 2, including Panchang and operational acceptance,
 precedes other domains/orchestrators; see [plan](MILESTONE2_PLAN.md).
+
+## Offline lunar identity proposal (not persistence adoption)
+
+Research recurrence v2 separates logical calendar identity (convention, month,
+ordinary/Adhika, fixed lunation-cycle discriminator, paksha/tithi) from calculation
+profile and selected Gregorian date/policy. An engine change must not blindly
+append new logical occurrences. Offline comparison rejects changed identity sets
+and withholds changed selected dates. See [contract and proposed calendar-date
+gate](M2F_MONTH_COVERAGE.md). Future persistence requires reviewed per-series scope,
+one-to-one v1 research-key mapping and explicit ambiguous/date-changing
+reconciliation policy. No database schema or live architecture changed.

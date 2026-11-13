@@ -40,12 +40,16 @@ class RecurrenceTests(unittest.TestCase):
     def test_monthly_enumeration_and_unvalidated_names_withheld(self):
         result=self.m.monthly(LunarRule('shukla',3,'both'),date(2024,1,1),date(2025,1,1))
         self.assertGreaterEqual(len(result['occurrences']),12)
-        unknown=[r for r in result['occurrences'] if r['reason']=='unsupported_month_name']
-        self.assertTrue(unknown)
-        self.assertTrue(all(r['selected_date'] is None and r['identity'] is None for r in unknown))
+        self.assertFalse(any(r['reason']=='unsupported_month_name' for r in result['occurrences']))
         named=self.m.annual(LunarRule('shukla',3,'ordinary',month='kartika'),2024)
         self.assertTrue(named['occurrences'])
-        self.assertTrue(all(r['selected_date'] is None for r in named['occurrences']))
+        self.assertTrue(all(r['selected_date'] is not None for r in named['occurrences']))
+        # Preserve the fail-closed behavior if any future scope lacks support.
+        with patch('prototypes.panchang.recurrence.RESEARCH_NAMES',frozenset(('chaitra',))):
+            restricted=RecurrenceResearch(self.a)
+            rows=restricted.annual(LunarRule('shukla',3,'ordinary',month='kartika'),2024)['occurrences']
+            self.assertTrue(rows)
+            self.assertTrue(all(r['selected_date'] is None and r['identity'] is None for r in rows))
 
     def test_purnimanta_canonical_anchor_skips_adjacent_adhika(self):
         anchors={}
@@ -54,7 +58,7 @@ class RecurrenceTests(unittest.TestCase):
             day=date.fromisoformat(monthday)
             rows=self.m.preview(LunarRule(paksha,1,flag,month='shravana'),day-timedelta(days=1),day+timedelta(days=2))['occurrences']
             self.assertEqual(len(rows),1)
-            anchors[(paksha,flag)]=rows[0]['identity']['month_anchor']
+            anchors[(paksha,flag)]=rows[0]['identity']['lunation_cycle']
         self.assertEqual(anchors[('krishna','ordinary')],anchors[('shukla','ordinary')])
         self.assertEqual(anchors[('krishna','adhika')],anchors[('shukla','adhika')])
         self.assertNotEqual(anchors[('krishna','ordinary')],anchors[('krishna','adhika')])

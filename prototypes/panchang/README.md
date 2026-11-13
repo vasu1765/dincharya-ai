@@ -183,3 +183,28 @@ record separate selected date and unchanged60-second timing gates. Date matches 
 not approve engine adoption. Month LRU32/preview LRU8/sunrise800 bound memory;
 profile changes reject and cache outputs are deep copies. Evaluator owns its
 Astronomy cache and is single-threaded. No persistence, networking or live sends.
+
+## All-name coverage / logical identity v2 (base0a1cae6)
+
+All12 names have selected research evidence; not general certification. New
+coverage-references.json and coverage-results.json preserve older accepted bytes.
+Read [coverage matrix, logical contract and proposed date gate](../../docs/M2F_MONTH_COVERAGE.md).
+Logical identityv2 excludes model/profile/date/policy; provenance is separate.
+Offline reconcile_calculations compares previews only and withholds changed dates;
+unknown/legacy/duplicate/changed identity sets reject. No stored or delivery action.
+The preview loop now correctly applies300 seconds, while original60-second timing
+diagnostics and pinned model remain unchanged. Do not adopt or blindly migrate keys.
+
+```bash
+DINCHARYA_PUBLIC_DE440S=/EXTERNAL/PUBLIC/de440s.bsp \
+  OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m unittest discover \
+  -s tests/panchang -p test_coverage.py -v
+
+OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/dincharya-panchang-repro/bin/python -B -m prototypes.panchang.coverage_validation \
+  --ephemeris /EXTERNAL/PUBLIC/de440s.bsp
+```
+
+Affected test_recurrence.py also passed; no unrelated suites needed. Runner exits2
+with incomplete adoption gate. All work remains offline, no DB/n8n/Telegram changes.
