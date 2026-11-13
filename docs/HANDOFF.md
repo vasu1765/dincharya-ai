@@ -3,7 +3,20 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current authority and approval gate
+## Reminder gateway development branch
+
+GitHub main at `b80a91d8` contains the recurrence/reminder foundations described
+below. The old unstaged-files checkpoint is historical for the earlier workspace.
+
+The opt-in gateway uses PostgreSQL proposal, decision, claim and finish functions.
+A private owner command creates a one-time proposal. Only a separate owner
+approval schedules it. The Telegram adapter uses the configured private chat.
+See [isolated reminder acceptance](../telegram-gateway/README.md).
+Ten focused offline Python tests passed, including adapter transactions and
+Telegram response classification. The added SQL approval and retry cap checks,
+expanded concurrency checks and test-bot acceptance require runtime verification.
+
+## Historical authority and approval gate
 
 On 2026-11-13 the user resumed work and authorized reviewing changed files and
 staging only safe project source, migrations, tests and documentation. A commit

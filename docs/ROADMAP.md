@@ -4,7 +4,16 @@ Finish Milestone 2 before Milestone 3 or another orchestrator. Status is not
 production authorization. See [handoff](HANDOFF.md), [policy](DEVELOPMENT_POLICY.md)
 and [decisions](DECISIONS.md).
 
-## Current checkpoint
+## Reminder gateway development branch
+
+The opt-in PostgreSQL and Telegram adapters, explicit owner approval commands
+and due-work polling are implemented for the first one-time reminder path.
+Remaining acceptance includes executing the new approval/retry-cap SQL
+assertions, checking concurrency, and verifying a single delivery with a
+disposable database and dedicated Telegram test bot. Recurring series and
+occurrence edits remain available through the PostgreSQL proposal API.
+
+## Historical checkpoint
 
 196 offline tests passed at the last full regression checkpoint. Final focused
 checks passed: four migration-renderer tests, six worker tests and relevant Python

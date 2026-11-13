@@ -12,6 +12,7 @@ TOKEN = os.environ['TELEGRAM_BOT_TOKEN']
 ALLOWED_ID = int(os.environ['TELEGRAM_ALLOWED_USER_ID'])
 WEBHOOK = os.getenv('N8N_WEBHOOK_URL', 'http://localhost:5678/webhook/dincharya-chat')
 logging.basicConfig(level=logging.INFO)
+logging.getLogger('httpx').setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 async def authorized(update: Update) -> bool:
@@ -45,6 +46,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler('start', start))
+    dsn = os.getenv('DINCHARYA_REMINDER_DSN')
+    if dsn:
+        from reminder_handlers import register_reminders
+
+        register_reminders(app, dsn, TOKEN, ALLOWED_ID)
     app.add_handler(MessageHandler(filters.TEXT, handle_message))
     app.run_polling(drop_pending_updates=True)
 
