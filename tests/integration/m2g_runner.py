@@ -29,6 +29,8 @@ class M2GRunner(E2ERunner):
     owner_id=101
     due_seconds=120
     server_script='m2g_server.py'
+    migrations=(*MIGRATIONS,'0009_lunar_delivery_status.sql')
+    relay_json_denials=False
     def configure_service(self):pass
     def tests(self):
         with tempfile.TemporaryDirectory(prefix='m2g-') as directory:
@@ -55,7 +57,7 @@ class M2GRunner(E2ERunner):
         base.require(self.app_sql("SELECT count(*) FROM pg_tables WHERE schemaname='public'")=='1','Fresh application DB required')
         self.app_sql('DROP TABLE public.synthetic_events')
         self.original=self.baseline.read_bytes();self.app_sql(validate_schema(self.original).decode())
-        self.app_sql(render_migrations([base.ROOT/'database/migrations'/n for n in (*MIGRATIONS,'0009_lunar_delivery_status.sql')]))
+        self.app_sql(render_migrations([base.ROOT/'database/migrations'/n for n in self.migrations]))
         self.app_sql((HERE/'e2e_fixture.sql').read_text())
         passwords={}
         for actor in ACTORS:
@@ -114,6 +116,8 @@ class M2GRunner(E2ERunner):
         flow=json.loads((base.ROOT/'workflows/m2g-lunar-acceptance.json').read_text())
         target=flow['nodes'][1]['parameters'];target['url']='http://mock-services:8081/journey'
         target['headerParameters']['parameters'].append({'name':'x-synthetic-key','value':key})
+        if self.relay_json_denials:
+            target['options']['response']={'response':{'neverError':True,'responseFormat':'json'}}
         bootstrap={'workflow':flow};bootstrap['password']=self.password
         self.n8n('bootstrap',**bootstrap)
         self.http=httpx.Client(transport=httpx.HTTPTransport(uds=self.n8n_socket),timeout=30,trust_env=False)

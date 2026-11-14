@@ -58,7 +58,8 @@ civil dates, IMD PAC is secondary, and the 90-second display diagnostic is
 independent of the 300-second guard. See docs/M2H_CYCLE1_ACCURACY.md.
 Use the isolated Cycle 2 harness documented in docs/M2H_CYCLE2_TELEGRAM.md
 for astronomical approvals, including the Cycle 3 annual checks in
-docs/M2H_CYCLE3_ANNUAL.md. Real Telegram use requires fresh approval.
+docs/M2H_CYCLE3_ANNUAL.md. See docs/M2H_CYCLE4_OPERATIONS.md for relay/recovery
+evidence and the exact-baseline handoff. Real Telegram use requires fresh approval.
 
 Offline suite (no services/packages needed):
 `PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests -v`.

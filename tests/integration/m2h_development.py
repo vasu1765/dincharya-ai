@@ -46,7 +46,7 @@ class Wire(OfflineBotAPI):
         return await super().do_request(url, method, request_data, **kwargs)
 
 
-async def exercise_sdk(service, admin, text):
+async def exercise_sdk(service, admin, text, relay=None, http_transport=None):
     def bridge(request):
         assert urlsplit(str(request.url)).hostname == "offline.invalid"
         result = service.handle(json.loads(request.content), request.headers["x-dincharya-signature"])
@@ -70,9 +70,10 @@ async def exercise_sdk(service, admin, text):
             "id": str(update_id), "from": who, "data": action, "message": message,
             "chat_instance": "synthetic"}})
 
-    with httpx.Client(transport=httpx.MockTransport(bridge), trust_env=False) as client:
+    transport = httpx.MockTransport(bridge) if relay is None else http_transport
+    with httpx.Client(transport=transport, trust_env=False, timeout=30) as client:
         register_lunar_previews(app, 101, OrchestrationClient(
-            client, "http://offline.invalid/lunar", service.command_key))
+            client, relay or "http://offline.invalid/lunar", service.command_key))
         await app.initialize()
         try:
             await send({"update_id": 1, "message": message})
@@ -153,11 +154,11 @@ def exercise_storage(service, admin, year):
     print("PASS real PostgreSQL replay, stale reviews, conflicts, concurrent approvals and reminder materialization")
 
 
-def exercise_annual(service, restart, admin, year):
+def exercise_annual(service, restart, admin, year, forward=None):
     def call(instance, operation, **fields):
         value, signature = envelope(instance.command_key, dict(operation=operation, **fields),
                                     secrets.token_urlsafe(12))
-        return instance.handle(value, signature)
+        return (forward(value, signature) if forward else instance.handle(value, signature))
 
     def total(table):
         queries = {
@@ -204,6 +205,17 @@ def exercise_annual(service, restart, admin, year):
     assert preview(service, series, year)["status"] == "already_scheduled"
     assert total("events") == original_events + 1 and total("calculations") == 1
 
+    due = admin.execute(
+        "SELECT (e.event_date+e.start_time) AT TIME ZONE 'Asia/Kolkata' "
+        "FROM public.schedule_events e JOIN lunar_private.occurrences o ON o.event_id=e.id WHERE o.id=%s",
+        (first["occurrence"],)).fetchone()[0]
+    for _ in range(2):
+        admin.execute("SELECT public.refresh_occurrence_reminders(%s)", (due,))
+    assert admin.execute(
+        "SELECT count(*),max(attempts) FROM public.reminder_deliveries d "
+        "JOIN lunar_private.occurrences o ON o.event_id=d.event_id WHERE o.id=%s",
+        (first["occurrence"],)).fetchone() == (1, 0)
+
     cancel = call(service, "cancel_lunar_annual_occurrence", series=series, occurrence=first["occurrence"])
     assert cancel["status"] == "cancellation_preview"
     assert confirm(service, cancel)["status"] == "approved"
@@ -223,8 +235,12 @@ def exercise_annual(service, restart, admin, year):
 
     # Independently challenge the annual year check with a different logical
     # occurrence and a compatible title/time on another date in the same year.
-    saved = service.development.pending[later["review"]].data["plan"]["row"]
-    forged = dict(saved["identity"], lunation_cycle=saved["identity"]["lunation_cycle"] + 1)
+    snapshot = service.development.owner.inspect_occurrence(UUID(later["occurrence"]))
+    entry = snapshot["occurrence"]
+    saved = {"selected_date": snapshot["projection"]["rule"]["start_date"]}
+    forged = {key: entry[key] for key in ("convention", "month", "intercalation",
+                                          "lunation_cycle", "paksha", "tithi")}
+    forged.update(version=2, lunation_cycle=forged["lunation_cycle"] + 1)
     selected = date.fromisoformat(saved["selected_date"]) + timedelta(days=1)
     owner, calculator = service.development.owner, service.development.calculator
     profile = service.development.profile
@@ -261,10 +277,14 @@ def exercise_annual(service, restart, admin, year):
         (later["occurrence"],)).fetchone() == (1, 0)
 
     stop = call(service, "cancel_lunar_annual", series=series)
-    state = service.development.pending[stop["review"]]
+    request_id = admin.execute(
+        "SELECT max(id) FROM public.schedule_change_requests "
+        "WHERE proposed_data->>'series'=%s AND proposed_data->>'operation'='cancel_series'",
+        (series,)).fetchone()[0]
+    review = service.development.owner.inspect_request(request_id)
     try:
         service.development.owner.decide_annual_review(
-            uuid4(), state.data["request"], "approve", state.data["fingerprint"],
+            uuid4(), request_id, "approve", review["fingerprint"],
             datetime.now(timezone.utc) - timedelta(seconds=1))
     except LunarStorageError:
         pass
@@ -280,7 +300,7 @@ def exercise_annual(service, restart, admin, year):
     print("PASS annual recovery across service restart, stable identity, stale cancellation, expiry and one reminder row")
 
 
-def run(pg_bin, ephemeris, pg_share=None, year=None):
+def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations=None):
     if not __debug__:
         raise ValueError("Run acceptance with assertions enabled")
     if any(key.startswith("PG") for key in os.environ):
@@ -322,12 +342,29 @@ def run(pg_bin, ephemeris, pg_share=None, year=None):
                     "-h", common["host"], "-p", str(port), "-U", login["user"], "-d", dbname]
             paths = ROOT / "database/migrations"
             migrations = sorted(paths.glob("000[1-9]_*.sql")) + sorted(paths.glob("0010_*.sql"))
-            result = subprocess.run(args, input=Path(__file__).with_name("m2h_development_schema.sql").read_text()
-                                    + "\n" + render_migrations(migrations), text=True,
+            sql_input = Path(__file__).with_name("m2h_development_schema.sql").read_bytes()
+            result = subprocess.run(args, input=sql_input + b"\n" + render_migrations(migrations).encode(),
                                     env={**os.environ, "PGPASSWORD": bootstrap_phrase}, capture_output=True)
             if result.returncode:
                 raise RuntimeError("Synthetic migration installation failed")  # never print private configuration
             with psycopg.connect(**login, dbname=dbname, autocommit=True) as admin:
+                from hashlib import sha256
+                expected = [(path.name, sha256(path.read_bytes()).hexdigest()) for path in migrations]
+                statement = "SELECT version,checksum FROM public.application_migration_ledger ORDER BY version"
+                assert admin.execute(statement).fetchall() == expected
+                subprocess.run(args, input=render_migrations(migrations).encode(), check=True,
+                               env={**os.environ, "PGPASSWORD": bootstrap_phrase}, capture_output=True)
+                assert admin.execute(statement).fetchall() == expected
+                if operations is not None:
+                    # A different digest must fail before any replacement SQL runs.
+                    migration = render_migrations(migrations)
+                    corrupted = migration.replace(expected[0][1], "0" * 64)
+                    negative = subprocess.run(args, input=corrupted.encode(),
+                                              env={**os.environ, "PGPASSWORD": bootstrap_phrase}, capture_output=True)
+                    assert negative.returncode and b"Migration checksum mismatch" in negative.stderr
+                    assert admin.execute(statement).fetchall() == expected
+                assert admin.info.server_version // 10000 == 17
+                print("PASS PostgreSQL 17 migration checksums and repeat installation")
                 roles = {}
                 for kind, role in (("owner", "dincharya_lunar_owner"),
                                    ("calculator", "dincharya_lunar_calculator"),
@@ -351,8 +388,9 @@ def run(pg_bin, ephemeris, pg_share=None, year=None):
                     command_key=secrets.token_hex(32), tick_key=secrets.token_hex(32),
                     review_key=secrets.token_hex(32))
                 service = build_service(config)
-                asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI)))
-                exercise_storage(service, admin, year)
+                if session is None:
+                    asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI)))
+                    exercise_storage(service, admin, year)
                 from dincharya.lunar_service import connection_factory
                 with connection_factory(roles["calculator"])() as calculator:
                     grants = calculator.execute(
@@ -362,7 +400,15 @@ def run(pg_bin, ephemeris, pg_share=None, year=None):
                         "'lunar_api.decide_annual_review(uuid,bigint,text,text,timestamptz)','EXECUTE')"
                     ).fetchone()
                 assert grants == (False, False)
-                exercise_annual(service, lambda: build_service(config), admin, year)
+                if session is None:
+                    exercise_annual(service, lambda: build_service(config), admin, year)
+                else:
+                    with session(work, config) as relay:
+                        asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI), relay.url))
+                        relay.check_signatures()
+                        exercise_annual(service, relay.restart_service, admin, year, forward=relay.forward)
+                if operations is not None:
+                    operations(work, binary, conf, login, roles, admin)
         finally:
             subprocess.run([binary / "pg_ctl", "-D", work / "data", "-m", "fast", "stop"],
                            check=True, capture_output=True)

@@ -3,7 +3,16 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 3 annual development review
+## Current checkpoint — M2H Cycle 4 application and operations
+
+[Cycle 4](M2H_CYCLE4_OPERATIONS.md) verifies native n8n 2.47.3 with disposable
+PostgreSQL 17.12, the repository schema fixture and simulated Telegram. The
+report records restart, reminder recovery and same-cluster restore evidence.
+Run its single WSL command for the exact previously authorized schema. The
+2B original provenance manifest remains unresolved. Live lunar scheduling
+stays disabled.
+
+## Prior checkpoint — M2H Cycle 3 annual development review
 
 [Cycle 3](M2H_CYCLE3_ANNUAL.md) adds durable annual rules, per-year owner
 approval, restart and expiry recovery, and reviewed cancellation. Reuse the

@@ -57,6 +57,12 @@ and cancellation in isolated development. The next acceptance target is
 the reviewed application baseline and real isolated n8n relay with simulated
 Telegram. The 2B manifest and wider operational gates remain open.
 
+[Cycle 4](M2H_CYCLE4_OPERATIONS.md) exercises native n8n and operational
+recovery with the repository schema fixture. Exact schema-only acceptance
+still needs the original WSL environment. 2B provenance, advance reminder
+slots, broader calendar adoption and supervised operational acceptance remain
+open before live lunar scheduling.
+
 ## Historical checkpoint
 
 196 offline tests passed at the last full regression checkpoint. Final focused
