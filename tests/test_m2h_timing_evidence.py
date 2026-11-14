@@ -106,6 +106,30 @@ class TimingEvidenceTests(unittest.TestCase):
         self.assertFalse(self.evidence["validation"]["usable_for_scheduling"])
         self.assertFalse(self.evidence["feasibility"]["usable_for_scheduling"])
 
+    def test_boundary_guard_strict_edge_cases(self):
+        for seconds, expected in [(0, False), (299.999, False),
+                                  (300, False), (300.001, True), (301, True)]:
+            with self.subTest(seconds=seconds):
+                day = {"reference": {"ordinal": 8}, "hypotheses": [
+                    {"ordinal": 8, "matches": True,
+                     "boundary_distance_seconds": seconds}
+                ]}
+                self.assertEqual(
+                    conservative_date_evidence(day)["outside_guard"], expected
+                )
+                self.assertFalse(
+                    conservative_date_evidence(day)["eligible_for_live_scheduling"]
+                )
+
+    def test_conflicting_tithi_reference_fails_closed(self):
+        day = {"reference": {"ordinal": 8}, "hypotheses": [
+            {"ordinal": 9, "matches": False,
+             "boundary_distance_seconds": 3600}
+        ]}
+        result = conservative_date_evidence(day)
+        self.assertFalse(result["reference_match"])
+        self.assertFalse(result["eligible_for_live_scheduling"])
+
     def test_guard_is_independent_of_timing_threshold(self):
         self.assertEqual(SUNRISE_GUARD_SECONDS, 300)
         self.assertGreater(SUNRISE_GUARD_SECONDS, max(THRESHOLDS))
