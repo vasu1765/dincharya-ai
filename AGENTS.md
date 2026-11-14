@@ -56,6 +56,8 @@ precision, and sunrise-date evidence separate. The Cycle 1 precision study
 uses public coordinates and offline tests. Drik New Delhi is primary for
 civil dates, IMD PAC is secondary, and the 90-second display diagnostic is
 independent of the 300-second guard. See docs/M2H_CYCLE1_ACCURACY.md.
+Use the isolated Cycle 2 harness documented in docs/M2H_CYCLE2_TELEGRAM.md
+for astronomical approvals. Real Telegram use requires fresh approval.
 
 Offline suite (no services/packages needed):
 `PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests -v`.

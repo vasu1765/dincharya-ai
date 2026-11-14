@@ -36,6 +36,11 @@ def validate_test_bot(info,expected_owner):
 
 
 def build_service(config,*,transport=None,live_approved=False):
+    development = config.get("development_astronomy", False)
+    if type(development) is not bool:
+        raise ValueError("Boolean astronomical development gate required")
+    if development and (config.get("delivery_enabled", False) or live_approved or transport is not None):
+        raise ValueError("Astronomical development mode requires disabled Telegram transport")
     if type(config.get('delivery_enabled',False)) is not bool:raise ValueError('Boolean delivery gate required')
     if config.get('delivery_enabled',False) and not live_approved:
         raise ValueError('Explicit live transport approval required')
@@ -49,6 +54,16 @@ def build_service(config,*,transport=None,live_approved=False):
     with connects['owner']() as identity:
         if identity.execute('SELECT lunar_api.owner_identity()').fetchone()[0]!=config['owner_id']:
             raise ValueError('Gateway/database owner identity mismatch')
+        calendar, profile = None, None
+        if development:
+            from prototypes.panchang.guarded import GuardedCalendar
+
+            calendar = GuardedCalendar(config["public_ephemeris"])
+            # The existing SQL API also requires the isolated profile to be enabled.
+            profile = identity.execute(
+                "SELECT encode(sha256(convert_to((%s::jsonb)::text,'UTF8')),'hex')",
+                (json.dumps(calendar.specification),),
+            ).fetchone()[0]
     if config.get('delivery_enabled',False):
         if not live_approved or transport is not None:raise ValueError('Explicit live transport approval required')
         import httpx
@@ -61,7 +76,8 @@ def build_service(config,*,transport=None,live_approved=False):
             client.close();raise ValueError('Dedicated test bot identity mismatch')
         transport=live_transport(client.post,token,owner,authorized=True)
     return LunarService(connects['owner'],connects['calculator'],connects['worker'],config['catalog'],
-       config['command_key'],config['tick_key'],config['review_key'],transport=transport)
+       config['command_key'],config['tick_key'],config['review_key'],transport=transport,
+       development_calendar=calendar, development_profile=profile)
 
 
 def main():

@@ -47,7 +47,10 @@ sunrise assignments are stable for the disputed January and March endpoints.
 The June 30 sunrise profiles disagree and both withhold both adjacent tithis.
 The owner adopted Drik New Delhi as primary and IMD PAC as secondary.
 [Cycle 1](M2H_CYCLE1_ACCURACY.md) applies a 90-second display diagnostic and
-a separate 300-second guard in development.
+a separate 300-second guard in development. [Cycle 2](M2H_CYCLE2_TELEGRAM.md)
+provides isolated Telegram proposal and approval testing with signed envelopes
+and native PostgreSQL projections. Live and operational acceptance remain
+separate owner gates.
 
 ## Historical checkpoint
 

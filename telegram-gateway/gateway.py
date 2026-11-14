@@ -40,6 +40,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
+    if len(sys.argv) == 4 and sys.argv[1] == "--lunar-development" and sys.argv[3] == "--telegram-approved":
+        from lunar_acceptance import run_development
+        try:
+            run_development(sys.argv[2])
+        except Exception:
+            raise SystemExit("Lunar development gateway stopped; private details suppressed") from None
+        return
     if len(sys.argv)==4 and sys.argv[1]=='--lunar-acceptance' and sys.argv[3]=='--live-approved':
         from lunar_acceptance import run_live
         try:run_live(sys.argv[2])
@@ -76,7 +83,8 @@ def main():
                 raise SystemExit('Could not verify the reminder database migrations.') from None
         app.add_handler(MessageHandler(filters.TEXT, handle_message))
     else:
-        raise SystemExit('Usage: gateway.py [--acceptance | --lunar-acceptance CONFIG --live-approved]')
+        raise SystemExit("Usage: gateway.py [--acceptance | --lunar-acceptance CONFIG --live-approved "
+                         "| --lunar-development CONFIG --telegram-approved]")
     app.run_polling(drop_pending_updates=True)
 
 

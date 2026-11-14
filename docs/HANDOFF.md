@@ -3,7 +3,16 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 1 owner policy
+## Current checkpoint — M2H Cycle 2 development review
+
+[Cycle 2](M2H_CYCLE2_TELEGRAM.md) adds bounded English, Hindi and Hinglish lunar
+proposals and two explicit owner approvals. The integration harness uses the
+real Telegram SDK and a disposable PostgreSQL 17 cluster, with Telegram and
+the signed n8n relay simulated. Preview expiry, stale review and duplicate
+approval protections are covered. No WSL handoff or real Telegram run is needed
+for this checkpoint. Production scheduling and reminder delivery stay disabled.
+
+## M2H Cycle 1 owner policy
 
 [The Cycle 1 report](M2H_CYCLE1_ACCURACY.md) records the owner-approved Drik Delhi
 primary and IMD PAC secondary profiles, the 90-second publisher diagnostic

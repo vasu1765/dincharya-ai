@@ -2,7 +2,10 @@
 import asyncio
 import time
 import logging
-from telegram.ext import CommandHandler
+import re
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import CallbackQueryHandler, CommandHandler, MessageHandler, filters
+from dincharya.lunar_intent import LUNAR, TITLE
 from dincharya.lunar_service import envelope
 
 
@@ -54,3 +57,62 @@ def register_lunar(app,owner_id,commands,ticks,*,interval=15):
     async def error_handler(update,context):
         logging.getLogger(__name__).warning('Lunar gateway operation failed; inspect application state')
     app.add_error_handler(error_handler)
+
+
+REVIEW_ACTION = re.compile(r"^lunar:(confirm|cancel):([A-Za-z0-9_-]{24})$")
+
+
+class LunarTextFilter(filters.MessageFilter):
+    def filter(self, message):
+        return bool(message.text and LUNAR.search(TITLE.sub("", message.text)))
+
+
+def register_lunar_previews(app, owner_id, commands):
+    """Register the development interface against the signed orchestration client."""
+    def authorized(update):
+        user, chat = update.effective_user, update.effective_chat
+        return bool(user and not user.is_bot and user.id == owner_id
+                    and chat and chat.type == "private" and chat.id == owner_id)
+
+    async def invoke(update, message, command):
+        try:
+            result = await asyncio.to_thread(commands.call, command, str(update.update_id))
+            reply = result["reply"]
+            review = result.get("review")
+            keyboard = None
+            if (result["status"] in {"rule_preview", "occurrence_preview"}
+                    and isinstance(review, str) and re.fullmatch(r"[A-Za-z0-9_-]{24}", review)):
+                keyboard = InlineKeyboardMarkup([[
+                    InlineKeyboardButton("Confirm / पुष्टि", callback_data=f"lunar:confirm:{review}"),
+                    InlineKeyboardButton("Cancel / रद्द", callback_data=f"lunar:cancel:{review}"),
+                ]])
+            await message.reply_text(reply, reply_markup=keyboard)
+        except Exception:
+            await message.reply_text("Operation could not be confirmed. Check the same preview or status.")
+
+    async def draft(update, context):
+        if authorized(update) and update.message and update.message.text:
+            raw = update.message.text
+            if raw.startswith("/"):
+                raw = raw.partition(" ")[2]
+            await invoke(update, update.message, {"operation": "draft_lunar", "text": raw})
+
+    async def decision(update, context):
+        query = update.callback_query
+        if not authorized(update) or not query or not query.message:
+            return
+        match = REVIEW_ACTION.fullmatch(query.data or "")
+        if not match:
+            return
+        try:
+            await query.answer()
+        except Exception:
+            # A callback acknowledgement can fail after Telegram delivers it.
+            # Durable decision replay is handled by the approval service.
+            pass
+        operation = "confirm_lunar_draft" if match[1] == "confirm" else "cancel_lunar_draft"
+        await invoke(update, query.message, {"operation": operation, "review": match[2]})
+
+    app.add_handler(CommandHandler("lunar_preview", draft))
+    app.add_handler(CallbackQueryHandler(decision, pattern=REVIEW_ACTION))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & LunarTextFilter(), draft))
