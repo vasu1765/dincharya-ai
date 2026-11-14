@@ -51,3 +51,26 @@ All 13 values are taken directly from the existing JSON files; a pass means `abs
 2. Add a deterministic regression test/report generator for the 13 recorded rows, with explicit exclusion of alternative frame/position hypotheses.
 3. Compare computed Delhi sunrise and tithi boundary for each relevant **civil-date selection** case; withhold conflicting or within-guard results.
 4. Produce a decision matrix: explained discrepancy / independent date agreement / near-sunrise risk / supported or withheld; request owner approval before adopting any threshold or calendar engine.
+
+
+## Follow-up: publisher disagreement and civil-date safety
+
+The existing January 13 2026 publications disagree by **four minutes** on the same ordinal-26 tithi boundary: Drik lists 15:17 IST, Himalayan Academy lists 15:21 IST. The prototype result is approximately 15:18:25.886 IST. Consequently, the same astronomical result has +85.886 s versus -154.138 s residuals. This is a concrete *published-reference conflict*; it does not establish which publisher's method is correct.
+
+For March 27 2026, Drik lists 10:06 IST and Panchangam lists 10:07 IST for the same ordinal-10 transition; the prototype is approximately 10:07:22.48 IST. The one-minute published-reference difference accounts for the ~60-second residual difference. Minute-resolution publication cannot by itself certify second-level absolute accuracy.
+
+**Civil-date cross-check, from existing research artifacts (not a new astronomical run):** all 11 `recurrence-results.json.calendar_days` records have matching tithi ordinals under both stored sunrise hypotheses. The minimum stored `boundary_distance_seconds` is 899.121091 seconds (~14 min 59 sec), above the 300-second guard. These selected records are therefore *not* near-sunrise adversarial evidence and do not validate behavior when a boundary lies within five minutes of sunrise. The two March 27 rows are separate publisher comparisons for the same calendar date.
+
+### Focused evidence verification (JavaScript, connector-fetched JSON)
+
+Read the three unchanged JSON evidence files from this branch and recomputed:
+- Baseline comparison count: 5 + 6 + 2 = **13**; excluded nine alternative coordinate/frame hypotheses.
+- Absolute-residual pass counts: **9/13** at 60 seconds, **12/13** at 90 seconds and **12/13** at 120 seconds.
+- Calendar-day entries: **11**, all recorded hypothesis ordinals match reference; minimum recorded boundary distance **899.121091 seconds**.
+- All three artifacts retain `usable_for_scheduling=false`.
+
+These checks were executed over retrieved JSON values. The committed **Python unittest suite has not yet been executed** in a checked-out runtime; no assertion of Python CI success is made.
+
+### Decision at this checkpoint
+
+**No numeric threshold change and no lunar scheduling enablement.** Next: execute the focused Python tests in a repository checkout, investigate named publisher conventions and provenance, and add genuinely close-to-sunrise reference cases rather than treating the existing distant-boundary examples as sufficient.
