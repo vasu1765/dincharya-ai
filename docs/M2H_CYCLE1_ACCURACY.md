@@ -21,10 +21,37 @@ precision does not measure accuracy against a publisher.
 | 90 seconds (hypothetical) | 12 | 1 |
 | 120 seconds (hypothetical) | 12 | 1 |
 
+### Full comparison times and displayed-minute precision
+
+| Reference | Published time (IST) | Calculated crossing (IST) | Calculated − published |
+| --- | --- | --- | ---: |
+| NASA phases | 2023-07-18 00:02 | 2023-07-18 00:01:50.194 | -9.805 s |
+| NASA phases | 2023-08-02 00:01 | 2023-08-02 00:01:40.319 | +40.320 s |
+| NASA phases | 2023-08-16 15:08 | 2023-08-16 15:08:11.260 | +11.261 s |
+| Drik Ekadashi | 2026-01-13 15:17 | 2026-01-13 15:18:25.885 | +85.886 s |
+| Drik Ekadashi | 2026-01-14 17:52 | 2026-01-14 17:53:15.668 | +75.668 s |
+| Himalayan Academy | 2026-01-13 15:21 | 2026-01-13 15:18:25.861 | -154.138 s |
+| Himalayan Academy | 2026-01-14 17:53 | 2026-01-14 17:53:15.655 | +15.656 s |
+| USNO | 2026-01-19 01:22 | 2026-01-19 01:21:58.928 | -1.071 s |
+| IMD PAC | 2023-07-18 00:02 | 2023-07-18 00:01:50.194 | -9.805 s |
+| IMD PAC | 2023-07-19 02:10 | 2023-07-19 02:10:23.208 | +23.209 s |
+| IMD PAC | 2023-08-16 15:08 | 2023-08-16 15:08:11.260 | +11.261 s |
+| Drik daily | 2026-03-27 10:06 | 2026-03-27 10:07:22.479 | +82.480 s |
+| Panchangam.org | 2026-03-27 10:07 | 2026-03-27 10:07:22.494 | +22.494 s |
+
+All timestamps above are **Asia/Kolkata (IST)** for consistent comparison, including NASA and USNO references originally published in UTC. Published references are reproduced at their **displayed minute**, not asserted to mean exactly zero seconds. Calculated crossings show milliseconds solely to make the solver output and residuals auditable; those digits **do not imply millisecond external accuracy**. Same-event cross-source comparisons (such as NASA/IMD PAC, Drik/Himalayan, and Drik/Panchangam.org) are not independent event samples. Source records remain unchanged.
+
+**Publication precision matters:** for a truly nearest-minute-rounded publication, the hidden underlying time can be as much as 30 seconds earlier or later than the printed minute. If a publisher always truncates/floors to the minute, the hidden time can fall in the following 60-second interval. These are *conditional examples*, not confirmed policies for Drik, Himalayan Academy, IMD PAC, or the other sources. A printed-minute residual cannot establish absolute astronomical error without a verified publisher display policy and compatible calculation profile. Importantly, such display precision **does not justify automatically adding 30 or 60 seconds to an acceptance threshold**.
+
+For the same January 13 tithi transition, the printed Drik 15:17 and Himalayan 15:21 differ by **240 seconds**; ordinary nearest-minute rounding could account for at most 60 seconds of difference between two displays of an otherwise identical underlying instant. It cannot, by itself, explain their four-minute gap. Their location, ephemeris, apparent/geometric model, event definition, conventions and clock formatting remain to be reconciled. On March 27, the printed Drik 10:06 and Panchangam.org 10:07 differ by 60 seconds, which may arise from their minute display rules or genuine calculation/profile differences; neither explanation is verified.
+
+**Interpret the 60/90/120 table as a raw displayed-minute diagnostic sensitivity table, not as true-error pass rates.** The 90-second threshold would count three additional raw rows as passing, but would not demonstrate that the engine is closer to the underlying true transition. A better follow-up is a precision-aware comparison with confirmed source formatting and an independent higher-precision reference, retaining source-specific uncertainty separately from numerical solver tolerance and from the sunrise date-selection safety guard. Until those checks exist, preserve the raw 60-second diagnostic, the 300-second sunrise withholding guard and disabled personal-lunar scheduling.
+
+
 Median absolute residual is 22.495 seconds and maximum is 154.138 seconds.
 These are 13 publisher comparisons and include overlapping physical events.
-The [full sensitivity matrix](M2H_TIMING_SENSITIVITY.md) retains every timestamp
-and signed residual. The nine alternative frame/position calculations were
+The [full sensitivity matrix](M2H_TIMING_SENSITIVITY.md) retains the source records
+and signed residuals; the table below additionally shows calculated crossing times. The nine alternative frame/position calculations were
 reproduced separately and still did not jointly explain the January Drik results.
 
 | Current failure | Exact source and convention | Finding |
@@ -34,10 +61,11 @@ reproduced separately and still did not jointly explain the January Drik results
 | Mar 27, 2026, +82.480 s | [Drik daily page, New Delhi](https://www.drikpanchang.com/panchang/day-panchang.html?date=27%2F03%2F2026&time-format=12hour), Navami ends 10:06 IST. | [Panchangam.org Delhi](https://hindi.panchangam.org/dailypanchangam.php?date=2026-03-27) prints 10:07, residual +22.494 s. The printed minute explains the difference between residuals. Publisher engine lineage and the absolute discrepancy remain unresolved. |
 | Jan 13, 2026, −154.138 s | [Himalayan Academy New Delhi 2025–26 PDF](https://minimela.com/wp-content/uploads/panchangam/2025-2026/world/new_delhi_india.pdf), PDF page 38, parsed and provisional, 15:21 interpreted as IST. | It fails all three thresholds. Exact geography, sunrise convention, ayanamsa, engine, and rounding rule are unverified. |
 
-Times are published to whole minutes. A nearest-minute display alone can account
-for up to 30 seconds of residual, and a truncating display can account for less
-than 60 seconds. With unknown rounding and longitude/frame settings, increasing
-the threshold would accept three unexplained Drik differences. The current
+Times are published to whole minutes. The conditional display-precision cases
+above mean that raw seconds-level residuals must not be misrepresented as
+absolute astronomical errors. With unknown rounding and longitude/frame
+settings, increasing the diagnostic threshold would count three additional
+unresolved Drik comparisons as passes. The current
 diagnostic does not supply an error bound for sunrise selection. No numerical
 engine defect was demonstrated by these comparisons. A defect in the evidence
 test itself was reproduced and fixed. It keyed by publisher and discarded the
@@ -146,5 +174,7 @@ The LLM parses and explains. It has no scheduling or database write authority.
 research preview and the existing 60-second diagnostic. Require a reviewed
 Delhi profile and a defensible explanation or independently justified
 disposition of remaining timing failures before reconsidering release. Widening
-the timing diagnostic has no justification from this sample. Festival observance
+the timing diagnostic is not justified by raw minute-display residuals alone;
+first verify publisher display precision and profiles, then reassess source-aware
+accuracy while keeping civil-date safety independent. Festival observance
 and any production enablement remain separate approval decisions.
