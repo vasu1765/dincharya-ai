@@ -70,3 +70,38 @@ class Cycle1SunriseTests(unittest.TestCase):
                         row = result["occurrences"][0]
                         self.assertEqual(row["selected_date"], expected)
                         self.assertEqual(row["reason"], reason)
+
+    def test_disputed_publication_minutes_do_not_change_dawn_assignment(self):
+        for day, printed_earliest, printed_latest, ending in (
+            (date(2026, 1, 13), "15:17", "15:21", 25),
+            (date(2026, 1, 14), "17:52", "17:53", 26),
+            (date(2026, 3, 27), "10:06", "10:07", 9),
+        ):
+            earliest = datetime.fromisoformat(f"{day}T{printed_earliest}:00+05:30")
+            latest = datetime.fromisoformat(f"{day}T{printed_latest}:00+05:30")
+            next_day = day + timedelta(days=1)
+            for model in MODELS:
+                with self.subTest(day=day, model=model):
+                    before = self.astronomy.at_sunrise(day, model)
+                    after = self.astronomy.at_sunrise(next_day, model)
+                    self.assertEqual((before["ordinal"], after["ordinal"]), (ending, ending + 1))
+                    # Span both publishers and both common display hypotheses.
+                    self.assertGreater(
+                        (earliest - timedelta(seconds=30)
+                         - datetime.fromisoformat(before["sunrise"])).total_seconds(),
+                        DATE_GUARD_SECONDS,
+                    )
+                    self.assertGreater(
+                        (datetime.fromisoformat(after["sunrise"])
+                         - latest - timedelta(minutes=1)).total_seconds(),
+                        DATE_GUARD_SECONDS,
+                    )
+
+    def test_june_profile_split_changes_sunrise_membership_before_withholding(self):
+        days = [date(2026, 6, 29) + timedelta(days=offset) for offset in range(3)]
+        for model, expected in zip(MODELS, ([15, 15, 16], [15, 16, 16])):
+            with self.subTest(model=model):
+                self.assertEqual(
+                    [self.astronomy.at_sunrise(day, model)["ordinal"] for day in days],
+                    expected,
+                )

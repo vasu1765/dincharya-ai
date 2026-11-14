@@ -41,11 +41,12 @@ Completed 2C/live-reminder acceptance is retained without repeating it. Full
 Milestone 2 closure still requires reviewed source adoption, remaining recovery/
 operational acceptance and Hindu Panchang before other domains/orchestrators.
 
-Cycle 1 accuracy review reproduced the existing residuals and verified
-withholding on real transitions on either side of Delhi sunrise, including a
-profile-dependent tithi label. See the [Cycle 1 report](M2H_CYCLE1_ACCURACY.md)
-for the reference-profile proposal, test results, no-go recommendation and
-Cycle 2 Telegram contract.
+Cycle 1 independently cross-checked the eight distinct tithi crossings behind
+the 13 published comparisons and examined minute-display sensitivity. Delhi
+sunrise assignments are stable for the disputed January and March endpoints.
+The June 30 sunrise profiles disagree and both withhold both adjacent tithis.
+See the [Cycle 1 report](M2H_CYCLE1_ACCURACY.md) for proposed precision-aware
+validation, the no-go recommendation and the Cycle 2 Telegram contract.
 
 ## Historical checkpoint
 

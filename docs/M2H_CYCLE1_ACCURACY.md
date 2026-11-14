@@ -6,6 +6,12 @@ baseline is commit `67dc6a1b16d1208d389ac6f3201cc7d9b6ee8ba4`.
 
 ## Timing accuracy
 
+**Conclusion.** The 60-second raw comparison is useful for tracking publisher
+disagreement. This sample does not justify it as an astronomical accuracy bound,
+and the 90- and 120-second alternatives have the same limitation. JPL Horizons
+reproduced all eight distinct tithi crossings behind the 13 rows. Keep the
+existing diagnostic and release gates pending owner approval of a replacement.
+
 Recomputed all 13 signed residuals using the pinned Skyfield 1.55 environment,
 DE440s kernel and repository inputs. All 13 matched the stored values to the
 recorded precision. The calculation uses apparent geocentric Sun and Moon
@@ -41,41 +47,126 @@ precision does not measure accuracy against a publisher.
 
 All timestamps above are **Asia/Kolkata (IST)** for consistent comparison, including NASA and USNO references originally published in UTC. Published references are reproduced at their **displayed minute**, not asserted to mean exactly zero seconds. Calculated crossings show milliseconds solely to make the solver output and residuals auditable; those digits **do not imply millisecond external accuracy**. Same-event cross-source comparisons (such as NASA/IMD PAC, Drik/Himalayan, and Drik/Panchangam.org) are not independent event samples. Source records remain unchanged.
 
-**Publication precision matters:** for a truly nearest-minute-rounded publication, the hidden underlying time can be as much as 30 seconds earlier or later than the printed minute. If a publisher always truncates/floors to the minute, the hidden time can fall in the following 60-second interval. These are *conditional examples*, not confirmed policies for Drik, Himalayan Academy, IMD PAC, or the other sources. A printed-minute residual cannot establish absolute astronomical error without a verified publisher display policy and compatible calculation profile. Importantly, such display precision **does not justify automatically adding 30 or 60 seconds to an acceptance threshold**.
+### Publisher methods and display evidence
 
-For the same January 13 tithi transition, the printed Drik 15:17 and Himalayan 15:21 differ by **240 seconds**; ordinary nearest-minute rounding could account for at most 60 seconds of difference between two displays of an otherwise identical underlying instant. It cannot, by itself, explain their four-minute gap. Their location, ephemeris, apparent/geometric model, event definition, conventions and clock formatting remain to be reconciled. On March 27, the printed Drik 10:06 and Panchangam.org 10:07 differ by 60 seconds, which may arise from their minute display rules or genuine calculation/profile differences; neither explanation is verified.
-
-**Interpret the 60/90/120 table as a raw displayed-minute diagnostic sensitivity table, not as true-error pass rates.** The 90-second threshold would count three additional raw rows as passing, but would not demonstrate that the engine is closer to the underlying true transition. A better follow-up is a precision-aware comparison with confirmed source formatting and an independent higher-precision reference, retaining source-specific uncertainty separately from numerical solver tolerance and from the sunrise date-selection safety guard. Until those checks exist, preserve the raw 60-second diagnostic, the 300-second sunrise withholding guard and disabled personal-lunar scheduling.
-
-
-Median absolute residual is 22.495 seconds and maximum is 154.138 seconds.
-These are 13 publisher comparisons and include overlapping physical events.
-The [full sensitivity matrix](M2H_TIMING_SENSITIVITY.md) retains the source records
-and signed residuals; the table below additionally shows calculated crossing times. The nine alternative frame/position calculations were
-reproduced separately and still did not jointly explain the January Drik results.
-
-| Current failure | Exact source and convention | Finding |
+| Source | Verified convention | Remaining uncertainty |
 | --- | --- | --- |
-| Jan 13, 2026, +85.886 s | [Drik Ekadashi, New Delhi 1261481](https://www.drikpanchang.com/vrats/ekadashidates.html?year=2026&geoname-id=1261481), tithi begins 15:17 IST. [Daily page](https://www.drikpanchang.com/panchang/day-panchang.html?date=13%2F01%2F2026&time-format=24hour) also prints 15:17 and labels Lahiri. | Himalayan prints 15:21. Four minutes exceeds ordinary whole-minute rounding differences. Cause and authority unresolved. |
-| Jan 14, 2026, +75.668 s | Same Drik listing, tithi ends 17:52 IST. | Himalayan prints 17:53. Minute publication can contribute uncertainty. Exact rounding and coordinate conventions are unknown. |
-| Mar 27, 2026, +82.480 s | [Drik daily page, New Delhi](https://www.drikpanchang.com/panchang/day-panchang.html?date=27%2F03%2F2026&time-format=12hour), Navami ends 10:06 IST. | [Panchangam.org Delhi](https://hindi.panchangam.org/dailypanchangam.php?date=2026-03-27) prints 10:07, residual +22.494 s. The printed minute explains the difference between residuals. Publisher engine lineage and the absolute discrepancy remain unresolved. |
-| Jan 13, 2026, −154.138 s | [Himalayan Academy New Delhi 2025–26 PDF](https://minimela.com/wp-content/uploads/panchangam/2025-2026/world/new_delhi_india.pdf), PDF page 38, parsed and provisional, 15:21 interpreted as IST. | It fails all three thresholds. Exact geography, sunrise convention, ayanamsa, engine, and rounding rule are unverified. |
+| Drik Panchang | The [New Delhi Ekadashi listing](https://www.drikpanchang.com/vrats/ekadashidates.html?year=2026&geoname-id=1261481) shows whole-minute starts and ends. Its [timing FAQ](https://www.drikpanchang.com/faq/faq-ans1.html?lang=en) defines the daily tithi time as the end of the tithi and illustrates a seconds-bearing display. It uses local time and documents clock and sunrise settings. The captured Delhi page labels Lahiri. | The settings and FAQ do not document nearest-minute rounding or truncation for these pages. The exact ephemeris, apparent/geometric longitude flags and endpoint solver for the fixture pages could not be verified. Do not infer a seconds-bearing version of these rows from the FAQ example. |
+| Himalayan Academy / Gurudeva Panchang | Visually checked PDF page 38 of the [New Delhi 2025–26 edition](https://www.minimela.com/wp-content/uploads/panchangam/2025-2026/world/new_delhi_india.pdf). It labels the January 13 and 14 endpoints Dashami 3:21 PM and Ekadashi 5:53 PM respectively. The footer specifies standard time and a New Delhi calculation dated December 20, 2023. Both sunrises print 7:15 AM. The [publisher history](https://hheonline.org/funds/fund_84.html) describes 4D software used to generate calendars for individual cities. | The 4D platform does not identify its astronomical algorithms. No published rounding rule, kernel, coordinate/correction flags or exact horizon definition was found for this edition. |
+| IMD Positional Astronomy Centre | The [1945 SE English edition](https://packolkata.imd.gov.in/download/EnglishRP2324.zip), printed pp. v–vii, defines tithi by 12° increments in Moon–Sun longitude and explicitly calls the ending times geocentric and valid anywhere after time-zone conversion. It prints hours and minutes in IST. The day headings follow central-station sunrise, with 24+ hour rollover. Directly rechecked PDF pp. 51 and 59: 24:02, 26:10 and 15:08. | Neither the edition's explanation nor the [PAC public explanation](https://packolkata.imd.gov.in/panchang/en/explanation) establishes how the last displayed minute is rounded or specifies the exact tithi ephemeris/correction flags. All three rows fit nearest-minute rounding on this sample. That observation does not establish a rule. |
 
-Times are published to whole minutes. The conditional display-precision cases
-above mean that raw seconds-level residuals must not be misrepresented as
-absolute astronomical errors. With unknown rounding and longitude/frame
-settings, increasing the diagnostic threshold would count three additional
-unresolved Drik comparisons as passes. The current
-diagnostic does not supply an error bound for sunrise selection. No numerical
-engine defect was demonstrated by these comparisons. A defect in the evidence
-test itself was reproduced and fixed. It keyed by publisher and discarded the
-earlier of the two Himalayan rows.
+The Drik/Himalayan January 13 printed times differ by 240 seconds. Even allowing
+each publisher to use either nearest-minute rounding or flooring, the two
+possible displayed-time intervals are at least 150 seconds apart. On March 27
+[Drik](https://www.drikpanchang.com/panchang/day-panchang.html?date=27%2F03%2F2026&geoname-id=1261481&time-format=12hour)
+and [Panchangam.org](https://hindi.panchangam.org/dailypanchangam.php?date=2026-03-27)
+have printed intervals that can overlap under mixed conventions. The calculated
+crossing lies beyond Drik's interval under both hypotheses.
+The NASA GSFC [phase table](https://eclipse.gsfc.nasa.gov/phase/phase2001gmt.html)
+credits Espenak's Meeus-based calculations. Its August 2023 full-moon row is
+compatible with flooring for the checked crossing, but its July 2023 new-moon
+row is not. Do not assign a uniform display policy from these observations.
+
+### Independent astronomical check
+
+Queried [JPL Horizons](https://ssd-api.jpl.nasa.gov/doc/horizons.html) for the
+Sun (10) and Moon (301) from Earth's geocenter (500@399), with observer quantity
+31 (airless apparent ecliptic-of-date longitude, IAU76/80), extra precision,
+UTC and DE441 for both targets. At two UTC samples 60 seconds apart, unwrap
+Moon minus Sun around the relevant multiple of 12°. Require a negative-to-
+positive crossing and linearly interpolate the signed differences. The
+[captured coordinates](../tests/panchang/fixtures/horizons-de441-transitions.json)
+include the eight comparison events plus two sunrise cases. The offline
+regression derives the crossings from those coordinates and reruns the
+pinned Skyfield calculation when the public kernel is configured.
+
+| Horizons crossing (IST) | Entering tithi ordinal | Use |
+| --- | ---: | --- |
+| 2023-07-18 00:01:50.180 | 1 | NASA and PAC |
+| 2023-07-19 02:10:23.192 | 2 | PAC |
+| 2023-08-02 00:01:40.299 | 16 | NASA |
+| 2023-08-16 15:08:11.245 | 1 | NASA and PAC |
+| 2024-05-01 05:46:31.704 | 23 | Delhi near-guard case |
+| 2026-01-13 15:18:25.851 | 26 | Drik and Himalayan Academy |
+| 2026-01-14 17:53:15.638 | 27 | Drik and Himalayan Academy |
+| 2026-01-19 01:21:58.918 | 1 | USNO |
+| 2026-03-27 10:07:22.466 | 10 | Drik and Panchangam.org |
+| 2026-06-30 05:26:41.190 | 16 | Delhi sunrise split |
+
+The maximum difference across all 13 stored calculations was 0.035 seconds.
+The 0.05-second Skyfield bracket and the short Horizons interpolation both
+contribute numerical precision limits. Horizons independently evaluates the
+coordinates outside Skyfield and uses a slightly different reference ecliptic.
+[DE440 and DE441](https://ssd.jpl.nasa.gov/doc/de440_de441.html) were fitted to the
+same observations, so agreement cannot establish independent observational truth
+or an absolute sub-second error bound. As a separate sensitivity check, Swiss
+Ephemeris 2.10.03 through pyswisseph 2.10.3.2 with explicit
+[analytic Moshier mode](https://www.astro.com/swisseph/swisseph.htm) reproduced
+the ten events within 3.9 seconds of Horizons. This optional check used
+`swe.calc` in TT (UTC + 69.184 s for these dates), geocentric apparent tropical
+longitudes, and a signed crossing bisected over UTC offsets −60 to +120 seconds
+from each fixture start. It adds no project dependency.
+
+A common ayanamsa applied to both longitudes cancels. UTC/UT1 differs by less
+than one second for these modern dates. Neither explains these minute-scale
+residuals. Different ephemerides, ecliptic definitions, aberration/light-time
+choices, geometric versus apparent positions and geocentric versus topocentric
+coordinates can alter the crossing. Day roster, sunrise and month naming are
+separate calendar conventions. The prior nine coordinate hypotheses did not
+jointly explain the January Drik rows. The publisher-side causes remain
+unresolved. The matched astronomical calculations make a minute-scale solver
+defect unlikely for these events.
+
+### Precision-aware diagnostics
+
+For a published minute `P`, model the underlying publisher time as
+`P + [−30, +30] s` for nearest-minute rounding or `P + [0, +60] s` for flooring.
+Closed endpoints conservatively cover tie rules. With either convention
+plausible, use their union `P + [−30, +60] s` for **sensitivity only**.
+An undocumented rule stays unknown. The union is neither a guarantee about the
+publisher's time nor an estimate of physical error.
+
+For a hypothetical tolerance, classify the calculation as **within** when
+every instant in the interval is within tolerance, **outside** when every
+instant is farther away, and **indeterminate** otherwise.
+
+| Display hypothesis | 60 s (within / indeterminate / outside) | 90 s | 120 s |
+| --- | ---: | ---: | ---: |
+| Nearest minute | 8 / 4 / 1 | 9 / 3 / 1 | 12 / 0 / 1 |
+| Floor to minute | 6 / 6 / 1 | 12 / 0 / 1 | 12 / 0 / 1 |
+| Either of those two | 5 / 7 / 1 | 9 / 3 / 1 | 12 / 0 / 1 |
+
+Under either display rule, the three Drik endpoints lie at least 25.9, 15.7
+and 22.5 seconds outside their conditional intervals (Jan 13, Jan 14 and
+Mar 27 respectively). Himalayan January 13 lies at least 124.1 seconds
+outside. The raw median absolute residual was 22.495 seconds and the maximum
+154.138 seconds. The [original sensitivity matrix](M2H_TIMING_SENSITIVITY.md)
+and fixture bytes remain the historical record. These counts describe 13
+comparisons, not 13 independent events.
+
+Recommend three checks for a future owner-approved validation profile:
+
+1. Compare the apparent geocentric crossing against a higher-precision
+   reference with aligned event, time scale and frame. Record ephemeris,
+   solver/interpolation and frame uncertainties. The current 0.1-second test
+   bound is a regression check for these pinned samples only. Broader
+   validation would need a representative event panel and a separately justified
+   numerical tolerance.
+2. Compare each publication against its documented display interval and record
+   source disagreement separately. Unknown display rules stay unresolved,
+   with conditional analysis labelled as such. Compare the same tithi endpoint,
+   civil rollover and location-specific label before drawing conclusions.
+3. Check Delhi calendar policy using adjacent sunrises and the 300-second
+   guard. For credible sunrise interval `[Smin, Smax]` and transition interval
+   `[Tmin, Tmax]`, inspect `[Smin − Tmax, Smax − Tmin]`. Withhold if it touches
+   `[−300, +300] s` or credible profiles disagree on the selected date. Keep
+   unsupported or unresolved cases withheld.
 
 ## Reference profiles for owner review
 
 | Profile | Evidence to use | Limits |
 | --- | --- | --- |
-| Drik Delhi | Geoname 1261481, local IST, day tithi at published local sunrise, and explicitly printed Amanta/Purnimanta labels. Capture dated page, settings where available, minute precision, and local-day rollover. Drik documents upper-edge as its suggested sunrise and also offers middle-limb and elevation options. [Sunrise settings](https://www.drikpanchang.com/panchang/sunrise/panchang-sunrise.html?date=14%2F08%2F2024&time-format=24hour) | Exact dated-page horizon flags, elevation, rounding, ephemeris, and tithi frame are unverified. Treat apparent geocentric timing in the fixture as a comparison assumption. |
+| Drik Delhi | Geoname 1261481, local IST, day tithi at published local sunrise, and explicitly printed Amanta/Purnimanta labels. Capture dated page, settings where available, minute precision, and local-day rollover. Drik documents upper-edge as its suggested sunrise and also offers middle-limb and elevation options. [Sunrise settings](https://www.drikpanchang.com/panchang/sunrise/panchang-sunrise.html?date=14%2F08%2F2024&time-format=24hour) | Exact dated-page horizon flags, elevation, minute display rule, ephemeris, and tithi frame are unverified. Treat apparent geocentric timing in the fixture as a comparison assumption. |
 | IMD PAC Rashtriya Panchang | Dated edition and PDF page, IST including >24h rollover, central station 23°11′N/82°30′E, upper limb with 31′ refraction plus 16′ solar radius. Use published tithi and Amanta labels at the stated time, and ingress references for month validation. [PAC explanation](https://packolkata.imd.gov.in/panchang/en/explanation) | Central station sunrise cannot stand in for Delhi. PAC lunar almanac entries are distinct from the civil solar calendar headings. Purnimanta projected from PAC is inferred. |
 | Research calculation | Pinned Skyfield/DE440s, Delhi 28.6139°N/77.2090°E, WGS84 and zero elevation, Asia/Kolkata, upper-limb −50′ and PAC-inspired −47′ sensitivity at the same Delhi coordinates. | Both horizons are model hypotheses. Applying −47′ in Delhi does not recreate the PAC central station or certify Drik equivalence. |
 
@@ -118,6 +209,18 @@ enters the guard, withhold the date for review. Treat this as a release
 criterion. The current prototype's local guard does not implement a publisher
 consensus check or an uncertainty budget.
 
+The disputed January 13, January 14 and March 27 endpoints, including both
+publisher minutes and the conditional display intervals above, fall between the
+same two Delhi sunrises in both models. The nearest margin across these checks
+exceeds 3 h 47 min. The relevant sunrise ordinals progress 25→26 on Jan 13/14,
+26→27 on Jan 14/15, and 9→10 on Mar 27/28. Those timing disagreements do not
+change the corresponding sunrise assignments. On June 30, the Horizons
+boundary at 05:26:41.190 IST falls between 05:26:28.894 and 05:26:44.258 IST.
+The −50′ model sees Purnima on both June 29 and 30, then Pratipada July 1.
+The −47′ model sees Purnima June 29 and Pratipada on June 30 and July 1.
+This can change a first/last sunrise date before the guard is applied.
+Both profiles still withhold both adjacent tithis.
+
 The existing panel rerun passed 11/11 selected date rows, both sunrise
 hypotheses for each. Its closest boundary was 899.121 seconds away. The month
 panel reproduced 47 direct PAC Amanta observations, 47 inferred Purnimanta
@@ -148,7 +251,10 @@ python -B -m prototypes.panchang.recurrence_validation --ephemeris "$DINCHARYA_P
 python -B -m prototypes.panchang.coverage_validation --ephemeris "$DINCHARYA_PUBLIC_DE440S"
 ```
 
-23 focused tests passed. The four research CLIs emitted evidence and exited
+The precision follow-up passed all 29 focused tests (13 timing, four sunrise
+and 12 recurrence). Its kernel-free timing run passed 12 tests and skipped the
+single kernel-dependent check. The original 23-test checkpoint also ran four
+research CLIs, which emitted evidence and exited
 with their intentional status 2. Cold annual preview was about 2.9 seconds
 and an identical warm call about 0.09 milliseconds on this workspace profile.
 These are host observations with no performance guarantee.
@@ -170,11 +276,10 @@ The LLM parses and explains. It has no scheduling or database write authority.
 
 ## Release recommendation
 
-**No-go for persisted or live personal lunar anniversaries.** Keep offline
-research preview and the existing 60-second diagnostic. Require a reviewed
-Delhi profile and a defensible explanation or independently justified
-disposition of remaining timing failures before reconsidering release. Widening
-the timing diagnostic is not justified by raw minute-display residuals alone;
-first verify publisher display precision and profiles, then reassess source-aware
-accuracy while keeping civil-date safety independent. Festival observance
-and any production enablement remain separate approval decisions.
+**No-go for persisted or live personal lunar anniversaries.** Retain the
+60-second raw diagnostic and 300-second sunrise guard while the owner reviews
+the precision-aware methodology and comparison profiles. The astronomical
+crossings are corroborated for this sample. Publisher methodology and
+broader date-policy validation remain open. Any change to the accepted
+accuracy threshold requires owner approval. Festival observance and production
+enablement remain separate decisions.

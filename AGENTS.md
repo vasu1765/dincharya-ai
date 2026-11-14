@@ -51,6 +51,11 @@ Stage and commit explicit safe paths on the development branch.
 Do not relocate .git, change Docker permissions or escalate to bypass sandbox
 restrictions. Preserve pre-existing working-tree changes.
 
+For Panchang validation, keep numerical cross-checks, publisher display
+precision, and sunrise-date evidence separate. The Cycle 1 precision study
+uses public coordinates and offline tests. See docs/M2H_CYCLE1_ACCURACY.md
+for the current diagnostic, withholding guard and approval boundaries.
+
 Offline suite (no services/packages needed):
 `PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests -v`.
 Use scripts/check-safe-source.py on explicit non-secret source files, never a

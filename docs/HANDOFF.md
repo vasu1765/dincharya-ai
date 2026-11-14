@@ -5,14 +5,15 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint — M2H Cycle 1 review
 
-On `development/m2h-panchang-accuracy`, the pinned Skyfield/DE440s rerun
-reproduced all 13 timing residuals and the 11 selected sunrise reference rows.
-The June 30, 2026 Delhi case put the two sunrise hypotheses on opposite sides of
-one tithi transition. Both previews withheld both adjacent tithis. Focused
-regressions and public-source provenance are in [the Cycle 1 report](M2H_CYCLE1_ACCURACY.md).
-Keep the 60-second timing diagnostic and 300-second guard. Personal lunar
-scheduling remains a no-go pending reference-profile review and resolution of
-the remaining release gates. No WSL handoff is needed for this checkpoint.
+On `development/m2h-panchang-accuracy`, JPL Horizons corroborated the eight
+distinct tithi crossings behind the 13 published comparisons. The publisher
+minute intervals and Delhi date checks are in the
+[Cycle 1 report](M2H_CYCLE1_ACCURACY.md). The disputed January/March endpoints
+leave the adjacent dawn assignments stable. The June 30 sunrise hypotheses
+split the tithi label, and both previews withheld both adjacent tithis.
+Keep the raw 60-second diagnostic and 300-second guard pending owner review
+of precision-aware validation. Personal lunar scheduling stays disabled.
+No WSL handoff is needed for this checkpoint.
 
 ## Prior checkpoint — M2G private Telegram acceptance PASSED
 

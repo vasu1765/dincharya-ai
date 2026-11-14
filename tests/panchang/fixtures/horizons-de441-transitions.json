@@ -1,0 +1,159 @@
+{
+  "source": "https://ssd.jpl.nasa.gov/api/horizons.api",
+  "retrieved_on": "2026-11-14",
+  "api_version": "1.2",
+  "ephemeris": "DE441",
+  "parameters": {
+    "EPHEM_TYPE": "OBSERVER",
+    "CENTER": "500@399",
+    "TIME_TYPE": "UT",
+    "QUANTITIES": "31",
+    "APPARENT": "AIRLESS",
+    "EXTRA_PREC": "YES",
+    "CSV_FORMAT": "YES",
+    "TLIST_TYPE": "JD"
+  },
+  "sample_order": "Two UTC samples 60 seconds apart, each [Sun (10), Moon (301)]",
+  "cases": [
+    {
+      "start_utc": "2023-07-17T18:31:00+00:00",
+      "entering_ordinal": 1,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          114.9353817,
+          114.9289539
+        ],
+        [
+          114.9360445,
+          114.9373024
+        ]
+      ]
+    },
+    {
+      "start_utc": "2023-07-18T20:40:00+00:00",
+      "entering_ordinal": 2,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          115.9753537,
+          127.9724091
+        ],
+        [
+          115.9760165,
+          127.9806898
+        ]
+      ]
+    },
+    {
+      "start_utc": "2023-08-01T18:31:00+00:00",
+      "entering_ordinal": 16,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          129.2629732,
+          309.2562844
+        ],
+        [
+          129.2636373,
+          309.2669072
+        ]
+      ]
+    },
+    {
+      "start_utc": "2023-08-16T09:38:00+00:00",
+      "entering_ordinal": 1,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          143.2875614,
+          143.2861443
+        ],
+        [
+          143.2882289,
+          143.2943728
+        ]
+      ]
+    },
+    {
+      "start_utc": "2024-05-01T00:16:00+00:00",
+      "entering_ordinal": 23,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          41.1241201,
+          305.1194157
+        ],
+        [
+          41.1247942,
+          305.128993
+        ]
+      ]
+    },
+    {
+      "start_utc": "2026-01-13T09:48:00+00:00",
+      "entering_ordinal": 26,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          293.2111835,
+          233.2079461
+        ],
+        [
+          293.2118911,
+          233.2161676
+        ]
+      ]
+    },
+    {
+      "start_utc": "2026-01-14T12:23:00+00:00",
+      "entering_ordinal": 27,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          294.339748,
+          246.337782
+        ],
+        [
+          294.3404556,
+          246.3460328
+        ]
+      ]
+    },
+    {
+      "start_utc": "2026-01-18T19:51:00+00:00",
+      "entering_ordinal": 1,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          298.7314022,
+          298.7235729
+        ],
+        [
+          298.7321095,
+          298.7322533
+        ]
+      ]
+    },
+    {
+      "start_utc": "2026-03-27T04:37:00+00:00",
+      "entering_ordinal": 10,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          6.5244085,
+          114.5210758
+        ],
+        [
+          6.5250959,
+          114.5306638
+        ]
+      ]
+    },
+    {
+      "start_utc": "2026-06-29T23:56:00+00:00",
+      "entering_ordinal": 16,
+      "apparent_ecliptic_longitudes_deg": [
+        [
+          98.2469114,
+          278.2416862
+        ],
+        [
+          98.2475734,
+          278.2499595
+        ]
+      ]
+    }
+  ]
+}
