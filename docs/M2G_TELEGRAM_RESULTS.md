@@ -1,5 +1,53 @@
 # M2G Telegram integration — isolated application acceptance passed
 
+## Owner-authorized private Telegram acceptance — PASSED, 2026-11-14
+
+Pushed application checkpoint `6848d4f2b7a1bbbb6d61c0bbf162bf6f05bebd4d`
+verified on development/m2g-telegram-integration; entry tree clean. Owner explicitly
+approved ONE real reminder to the owner's private chat using
+@dincharya_acceptance_test_bot, one synthetic birthday fixture and fresh disposable
+PostgreSQL/n8n. The committed application and documented launcher were reused;
+no integration rebuild, code fix or successful synthetic suite rerun.
+
+| Acceptance check | Actual sanitized evidence |
+| --- | --- |
+| Credentials | Entered with hidden normal-WSL terminal input. Named file regular/non-symlink, correct owner, single hardlink, mode600 and parent700 verified. No token/owner/bot numeric IDs or file contents printed, logged or committed. |
+| Preflight | Exact daemon44c1ef83-c50e-4ecc-8f19-4b112bc40f29, pinned images, fresh three-service standalone project and runtime isolation verified. Only named authorized schema baseline loaded and validated; no other backup/source accessed. |
+| Bot and DB identity | Existing real application startup verified the independently pinned dedicated bot identity and scoped database owner. Gateway started in explicit lunar live-acceptance mode with a restricted runtime configuration. |
+| Explicit approvals | Owner confirmed BOTH rule and occurrence approvals in Telegram. Read-only observation: one series, approved rule, approved occurrence/projection and queued delivery; zero attempts before its approved due time. |
+| Delivery/acknowledgement | Exactly one real attempt; one sent delivery and one acknowledged paired receipt. No failed, sending or uncertain record remained. No IDs or payloads exported. |
+| Owner observation | Owner explicitly confirmed “Exactly one reminder received” for Reminder: Synthetic lunar fixture: success, excluding preview/approval/status replies. |
+| Duplicate prevention | Initial acknowledged observation08:55:14 Asia/Kolkata; further observation08:56:31 showed the same one delivery/attempt/receipt after more than two additional15-second polling intervals (at least77 seconds). No second request, replan, resend or reset. |
+| Graceful stop | Gateway exited0 after Ctrl-C before STOP was sent to the launcher. |
+| Final verification/cleanup | Launcher required exactly one sent+receipt/attempts1 delivery and one series, exited0, removed disposable project/network and verified original unrelated running-container IDs unchanged. |
+
+Condensed actual launcher output:
+
+```text
+Starting pinned disposable synthetic stack
+Three healthy services; runtime isolation verified
+PASS G01 real psycopg/scoped roles, signed n8n orchestration and application HTTP service
+Sanitized delivery summary: [{"state":"sent","attempts":1,"has_receipt":true}]
+PASS one acknowledged live reminder; owner must separately confirm exactly one received message
+Removing only the disposable integration project
+Teardown verified; original running container IDs unchanged
+exit status 0
+```
+
+The separate exactly-one owner confirmation was received before shutdown. The
+approved20-minute fixture time was retained; monitoring used read-only transactions
+and sanitized aggregate counts only. The temporary gateway configuration and
+socket/role environments were removed through normal launcher cleanup; the owner's
+original credentials file remains restricted outside Git and is not an artifact.
+
+No live failure, blind retry, history reset, delivery rescheduling or manual SQL
+approval occurred. No production credential/database/service access, deployment,
+main merge or astronomical scheduling. This completes the specific one-reminder
+private acceptance authorization; it does NOT authorize another real send/run.
+Earlier “live not authorized/executed” statements below are historical to the
+preceding synthetic implementation checkpoint and superseded only for this run.
+Broader calendar/source/operational/VPS gates remain unchanged.
+
 ## Outcome and boundaries
 
 Clean entry at pushed `e2ca863b300b73f3ad96465800f9a1d4dc871d6a` on

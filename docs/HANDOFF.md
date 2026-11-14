@@ -3,91 +3,51 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2G Telegram application passes isolated acceptance
+## Current checkpoint — M2G private Telegram acceptance PASSED
 
-Clean entry at pushed `e2ca863b300b73f3ad96465800f9a1d4dc871d6a`; owner created
-and agent verified `development/m2g-telegram-integration`. Git metadata remains
-mounted read-only. This29-file checkpoint is uncommitted, no Git bypass/stage/
-commit/push attempted. Previous M2F commit instructions are superseded.
+Clean entry at pushed `6848d4f2b7a1bbbb6d61c0bbf162bf6f05bebd4d` on
+`development/m2g-telegram-integration`. Owner explicitly authorized ONE real
+synthetic birthday reminder to the owner's private chat via the dedicated test
+bot, fresh disposable PostgreSQL/n8n and separate Telegram rule/occurrence approvals.
+The earlier29-file implementation is committed; those commands are obsolete.
 
-- Owner authorized consolidated application implementation/testing, stopping
-  before real Telegram messages. **G01–G04 passed, exit0** with actual SDK
-  Update/CommandHandler/JobQueue, signed n8n orchestration, real psycopg role
-  sessions, existing lunar/Gregorian APIs, process_batch and TelegramReminders.
-  Only Telegram network IO is simulated; application has no Docker/psql shim.
-- Birthday/anniversary fixture previews, separate explicit rule/occurrence
-  approvals, rejection, reviewed cancellation and owner-only status implemented.
-  SDK private owner identity, HMAC freshness/domain-separated keys, deterministic
-  update/action IDs, review tokens and fresh SQL snapshots prevent forged/replay/
-  stale authority. Body IDs never establish owner/DB authority.
-- One polling owner and job; worker session lock covers claim/send/ack. Actual
-  simulation produced exactly4 attempts (2 sent+receipts,1 definite failure then
-  explicitly cancelled,1 uncertain). Repeat polling and two service-process/n8n
-  restarts plus gateway SDK shutdown/rebuild preserve exact histories. Existing
-  PostgreSQL container ID/start time and unrelated running-container set unchanged.
-- Additive0009 owner identity/bounded delivery status only;0001–0008, worker,
-  Gregorian model and astronomical fixtures unchanged. Actual worker denial of
-  owner status API and Gregorian proposal/approval control passed.
-- **73 focused offline tests pass**, no skips in the pinned /tmp SDK/driver venv.
-  Sandbox asyncio IPC caused shutdown warnings; scoped permitted execution
-  completed cleanly. Source/AST/JSON/SQL/link/diff/immutability checks pass.
-  No old T00–T26, model/cadence/live suite rerun; no test weakened.
-- Explicit real transport stays disabled by default. [Private acceptance runbook](M2G_TELEGRAM_ACCEPTANCE.md) and gated launcher prepare ONE dedicated test-bot
-  fixture reminder, hidden local credentials, independent bot pin, required
-  Telegram approvals, repeat-poll check and rollback/cleanup. Live flag/type,
-  credential and SDK gates are tested; the real bot wire is NOT run or authorized.
-- [Actual results](M2G_TELEGRAM_RESULTS.md), architecture/D24/roadmap/plan/readmes
-  and GitHub issue2 updated. AGENTS unchanged. No production, private backup/2B
-  search, deployment, other orchestrator or merge. Only the named schema accessed.
+- Existing tested launcher/application reused exactly; no rebuild or synthetic
+  suite rerun. Hidden local credential input; file/owner/600 and parent700 checks
+  passed without printing/committing values. Dedicated bot identity verified.
+- Approved daemon44c1ef83-c50e-4ecc-8f19-4b112bc40f29, pinned fresh three-service
+  isolation and named schema-only baseline verified. No other backup/private2B
+  input or production service/credential accessed.
+- Owner confirmed BOTH explicit approvals. Read-only observations verified one
+  rule/occurrence/projection/series; no attempt before the approved fixture time.
+- **One real reminder delivered, attempts1, one paired acknowledgement receipt.**
+  Owner explicitly confirmed exactly one reminder received. More than two extra
+  polling intervals (at least77 seconds) retained one delivery/attempt/receipt;
+  no failures or uncertain outcomes, no duplicate or replacement request.
+- Gateway exited0 gracefully before launcher STOP. Launcher final checks passed
+  exactly one acknowledged delivery/series; exited0 and confirmed full disposable
+  teardown plus unchanged unrelated running-container IDs.
+- No code fix, reset, blind resend, production, deployment, merge or astronomy
+  enablement. [Sanitized actual evidence](M2G_TELEGRAM_RESULTS.md) and GitHub issue2
+  updated. No raw IDs/messages/credentials/runtime paths stored in repository.
 
-No unresolved synthetic application failure. Next is explicit owner authorization
-for exactly one private fixture reminder with @dincharya_acceptance_test_bot,
-fresh disposable DB and separately entered replacement credentials. Do not
-schedule before explicit rule AND occurrence approval in Telegram. Astronomy,
-production auth/source adoption, advance slots and broader operational/VPS gates
-remain disabled/pending; this is not general calendar scheduling approval.
+This one-reminder authorization is consumed/completed; another real test/send
+requires new explicit approval. General calendar/astronomical adoption, advance
+slots,2B provenance and broader operational/VPS acceptance remain pending. No
+other orchestrator. Restricted original credentials remain outside Git; temporary
+runtime configuration/roles/sockets were removed with the disposable environment.
 
-Normal WSL safe commands (29 explicit paths; review index before commit):
+Git metadata remains read-only; only these two documentation files are modified.
+Source-safety/link/diff and application-source immutability checks pass. Normal WSL:
 
 ```bash
 git branch --show-current
 git status --short
 git diff --check
-git add -- \
-  database/migrations/0009_lunar_delivery_status.sql \
-  database/migrations/README.md \
-  dincharya/lunar_service.py \
-  dincharya/lunar_runtime.py \
-  dincharya/lunar_http.py \
-  telegram-gateway/gateway.py \
-  telegram-gateway/reminder_handlers.py \
-  telegram-gateway/lunar_handlers.py \
-  telegram-gateway/lunar_acceptance.py \
-  telegram-gateway/requirements-m2g.txt \
-  telegram-gateway/README.md \
-  workflows/m2g-lunar-acceptance.json \
-  workflows/README.md \
-  tests/integration/m2g_runner.py \
-  tests/integration/m2g_server.py \
-  tests/integration/m2g_bot.py \
-  tests/integration/m2g_relay.py \
-  tests/integration/m2g_live_prepare.py \
-  tests/integration/m2g_live_server.py \
-  tests/integration/e2e_bridge.js \
-  tests/integration/README.md \
-  tests/test_lunar_application.py \
-  docs/M2G_TELEGRAM_RESULTS.md \
-  docs/M2G_TELEGRAM_ACCEPTANCE.md \
-  docs/HANDOFF.md \
-  docs/ARCHITECTURE.md \
-  docs/DECISIONS.md \
-  docs/MILESTONE2_PLAN.md \
-  docs/ROADMAP.md
+git add -- docs/M2G_TELEGRAM_RESULTS.md docs/HANDOFF.md
 git diff --cached --check
-git diff --cached --stat
 git diff --cached
-git commit -m "feat: integrate authenticated Telegram lunar acceptance"
-git push -u origin development/m2g-telegram-integration
+git commit -m "docs: record successful M2G private Telegram acceptance"
+git push origin development/m2g-telegram-integration
 ```
 
 ## Prior integration evidence (historical)
