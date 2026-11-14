@@ -447,6 +447,7 @@ class Runner:
 
 
 def execute(expected_id):
+    print("RUN safety preflight", flush=True)
     validate_configuration(json.loads((HERE / 'compose.json').read_text()))
     with tempfile.TemporaryDirectory(prefix='dincharya-m2c-docker-') as directory:
         env = client_environment(os.environ, directory)
@@ -471,6 +472,7 @@ def execute(expected_id):
                    DINCHARYA_TEST_N8N_IMAGE=IMAGES['n8n-test'],
                    DINCHARYA_TEST_DB_PASSWORD=secrets.token_urlsafe(32),
                    DINCHARYA_TEST_ENCRYPTION_KEY=secrets.token_hex(32))
+        print("PASS safety preflight", flush=True)
         try:
             print('Starting pinned disposable synthetic stack', flush=True)
             runner.compose('up', '-d', '--wait', '--wait-timeout', '180', timeout=200)

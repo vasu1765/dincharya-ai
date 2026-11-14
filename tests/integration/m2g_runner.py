@@ -31,6 +31,7 @@ class M2GRunner(E2ERunner):
     server_script='m2g_server.py'
     migrations=(*MIGRATIONS,'0009_lunar_delivery_status.sql')
     relay_json_denials=False
+    def checkpoint(self, stage):pass
     def configure_service(self):pass
     def tests(self):
         with tempfile.TemporaryDirectory(prefix='m2g-') as directory:
@@ -46,6 +47,7 @@ class M2GRunner(E2ERunner):
 
     def setup(self):
         import httpx
+        self.checkpoint('database logging and authentication')
         settings={'log_statement':'none','log_min_error_statement':'panic','log_min_duration_statement':'-1',
           'log_min_duration_sample':'-1','log_duration':'off','log_transaction_sample_rate':'0',
           'log_parameter_max_length':'0','log_parameter_max_length_on_error':'0'}
@@ -54,11 +56,16 @@ class M2GRunner(E2ERunner):
         for key,value in settings.items():base.require(self.app_sql('SHOW '+key)==value,'Logging boundary mismatch')
         base.require(self.app_sql("SELECT count(*) FROM pg_hba_file_rules WHERE error IS NOT NULL OR "
           "(type LIKE 'host%' AND auth_method<>'scram-sha-256') OR (auth_method='trust' AND type<>'local')")=='0','SCRAM boundary mismatch')
+        self.checkpoint('fresh database')
         base.require(self.app_sql("SELECT count(*) FROM pg_tables WHERE schemaname='public'")=='1','Fresh application DB required')
         self.app_sql('DROP TABLE public.synthetic_events')
+        self.checkpoint('schema initialization')
         self.original=self.baseline.read_bytes();self.app_sql(validate_schema(self.original).decode())
+        self.checkpoint('migration application')
         self.app_sql(render_migrations([base.ROOT/'database/migrations'/n for n in self.migrations]))
+        self.checkpoint('synthetic transport fixture')
         self.app_sql((HERE/'e2e_fixture.sql').read_text())
+        self.checkpoint('database identities and permissions')
         passwords={}
         for actor in ACTORS:
             passwords[actor]=secrets.token_hex(24);credential_literal="'"+passwords[actor]+"'"
@@ -70,6 +77,7 @@ class M2GRunner(E2ERunner):
            "CASE WHEN rolname='synthetic_e2e_owner' THEN 'owner' ELSE 'calculator' END,true FROM pg_roles WHERE rolname IN ('synthetic_e2e_owner','synthetic_e2e_calculator')")
         self.profile=self.app_sql("SELECT lunar_private.hash('{\"m2g_synthetic\":1,\"astronomy_enabled\":false}')")
         self.app_sql("INSERT INTO lunar_private.profiles(digest,specification,enabled) VALUES('"+self.profile+"','{\"m2g_synthetic\":1,\"astronomy_enabled\":false}',true)")
+        self.checkpoint('local socket relays')
         pg=self.directory/'pg';pg.mkdir(mode=0o700)
         self.relays.append(UnixTCPRelay(pg/'.s.PGSQL.5432',self.base,self.prefix,self.env,'postgres-test',5432))
         self.n8n_socket=str(self.directory/'n8n.sock')
@@ -93,8 +101,11 @@ class M2GRunner(E2ERunner):
               'evidence':dict(status='selected',month_status='supported',date_gate='pass',kshaya=False,ambiguous=False,skipped=False,
                 repeated=False,selection=day,birth_basis='explicit_rule',repetition_policy='review',
                 interval_start=day+'T00:00:00+05:30',interval_end=day+'T23:59:59+05:30')}
+        self.checkpoint('calculation profile and migration checksums')
         self.configure_service()
+        self.checkpoint('application service startup')
         self.start_service()
+        self.checkpoint('native n8n relay bootstrap')
         key=secrets.token_hex(32)
         self.bridge=subprocess.Popen(self.base+self.prefix+['exec','-T','mock-services','node','-e',(HERE/'e2e_bridge.js').read_text()],
            stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,text=True,env=self.env)

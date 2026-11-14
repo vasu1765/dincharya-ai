@@ -23,7 +23,7 @@ def service_main():
     service = build_service(config)
     path = Path(config["service_socket"])
     try:
-        with server(path, service) as instance:
+        with server(str(path), service) as instance:
             thread = threading.Thread(target=instance.serve_forever, daemon=True)
             thread.start()
             print('{"ready":true}', flush=True)
@@ -41,6 +41,19 @@ class BaselineRunner(M2GRunner):
     migrations = (*M2GRunner.migrations, "0010_synthetic_annual_lunar_rules.sql")
     relay_json_denials = True
     server_script = Path(__file__).name
+
+    def checkpoint(self, stage):
+        self.current_stage = stage
+        print("RUN " + stage, flush=True)
+
+    def tests(self):
+        self.checkpoint("application setup")
+        try:
+            super().tests()
+        except Exception:
+            # Fixed labels only: never stringify exception/SQL/paths or subprocess output.
+            print("FAIL " + self.current_stage, flush=True)
+            raise
 
     def configure_service(self):
         self.config.update(development_astronomy=True, public_ephemeris=self.kernel)
@@ -61,6 +74,7 @@ class BaselineRunner(M2GRunner):
         import httpx
 
         import psycopg
+        self.checkpoint("database permissions and application construction")
         service = build_service(self.config)
         pg_socket = self.config["connections"]["owner"]["host"]
         auth = {}
@@ -71,6 +85,7 @@ class BaselineRunner(M2GRunner):
             httpx.Client(transport=httpx.HTTPTransport(uds=self.n8n_socket),
                          trust_env=False, timeout=45) as client,
         ):
+            self.checkpoint("scoped calculator permissions")
             with connection_factory(self.config["connections"]["calculator"])() as calculator:
                 grants = calculator.execute(
                     "SELECT has_function_privilege(session_user,'lunar_api.list_annual_rules(uuid)','EXECUTE'),"
@@ -85,6 +100,7 @@ class BaselineRunner(M2GRunner):
                 response.raise_for_status()
                 return response.json()
 
+            self.checkpoint("signed native n8n relay readiness")
             value, signature = envelope(service.command_key, {"operation":"list_lunar_annual","after":None}, "preflight")
             for _ in range(30):
                 try:
@@ -96,6 +112,7 @@ class BaselineRunner(M2GRunner):
             else:
                 raise RuntimeError("Signed relay did not become ready")
             assert forward(value, "0" * 64) == {"status": "denied"}
+            self.checkpoint("SDK occurrence approvals")
             await exercise_sdk(service, admin, schedule_text(self.year, HINDI), url,
                                http_transport=httpx.HTTPTransport(uds=self.n8n_socket))
 
@@ -104,7 +121,9 @@ class BaselineRunner(M2GRunner):
                 self.start_service()
                 return build_service(self.config)
 
+            self.checkpoint("annual approvals and restart recovery")
             exercise_annual(service, restart, admin, self.year, forward)
+        self.checkpoint("schema input integrity")
         base.require(self.baseline.read_bytes() == self.original, "Schema source changed")
         print("PASS exact baseline migration, native relay annual approvals and isolated service restart")
 

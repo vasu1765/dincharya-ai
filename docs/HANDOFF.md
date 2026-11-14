@@ -5,10 +5,44 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint — M2H Cycle 4 application and operations
 
+Exact authorized schema acceptance now **PASSED (exit 0)** in the original WSL
+checkout on `development/m2h-operational-acceptance`, following a diagnostic
+failure and smallest launcher correction: convert the Unix socket `Path` to a
+string. Fixed stage labels expose no exception/SQL/credential/private-path
+contents. Schema bytes and migration assertions remain unchanged.
+
+Actual evidence: migration ledger/reapplication, scoped calculator permissions,
+native n8n relay, real SDK with simulated Telegram, owner approvals/foreign and
+duplicate rejection, annual restart/stale/expiry/cancellation/identity checks,
+one reminder row, teardown and unchanged unrelated container inventory passed.
+See [scope and results](M2H_CYCLE4_OPERATIONS.md#actual-focused-rerun-result).
+No broader restore/delivery matrix was rerun or newly credited on this baseline.
+
+Offline: 2 new launcher tests + 39 existing runner tests passed; AST/diff checks
+passed. A supplementary annual/application unit run stalled at sandbox executor
+shutdown and was stopped (143), not credited. Source scan passes for changed
+launcher/diagnostic test/M2G runner; the shared runner has a pre-existing scanner
+rejection in both HEAD and working tree; its fixed diagnostic additions were
+manually reviewed. No scanner policy was weakened. Production, real Telegram,
+2B source adoption, advance slots and scheduling enablement remain gated.
+
+Git metadata remains read-only. Exact safe-file commit in normal WSL:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- tests/integration/runner.py tests/integration/m2g_runner.py tests/integration/m2h_baseline_acceptance.py tests/test_m2h_baseline_diagnostics.py docs/M2H_CYCLE4_OPERATIONS.md docs/HANDOFF.md
+git diff --cached --check
+git diff --cached
+git commit -m "fix: diagnose Cycle 4 stages and correct Unix socket startup"
+git push origin development/m2h-operational-acceptance
+```
+
+
 [Cycle 4](M2H_CYCLE4_OPERATIONS.md) verifies native n8n 2.47.3 with disposable
 PostgreSQL 17.12, the repository schema fixture and simulated Telegram. The
 report records restart, reminder recovery and same-cluster restore evidence.
-Run its single WSL command for the exact previously authorized schema. The
+The exact previously authorized schema command now passes in WSL. The
 2B original provenance manifest remains unresolved. Live lunar scheduling
 stays disabled.
 

@@ -47,7 +47,7 @@ Docker project. Cycle 4 has a dedicated runner that reuses that project,
 daemon and image checks, private database roles and repository-owned native
 relay. The runner reads only the previously named schema file and verifies
 its bytes remain unchanged. It performs no dump or restore of that input or
-its test database. The exact-baseline Cycle 4 run remains pending.
+its test database. The exact-baseline Cycle 4 run now passes in WSL; see the troubleshooting checkpoint below.
 
 One local handoff, for the Cycle 4 draft branch in the original WSL checkout
 with the existing pinned dependencies and public kernel configured:
@@ -88,8 +88,8 @@ leaves that work gated.
 IMD PAC as secondary, the 90-second publisher diagnostic and the 300-second
 sunrise guard. The remaining gates are:
 
-- Run exact-baseline acceptance with native n8n and Telegram simulated. Review
-  the baseline role and trigger compatibility evidence before promotion.
+- Exact-baseline acceptance with native n8n and simulated Telegram passed. Review
+  this scoped role/trigger compatibility evidence before any promotion.
 - Resolve 2B original provenance. The repository documents the schema capture
   and the current/published workflow distinction, and identifies no exact
   original manifest location. The owner can supply the exact manifest path
@@ -100,3 +100,53 @@ sunrise guard. The remaining gates are:
   validate supervised recovery and cross-cluster restore, then obtain explicit
   owner approval for any real Telegram lunar acceptance. Preserve earlier
   private delivery acceptance within its original scope.
+
+## WSL troubleshooting checkpoint
+
+The first exact-baseline attempt exited 1 after isolated service startup and
+verified teardown. Fixed-label diagnostics localized the failure to application
+service startup: the Cycle 4 launcher passed a `Path` to the Unix socket server.
+The working M2G launcher passes a string. An offline reproduction raised
+`TypeError`; the correction converts only this socket argument to a string.
+The schema input, migrations, authorization and calendar assertions are unchanged.
+
+The runner now reports fixed checkpoints for safety preflight, schema loading,
+migrations, transport fixtures, scoped identities, socket relays, checksum
+verification, application startup, native n8n, SDK approvals, annual recovery and
+input integrity. Teardown retains its separate removal and inventory checks.
+Failures print the last fixed stage; exception text, SQL, private paths, child
+stderr and container output remain suppressed. Setup errors can still be
+followed by cleanup errors; retain both stage and teardown evidence.
+
+Two offline regressions cover the string socket address/readiness/shutdown
+protocol and suppression of exception details in failure diagnostics. The 39
+existing integration-runner tests pass. Source scanning passes for the other
+three changed Python files. The shared runner is rejected by the source scanner
+in both HEAD and the modified version; its two added fixed diagnostic lines
+were manually reviewed. No scanner rule was relaxed.
+
+### Actual focused rerun result
+
+**PASS — exit 0.** After the socket correction, the documented exact-schema
+runner passed schema initialization, migrations 0001–0010, ledger checksums and
+repeat installation, scoped calculator restrictions, native signed n8n relay,
+actual SDK owner approvals and foreign-callback/duplicate rejection. Annual
+checks passed across application restart, separate yearly projections, stable
+identity, stale cancellation and expiry rejection, duplicate suppression and
+one reminder row. Original schema bytes were checked unchanged. Disposable
+teardown and unchanged unrelated running-container IDs passed.
+
+The diagnostic rerun first isolated the startup failure (exit 1) and cleaned up;
+one materially affected rerun after correction passed (exit 0). No schema,
+migration, authorization assertion or calendar model was altered. No actual
+Telegram request, production access, deployment or merge was performed.
+
+This baseline runner does **not** repeat the broader repository-fixture outage,
+relay-restart, uncertain-delivery or restore matrix; its earlier evidence remains
+separate. It provides no 2B provenance, advance-slot or production adoption credit.
+
+Focused offline results: 2 new launcher tests and 39 existing runner regressions
+passed; changed Python AST and diff checks passed. The broader supplementary
+annual/application unit command was stopped (143) after a sandbox executor-shutdown
+stall and is not claimed as passed. The real SDK approval path subsequently passed
+inside the isolated acceptance run. No broad or unrelated suite was repeated.
