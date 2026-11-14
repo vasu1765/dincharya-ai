@@ -5,7 +5,6 @@ No astronomy dependency, network, database, Telegram or production access.
 """
 import json
 import unittest
-from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
@@ -79,12 +78,18 @@ class TimingEvidenceTests(unittest.TestCase):
             self.assertIsInstance(delta, (int, float))
 
     def test_publisher_disagreement_remains_visible(self):
-        source_deltas = {source: delta for source, _, delta in self.rows}
-        self.assertAlmostEqual(source_deltas["drik2026"], 82.479851)
-        self.assertAlmostEqual(source_deltas["panchangam2026"], 22.494496)
-        self.assertLess(abs(source_deltas["panchangam2026"]), 60)
-        self.assertGreater(abs(source_deltas["drik2026"]), 60)
-        self.assertGreater(abs(source_deltas["himalayan2025"]), 120)
+        deltas = {(source, instant): delta for source, instant, delta in self.rows}
+        jan13_drik = ("drik_ekadashi", "2026-01-13T15:17:00+05:30")
+        jan13_himalayan = ("himalayan2025", "2026-01-13T15:21:00+05:30")
+        jan14_himalayan = ("himalayan2025", "2026-01-14T17:53:00+05:30")
+        mar27_drik = ("drik2026", "2026-03-27T10:06:00+05:30")
+        mar27_panchangam = ("panchangam2026", "2026-03-27T10:07:00+05:30")
+        self.assertAlmostEqual(deltas[jan13_drik], 85.8856)
+        self.assertAlmostEqual(deltas[jan13_himalayan], -154.138177)
+        self.assertAlmostEqual(deltas[jan14_himalayan], 15.65553)
+        self.assertAlmostEqual(deltas[mar27_drik], 82.479851)
+        self.assertAlmostEqual(deltas[mar27_panchangam], 22.494496)
+        self.assertGreater(abs(deltas[jan13_himalayan]), 120)
 
     def test_alternative_conventions_not_counted_as_independent_events(self):
         self.assertEqual(len(self.evidence["validation"]["controlled_conventions"]), 9)
@@ -98,8 +103,8 @@ class TimingEvidenceTests(unittest.TestCase):
         for day in days:
             result = conservative_date_evidence(day)
             self.assertFalse(result["eligible_for_live_scheduling"])
-            if result["reference_match"] and result["outside_guard"]:
-                self.assertTrue(all(h["matches"] for h in day["hypotheses"]))
+            self.assertTrue(result["reference_match"], day["reference"])
+            self.assertTrue(result["outside_guard"], day["reference"])
 
     def test_unsupported_recurrence_remains_unschedulable(self):
         self.assertFalse(self.evidence["recurrence"]["usable_for_scheduling"])

@@ -41,6 +41,12 @@ Completed 2C/live-reminder acceptance is retained without repeating it. Full
 Milestone 2 closure still requires reviewed source adoption, remaining recovery/
 operational acceptance and Hindu Panchang before other domains/orchestrators.
 
+Cycle 1 accuracy review reproduced the existing residuals and verified
+withholding on real transitions on either side of Delhi sunrise, including a
+profile-dependent tithi label. See the [Cycle 1 report](M2H_CYCLE1_ACCURACY.md)
+for the reference-profile proposal, test results, no-go recommendation and
+Cycle 2 Telegram contract.
+
 ## Historical checkpoint
 
 196 offline tests passed at the last full regression checkpoint. Final focused

@@ -3,7 +3,18 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2G private Telegram acceptance PASSED
+## Current checkpoint — M2H Cycle 1 review
+
+On `development/m2h-panchang-accuracy`, the pinned Skyfield/DE440s rerun
+reproduced all 13 timing residuals and the 11 selected sunrise reference rows.
+The June 30, 2026 Delhi case put the two sunrise hypotheses on opposite sides of
+one tithi transition. Both previews withheld both adjacent tithis. Focused
+regressions and public-source provenance are in [the Cycle 1 report](M2H_CYCLE1_ACCURACY.md).
+Keep the 60-second timing diagnostic and 300-second guard. Personal lunar
+scheduling remains a no-go pending reference-profile review and resolution of
+the remaining release gates. No WSL handoff is needed for this checkpoint.
+
+## Prior checkpoint — M2G private Telegram acceptance PASSED
 
 Clean entry at pushed `6848d4f2b7a1bbbb6d61c0bbf162bf6f05bebd4d` on
 `development/m2g-telegram-integration`. Owner explicitly authorized ONE real

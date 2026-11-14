@@ -8,14 +8,11 @@ reading [HANDOFF](docs/HANDOFF.md), [policy](docs/DEVELOPMENT_POLICY.md),
 
 ## Coordination and approvals
 
-WSL Codex is the primary developer while ChatGPT Work is paused, per the owner's
-2026-11-13 instruction. It owns implementation, development-branch work, PR review,
-focused verification and planning within the existing approval boundaries.
-GitHub is the shared source of
-truth. Read the active PR and its latest evidence before choosing the next
-task. Preserve existing work.
-Put one executable task in the development branch and return sanitized results
-directly to the same PR. Keep AGENTS.md and docs/HANDOFF.md current.
+ChatGPT Work is the primary developer and development coordinator under the
+current owner instruction. GitHub is the shared source of truth. Read the active
+issue, PR and latest evidence before choosing the next task. Preserve existing
+work. If essential verification requires WSL, prepare one executable task and
+return sanitized results to the same PR. Keep AGENTS.md and docs/HANDOFF.md current.
 
 PR #1 is merged with the first owner-approved reminder accepted. Complete ALL
 Milestone 2, including Hindu Panchang scheduling and operational acceptance, before
