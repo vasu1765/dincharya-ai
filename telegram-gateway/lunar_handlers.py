@@ -80,7 +80,7 @@ def register_lunar_previews(app, owner_id, commands):
             reply = result["reply"]
             review = result.get("review")
             keyboard = None
-            if (result["status"] in {"rule_preview", "occurrence_preview"}
+            if (result["status"] in {"rule_preview", "occurrence_preview", "cancellation_preview"}
                     and isinstance(review, str) and re.fullmatch(r"[A-Za-z0-9_-]{24}", review)):
                 keyboard = InlineKeyboardMarkup([[
                     InlineKeyboardButton("Confirm / पुष्टि", callback_data=f"lunar:confirm:{review}"),
@@ -113,6 +113,36 @@ def register_lunar_previews(app, owner_id, commands):
         operation = "confirm_lunar_draft" if match[1] == "confirm" else "cancel_lunar_draft"
         await invoke(update, query.message, {"operation": operation, "review": match[2]})
 
+    async def annual_command(update, context):
+        if not authorized(update) or not update.message:
+            return
+        name = update.message.text.split()[0].split("@")[0].lower()
+        operations = {
+            "/lunar_rules": ("list_lunar_annual", ("after",)),
+            "/lunar_year": ("resume_lunar_annual", ("series", "year")),
+            "/lunar_rule_status": ("status_lunar_annual", ("series",)),
+            "/lunar_rule_cancel": ("cancel_lunar_annual", ("series",)),
+            "/lunar_year_cancel": ("cancel_lunar_annual_occurrence", ("series", "occurrence")),
+        }
+        operation, fields = operations[name]
+        args = context.args
+        if name == "/lunar_rules" and not args:
+            args = [None]
+        if len(args) != len(fields) or any(value is not None and len(value) > 36 for value in args):
+            await update.message.reply_text(f"Use {name} " + " ".join(fields))
+            return
+        command = dict(zip(fields, args), operation=operation)
+        if "year" in command:
+            if not re.fullmatch(r"[0-9]{4}", command["year"]):
+                await update.message.reply_text("Use a four-digit civil year.")
+                return
+            command["year"] = int(command["year"])
+        await invoke(update, update.message, command)
+
     app.add_handler(CommandHandler("lunar_preview", draft))
+    app.add_handler(CommandHandler(
+        ["lunar_rules", "lunar_year", "lunar_rule_status", "lunar_rule_cancel", "lunar_year_cancel"],
+        annual_command,
+    ))
     app.add_handler(CallbackQueryHandler(decision, pattern=REVIEW_ACTION))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & LunarTextFilter(), draft))

@@ -52,6 +52,11 @@ provides isolated Telegram proposal and approval testing with signed envelopes
 and native PostgreSQL projections. Live and operational acceptance remain
 separate owner gates.
 
+[Cycle 3](M2H_CYCLE3_ANNUAL.md) adds annual projection, owner review recovery
+and cancellation in isolated development. The next acceptance target is
+the reviewed application baseline and real isolated n8n relay with simulated
+Telegram. The 2B manifest and wider operational gates remain open.
+
 ## Historical checkpoint
 
 196 offline tests passed at the last full regression checkpoint. Final focused

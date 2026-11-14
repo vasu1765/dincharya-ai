@@ -45,7 +45,7 @@ class DevelopmentLunar:
                 f'Delhi sunrise dates: {dates}\n'
                 f'Appointment: {row["selected_date"]} at {intent["time"]} IST. '
                 f'Purpose: {intent["purpose"].replace("_", " ")}. '
-                'One occurrence, reminder at start. Development database only.')
+                'Reminder at start. Development database only.')
 
     def _selection(self, intent):
         rule = LunarRule(**intent["rule"])
@@ -68,10 +68,127 @@ class DevelopmentLunar:
         row = plan["row"]
         day = date.fromisoformat(row["selected_date"])
         rule = LunarRule(**intent["rule"])
-        checked = self.calendar(rule, day - timedelta(days=2), day + timedelta(days=3))
+        if "annual_year" in intent:
+            checked = self._selection(intent)["row"]
+        else:
+            checked = self.calendar(rule, day - timedelta(days=2), day + timedelta(days=3))
         instant = datetime.combine(day, time.fromisoformat(intent["time"]), DELHI)
         if checked != row or instant.timestamp() <= self.clock():
             raise Unsupported("preview_stale")
+
+    def _annual_rule(self, intent):
+        year = intent["annual_year"]
+        current = datetime.fromtimestamp(self.clock(), DELHI).year
+        if not current <= year <= min(current + 5, 2099):
+            raise Clarify("Choose a start year from this year through the next five years.")
+        rule = LunarRule(**intent["rule"])
+        if rule.intercalation == "both":
+            raise Clarify("Choose ordinary or Adhika for an annual rule.")
+        reply = (f'{intent["title"]}\nAnnual Delhi lunar rule from {year}, at {intent["time"]} IST.\n'
+                 f'{rule.month} {rule.paksha} tithi {rule.tithi}, {rule.convention}, '
+                 f'{rule.intercalation}; repeat: {rule.repeated}.\n'
+                 'Confirm rule / नियम की पुष्टि। Each future appointment needs its own confirmation.')
+        return self._issue({"annual_intent": intent}, reply, "rule_preview")
+
+    def _annual_command(self, command, operation):
+        if operation == "list_lunar_annual":
+            if set(command) != {"operation", "after"}:
+                return self._fail("invalid_request")
+            after = UUID(command["after"]) if command["after"] else None
+            items = self.owner.list_annual_rules(after)
+            lines = [f'{row["series_id"]}  {row["title"]}  from {row["start_year"]}'
+                     + ("" if row["enabled"] else " (cancelled)") for row in items]
+            if len(items) == 10:
+                lines.append(f'Next page /lunar_rules {items[-1]["series_id"]}')
+            return dict(status="listed", reply="\n".join(lines) or "No annual lunar rules in this page.")
+
+        resume = operation == "resume_lunar_annual"
+        cancel_occurrence = operation == "cancel_lunar_annual_occurrence"
+        required = {"operation", "series"} | ({"year"} if resume else
+                                               {"occurrence"} if cancel_occurrence else set())
+        if set(command) != required:
+            return self._fail("invalid_request")
+        series = UUID(command["series"])
+        saved = self.owner.inspect_annual_rule(series)
+        rule_info, metadata = saved["series"], saved["annual"]
+        if operation == "status_lunar_annual":
+            manifest = self.owner.inspect_series(series)["manifest"]
+            lines = []
+            for item in manifest:
+                row = item["occurrence"]
+                projected = item.get("projection") or {}
+                calendar = projected.get("rule") or {}
+                lines.append((calendar.get("start_date", "date unavailable"), row["id"]))
+            state = "active" if rule_info["enabled"] else "cancelled"
+            listing = "\n".join(f"{day}  {occurrence}" for day, occurrence in sorted(lines))
+            reply = (f'{metadata["title"]}  {state}\nSeries {series}\n'
+                     + (listing or "No active appointments."))
+            return dict(status="inspected", series=str(series), reply=reply)
+        if not rule_info["enabled"]:
+            return self._fail("series_cancelled")
+        if resume:
+            year = command["year"]
+            current = datetime.fromtimestamp(self.clock(), DELHI).year
+            if type(year) is not int or not max(current, metadata["start_year"]) <= year <= min(current + 5, 2099):
+                return self._fail("annual_year_outside_review_window")
+            rule = dict(rule_info["rule"])
+            if rule.pop("profile") != self.profile:
+                return self._fail("reference_profile_changed")
+            intent = dict(rule=rule, title=metadata["title"], time=metadata["appointment_time"][:5],
+                          purpose=rule_info["purpose"], start=date(year, 1, 1).isoformat(),
+                          end=date(year + 1, 1, 1).isoformat(), annual_year=metadata["start_year"])
+            if len(self.pending) >= 128:
+                return self._fail("too_many_pending_reviews")
+            try:
+                plan = self._selection(intent)
+            except Unsupported as exc:
+                return self._fail(str(exc))
+            plan["attempt"] = secrets.token_urlsafe(18)
+            return self._prepare_occurrence(plan, series, rule_info["revision"], annual=True)
+
+        if len(self.pending) >= 128:
+            return self._fail("too_many_pending_reviews")
+        action = UUID(bytes=secrets.token_bytes(16))
+        if cancel_occurrence:
+            occurrence = UUID(command["occurrence"])
+            snapshot = self.owner.inspect_occurrence(occurrence)
+            row = snapshot["occurrence"]
+            if row["series_id"] != str(series) or row["cancelled"] or row["event_id"] is None:
+                return self._fail("appointment_unavailable")
+            request = self.owner.propose_occurrence(action, occurrence, "cancel", rule_info["revision"],
+                                                    row["revision"], row["observation"], {})
+            target = str(occurrence)
+            day = snapshot["projection"]["rule"]["start_date"]
+            reply = f'Cancel {metadata["title"]} on {day}?\nAppointment {target}'
+        else:
+            snapshot = self.owner.inspect_series(series)
+            manifest = snapshot["manifest"]
+            request = self.owner.propose_series_cancel(action, series, rule_info["revision"], manifest)
+            target = str(series)
+            dates = sorted(item["projection"]["rule"]["start_date"] for item in manifest)
+            reply = (f'Cancel annual rule {metadata["title"]} and its {len(manifest)} active appointments?\n'
+                     f'Series {target}\n' + ", ".join(dates))
+        reviewed = self.owner.inspect_request(request)
+        return self._issue(dict(request=request, fingerprint=reviewed["fingerprint"], occurrence=target,
+                                annual=True, cancellation=True), reply, "cancellation_preview")
+
+    def _approve_annual(self, intent, expires):
+        # Ignore the entered start year when deriving the stable series ID.
+        # The stored metadata detects incompatible start-year re-entry.
+        rule = dict(intent["rule"], profile=self.profile)
+        # The profile is revision metadata, not part of the logical series identity.
+        identity = {name: value for name, value in intent["rule"].items() if name != "repeated"}
+        key = dict(title=intent["title"], time=intent["time"], rule=identity)
+        series = uuid5(NAMESPACE, "development-annual/" + canonical(key))
+        result = self.owner.approve_annual_rule(
+            series, uuid5(series, "rule-proposal"), uuid5(series, "rule-approve"),
+            intent["purpose"], rule, intent["annual_year"], intent["title"], intent["time"],
+            datetime.fromtimestamp(expires, DELHI))
+        if result["status"] != "approved":
+            return self._fail(result["status"])
+        return dict(status="annual_rule_approved", series=str(series),
+                    reply=f'Annual rule approved.\nSeries {series}\n'
+                    f'Preview a year with /lunar_year {series} {intent["annual_year"]}')
 
     def _issue(self, data, reply, status):
         if len(self.pending) >= 128:
@@ -89,11 +206,17 @@ class DevelopmentLunar:
             now = self.clock()
             self.pending = {key: value for key, value in self.pending.items() if now < value.expires}
             operation = command["operation"]
+            if operation in {"list_lunar_annual", "resume_lunar_annual", "cancel_lunar_annual",
+                             "status_lunar_annual", "cancel_lunar_annual_occurrence"}:
+                return self._annual_command(command, operation)
             if operation == "draft_lunar":
                 if set(command) != {"operation", "text"}:
                     return self._fail("invalid_request")
                 try:
-                    plan = self._selection(parse_request(command["text"]))
+                    intent = parse_request(command["text"])
+                    if "annual_year" in intent:
+                        return self._annual_rule(intent)
+                    plan = self._selection(intent)
                     plan["attempt"] = secrets.token_urlsafe(18)
                 except Clarify as exc:
                     return dict(status="clarify", reply=f"{exc}\n{EXAMPLE}")
@@ -117,7 +240,7 @@ class DevelopmentLunar:
                     return self._fail("preview_expired_or_unavailable")
                 return review.result
             if "request" in review.data:
-                if choice == "approve":
+                if choice == "approve" and "plan" in review.data:
                     try:
                         self._verify(review.data["plan"])
                     except Unsupported:
@@ -125,10 +248,13 @@ class DevelopmentLunar:
                 if self.clock() >= review.expires:
                     return self._fail("preview_expired_or_unavailable")
                 review.decision = choice
-                result = self._decide_occurrence(review.data, choice)
+                result = self._decide_occurrence(review, choice)
             elif choice == "reject":
                 review.decision = choice
                 result = dict(status="rejected", reply="Draft cancelled / प्रस्ताव रद्द।")
+            elif "annual_intent" in review.data:
+                review.decision = choice
+                result = self._approve_annual(review.data["annual_intent"], review.expires)
             else:
                 try:
                     self._verify(review.data)
@@ -162,6 +288,13 @@ class DevelopmentLunar:
                 return self._fail("rule_approval_unavailable")
         elif reviewed["status"] != "approved":
             return self._fail("rule_approval_unavailable")
+        return self._prepare_occurrence(plan, series, 1)
+
+    def _prepare_occurrence(self, plan, series, revision, *, annual=False):
+        if len(self.pending) >= 128:
+            return self._fail("too_many_pending_reviews")
+        intent, row = plan["intent"], plan["row"]
+        rule = intent["rule"]
         repeated = len(row["sunrise_dates"]) > 1
         evidence = dict(status="selected", month_status="supported", date_gate="pass",
                         kshaya=False, ambiguous=False, skipped=False, repeated=repeated,
@@ -170,8 +303,9 @@ class DevelopmentLunar:
                         interval_end=row["end"], policy=row["guarded_policy"],
                         model_profiles=row["model_profiles"], sunrise_dates=row["sunrise_dates"],
                         minimum_margin_seconds=row["minimum_margin_seconds"])
+        calculation = ("annual-calculation/" + canonical(row["identity"])) if annual else "calculation"
         occurrence = UUID(str(self.calculator.record_calculation(
-            uuid5(series, "calculation"), series, 1, row["identity"], self.profile, evidence,
+            uuid5(series, calculation), series, revision, row["identity"], self.profile, evidence,
             date.fromisoformat(row["selected_date"]))))
         snapshot = self.owner.inspect_occurrence(occurrence)["occurrence"]
         if snapshot.get("cancelled"):
@@ -183,24 +317,33 @@ class DevelopmentLunar:
         # Key by the review attempt so a rejected occurrence can be proposed
         # again without changing the underlying series or logical occurrence.
         request = self.owner.propose_occurrence(
-            uuid5(occurrence, "select/" + plan["attempt"]), occurrence, "select", 1,
+            uuid5(occurrence, "select/" + plan["attempt"]), occurrence, "select", revision,
             snapshot["revision"], snapshot["observation"], desired)
         reviewed = self.owner.inspect_request(request)
         conflict_count = len(reviewed.get("conflicts", ()))
         result = self._issue(dict(plan=plan, request=request, fingerprint=reviewed["fingerprint"],
-                                  occurrence=str(occurrence)),
-                             self._display(plan) + f"\nExisting appointments on that date: {conflict_count}. "
+                                  occurrence=str(occurrence), annual=annual),
+                             self._display(plan) + (f"\nAnnual series {series}." if annual else "")
+                             + f"\nExisting appointments on that date: {conflict_count}. "
                              "Confirm appointment / समय की पुष्टि।",
                              "occurrence_preview")
         return dict(result, occurrence=str(occurrence))
 
-    def _decide_occurrence(self, data, choice):
+    def _decide_occurrence(self, review, choice):
+        data = review.data
         action = uuid5(NAMESPACE, f'development/decision/{data["request"]}/{choice}')
-        result = self.owner.decide(action, data["request"], choice, data["fingerprint"], reviewed=True)
+        if data.get("annual"):
+            result = self.owner.decide_annual_review(action, data["request"], choice, data["fingerprint"],
+                                                    datetime.fromtimestamp(review.expires, DELHI))
+        else:
+            result = self.owner.decide(action, data["request"], choice, data["fingerprint"], reviewed=True)
         replies = {
             "approved": "Appointment recorded in the development database.",
             "rejected": "Appointment cancelled / प्रस्ताव रद्द।",
             "conflict": "Schedule conflict. No appointment was created.",
         }
+        if data.get("cancellation"):
+            replies["approved"] = "Cancellation approved. Appointment and delivery history are retained."
+            replies["rejected"] = "Cancellation proposal discarded."
         return dict(status=result["status"], occurrence=data["occurrence"],
                     reply=replies.get(result["status"], "Appointment unavailable; inspect status."))

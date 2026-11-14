@@ -100,3 +100,13 @@ chat/message IDs, payload or worker tokens. No event/ledger schema mutation or
 new role/table. Earlier0001–0008 bytes unchanged. M2G application acceptance
 installed0001–0009 and passed G01–G04; ordinary worker’s owner-API call rejects.
 Production migration/application remains unapproved; see M2G_TELEGRAM_RESULTS.md.
+
+
+## 0010 — isolated annual lunar rules and recovery
+
+Adds immutable annual metadata, owner-scoped read/write APIs and an annual
+projection guard above the existing native one-off and reminder paths. Uses the
+same synthetic database/installer restrictions as 0006–0009. The standalone
+[Cycle 3 harness](../../docs/M2H_CYCLE3_ANNUAL.md) verifies restart recovery,
+expiry, manifest cancellation and duplicate suppression. Earlier migrations
+retain their original bytes.

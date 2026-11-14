@@ -73,3 +73,20 @@ class SyntheticLunarPostgres:
     def propose_series_cancel(self, action, series, revision, manifest):
         return self._call('SELECT lunar_api.propose_series_cancel(%s,%s,%s,%s::jsonb)',
                           (self._uuid(action), self._uuid(series), revision, self._json(manifest)))
+
+    def approve_annual_rule(self, series, proposal, decision, purpose, rule, year, title, at, expires):
+        return self._call('SELECT lunar_api.approve_annual_rule(%s,%s,%s,%s,%s::jsonb,%s,%s,%s::time,%s)',
+                          (self._uuid(series), self._uuid(proposal), self._uuid(decision),
+                           purpose, self._json(rule), year, title, at, expires))
+
+    def inspect_annual_rule(self, series):
+        return self._call('SELECT lunar_api.inspect_annual_rule(%s)', (self._uuid(series),))
+
+    def list_annual_rules(self, after=None):
+        return self._call('SELECT lunar_api.list_annual_rules(%s::uuid)',
+                          (None if after is None else self._uuid(after),))
+
+
+    def decide_annual_review(self, action, request, decision, fingerprint, expires):
+        return self._call('SELECT lunar_api.decide_annual_review(%s,%s,%s,%s,%s)',
+                          (self._uuid(action), request, decision, fingerprint, expires))

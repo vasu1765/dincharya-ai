@@ -226,5 +226,14 @@ class ButtonsTests(unittest.IsolatedAsyncioTestCase):
             commands.call.assert_called_with(
                 {"operation": "confirm_lunar_draft", "review": "R" * 24}, "4")
             self.assertEqual(wire.messages, ["Synthetic preview", "Recorded"])
+            series = str(uuid4())
+            commands.call.side_effect = None
+            commands.call.return_value = dict(status="cancellation_preview", reply="Review cancellation", review="C" * 24)
+            command = {**message, "text": f"/lunar_rule_cancel {series}", "entities": [
+                {"type": "bot_command", "offset": 0, "length": len("/lunar_rule_cancel")},
+            ]}
+            await app.process_update(Update.de_json({"update_id": 5, "message": command}, app.bot))
+            commands.call.assert_called_with({"operation": "cancel_lunar_annual", "series": series}, "5")
+            self.assertIn("lunar:confirm:" + "C" * 24, str(wire.keyboards[-1]))
         finally:
             await app.shutdown()

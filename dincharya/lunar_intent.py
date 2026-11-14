@@ -10,6 +10,7 @@ LUNAR = re.compile(r"(?<!\w)(?:lunar|tithi|tithi-based|panchang|amanta|purnimant
 DAY = r"\d{4}-\d{2}-\d{2}"
 CLOCK = r"(?:[01]\d|2[0-3]):[0-5]\d"
 FIELDS = {
+    "frequency": {"annual": "annual annually yearly every-year वार्षिक सालाना saalana"},
     "convention": {"amanta": "amanta अमांत अमान्त", "purnimanta": "purnimanta purnimant पूर्णिमांत पूर्णिमान्त"},
     "paksha": {"shukla": "shukla shukl शुक्ल", "krishna": "krishna krishn कृष्ण"},
     "intercalation": {"ordinary": "ordinary regular samanya सामान्य", "adhika": "adhika adhik अधिक",
@@ -43,6 +44,7 @@ FILLER = frozenset((
 ).split())
 EXAMPLE = ('Example / उदाहरण: Remind me "Family puja" on lunar Chaitra Shukla Navami, '
            'Purnimanta, ordinary, first, in 2027 at 18:00 IST.')
+ANNUAL_QUERY = re.compile(r"(?<!\w)(?:every year|har saal|हर साल|प्रति वर्ष)(?!\w)")
 
 
 class Clarify(ValueError):
@@ -71,6 +73,8 @@ def parse_request(text):
     if not 1 <= len(title) <= 80:
         raise Clarify("Keep the quoted title between 1 and 80 characters.")
     request = TITLE.sub(" ", normalized).translate(DIGITS).casefold()
+    request = ANNUAL_QUERY.sub("annual", request)
+    request = re.sub(r"(?<!\w)(?:starting from|starting|from year|से शुरू)(?!\w)", " in ", request)
     # Explicit Delhi civil date window and 24-hour start time.
     days = re.findall(rf"(?<![\d-]){DAY}(?![\d-])", request)
     request = re.sub(rf"(?<![\d-]){DAY}(?![\d-])", " ", request)
@@ -116,10 +120,16 @@ def parse_request(text):
     if tithi is None:
         missing.append("tithi")
     purpose = fields.pop("purpose") or "monthly"
-    if purpose != "monthly" and fields["month"] is None:
+    annual = fields.pop("frequency") == "annual"
+    if (annual or purpose != "monthly") and fields["month"] is None:
         missing.append("lunar month")
     if missing:
         raise Clarify("Specify " + ", ".join(missing) + ".")
     fields["repeated"] = fields["repeated"] or "review"
-    return dict(title=title, purpose=purpose, start=start.isoformat(), end=end.isoformat(),
-                time=times[0], rule=dict(fields, tithi=tithi, birth_basis="explicit_rule"))
+    intent = dict(title=title, purpose=purpose, start=start.isoformat(), end=end.isoformat(),
+                  time=times[0], rule=dict(fields, tithi=tithi, birth_basis="explicit_rule"))
+    if annual:
+        if len(years) != 1 or days:
+            raise Clarify("Use one civil start year for an annual rule.")
+        intent["annual_year"] = start.year
+    return intent

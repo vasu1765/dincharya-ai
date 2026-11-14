@@ -1,7 +1,7 @@
 """Standalone isolated PostgreSQL/SDK development acceptance. Telegram HTTP is simulated."""
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 import json
 import os
 from pathlib import Path
@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 from urllib.parse import urlsplit
+from uuid import UUID, uuid4
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT), str(ROOT / "tests"), str(ROOT / "telegram-gateway")]
@@ -25,6 +26,7 @@ from dincharya.lunar_service import envelope
 from lunar_handlers import OrchestrationClient, register_lunar_previews
 from m2g_bot import OfflineBotAPI
 from prototypes.panchang.guarded import development_profile
+from prototypes.panchang.postgres_contract import LunarStorageError
 from test_lunar_development import HINDI, ENGLISH, HINGLISH
 
 
@@ -151,6 +153,133 @@ def exercise_storage(service, admin, year):
     print("PASS real PostgreSQL replay, stale reviews, conflicts, concurrent approvals and reminder materialization")
 
 
+def exercise_annual(service, restart, admin, year):
+    def call(instance, operation, **fields):
+        value, signature = envelope(instance.command_key, dict(operation=operation, **fields),
+                                    secrets.token_urlsafe(12))
+        return instance.handle(value, signature)
+
+    def total(table):
+        queries = {
+            "rules": "SELECT count(*) FROM lunar_private.annual_rules",
+            "events": "SELECT count(*) FROM public.schedule_events",
+            "calculations": "SELECT count(*) FROM lunar_private.calculations WHERE occurrence_id IN "
+                            "(SELECT o.id FROM lunar_private.occurrences o JOIN lunar_private.annual_rules a "
+                            "ON a.series_id=o.series_id)",
+            "deliveries": "SELECT count(*) FROM public.reminder_deliveries",
+        }
+        return admin.execute(queries[table]).fetchone()[0]
+
+    def confirm(instance, preview):
+        return call(instance, "confirm_lunar_draft", review=preview["review"])
+
+    def preview(instance, series, target):
+        return call(instance, "resume_lunar_annual", series=series, year=target)
+
+    original_events = total("events")
+    text = schedule_text(year, HINGLISH).replace("Family puja", "Annual fixture").replace("18:00", "20:30")
+    request = call(service, "draft_lunar", text=text + " har saal")
+    assert request["status"] == "rule_preview" and total("rules") == 0
+    registered = confirm(service, request)
+    assert registered["status"] == "annual_rule_approved", registered
+    series = registered["series"]
+    again = call(service, "draft_lunar", text=text + " har saal")
+    assert confirm(service, again)["series"] == series and total("rules") == 1
+    changed = call(service, "draft_lunar", text=text.replace(str(year), str(year + 1)) + " har saal")
+    assert confirm(service, changed)["status"] == "unavailable" and total("rules") == 1
+    assert total("rules") == 1 and total("events") == original_events
+
+    discarded = preview(service, series, year)
+    assert discarded["status"] == "occurrence_preview", discarded
+    service = restart()
+    assert confirm(service, discarded)["status"] == "withheld"
+    assert series in call(service, "list_lunar_annual", after=None)["reply"]
+    assert total("events") == original_events
+
+    first = preview(service, series, year)
+    assert first["occurrence"] == discarded["occurrence"]
+    assert first["reply"] == discarded["reply"]
+    assert confirm(service, first)["status"] == "approved"
+    assert confirm(service, first)["status"] == "approved"
+    assert preview(service, series, year)["status"] == "already_scheduled"
+    assert total("events") == original_events + 1 and total("calculations") == 1
+
+    cancel = call(service, "cancel_lunar_annual_occurrence", series=series, occurrence=first["occurrence"])
+    assert cancel["status"] == "cancellation_preview"
+    assert confirm(service, cancel)["status"] == "approved"
+    assert preview(service, series, year)["status"] == "withheld"
+
+    later = preview(service, series, year + 1)
+    assert later["status"] == "occurrence_preview", later
+    assert later["occurrence"] != first["occurrence"]
+    assert call(service, "cancel_lunar_draft", review=later["review"])["status"] == "rejected"
+    assert confirm(service, later)["status"] == "withheld"
+    later = preview(service, series, year + 1)
+    stop = call(service, "cancel_lunar_annual", series=series)
+    assert stop["status"] == "cancellation_preview"
+    assert confirm(service, later)["status"] == "approved"
+    assert confirm(service, stop)["status"] == "unavailable"  # manifest changed
+    assert total("events") == original_events + 2 and total("calculations") == 2
+
+    # Independently challenge the annual year check with a different logical
+    # occurrence and a compatible title/time on another date in the same year.
+    saved = service.development.pending[later["review"]].data["plan"]["row"]
+    forged = dict(saved["identity"], lunation_cycle=saved["identity"]["lunation_cycle"] + 1)
+    selected = date.fromisoformat(saved["selected_date"]) + timedelta(days=1)
+    owner, calculator = service.development.owner, service.development.calculator
+    profile = service.development.profile
+    alternative = UUID(str(calculator.record_calculation(
+        uuid4(), UUID(series), 1, forged, profile,
+        dict(status="selected", month_status="supported", date_gate="pass", kshaya=False,
+             ambiguous=False, skipped=False, repeated=False, selection=selected.isoformat(),
+             birth_basis="explicit_rule", repetition_policy="first",
+             interval_start=f"{selected}T00:00:00+05:30", interval_end=f"{selected}T23:59:00+05:30"),
+        selected)))
+    rogue = owner.inspect_occurrence(alternative)["occurrence"]
+    request = owner.propose_occurrence(uuid4(), alternative, "select", 1, rogue["revision"], rogue["observation"],
+                                      dict(date=selected.isoformat(), title="Annual fixture", start_time="20:30"))
+    reviewed = owner.inspect_request(request)
+    try:
+        owner.decide(uuid4(), request, "approve", reviewed["fingerprint"], reviewed=True)
+    except LunarStorageError:
+        pass
+    else:
+        raise AssertionError("Second logical occurrence was accepted in the same year")
+    assert total("events") == original_events + 2
+
+    # Run overlapping reminder refreshes twice for the second date.
+    due, event_day = admin.execute(
+        "SELECT (e.event_date+e.start_time) AT TIME ZONE 'Asia/Kolkata', e.event_date "
+        "FROM public.schedule_events e JOIN lunar_private.occurrences o ON o.event_id=e.id WHERE o.id=%s",
+        (later["occurrence"],)).fetchone()
+    assert event_day.year == year + 1
+    for _ in range(2):
+        admin.execute("SELECT public.refresh_occurrence_reminders(%s)", (due,))
+    assert admin.execute(
+        "SELECT count(*),max(attempts) FROM public.reminder_deliveries d "
+        "JOIN lunar_private.occurrences o ON o.event_id=d.event_id WHERE o.id=%s",
+        (later["occurrence"],)).fetchone() == (1, 0)
+
+    stop = call(service, "cancel_lunar_annual", series=series)
+    state = service.development.pending[stop["review"]]
+    try:
+        service.development.owner.decide_annual_review(
+            uuid4(), state.data["request"], "approve", state.data["fingerprint"],
+            datetime.now(timezone.utc) - timedelta(seconds=1))
+    except LunarStorageError:
+        pass
+    else:
+        raise AssertionError("Expired database approval accepted")
+    assert confirm(service, stop)["status"] == "approved"
+    assert preview(restart(), series, year + 1)["status"] == "withheld"
+    assert "cancelled" in call(service, "status_lunar_annual", series=series)["reply"]
+    assert admin.execute(
+        "SELECT d.status,d.attempts FROM public.reminder_deliveries d "
+        "JOIN lunar_private.occurrences o ON o.event_id=d.event_id WHERE o.id=%s",
+        (later["occurrence"],)).fetchone() == ("cancelled", 0)
+    print("PASS annual recovery across service restart, stable identity, stale cancellation, expiry and one reminder row")
+
+
 def run(pg_bin, ephemeris, pg_share=None, year=None):
     if not __debug__:
         raise ValueError("Run acceptance with assertions enabled")
@@ -160,7 +289,12 @@ def run(pg_bin, ephemeris, pg_share=None, year=None):
     year = date.today().year + 1 if year is None else year
     with tempfile.TemporaryDirectory(prefix="dincharya-m2h-") as temporary:
         work = Path(temporary)
-        port = 55438
+        # Allow independent disposable runs on this host. If another process
+        # wins the port after probing, PostgreSQL startup fails safely.
+        from socket import socket
+        with socket() as listener:
+            listener.bind(("127.0.0.1", 0))
+            port = listener.getsockname()[1]
         bootstrap = ["-D", str(work / "data"), "-U", "synthetic_test",
                      "--auth-host=scram-sha-256", "--no-locale", "-E", "UTF8"]
         # The disposable bootstrap administrator uses a random SCRAM password.
@@ -186,7 +320,8 @@ def run(pg_bin, ephemeris, pg_share=None, year=None):
             dbname = "dincharya_app_test"
             args = [binary / "psql", "-X", "-q", "-w", "-v", "ON_ERROR_STOP=1",
                     "-h", common["host"], "-p", str(port), "-U", login["user"], "-d", dbname]
-            migrations = sorted((ROOT / "database/migrations").glob("000[1-9]_*.sql"))
+            paths = ROOT / "database/migrations"
+            migrations = sorted(paths.glob("000[1-9]_*.sql")) + sorted(paths.glob("0010_*.sql"))
             result = subprocess.run(args, input=Path(__file__).with_name("m2h_development_schema.sql").read_text()
                                     + "\n" + render_migrations(migrations), text=True,
                                     env={**os.environ, "PGPASSWORD": bootstrap_phrase}, capture_output=True)
@@ -210,13 +345,24 @@ def run(pg_bin, ephemeris, pg_share=None, year=None):
                 admin.execute("INSERT INTO lunar_private.profiles(digest,specification,enabled) "
                               "SELECT lunar_private.hash(v),v,true FROM (SELECT %s::jsonb AS v) AS data",
                               (json.dumps(development_profile()),))
-                service = build_service(dict(
+                config = dict(
                     development_astronomy=True, public_ephemeris=ephemeris, owner_id=101, connections=roles,
                     catalog={"synthetic": True, "astronomy_enabled": False, "fixtures": {}},
                     command_key=secrets.token_hex(32), tick_key=secrets.token_hex(32),
-                    review_key=secrets.token_hex(32)))
+                    review_key=secrets.token_hex(32))
+                service = build_service(config)
                 asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI)))
                 exercise_storage(service, admin, year)
+                from dincharya.lunar_service import connection_factory
+                with connection_factory(roles["calculator"])() as calculator:
+                    grants = calculator.execute(
+                        "SELECT has_function_privilege(session_user,"
+                        "'lunar_api.list_annual_rules(uuid)','EXECUTE'), "
+                        "has_function_privilege(session_user,"
+                        "'lunar_api.decide_annual_review(uuid,bigint,text,text,timestamptz)','EXECUTE')"
+                    ).fetchone()
+                assert grants == (False, False)
+                exercise_annual(service, lambda: build_service(config), admin, year)
         finally:
             subprocess.run([binary / "pg_ctl", "-D", work / "data", "-m", "fast", "stop"],
                            check=True, capture_output=True)

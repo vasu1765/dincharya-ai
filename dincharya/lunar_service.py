@@ -17,6 +17,8 @@ from dincharya.reminders import process_batch, DeliveryUncertain
 NAMESPACE=UUID('8c492eb7-bad2-4868-aa67-2a042e0bb312')
 DEVELOPMENT_OPERATIONS = frozenset({
     "draft_lunar", "confirm_lunar_draft", "cancel_lunar_draft",
+    "list_lunar_annual", "resume_lunar_annual", "cancel_lunar_annual",
+    "status_lunar_annual", "cancel_lunar_annual_occurrence",
 })
 
 
@@ -126,6 +128,8 @@ class LunarService:
                 if self.development is None:
                     return {'status':'disabled','reply':'Lunar scheduling is disabled.'}
                 return self.development.handle(command)
+            if self.development is not None and op != "tick":
+                return {'status':'denied'}
             action=uuid5(NAMESPACE,value['nonce'])
             if op=='request':
                 if set(command)!={'operation','kind','fixture'}:raise ValueError()

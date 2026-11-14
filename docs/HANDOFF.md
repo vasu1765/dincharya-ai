@@ -3,7 +3,17 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 2 development review
+## Current checkpoint — M2H Cycle 3 annual development review
+
+[Cycle 3](M2H_CYCLE3_ANNUAL.md) adds durable annual rules, per-year owner
+approval, restart and expiry recovery, and reviewed cancellation. Reuse the
+standalone disposable acceptance harness with the pinned public ephemeris.
+For the next acceptance stage, use an exact separately authorized schema-only
+baseline and the real isolated n8n relay with Telegram simulated. The original
+2B provenance manifest path remains unknown. Production and real Telegram
+remain outside this checkpoint.
+
+## Prior checkpoint — M2H Cycle 2 development review
 
 [Cycle 2](M2H_CYCLE2_TELEGRAM.md) adds bounded English, Hindi and Hinglish lunar
 proposals and two explicit owner approvals. The integration harness uses the
