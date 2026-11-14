@@ -1,16 +1,17 @@
 # Milestone 2, Cycle 1 Panchang accuracy review
 
-**Ready for review. Keep astronomical scheduling disabled.** Review scope is
+**Owner-approved reference policy. Production lunar scheduling stays disabled.** Review scope is
 [issue #3](https://github.com/vasu1765/dincharya-ai/issues/3). The comparison
 baseline is commit `67dc6a1b16d1208d389ac6f3201cc7d9b6ee8ba4`.
 
 ## Timing accuracy
 
-**Conclusion.** The 60-second raw comparison is useful for tracking publisher
-disagreement. This sample does not justify it as an astronomical accuracy bound,
-and the 90- and 120-second alternatives have the same limitation. JPL Horizons
-reproduced all eight distinct tithi crossings behind the 13 rows. Keep the
-existing diagnostic and release gates pending owner approval of a replacement.
+**Conclusion.** The owner adopted an inclusive 90-second publisher-display
+diagnostic on 14 November 2026. Drik Panchang New Delhi is primary for civil
+dates and IMD PAC is secondary for corroboration. Himalayan Academy remains
+historical evidence outside the primary denominator. JPL Horizons reproduced
+all eight distinct crossings behind the 13 rows. The diagnostic does not
+quantify astronomical uncertainty.
 
 Recomputed all 13 signed residuals using the pinned Skyfield 1.55 environment,
 DE440s kernel and repository inputs. All 13 matched the stored values to the
@@ -23,8 +24,8 @@ precision does not measure accuracy against a publisher.
 
 | Diagnostic | Pass | Fail |
 | --- | ---: | ---: |
-| 60 seconds (current) | 9 | 4 |
-| 90 seconds (hypothetical) | 12 | 1 |
+| 60 seconds (historical) | 9 | 4 |
+| 90 seconds (current diagnostic) | 12 | 1 |
 | 120 seconds (hypothetical) | 12 | 1 |
 
 ### Full comparison times and displayed-minute precision
@@ -144,7 +145,7 @@ outside. The raw median absolute residual was 22.495 seconds and the maximum
 and fixture bytes remain the historical record. These counts describe 13
 comparisons, not 13 independent events.
 
-Recommend three checks for a future owner-approved validation profile:
+The adopted profile uses three separate checks:
 
 1. Compare the apparent geocentric crossing against a higher-precision
    reference with aligned event, time scale and frame. Record ephemeris,
@@ -162,7 +163,7 @@ Recommend three checks for a future owner-approved validation profile:
    `[−300, +300] s` or credible profiles disagree on the selected date. Keep
    unsupported or unresolved cases withheld.
 
-## Reference profiles for owner review
+## Adopted reference profiles
 
 | Profile | Evidence to use | Limits |
 | --- | --- | --- |
@@ -170,10 +171,13 @@ Recommend three checks for a future owner-approved validation profile:
 | IMD PAC Rashtriya Panchang | Dated edition and PDF page, IST including >24h rollover, central station 23°11′N/82°30′E, upper limb with 31′ refraction plus 16′ solar radius. Use published tithi and Amanta labels at the stated time, and ingress references for month validation. [PAC explanation](https://packolkata.imd.gov.in/panchang/en/explanation) | Central station sunrise cannot stand in for Delhi. PAC lunar almanac entries are distinct from the civil solar calendar headings. Purnimanta projected from PAC is inferred. |
 | Research calculation | Pinned Skyfield/DE440s, Delhi 28.6139°N/77.2090°E, WGS84 and zero elevation, Asia/Kolkata, upper-limb −50′ and PAC-inspired −47′ sensitivity at the same Delhi coordinates. | Both horizons are model hypotheses. Applying −47′ in Delhi does not recreate the PAC central station or certify Drik equivalence. |
 
-Proposed use is Drik as a Delhi civil-date comparator and PAC as an independent
-publisher for Amanta/ingress/transition corroboration. This requires an owner
-review before any reference authority or engine is adopted. Agreement alone
-does not establish independent numerical lineage.
+Use Drik for Delhi civil-date comparisons and PAC for Amanta, ingress and
+geocentric transition corroboration. PAC central-station sunrise labels cannot
+override Delhi labels. The published Himalayan January 13 discrepancy remains
+visible. The diagnostic reports Drik **3/3**, PAC **3/3**, Himalayan **1/2**
+and other context **5/5** at 90 seconds. The preserved 13-row matrix still
+reports all observations. Run `python -B -m prototypes.panchang.reference_policy`
+to reproduce the current breakdown.
 
 ## Focused Delhi sunrise validation
 
@@ -203,11 +207,14 @@ Publisher pages for the table:
 Keep withholding when the absolute distance is 300 seconds or less. For
 example, applying a 90-second boundary shift to the May 1 computed margins
 can put the event inside the guard even though its tithi label stays unchanged.
-On June 30, a change of several seconds can change the label. If credible
+The guarded selector withholds May 1 once the earlier published endpoint
+and its possible display offset enter the guard. On June 30, a change of
+several seconds can change the label. If credible
 profiles disagree or the credible joint sunrise and transition uncertainty
 enters the guard, withhold the date for review. Treat this as a release
-criterion. The current prototype's local guard does not implement a publisher
-consensus check or an uncertainty budget.
+criterion. The guarded development selector checks both models, direct comparable Delhi
+labels where available, and the envelope of matching publisher transition
+intervals. The existing research previews retain their historical behaviour.
 
 The disputed January 13, January 14 and March 27 endpoints, including both
 publisher minutes and the conditional display intervals above, fall between the
@@ -276,10 +283,8 @@ The LLM parses and explains. It has no scheduling or database write authority.
 
 ## Release recommendation
 
-**No-go for persisted or live personal lunar anniversaries.** Retain the
-60-second raw diagnostic and 300-second sunrise guard while the owner reviews
-the precision-aware methodology and comparison profiles. The astronomical
-crossings are corroborated for this sample. Publisher methodology and
-broader date-policy validation remain open. Any change to the accepted
-accuracy threshold requires owner approval. Festival observance and production
-enablement remain separate decisions.
+The owner approved guarded implementation and testing in development. The
+90-second display diagnostic remains independent of the 300-second guard.
+Release and production enablement require separate approval and broader
+validation. Personal anniversary rules remain separate from festival
+observance rules.

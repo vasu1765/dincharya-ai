@@ -3,17 +3,14 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 1 review
+## Current checkpoint — M2H Cycle 1 owner policy
 
-On `development/m2h-panchang-accuracy`, JPL Horizons corroborated the eight
-distinct tithi crossings behind the 13 published comparisons. The publisher
-minute intervals and Delhi date checks are in the
-[Cycle 1 report](M2H_CYCLE1_ACCURACY.md). The disputed January/March endpoints
-leave the adjacent dawn assignments stable. The June 30 sunrise hypotheses
-split the tithi label, and both previews withheld both adjacent tithis.
-Keep the raw 60-second diagnostic and 300-second guard pending owner review
-of precision-aware validation. Personal lunar scheduling stays disabled.
-No WSL handoff is needed for this checkpoint.
+[The Cycle 1 report](M2H_CYCLE1_ACCURACY.md) records the owner-approved Drik Delhi
+primary and IMD PAC secondary profiles, the 90-second publisher diagnostic
+and the 300-second sunrise guard. Himalayan Academy remains historical
+evidence outside the primary denominator. The guarded selector withholds
+model disagreements, conflicting comparable Delhi labels and uncertain dates.
+Production lunar scheduling remains disabled.
 
 ## Prior checkpoint — M2G private Telegram acceptance PASSED
 

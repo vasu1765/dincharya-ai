@@ -45,8 +45,9 @@ Cycle 1 independently cross-checked the eight distinct tithi crossings behind
 the 13 published comparisons and examined minute-display sensitivity. Delhi
 sunrise assignments are stable for the disputed January and March endpoints.
 The June 30 sunrise profiles disagree and both withhold both adjacent tithis.
-See the [Cycle 1 report](M2H_CYCLE1_ACCURACY.md) for proposed precision-aware
-validation, the no-go recommendation and the Cycle 2 Telegram contract.
+The owner adopted Drik New Delhi as primary and IMD PAC as secondary.
+[Cycle 1](M2H_CYCLE1_ACCURACY.md) applies a 90-second display diagnostic and
+a separate 300-second guard in development.
 
 ## Historical checkpoint
 
