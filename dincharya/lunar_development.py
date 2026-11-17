@@ -32,6 +32,7 @@ class DevelopmentLunar:
         self.clock = clock
         self.pending = {}
         self.lock = Lock()
+        self.recurring = None
 
     def _fail(self, reason, status="withheld"):
         return dict(status=status, reply=f"Date withheld / तिथि रोकी गई ({reason}).")
@@ -126,6 +127,12 @@ class DevelopmentLunar:
             return dict(status="inspected", series=str(series), reply=reply)
         if not rule_info["enabled"]:
             return self._fail("series_cancelled")
+        control = None
+        if resume and self.recurring:
+            control = next((item for item in self.recurring.controls()["controls"]
+                            if item["series_id"] == str(series)), None)
+            if control and (control["mode"] != "manual" or control["state"] != "active"):
+                return self._fail("automatic_or_inactive_rule")
         if resume:
             year = command["year"]
             current = datetime.fromtimestamp(self.clock(), DELHI).year
@@ -144,7 +151,7 @@ class DevelopmentLunar:
             except Unsupported as exc:
                 return self._fail(str(exc))
             plan["attempt"] = secrets.token_urlsafe(18)
-            return self._prepare_occurrence(plan, series, rule_info["revision"], annual=True)
+            return self._prepare_occurrence(plan, series, rule_info["revision"], annual=True, control=control)
 
         if len(self.pending) >= 128:
             return self._fail("too_many_pending_reviews")
@@ -209,6 +216,31 @@ class DevelopmentLunar:
             if operation in {"list_lunar_annual", "resume_lunar_annual", "cancel_lunar_annual",
                              "status_lunar_annual", "cancel_lunar_annual_occurrence"}:
                 return self._annual_command(command, operation)
+            if operation in {"draft_recurring", "recurring_rules", "review_recurring_change",
+                             "review_recurring_adoption", "project_tick", "reserve_recurring_alert"}:
+                if self.recurring is None:
+                    return self._fail("recurring_development_disabled")
+                try:
+                    if operation == "draft_recurring" and set(command) == {"operation", "text"}:
+                        return self.recurring.draft(command["text"])
+                    if operation == "project_tick" and set(command) == {"operation"}:
+                        return self.recurring.project()
+                    if operation == "reserve_recurring_alert" and set(command) == {"operation"}:
+                        return self.recurring.reserve_alert()
+                    if operation == "recurring_rules" and set(command) == {"operation"}:
+                        info = self.recurring.controls()
+                        lines = [f'{x["id"]} · {x["title"]} · {x["mode"]} · {x["state"]}' for x in info["controls"]]
+                        lines += [f'Withheld {x["target_year"]}: {x["reason"]} ({x["control"]})'
+                                  for x in info["withheld"]]
+                        return dict(status="listed", reply="\n".join(lines)[:3900] or "No reviewed rules.")
+                    if operation == "review_recurring_change" and set(command) == {
+                            "operation", "control", "change", "policy"}:
+                        return self.recurring.change_preview(self.recurring.controls()["controls"], command)
+                    if operation == "review_recurring_adoption" and set(command) == {"operation", "series", "mode"}:
+                        return self.recurring.adopt_preview(command["series"], command["mode"])
+                except Clarify as error:
+                    return dict(status="clarify", reply=str(error))
+                return self._fail("invalid_request")
             if operation == "draft_lunar":
                 if set(command) != {"operation", "text"}:
                     return self._fail("invalid_request")
@@ -252,6 +284,12 @@ class DevelopmentLunar:
             elif choice == "reject":
                 review.decision = choice
                 result = dict(status="rejected", reply="Draft cancelled / प्रस्ताव रद्द।")
+            elif "recurring" in review.data or "recurring_change" in review.data:
+                review.decision = choice
+                if "recurring" in review.data:
+                    result = self.recurring.approve(review.data["recurring"], review.expires)
+                else:
+                    result = self.recurring.change(review.data["recurring_change"], review.expires)
             elif "annual_intent" in review.data:
                 review.decision = choice
                 result = self._approve_annual(review.data["annual_intent"], review.expires)
@@ -290,9 +328,7 @@ class DevelopmentLunar:
             return self._fail("rule_approval_unavailable")
         return self._prepare_occurrence(plan, series, 1)
 
-    def _prepare_occurrence(self, plan, series, revision, *, annual=False):
-        if len(self.pending) >= 128:
-            return self._fail("too_many_pending_reviews")
+    def _calculation(self, plan, series, revision, annual):
         intent, row = plan["intent"], plan["row"]
         rule = intent["rule"]
         repeated = len(row["sunrise_dates"]) > 1
@@ -304,9 +340,14 @@ class DevelopmentLunar:
                         model_profiles=row["model_profiles"], sunrise_dates=row["sunrise_dates"],
                         minimum_margin_seconds=row["minimum_margin_seconds"])
         calculation = ("annual-calculation/" + canonical(row["identity"])) if annual else "calculation"
-        occurrence = UUID(str(self.calculator.record_calculation(
+        return UUID(str(self.calculator.record_calculation(
             uuid5(series, calculation), series, revision, row["identity"], self.profile, evidence,
             date.fromisoformat(row["selected_date"]))))
+    def _prepare_occurrence(self, plan, series, revision, *, annual=False, control=None):
+        if len(self.pending) >= 128:
+            return self._fail("too_many_pending_reviews")
+        intent, row = plan["intent"], plan["row"]
+        occurrence = self._calculation(plan, series, revision, annual)
         snapshot = self.owner.inspect_occurrence(occurrence)["occurrence"]
         if snapshot.get("cancelled"):
             return self._fail("appointment_was_cancelled")
@@ -321,9 +362,14 @@ class DevelopmentLunar:
             snapshot["revision"], snapshot["observation"], desired)
         reviewed = self.owner.inspect_request(request)
         conflict_count = len(reviewed.get("conflicts", ()))
+        details = self._display(plan)
+        if control:
+            from dincharya.recurring import policy_name
+            offsets = control["offsets"]
+            details = details.replace("Reminder at start.", f"Manual · {policy_name(offsets)} · offsets {offsets} minutes.")
         result = self._issue(dict(plan=plan, request=request, fingerprint=reviewed["fingerprint"],
-                                  occurrence=str(occurrence), annual=annual),
-                             self._display(plan) + (f"\nAnnual series {series}." if annual else "")
+                                  occurrence=str(occurrence), annual=annual, control=control, series=str(series)),
+                             details + (f"\nAnnual series {series}." if annual else "")
                              + f"\nExisting appointments on that date: {conflict_count}. "
                              "Confirm appointment / समय की पुष्टि।",
                              "occurrence_preview")
@@ -332,7 +378,16 @@ class DevelopmentLunar:
     def _decide_occurrence(self, review, choice):
         data = review.data
         action = uuid5(NAMESPACE, f'development/decision/{data["request"]}/{choice}')
-        if data.get("annual"):
+        if data.get("control"):
+            from dincharya.recurring import call
+            control = data["control"]
+            result = call(self.owner, "decide_recurring_manual", (
+                UUID(control["id"]), control["revision"], action, data["request"], choice,
+                data["fingerprint"], datetime.fromtimestamp(review.expires, DELHI)))
+        elif data.get("annual"):
+            if (self.recurring and data.get("series") and
+                    any(row["series_id"] == data["series"] for row in self.recurring.controls()["controls"])):
+                return self._fail("approval_mode_changed")
             result = self.owner.decide_annual_review(action, data["request"], choice, data["fingerprint"],
                                                     datetime.fromtimestamp(review.expires, DELHI))
         else:

@@ -67,7 +67,19 @@ class LunarTextFilter(filters.MessageFilter):
         return bool(message.text and LUNAR.search(TITLE.sub("", message.text)))
 
 
-def register_lunar_previews(app, owner_id, commands):
+async def send_recurring_alert(bot, owner_id, ticks):
+    try:
+        result = await asyncio.to_thread(ticks.call, {"operation": "reserve_recurring_alert"},
+                                         "alert-" + str(time.time_ns()))
+        if result["status"] == "alert":
+            await bot.send_message(chat_id=owner_id, text=result["reply"])
+    except Exception:
+        # Reservation is durable before transport. A failed or uncertain send
+        # remains available in /recurring_rules and is never retried here.
+        logging.getLogger(__name__).warning("Recurring alert unavailable; inspect reviewed rules")
+
+
+def register_lunar_previews(app, owner_id, commands, *, recurring=False, alert_ticks=None):
     """Register the development interface against the signed orchestration client."""
     def authorized(update):
         user, chat = update.effective_user, update.effective_chat
@@ -95,7 +107,12 @@ def register_lunar_previews(app, owner_id, commands):
             raw = update.message.text
             if raw.startswith("/"):
                 raw = raw.partition(" ")[2]
-            await invoke(update, update.message, {"operation": "draft_lunar", "text": raw})
+            operation = "draft_lunar"
+            if recurring and (update.message.text.startswith("/recurring") or
+                              not LUNAR.search(TITLE.sub("", raw)) or
+                              re.search(r"annual|every year|har saal|हर साल|प्रति वर्ष|वार्षिक|सालाना", raw, re.I)):
+                operation = "draft_recurring"
+            await invoke(update, update.message, {"operation": operation, "text": raw})
 
     async def decision(update, context):
         query = update.callback_query
@@ -138,6 +155,49 @@ def register_lunar_previews(app, owner_id, commands):
                 return
             command["year"] = int(command["year"])
         await invoke(update, update.message, command)
+
+    if recurring:
+        if alert_ticks is not None:
+            async def alerts(context):
+                await send_recurring_alert(context.bot, owner_id, alert_ticks)
+
+            app.job_queue.run_repeating(alerts, interval=60, first=60, name="dincharya-recurring-alerts",
+                                        job_kwargs={"max_instances": 1})
+
+        async def recurring_command(update, context):
+            if not authorized(update) or not update.message:
+                return
+            name = update.message.text.split()[0].split("@")[0].lower()
+            if name == "/recurring_rules" and not context.args:
+                command = {"operation": "recurring_rules"}
+            elif name == "/recurring_adopt" and len(context.args) == 2:
+                identifier, mode = context.args
+                command = dict(operation="review_recurring_adoption", series=identifier, mode=mode)
+            elif name == "/recurring_change" and len(context.args) >= 2:
+                identifier, change, *policy = context.args
+                command = dict(operation="review_recurring_change", control=identifier,
+                               change=change, policy=" ".join(policy))
+            else:
+                await update.message.reply_text("Use /recurring_rules, /recurring_change ID ACTION [DETAILS], "
+                                                "or /recurring_adopt SERIES MODE.")
+                return
+            await invoke(update, update.message, command)
+
+        class CivilRecurringText(filters.MessageFilter):
+            def filter(self, message):
+                from dincharya.recurring import CIVIL, DAY_ALIASES, DAYS, NOTIFICATION_EDIT
+
+                raw = message.text or ""
+                return bool(NOTIFICATION_EDIT.fullmatch(raw) or (
+                    CIVIL.match(raw) and re.search(
+                        "|".join(DAYS + DAY_ALIASES + ("daily", "every day", "हर दिन", "रोज", "roz",
+                                                       "har din", "every year", "annually", "हर साल", "har saal",
+                                                       r"\b(?:on|दिनांक|tareekh)\s+[0-9०-९]{4}-")),
+                        raw, re.I)))
+
+        app.add_handler(CommandHandler("recurring", draft))
+        app.add_handler(CommandHandler(["recurring_rules", "recurring_change", "recurring_adopt"], recurring_command))
+        app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & CivilRecurringText(), draft))
 
     app.add_handler(CommandHandler("lunar_preview", draft))
     app.add_handler(CommandHandler(

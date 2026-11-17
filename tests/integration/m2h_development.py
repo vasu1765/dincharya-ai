@@ -300,7 +300,7 @@ def exercise_annual(service, restart, admin, year, forward=None):
     print("PASS annual recovery across service restart, stable identity, stale cancellation, expiry and one reminder row")
 
 
-def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations=None):
+def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations=None, cycle5=None):
     if not __debug__:
         raise ValueError("Run acceptance with assertions enabled")
     if any(key.startswith("PG") for key in os.environ):
@@ -342,6 +342,8 @@ def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations
                     "-h", common["host"], "-p", str(port), "-U", login["user"], "-d", dbname]
             paths = ROOT / "database/migrations"
             migrations = sorted(paths.glob("000[1-9]_*.sql")) + sorted(paths.glob("0010_*.sql"))
+            if cycle5:
+                migrations += sorted(paths.glob("001[12]_*.sql"))
             sql_input = Path(__file__).with_name("m2h_development_schema.sql").read_bytes()
             result = subprocess.run(args, input=sql_input + b"\n" + render_migrations(migrations).encode(),
                                     env={**os.environ, "PGPASSWORD": bootstrap_phrase}, capture_output=True)
@@ -387,6 +389,8 @@ def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations
                     catalog={"synthetic": True, "astronomy_enabled": False, "fixtures": {}},
                     command_key=secrets.token_hex(32), tick_key=secrets.token_hex(32),
                     review_key=secrets.token_hex(32))
+                if cycle5:
+                    config["development_recurring"] = True
                 service = build_service(config)
                 if session is None:
                     asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI)))
@@ -404,9 +408,12 @@ def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations
                     exercise_annual(service, lambda: build_service(config), admin, year)
                 else:
                     with session(work, config) as relay:
-                        asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI), relay.url))
-                        relay.check_signatures()
-                        exercise_annual(service, relay.restart_service, admin, year, forward=relay.forward)
+                        if cycle5:
+                            cycle5(service, relay, admin, roles, year)
+                        else:
+                            asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI), relay.url))
+                            relay.check_signatures()
+                            exercise_annual(service, relay.restart_service, admin, year, forward=relay.forward)
                 if operations is not None:
                     operations(work, binary, conf, login, roles, admin)
         finally:

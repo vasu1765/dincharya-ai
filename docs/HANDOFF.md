@@ -3,7 +3,17 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 4 application and operations
+## Current checkpoint — M2H Cycle 5 recurrence and notifications
+
+Review [Cycle 5 behavior, test commands and the completion matrix](M2H_CYCLE5_RECURRENCE.md).
+The branch adds isolated controls and notification slots on top of PR #8.
+Existing manual rules and legacy delivery history are preserved. Restore coverage
+uses a separate database in one disposable cluster. Before promotion, repeat
+compatibility on the authorized schema with the new migrations, complete the
+cross-cluster restore and supervised recovery exercises, resolve 2B provenance
+and broaden the lunar calendar evidence. Live activation needs owner approval.
+
+## Prior checkpoint — M2H Cycle 4 application and operations
 
 Exact authorized schema acceptance now **PASSED (exit 0)** in the original WSL
 checkout on `development/m2h-operational-acceptance`, following a diagnostic

@@ -6,6 +6,9 @@ and [decisions](DECISIONS.md).
 
 ## Milestone 2 completion roadmap
 
+[Cycle 5 completion matrix](M2H_CYCLE5_RECURRENCE.md#milestone-2-completion-matrix)
+records the development recurrence and notification work and remaining acceptance.
+
 PR #1 merged into main at `f3db2ff600dbb417e8bd2c553aad5388697cbd9e`, including
 owner-approved reminder evidence and HTTP 429 quarantine. Complete ALL Milestone 2,
 including Hindu Panchang and operational acceptance, before other domains or

@@ -2,11 +2,13 @@
 from pathlib import Path
 import argparse
 import json
+import logging
 import os
 import stat
 import re
+from threading import Event, Thread
 
-from dincharya.lunar_service import LunarService,connection_factory,live_transport
+from dincharya.lunar_service import LunarService,connection_factory,live_transport,envelope
 from dincharya.lunar_http import server
 
 
@@ -36,6 +38,9 @@ def validate_test_bot(info,expected_owner):
 
 
 def build_service(config,*,transport=None,live_approved=False):
+    cycle5 = config.get("development_recurring", False)
+    if type(cycle5) is not bool or (cycle5 and config.get("development_astronomy") is not True):
+        raise ValueError("Recurring development requires isolated astronomy mode")
     development = config.get("development_astronomy", False)
     if type(development) is not bool:
         raise ValueError("Boolean astronomical development gate required")
@@ -75,9 +80,13 @@ def build_service(config,*,transport=None,live_approved=False):
             or identity.get('username')!='dincharya_acceptance_test_bot'):
             client.close();raise ValueError('Dedicated test bot identity mismatch')
         transport=live_transport(client.post,token,owner,authorized=True)
-    return LunarService(connects['owner'],connects['calculator'],connects['worker'],config['catalog'],
+    service = LunarService(connects['owner'],connects['calculator'],connects['worker'],config['catalog'],
        config['command_key'],config['tick_key'],config['review_key'],transport=transport,
        development_calendar=calendar, development_profile=profile)
+    if cycle5:
+        from dincharya.recurring import Recurring
+        service.development.recurring = Recurring(service.development)
+    return service
 
 
 def main():
@@ -86,7 +95,27 @@ def main():
     try:
         config=read_private(args.config)
         service=build_service(config,live_approved=args.live_approved)
-        with server(config['service_socket'],service) as instance:instance.serve_forever()
+        stopping = Event()
+        projector = None
+        if config.get("development_recurring") is True:
+            def project():
+                import time
+                while not stopping.is_set():
+                    value, signature = envelope(service.tick_key, {"operation": "project_tick"},
+                                                str(time.time_ns()))
+                    result = service.handle(value, signature)
+                    if result.get("status") not in {"projected", "busy"}:
+                        logging.getLogger(__name__).warning("Recurring projection paused until the next check")
+                    stopping.wait(300)
+            projector = Thread(target=project, daemon=True, name="development-projector")
+            projector.start()
+        try:
+            with server(config['service_socket'], service) as instance:
+                instance.serve_forever()
+        finally:
+            stopping.set()
+            if projector:
+                projector.join(timeout=5)
     except Exception:raise SystemExit('Lunar acceptance service failed; private details suppressed') from None
 
 if __name__=='__main__':main()

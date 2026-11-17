@@ -16,6 +16,8 @@ from dincharya.reminders import process_batch, DeliveryUncertain
 
 NAMESPACE=UUID('8c492eb7-bad2-4868-aa67-2a042e0bb312')
 DEVELOPMENT_OPERATIONS = frozenset({
+    "draft_recurring", "recurring_rules", "review_recurring_change", "review_recurring_adoption",
+    "project_tick", "reserve_recurring_alert",
     "draft_lunar", "confirm_lunar_draft", "cancel_lunar_draft",
     "list_lunar_annual", "resume_lunar_annual", "cancel_lunar_annual",
     "status_lunar_annual", "cancel_lunar_annual_occurrence",
@@ -121,7 +123,7 @@ class LunarService:
             command=value['command']
             if not isinstance(command,dict):return {'status':'denied'}
             op=command['operation']
-            key=self.tick_key if op=='tick' else self.command_key
+            key=self.tick_key if op in ('tick','project_tick','reserve_recurring_alert') else self.command_key
             if not isinstance(signature,str) or not hmac.compare_digest(signature,sign(key,'command',value)):
                 return {'status':'denied'}
             if op in DEVELOPMENT_OPERATIONS:

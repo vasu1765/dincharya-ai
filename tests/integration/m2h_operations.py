@@ -11,7 +11,7 @@ from dincharya.reminders import DeliveryUncertain, process_batch
 from prototypes.panchang.astronomy import DELHI
 
 
-def run_operations(work, binary, conf, login, roles, admin):
+def run_operations(work, binary, conf, login, roles, admin, *, recurring=False):
     repository = PostgresReminders(connection_factory(roles["worker"]), restricted_worker=True)
     start = datetime.now(timezone.utc).replace(microsecond=0)
     calls = []
@@ -100,6 +100,14 @@ def run_operations(work, binary, conf, login, roles, admin):
         assert calls == ["retry", "retry", "uncertain", "outage"]
         annual_rows = resumed.execute("SELECT to_jsonb(a) FROM lunar_private.annual_rules a ORDER BY series_id").fetchall()
         audit_rows = resumed.execute("SELECT to_jsonb(a) FROM lunar_private.actions a ORDER BY id").fetchall()
+        def recurring_snapshot(connection):
+            return tuple(connection.execute(f"SELECT to_jsonb(t) FROM lunar_private.{table} t ORDER BY {order}").fetchall()
+                         for table, order in (
+                             ("recurring_control", "id"), ("recurring_audit", "action"),
+                             ("projection_review", "control,target_year,revision"),
+                             ("notification_policy", "event_id"), ("notification_slot", "id")))
+
+        recurring_rows = recurring_snapshot(resumed) if recurring else None
 
     db_env = {**os.environ, "PGPASSWORD": login["password"]}
     args = ["-h", login["host"], "-p", str(login["port"]), "-U", login["user"], "-w"]
@@ -120,6 +128,8 @@ def run_operations(work, binary, conf, login, roles, admin):
     with psycopg.connect(**login, dbname="dincharya_app_test", autocommit=True) as restored:
         assert restored.execute("SELECT to_jsonb(a) FROM lunar_private.annual_rules a ORDER BY series_id").fetchall() == annual_rows
         assert restored.execute("SELECT to_jsonb(a) FROM lunar_private.actions a ORDER BY id").fetchall() == audit_rows
+        if recurring:
+            assert recurring_snapshot(restored) == recurring_rows
         assert all(ledger(restored, event) == rows for event, rows in expected.items())
         assert tick(step + timedelta(minutes=5)) == 0
         assert calls == ["retry", "retry", "uncertain", "outage"]

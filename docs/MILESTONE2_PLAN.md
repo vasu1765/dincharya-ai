@@ -185,3 +185,11 @@ The earlier first-private-test implementation blockers are resolved for fixtures
 next is explicit one-reminder live acceptance authorization and hidden credentials.
 General calendar/astronomy, advance slots,2B provenance and wider operational/VPS
 acceptance remain gated. No additional orchestrator or deployment authorized.
+
+## M2H Cycle 5 — recurring schedules and notification slots
+
+See the [Cycle 5 development evidence and completion matrix](M2H_CYCLE5_RECURRENCE.md).
+Cycle 4 exact-schema acceptance passed under its existing scope. Cycle 5 adds
+isolated automatic recurrence and notification selection. Broader calendar
+validation, 2B provenance, supervised recovery, cross-cluster restore and
+separate release approval remain open.

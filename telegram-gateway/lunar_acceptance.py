@@ -57,6 +57,10 @@ def run_development(path):
     with httpx.Client(timeout=30, trust_env=False,
                       transport=httpx.HTTPTransport(uds=config["n8n_socket"])) as client:
         commands = OrchestrationClient(client, "http://n8n/webhook/m2g-lunar", config["command_key"])
+        recurring = config.get("development_recurring") is True
+        alerts = (OrchestrationClient(client, "http://n8n/webhook/m2g-lunar", config["tick_key"])
+                  if recurring else None)
         app = Application.builder().token(info["token"]).build()
-        register_lunar_previews(app, info["owner_id"], commands)
+        register_lunar_previews(app, info["owner_id"], commands,
+                                recurring=recurring, alert_ticks=alerts)
         app.run_polling(drop_pending_updates=True, allowed_updates=["message", "callback_query"])
