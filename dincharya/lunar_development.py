@@ -34,6 +34,7 @@ class DevelopmentLunar:
         self.lock = Lock()
         self.recurring = None
         self.historical = None
+        self.restore_epoch = None
 
     def _fail(self, reason, status="withheld"):
         return dict(status=status, reply=f"Date withheld / तिथि रोकी गई ({reason}).")
@@ -352,9 +353,14 @@ class DevelopmentLunar:
         series = uuid5(NAMESPACE, "development/" + canonical(event_key))
         request = self.owner.propose_series(uuid5(series, "rule-proposal"), series,
                                             intent["purpose"], 0, rule)
+        decision_name = "rule-approve"
+        if self.restore_epoch and self.owner._call("SELECT lunar_api.request_requires_new_review(%s)", (request,)):
+            request = self.owner.propose_series(uuid5(series, f"rule-proposal/{self.restore_epoch}"), series,
+                                                intent["purpose"], 0, rule)
+            decision_name += f"/{self.restore_epoch}"
         reviewed = self.owner.inspect_request(request)
         if reviewed["status"] == "pending":
-            decided = self.owner.decide(uuid5(series, "rule-approve"), request, "approve",
+            decided = self.owner.decide(uuid5(series, decision_name), request, "approve",
                                         reviewed["fingerprint"], reviewed=True)
             if decided["status"] != "approved":
                 return self._fail("rule_approval_unavailable")
@@ -374,6 +380,8 @@ class DevelopmentLunar:
                         model_profiles=row["model_profiles"], sunrise_dates=row["sunrise_dates"],
                         minimum_margin_seconds=row["minimum_margin_seconds"])
         calculation = ("annual-calculation/" + canonical(row["identity"])) if annual else "calculation"
+        if self.restore_epoch:
+            calculation += f"/{self.restore_epoch}"
         return UUID(str(self.calculator.record_calculation(
             uuid5(series, calculation), series, revision, row["identity"], self.profile, evidence,
             date.fromisoformat(row["selected_date"]))))

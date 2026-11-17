@@ -8,6 +8,10 @@ makes no claim about the contents of the unavailable original manifest.
 
 ## Review package
 
+See the [Cycle 7 artifact-by-artifact disposition package](M2B_CYCLE7_DECISIONS.md)
+for the current review. It retains the Cycle 6 manifest and separately lists the
+new recovery sources by digest.
+
 Run from the repository root.
 
 ```bash
@@ -31,7 +35,7 @@ Unknown historical versions and checksums remain null. [Prior extraction evidenc
 
 | Review area | Evidence available | Compatibility or migration risk |
 | --- | --- | --- |
-| PostgreSQL schema and migrations | Invented fixture and all numbered migrations have distinct digests | Trigger, default-privilege and legacy function behavior on the exact schema needs the authorized Cycle 6 WSL run. |
+| PostgreSQL schema and migrations | Invented fixture and all numbered migrations have distinct digests | Cycle 6 passed the authorized exact-schema run. The additive Cycle 7 restore fence needs a focused compatibility run. |
 | Native n8n definition | Repository-owned inactive relay, reconstructed on n8n 2.47.3 | Local harness binds only the isolated HTTP or Unix socket destination. Verify retention and logging before operational use. |
 | Current and published original workflows | Prior structural evidence and version counts | Review each version under separately scoped authorization before any replacement or adoption. Preserve external state. |
 | Historical workflows and Code nodes | Inventory-level evidence only | Historical execution is excluded. Preserve source and state if separately approved for read or archival. |

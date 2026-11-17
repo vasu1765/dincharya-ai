@@ -197,3 +197,9 @@ Use the [2B source review](M2B_SOURCE_ADOPTION.md) route approved by the owner.
 Historical Delhi lookups and Gregorian-event lunar anniversary previews
 reuse the guarded annual recurrence service. The [Cycle 6 results and follow-up](M2H_CYCLE6_HISTORICAL.md)
 track evidence, the new-migration exact-schema rehearsal and release decisions.
+
+## Current M2H Cycle 7 checkpoint
+
+Complete the focused authorized-schema 0014 run and obtain separate owner
+decisions for artifact promotion and the bounded private test. See the
+[release checklist and WSL task](M2H_CYCLE7_RELEASE.md#remaining-release-decisions).

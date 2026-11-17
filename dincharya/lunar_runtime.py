@@ -44,6 +44,9 @@ def build_service(config,*,transport=None,live_approved=False):
     historical = config.get("development_historical", False)
     if type(historical) is not bool or (historical and not cycle5):
         raise ValueError("Historical development requires the isolated recurrence service")
+    restore_fence = config.get("development_restore_fence", False)
+    if type(restore_fence) is not bool or (restore_fence and not historical):
+        raise ValueError("Restore fencing requires the isolated historical service")
     development = config.get("development_astronomy", False)
     if type(development) is not bool:
         raise ValueError("Boolean astronomical development gate required")
@@ -94,6 +97,8 @@ def build_service(config,*,transport=None,live_approved=False):
         from dincharya.historical_panchang import HistoricalPanchang
 
         service.development.historical = HistoricalPanchang(calendar)
+    if restore_fence:
+        service.development.restore_epoch = service.owner._call("SELECT lunar_api.restore_epoch()", ())
     return service
 
 

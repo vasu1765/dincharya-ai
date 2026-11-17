@@ -6,6 +6,11 @@ and [decisions](DECISIONS.md).
 
 ## Milestone 2 completion roadmap
 
+[Cycle 7 acceptance and release readiness](M2H_CYCLE7_RELEASE.md) is the active
+checkpoint. The isolated end-to-end matrix and recovery passed. Exact-schema
+compatibility for 0014, artifact decisions and separately approved private
+acceptance remain open.
+
 The [Cycle 6 matrix](M2H_CYCLE6_HISTORICAL.md#reproduce) and [2B review package](M2B_SOURCE_ADOPTION.md) record the active acceptance gates.
 
 [Cycle 5 completion matrix](M2H_CYCLE5_RECURRENCE.md#milestone-2-completion-matrix)

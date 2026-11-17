@@ -349,6 +349,8 @@ class Recurring:
                                    uuid5(occurrence, "auto/decision/" + label), row["observation"]))
                     if result["status"] == "conflict":
                         raise Unsupported("schedule_conflict")
+                    if result["status"] == "restore_review_required":
+                        raise Unsupported("restore_review_required")
                 except Unsupported as error:
                     if str(error) == "appointment_is_in_the_past":
                         continue

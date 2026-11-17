@@ -3,7 +3,15 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 6 historical Panchang and source review
+## Current checkpoint — M2H Cycle 7 release readiness
+
+The [end-to-end matrix and release checklist](M2H_CYCLE7_RELEASE.md) document
+synthetic acceptance and the restore fence. The owner-reported exact Cycle 6
+WSL result is preserved. Use the focused WSL command for migration 0014.
+[Source dispositions](M2B_CYCLE7_DECISIONS.md) and
+[private test scope](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) are ready for separate review.
+
+## Prior checkpoint — M2H Cycle 6 historical Panchang and source review
 
 [Cycle 6](M2H_CYCLE6_HISTORICAL.md) records the historical query and anniversary
 flow, public comparisons, isolated operations and the single WSL exact-schema

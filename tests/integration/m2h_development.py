@@ -300,7 +300,8 @@ def exercise_annual(service, restart, admin, year, forward=None):
     print("PASS annual recovery across service restart, stable identity, stale cancellation, expiry and one reminder row")
 
 
-def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations=None, cycle5=None, historical=False):
+def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations=None, cycle5=None, historical=False,
+        restore_fence=False):
     if not __debug__:
         raise ValueError("Run acceptance with assertions enabled")
     if any(key.startswith("PG") for key in os.environ):
@@ -346,6 +347,8 @@ def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations
                 migrations += sorted(paths.glob("001[12]_*.sql"))
             if historical:
                 migrations += sorted(paths.glob("0013_*.sql"))
+            if restore_fence:
+                migrations += sorted(paths.glob("0014_*.sql"))
             sql_input = Path(__file__).with_name("m2h_development_schema.sql").read_bytes()
             result = subprocess.run(args, input=sql_input + b"\n" + render_migrations(migrations).encode(),
                                     env={**os.environ, "PGPASSWORD": bootstrap_phrase}, capture_output=True)
@@ -395,6 +398,8 @@ def run(pg_bin, ephemeris, pg_share=None, year=None, *, session=None, operations
                     config["development_recurring"] = True
                 if historical:
                     config["development_historical"] = True
+                if restore_fence:
+                    config["development_restore_fence"] = True
                 service = build_service(config)
                 if session is None:
                     asyncio.run(exercise_sdk(service, admin, schedule_text(year, HINDI)))

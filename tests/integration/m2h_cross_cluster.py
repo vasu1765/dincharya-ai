@@ -36,7 +36,7 @@ def snapshot(connection):
                  for table, order in LEDGERS)
 
 
-def restore(work, binary, login, roles, admin, *, pg_share, kernel):
+def restore(work, binary, login, roles, admin, *, pg_share, kernel, recover=None):
     expected = snapshot(admin)
     dump = work / "cross-cluster.dump"
 
@@ -92,6 +92,8 @@ def restore(work, binary, login, roles, admin, *, pg_share, kernel):
             assert [(r[0], r[1]) for r in registered] == [("calculator", calculator), ("owner", owner)]
             assert any(row[2] != row[3] for row in registered)
             with conn.transaction():
+                if recover:
+                    conn.execute("SELECT lunar_private.fence_restored_pending()")
                 conn.execute("DELETE FROM lunar_private.principals WHERE role_name IN (%s,%s)", (owner, calculator))
                 for kind, name, _, after, subject, enabled in registered:
                     conn.execute("INSERT INTO lunar_private.principals VALUES(%s,%s,%s,%s,%s)",
@@ -101,6 +103,8 @@ def restore(work, binary, login, roles, admin, *, pg_share, kernel):
                           catalog={"synthetic": True, "astronomy_enabled": False, "fixtures": {}},
                           command_key=secrets.token_hex(32), tick_key=secrets.token_hex(32),
                           review_key=secrets.token_hex(32))
+            if recover:
+                permit["development_restore_fence"] = True
             service = build_service(permit)
             value, signature = envelope(service.tick_key, {"operation": "project_tick"}, "restored-projection")
             assert service.handle(value, signature)["status"] == "projected"
@@ -113,7 +117,12 @@ def restore(work, binary, login, roles, admin, *, pg_share, kernel):
             assert all(conn.execute("SELECT status FROM lunar_private.notification_slot WHERE id=%s",
                                     (ident,)).fetchone() == ("uncertain",) for ident in uncertain)
             after = snapshot(conn)
-            assert after[:5] == expected[:5]
+            if recover:
+                for previous, current in zip(expected[:5], after[:5]):
+                    assert all(row in current for row in previous)
+                recover(conn, permit, service)
+            else:
+                assert after[:5] == expected[:5]
             assert after[-1] != expected[-1]  # New projection-health heartbeat only.
     finally:
         subprocess.run([*pg, "-m", "fast", "stop"], check=True, timeout=45, capture_output=True)

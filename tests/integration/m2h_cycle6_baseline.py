@@ -15,6 +15,7 @@ from dincharya.lunar_service import envelope
 
 
 class ExactRunner(BaselineRunner):
+    label = "Cycle 6"
     migrations = (*BaselineRunner.migrations, "0011_synthetic_notification_slots.sql",
                   "0012_synthetic_recurring_automation.sql", "0013_synthetic_recurrence_health.sql")
     server_script = Path(__file__).name
@@ -24,9 +25,15 @@ class ExactRunner(BaselineRunner):
         super().configure_service()
         self.config.update(development_recurring=True, development_historical=True)
 
+    async def checks(self, service, relay, admin, role_info):
+        self.checkpoint("Cycle 6 recurrence, slots and isolated restart")
+        await asyncio.to_thread(recurring_journey, service, relay, admin, role_info, self.year)
+        self.checkpoint("Cycle 6 historical calculation, owner approval and supervised projection")
+        await asyncio.to_thread(historical_journey, service, relay, admin, role_info, self.year)
+
     async def journey(self):
         service = build_service(self.config)
-        self.checkpoint("Cycle 6 signed native relay")
+        self.checkpoint(f"{self.label} signed native relay")
         with httpx.Client(transport=httpx.HTTPTransport(uds=self.n8n_socket), trust_env=False, timeout=55) as client:
             runner = self
 
@@ -64,16 +71,13 @@ class ExactRunner(BaselineRunner):
             aliases["password"] = self.env["DINCHARYA_TEST_DB_PASSWORD"]
             with psycopg.connect(host=socket_dir, dbname="dincharya_app_test", user="synthetic_test",
                                  autocommit=True, passfile="/dev/null", **aliases) as admin:
-                self.checkpoint("Cycle 6 recurrence, slots and isolated restart")
-                await asyncio.to_thread(recurring_journey, service, relay, admin, role_info, self.year)
-                self.checkpoint("Cycle 6 historical calculation, owner approval and supervised projection")
-                await asyncio.to_thread(historical_journey, service, relay, admin, role_info, self.year)
+                await self.checks(service, relay, admin, role_info)
         self.checkpoint("Exact schema input integrity")
         base.require(self.baseline.read_bytes() == self.original, "Schema source changed")
-        print("PASS Cycle 6 exact baseline and simulated Telegram")
+        print(f"PASS {self.label} exact baseline and simulated Telegram")
 
 
-def main():
+def main(runner_class=ExactRunner):
     if not sys.argv[1:]:
         service_main()
         return
@@ -88,10 +92,10 @@ def main():
         parser.error("Require assertions, approved execution and the previously verified daemon")
     if not BASELINE.is_file() or BASELINE.resolve() != BASELINE:
         parser.error("Exact authorized schema unavailable")
-    ExactRunner.baseline = BASELINE
-    ExactRunner.kernel = str(args.ephemeris.resolve())
-    ExactRunner.year = args.year
-    base.Runner = ExactRunner
+    runner_class.baseline = BASELINE
+    runner_class.kernel = str(args.ephemeris.resolve())
+    runner_class.year = args.year
+    base.Runner = runner_class
     base.execute(args.expected_daemon_id)
 
 

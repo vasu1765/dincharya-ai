@@ -70,3 +70,7 @@ Review the explicit [2B adoption package](docs/M2B_SOURCE_ADOPTION.md) before
 proposing a source promotion. Historical Panchang and the newest scoped
 exact-schema acceptance command are documented in
 [Cycle 6](docs/M2H_CYCLE6_HISTORICAL.md).
+
+For Cycle 7 use the [release checklist and focused WSL task](docs/M2H_CYCLE7_RELEASE.md).
+The original Cycle 6 exact-schema evidence remains accepted. Keep review of
+source artifacts, private acceptance and production promotion separately scoped.
