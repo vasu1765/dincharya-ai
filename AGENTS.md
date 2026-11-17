@@ -65,3 +65,8 @@ Offline suite (no services/packages needed):
 `PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests -v`.
 Use scripts/check-safe-source.py on explicit non-secret source files, never a
 recursive private-data scan. See HANDOFF.md for the latest validation checkpoint.
+
+Review the explicit [2B adoption package](docs/M2B_SOURCE_ADOPTION.md) before
+proposing a source promotion. Historical Panchang and the newest scoped
+exact-schema acceptance command are documented in
+[Cycle 6](docs/M2H_CYCLE6_HISTORICAL.md).

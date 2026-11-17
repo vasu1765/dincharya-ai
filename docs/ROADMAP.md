@@ -6,6 +6,8 @@ and [decisions](DECISIONS.md).
 
 ## Milestone 2 completion roadmap
 
+The [Cycle 6 matrix](M2H_CYCLE6_HISTORICAL.md#reproduce) and [2B review package](M2B_SOURCE_ADOPTION.md) record the active acceptance gates.
+
 [Cycle 5 completion matrix](M2H_CYCLE5_RECURRENCE.md#milestone-2-completion-matrix)
 records the development recurrence and notification work and remaining acceptance.
 
@@ -58,13 +60,13 @@ separate owner gates.
 [Cycle 3](M2H_CYCLE3_ANNUAL.md) adds annual projection, owner review recovery
 and cancellation in isolated development. The next acceptance target is
 the reviewed application baseline and real isolated n8n relay with simulated
-Telegram. The 2B manifest and wider operational gates remain open.
+Telegram. The 2B artifact review and wider operational gates remain open.
 
 [Cycle 4](M2H_CYCLE4_OPERATIONS.md) exercises native n8n and operational
-recovery with the repository schema fixture. Exact schema-only acceptance
-still needs the original WSL environment. 2B provenance, advance reminder
-slots, broader calendar adoption and supervised operational acceptance remain
-open before live lunar scheduling.
+recovery with the repository schema fixture. Its exact-schema run later
+passed in the original WSL environment. The Cycle 6 rerun covers the additive
+migrations for advance slots, recurrence and health. Broader calendar
+adoption, source review and production approval remain open.
 
 ## Historical checkpoint
 
@@ -87,8 +89,8 @@ usage. Work is uncommitted and unstaged; preserve all working-tree changes.
 
 1. Read the handoff; inspect status and preserve changes. Do not repeat the full
    integration suite without a functional change or unresolved runtime concern.
-2. Obtain the exact provenance manifest path from the operator; do not guess or
-   scan private directories. The authorized schema remains outside Git.
+2. Review the hash-bound [2B package](M2B_SOURCE_ADOPTION.md) and record the
+   artifact decisions. The exact authorized schema remains outside Git.
 3. The concurrent decision/reminder checks now pass. Checksum-mismatch rejection
    remains unexecuted; verify it selectively when continuing migration acceptance.
    Do not repeat the completed live reminder without new owner authorization.

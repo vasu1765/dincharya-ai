@@ -31,6 +31,7 @@ class M2GRunner(E2ERunner):
     server_script='m2g_server.py'
     migrations=(*MIGRATIONS,'0009_lunar_delivery_status.sql')
     relay_json_denials=False
+    relay_timeout_ms=None
     def checkpoint(self, stage):pass
     def configure_service(self):pass
     def tests(self):
@@ -114,7 +115,8 @@ class M2GRunner(E2ERunner):
         self.bridge_pool=ThreadPoolExecutor(max_workers=8)
         def forward(data):
             try:
-                with httpx.Client(transport=httpx.HTTPTransport(uds=self.config['service_socket']),timeout=30,trust_env=False) as client:
+                with httpx.Client(transport=httpx.HTTPTransport(uds=self.config['service_socket']),
+                                  timeout=42 if self.relay_timeout_ms else 30,trust_env=False) as client:
                     r=client.post('http://local/lunar',json=data['input'],headers={'x-dincharya-signature':data['signature']})
                     result=r.json()
             except Exception:result={'status':'unavailable'}
@@ -126,6 +128,8 @@ class M2GRunner(E2ERunner):
         threading.Thread(target=receive,daemon=True).start()
         flow=json.loads((base.ROOT/'workflows/m2g-lunar-acceptance.json').read_text())
         target=flow['nodes'][1]['parameters'];target['url']='http://mock-services:8081/journey'
+        if self.relay_timeout_ms:
+            target['options']['timeout']=self.relay_timeout_ms
         target['headerParameters']['parameters'].append({'name':'x-synthetic-key','value':key})
         if self.relay_json_denials:
             target['options']['response']={'response':{'neverError':True,'responseFormat':'json'}}

@@ -3,7 +3,15 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 5 recurrence and notifications
+## Current checkpoint — M2H Cycle 6 historical Panchang and source review
+
+[Cycle 6](M2H_CYCLE6_HISTORICAL.md) records the historical query and anniversary
+flow, public comparisons, isolated operations and the single WSL exact-schema
+follow-up. The [2B review package](M2B_SOURCE_ADOPTION.md) is the owner-approved
+alternative process. Artifact adoption requires a separate reviewed decision.
+Current/published workflow lineage and original schema acceptance are preserved.
+
+## Prior checkpoint — M2H Cycle 5 recurrence and notifications
 
 Review [Cycle 5 behavior, test commands and the completion matrix](M2H_CYCLE5_RECURRENCE.md).
 The branch adds isolated controls and notification slots on top of PR #8.

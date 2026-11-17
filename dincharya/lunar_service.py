@@ -17,7 +17,7 @@ from dincharya.reminders import process_batch, DeliveryUncertain
 NAMESPACE=UUID('8c492eb7-bad2-4868-aa67-2a042e0bb312')
 DEVELOPMENT_OPERATIONS = frozenset({
     "draft_recurring", "recurring_rules", "review_recurring_change", "review_recurring_adoption",
-    "project_tick", "reserve_recurring_alert",
+    "project_tick", "reserve_recurring_alert", "historical_panchang", "draft_historical_anniversary", "recurring_health",
     "draft_lunar", "confirm_lunar_draft", "cancel_lunar_draft",
     "list_lunar_annual", "resume_lunar_annual", "cancel_lunar_annual",
     "status_lunar_annual", "cancel_lunar_annual_occurrence",
@@ -115,6 +115,21 @@ class LunarService:
         token=self.tokens.issue({'request':request,'fingerprint':reviewed['fingerprint'],'stage':stage,**context})
         return token
 
+    def run_development_slots(self, transport, clock):
+        """Single isolated worker entry point for a controlled test transport."""
+        if self.development is None or not self.development.historical or self.transport is not None:
+            raise ValueError("The isolated slot worker requires Cycle 6 development mode")
+        repository = PostgresReminders(self.worker_connect, notification_slots=True)
+        with closing(self.worker_connect()) as lease:
+            lease.commit()
+            lease.autocommit = True
+            if not lease.execute("SELECT pg_try_advisory_lock(20261112,3)").fetchone()[0]:
+                return {"status": "busy"}
+            try:
+                return {"status": "processed", "completed": process_batch(repository, transport, clock, limit=1)}
+            except DeliveryUncertain:
+                return {"status": "uncertain"}
+
     def handle(self,value,signature):
         try:
             if (not isinstance(value,dict) or set(value)!={'command','nonce','timestamp'}
@@ -129,6 +144,13 @@ class LunarService:
             if op in DEVELOPMENT_OPERATIONS:
                 if self.development is None:
                     return {'status':'disabled','reply':'Lunar scheduling is disabled.'}
+                if op == "project_tick" and self.development.historical:
+                    with closing(self.worker_connect()) as lease:
+                        lease.commit()
+                        lease.autocommit = True
+                        if not lease.execute("SELECT pg_try_advisory_lock(20261112,4)").fetchone()[0]:
+                            return {"status": "busy"}
+                        return self.development.handle(command)
                 return self.development.handle(command)
             if self.development is not None and op != "tick":
                 return {'status':'denied'}

@@ -1,0 +1,275 @@
+{
+  "artifacts": [
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0001_gregorian_occurrences.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "e4e8f07c4f3233b2f94a01a8f8551693c04624ca95c5d1e3aa029320d075cbb9",
+      "status": "awaiting_review",
+      "version": "git-blob:2d540e5181702925bd3f0d9e4464122728fb9ed7"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0002_occurrence_reminders.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "5792db4447c093a8a47142bd7a1dc3da966eedf903e0375cbd5b8523e2e6983f",
+      "status": "awaiting_review",
+      "version": "git-blob:0cbc0e9cc217e6c3a069c947ec3ecdf2f82a5489"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0003_managed_legacy_boundary.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "f5418bd4d944bba240883b36c19d860fd19ecb389f0d93ba7ecdd6a3d68858db",
+      "status": "awaiting_review",
+      "version": "git-blob:965a7312efe722b921631bb32f1393f1dbdbb213"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0004_telegram_receipts.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "3e50ecdfe91058e771d176826954c7c66889c0bfc38ac902cae158640e0f468f",
+      "status": "awaiting_review",
+      "version": "git-blob:25f9f96510198fe2ae387b0609a734c84c26fabb"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0005_synthetic_reconciliation.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "629fa13920c4c30d4374ff73440ae02aaea312ac4dd628eec166e5555d9dd450",
+      "status": "awaiting_review",
+      "version": "git-blob:8cbb294acf4bea6a24ffecdbf7a594e5ec5dfcc0"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0006_synthetic_lunar_approval.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "c1f911aa1c0e0a02338121c0f6c70b64a6993ccb883d1d3e51636b608520b78c",
+      "status": "awaiting_review",
+      "version": "git-blob:b0b84fe396028e38104857957b1a6b6fd5455db8"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0007_lunar_calculation_binding.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "d2663fc16d75fe9e22c84b6e670da1f59e7804050ea24a1320a0aaf4114b5294",
+      "status": "awaiting_review",
+      "version": "git-blob:c00207dac218c11dd507ca03522b01039d4b180b"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0008_lunar_projection_trigger_path.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "5d4006db8fbbbeb85bf64296f377537f2dbd8e8f9037ec37ad0a5c1cca81ff21",
+      "status": "awaiting_review",
+      "version": "git-blob:82a150c9e088736e46760763f8d70c7cb2c2c5e5"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0009_lunar_delivery_status.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "273a9611c584d6d43764d6a993a1df12bde528dc982534cb43c766e8754fde6d",
+      "status": "awaiting_review",
+      "version": "git-blob:ac0b966bd5912c7e37b92f3fd3f660068c487638"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0010_synthetic_annual_lunar_rules.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "5f4282a3453818e763855b5f7e10edc2e4757f094214bf97702ba5d0248539ad",
+      "status": "awaiting_review",
+      "version": "git-blob:d2c938822c78c65404727ac04792dc87e3000e38"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0011_synthetic_notification_slots.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "bcb72590c3da26ee36c0b6ffca6475f2c572f8d127f3f9c453f220ddaba9ef81",
+      "status": "awaiting_review",
+      "version": "git-blob:7b3dbeabf4fd3c9713a54a1cf6fae5cbfb6023a3"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0012_synthetic_recurring_automation.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "4619a40af8fdf4a9ead6ceecf2f7abeea94afa741f4fe5a7b045ffc1b09cab0e",
+      "status": "awaiting_review",
+      "version": "git-blob:6f420a61e9741e5239acb6ddd7d1b19a637b7a27"
+    },
+    {
+      "kind": "database_migration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "database/migrations/0013_synthetic_recurrence_health.sql",
+      "purpose": "Ordered additive SQL",
+      "scope": "synthetic_reconstruction",
+      "sha256": "b29ef1c215e3a20c18979fa4e4e7870eb323f11783008d87e73f9b297a62ebc0",
+      "status": "awaiting_review",
+      "version": "git-blob:3b9c2dd25c2e60aaea3718ecd547679afa4a7903"
+    },
+    {
+      "kind": "security_sensitive_code",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "dincharya/lunar_service.py",
+      "purpose": "Request signer verification and privileged dispatch",
+      "scope": "synthetic_reconstruction",
+      "sha256": "90996b624d65de5dfda5c40928e17b42f83691642587d8cd0b5c66faa1af7224",
+      "status": "awaiting_review",
+      "version": "git-blob:8ed7b11bef76b904ca0ecf81c3c7528ea5d6ae30"
+    },
+    {
+      "kind": "application_configuration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "prototypes/panchang/requirements.txt",
+      "purpose": "Hash-pinned astronomical dependencies",
+      "scope": "synthetic_reconstruction",
+      "sha256": "90c9fb6e3a9cc6cb06e61cace60819449aa442e63017e6ac9c5a4dccd059d448",
+      "status": "awaiting_review",
+      "version": "git-blob:f9204fb2c08f4c2c4a474136a91cd6ccae1905aa"
+    },
+    {
+      "kind": "security_sensitive_code",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "scripts/check-safe-source.py",
+      "purpose": "Explicit safe-file admission check",
+      "scope": "synthetic_reconstruction",
+      "sha256": "c4e22f78a1a829e85f477a250d5cff237b9cfa6930615bd0cb0100f5afda4c38",
+      "status": "awaiting_review",
+      "version": "git-blob:6f86157e532e8f1e6fe4fee9079fb96db4015a31"
+    },
+    {
+      "kind": "application_configuration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "telegram-gateway/requirements-m2g.txt",
+      "purpose": "Gateway dependencies for rebuild",
+      "scope": "synthetic_reconstruction",
+      "sha256": "ad622b3d77d3ad11e2747d966bc860727388bcb2ed7e990788123a4b5d493baf",
+      "status": "awaiting_review",
+      "version": "git-blob:bde0c5278ba5096c5808436d979d6773c05bfe9f"
+    },
+    {
+      "kind": "application_configuration",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "tests/integration/compose.json",
+      "purpose": "Version-pinned disposable services",
+      "scope": "synthetic_reconstruction",
+      "sha256": "573d75e712fb9cbb399c8a1b5079e1404f7504acb4c3448b0781dbe218aa1c61",
+      "status": "awaiting_review",
+      "version": "git-blob:1ae4134386b86ac1e03bfc86dcbff4b355d7284e"
+    },
+    {
+      "kind": "database_schema",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "tests/integration/m2h_development_schema.sql",
+      "purpose": "Invented isolated application schema",
+      "scope": "synthetic_reconstruction",
+      "sha256": "460f41cb254af06485b5df38b8b6629a9d5adcd25322fd769ecdc3a75b010891",
+      "status": "awaiting_review",
+      "version": "git-blob:83c77b94eb100d312d6b9e76ac068d2b0d86776e"
+    },
+    {
+      "kind": "current_workflow",
+      "origin": "vasu1765/dincharya-ai",
+      "path": "workflows/m2g-lunar-acceptance.json",
+      "purpose": "Repository-owned native signed relay",
+      "scope": "synthetic_reconstruction",
+      "sha256": "04414cba56cd0cb1ee543c09d939d214ca544fb4744952d5e42fe37e8654dd0c",
+      "status": "awaiting_review",
+      "version": "git-blob:f79027b0e8534a2978ffb4080e87d2569ed57873"
+    }
+  ],
+  "checkpoint": "f37e2f593547ddfb030061981ec636bfdfa56a93",
+  "legacy": [
+    {
+      "id": "legacy-current",
+      "kind": "current_workflow",
+      "note": "Four current versions recorded in repository evidence",
+      "origin": "preserved_repository_evidence",
+      "sha256": null,
+      "status": "archived",
+      "version": null
+    },
+    {
+      "id": "legacy-published",
+      "kind": "published_workflow",
+      "note": "Publication identity is distinct from current",
+      "origin": "preserved_repository_evidence",
+      "sha256": null,
+      "status": "awaiting_review",
+      "version": null
+    },
+    {
+      "id": "legacy-history",
+      "kind": "historical_workflow",
+      "note": "94 versions recorded. Historical bodies are outside this review.",
+      "origin": "preserved_repository_evidence",
+      "sha256": null,
+      "status": "archived",
+      "version": null
+    },
+    {
+      "id": "legacy-code",
+      "kind": "executable_code_node",
+      "note": "Seven bodies require separate read and execution authorization",
+      "origin": "preserved_repository_evidence",
+      "sha256": null,
+      "status": "excluded",
+      "version": null
+    },
+    {
+      "id": "legacy-state",
+      "kind": "runtime_state",
+      "note": "Scheduler state, credentials and volumes are outside reconstruction",
+      "origin": "preserved_repository_evidence",
+      "sha256": null,
+      "status": "excluded",
+      "version": null
+    },
+    {
+      "id": "original-schema",
+      "kind": "database_schema",
+      "note": "Exact Cycle 4 WSL acceptance is scoped and preserved",
+      "origin": "preserved_repository_evidence",
+      "sha256": null,
+      "status": "awaiting_review",
+      "version": null
+    },
+    {
+      "id": "old-manifest",
+      "kind": "historical_provenance",
+      "note": "Original index unavailable. Existing reports preserved.",
+      "origin": "preserved_repository_evidence",
+      "sha256": null,
+      "status": "archived",
+      "version": null
+    }
+  ],
+  "review": {
+    "owner_decision": null,
+    "status": "awaiting_review"
+  },
+  "version": 1
+}

@@ -33,6 +33,7 @@ class DevelopmentLunar:
         self.pending = {}
         self.lock = Lock()
         self.recurring = None
+        self.historical = None
 
     def _fail(self, reason, status="withheld"):
         return dict(status=status, reply=f"Date withheld / तिथि रोकी गई ({reason}).")
@@ -213,18 +214,48 @@ class DevelopmentLunar:
             now = self.clock()
             self.pending = {key: value for key, value in self.pending.items() if now < value.expires}
             operation = command["operation"]
+            if operation in {"historical_panchang", "draft_historical_anniversary"}:
+                if self.historical is None or set(command) != {"operation", "text"}:
+                    return self._fail("historical_development_unavailable")
+                from dincharya.historical_panchang import historical_text
+
+                try:
+                    if operation == "draft_historical_anniversary":
+                        return self.historical.anniversary(self.recurring, command["text"])
+                    event = historical_text(command["text"])
+                    return dict(status="historical_answer", reply=self.historical.display(event, self.historical.read(event)))
+                except Clarify as error:
+                    return dict(status="clarify", reply=str(error))
+                except Unsupported as error:
+                    return self._fail(str(error))
             if operation in {"list_lunar_annual", "resume_lunar_annual", "cancel_lunar_annual",
                              "status_lunar_annual", "cancel_lunar_annual_occurrence"}:
                 return self._annual_command(command, operation)
             if operation in {"draft_recurring", "recurring_rules", "review_recurring_change",
-                             "review_recurring_adoption", "project_tick", "reserve_recurring_alert"}:
+                             "review_recurring_adoption", "project_tick", "reserve_recurring_alert", "recurring_health"}:
                 if self.recurring is None:
                     return self._fail("recurring_development_disabled")
                 try:
                     if operation == "draft_recurring" and set(command) == {"operation", "text"}:
                         return self.recurring.draft(command["text"])
                     if operation == "project_tick" and set(command) == {"operation"}:
-                        return self.recurring.project()
+                        result = self.recurring.project()
+                        if self.historical:
+                            from dincharya.recurring import call
+
+                            call(self.owner, "mark_recurring_success", ())
+                        return result
+                    if operation == "recurring_health" and self.historical and set(command) == {"operation"}:
+                        from dincharya.recurring import call
+
+                        health = call(self.owner, "recurring_health", ())
+                        return dict(status="health", health=health, reply=(
+                            f'Last projection · {health["last_projection"] or "unrecorded"}\n'
+                            f'Due {health["due"]} · Sending {health["sending"]} · '
+                            f'Quarantined {health["uncertain"]} · Dead {health["dead"]}\n'
+                            f'Last confirmed slot due · {health["last_confirmed_due"] or "unrecorded"}\n'
+                            + "\n".join(f'Slot {s["id"]} · {s["occurrence_date"]} · offset {s["offset_minutes"]} minutes'
+                                        for s in health["quarantine"])))
                     if operation == "reserve_recurring_alert" and set(command) == {"operation"}:
                         return self.recurring.reserve_alert()
                     if operation == "recurring_rules" and set(command) == {"operation"}:
@@ -287,6 +318,9 @@ class DevelopmentLunar:
             elif "recurring" in review.data or "recurring_change" in review.data:
                 review.decision = choice
                 if "recurring" in review.data:
+                    if review.data["recurring"][3].get("historical"):
+                        if not self.historical or not self.historical.verify(review.data["recurring"][3]):
+                            return self._fail("historical_preview_changed")
                     result = self.recurring.approve(review.data["recurring"], review.expires)
                 else:
                     result = self.recurring.change(review.data["recurring_change"], review.expires)

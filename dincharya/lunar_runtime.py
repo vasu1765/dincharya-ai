@@ -41,6 +41,9 @@ def build_service(config,*,transport=None,live_approved=False):
     cycle5 = config.get("development_recurring", False)
     if type(cycle5) is not bool or (cycle5 and config.get("development_astronomy") is not True):
         raise ValueError("Recurring development requires isolated astronomy mode")
+    historical = config.get("development_historical", False)
+    if type(historical) is not bool or (historical and not cycle5):
+        raise ValueError("Historical development requires the isolated recurrence service")
     development = config.get("development_astronomy", False)
     if type(development) is not bool:
         raise ValueError("Boolean astronomical development gate required")
@@ -85,7 +88,12 @@ def build_service(config,*,transport=None,live_approved=False):
        development_calendar=calendar, development_profile=profile)
     if cycle5:
         from dincharya.recurring import Recurring
+
         service.development.recurring = Recurring(service.development)
+    if historical:
+        from dincharya.historical_panchang import HistoricalPanchang
+
+        service.development.historical = HistoricalPanchang(calendar)
     return service
 
 

@@ -83,6 +83,8 @@ class Relay:
         assert not flow["active"] and [node["type"] for node in flow["nodes"]] == [
             "n8n-nodes-base.webhook", "n8n-nodes-base.httpRequest"]
         flow["nodes"][1]["parameters"]["url"] = f"http://127.0.0.1:{self.app_port}/lunar"
+        if self.config.get("development_historical") is True:
+            flow["nodes"][1]["parameters"]["options"]["timeout"] = 40000
         # The relay should expose only the service's structured denial response.
         flow["nodes"][1]["parameters"]["options"]["response"] = {
             "response": {"neverError": True, "responseFormat": "json"},

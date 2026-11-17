@@ -180,9 +180,13 @@ class Recurring:
                 raise Clarify("Give the exact title of one managed rule, or use /recurring_change with its ID.")
             return self.change_preview(rows, dict(control=rows[0]["id"], change="notifications", policy=offsets))
         mode, offsets, spec = parse_recurring(text, now.date(), now)
+        return self.draft_spec(mode, offsets, spec, now)
+
+    def draft_spec(self, mode, offsets, spec, now, *, prefix=""):
         eligible = "No safe occurrence in the rolling window."
         warnings = []
         if spec["kind"] == "lunar":
+            scheduled_clock = spec["time"]
             self.bind_series(spec)
 
             for year in self.years(spec["year"], now.date()):
@@ -199,6 +203,7 @@ class Recurring:
                     f'repeat {spec["rule"]["repeated"]}'
         else:
             desired = spec["desired"]
+            scheduled_clock = desired["start_time"]
             rule = desired["recurrence_rule"]
             label = f'{desired["title"]} · Gregorian {rule["frequency"]}'
             if rule["frequency"] == "weekly":
@@ -206,16 +211,18 @@ class Recurring:
             if rule["frequency"] == "yearly":
                 label += f' on {rule["months"][0]:02d}-{rule["month_days"][0]:02d}'
             eligible = f'{desired["recurrence_rule"]["start_date"]} at {desired["start_time"]}'
-        details = f"{label}\n{mode} · {policy_name(offsets)} · offsets {offsets} minutes\nAsia/Kolkata · {eligible}"
+        details = (f"{label}\n{mode} · {policy_name(offsets)} · offsets {offsets} minutes\n"
+                   f"Asia/Kolkata · appointment time {scheduled_clock}\nNext · {eligible}")
         if warnings:
             details += "\nWithheld: " + "; ".join(warnings)
         # Gregorian intent changes require a separate approved edit, not an
         # accidental second rule from a new preview with different offsets.
-        name = spec if spec["kind"] == "lunar" else {
+        name = {k: v for k, v in spec.items() if k != "historical"} if spec["kind"] == "lunar" else {
             **spec["desired"], "recurrence_rule": {k: v for k, v in spec["desired"]["recurrence_rule"].items()
                                                    if k != "start_date" or rule["frequency"] == "once"}}
         key = uuid5(NAMESPACE, "recurring/" + canonical(name))
-        return self.dev._issue(dict(recurring=(key, mode, offsets, spec)), details, "rule_preview")
+        reply = f"{prefix}\n\n{details}" if prefix else details
+        return self.dev._issue(dict(recurring=(key, mode, offsets, spec)), reply, "rule_preview")
 
     def bind_series(self, spec):
         spec["rule"]["profile"] = self.dev.profile

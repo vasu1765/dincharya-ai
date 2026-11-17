@@ -108,6 +108,16 @@ def register_lunar_previews(app, owner_id, commands, *, recurring=False, alert_t
             if raw.startswith("/"):
                 raw = raw.partition(" ")[2]
             operation = "draft_lunar"
+            if recurring:
+                from dincharya.historical_panchang import historical_route
+
+                name = update.message.text.split()[0].split("@")[0].casefold()
+                operation = {"/panchang": "historical_panchang",
+                             "/lunar_from_event": "draft_historical_anniversary"}.get(name) or historical_route(raw)
+                if operation:
+                    await invoke(update, update.message, {"operation": operation, "text": raw})
+                    return
+                operation = "draft_lunar"
             if recurring and (update.message.text.startswith("/recurring") or
                               not LUNAR.search(TITLE.sub("", raw)) or
                               re.search(r"annual|every year|har saal|हर साल|प्रति वर्ष|वार्षिक|सालाना", raw, re.I)):
@@ -170,6 +180,8 @@ def register_lunar_previews(app, owner_id, commands, *, recurring=False, alert_t
             name = update.message.text.split()[0].split("@")[0].lower()
             if name == "/recurring_rules" and not context.args:
                 command = {"operation": "recurring_rules"}
+            elif name == "/recurring_health" and not context.args:
+                command = {"operation": "recurring_health"}
             elif name == "/recurring_adopt" and len(context.args) == 2:
                 identifier, mode = context.args
                 command = dict(operation="review_recurring_adoption", series=identifier, mode=mode)
@@ -196,8 +208,17 @@ def register_lunar_previews(app, owner_id, commands, *, recurring=False, alert_t
                         raw, re.I)))
 
         app.add_handler(CommandHandler("recurring", draft))
-        app.add_handler(CommandHandler(["recurring_rules", "recurring_change", "recurring_adopt"], recurring_command))
+        app.add_handler(CommandHandler(["panchang", "lunar_from_event"], draft))
+        app.add_handler(CommandHandler(["recurring_rules", "recurring_change", "recurring_adopt",
+                                        "recurring_health"], recurring_command))
         app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & CivilRecurringText(), draft))
+        class HistoricalText(filters.MessageFilter):
+            def filter(self, message):
+                from dincharya.historical_panchang import historical_route
+
+                return bool(historical_route(message.text))
+
+        app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & HistoricalText(), draft))
 
     app.add_handler(CommandHandler("lunar_preview", draft))
     app.add_handler(CommandHandler(
