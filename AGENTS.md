@@ -74,3 +74,7 @@ exact-schema acceptance command are documented in
 For Cycle 7 use the [release checklist and focused WSL task](docs/M2H_CYCLE7_RELEASE.md).
 The original Cycle 6 exact-schema evidence remains accepted. Keep review of
 source artifacts, private acceptance and production promotion separately scoped.
+
+Cycle 7 exact-schema acceptance is complete. Use the
+[bounded private acceptance runbook](docs/M2H_CYCLE7_PRIVATE_ACCEPTANCE.md)
+only after fresh authorization of the exact wrapper revision and test window.

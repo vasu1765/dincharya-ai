@@ -1,59 +1,109 @@
-# Cycle 7 supervised private Telegram acceptance proposal
+# Cycle 7 bounded private Telegram acceptance
 
-**Approval required before starting.** Propose one session with the dedicated
-`dincharya_acceptance_test_bot`, one owner-only private Telegram chat, fresh
-disposable PostgreSQL and isolated n8n. The previous single-message M2G approval
-is complete. Owner approval for this proposal must identify draft revision,
-dedicated bot and private recipient by secure local configuration, test window,
-and the six-message outbound cap. Approval of this document for review alone
-does not authorize a send.
+Fresh owner approval is required before launching a live session. The earlier
+M2G authorization is complete. The Cycle 7 exact-schema run passed separately
+using simulated Telegram. [Accepted WSL evidence](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525)
 
-## Fixed scope
+## Approval scope
 
-Agree a start minute T0 on a dedicated test date in Asia/Kolkata. Use a daytime
-window ending by 21:00 IST. Enter the same civil date in both commands. The silent
-appointment is T0 + 6 minutes and the reminding appointment is T0 + 8 minutes.
-Confirm both by T0 + 4 minutes. If the window is missed, abort and agree a new
-window under the approved scope before repeating any user interaction.
+Approve a single session on the reviewed wrapper commit and branch
+`development/m2h-private-telegram-acceptance`. Use the dedicated
+`dincharya_acceptance_test_bot` with its pinned numeric bot ID, and the owner's
+existing one-to-one private chat whose ID equals the pinned owner ID. Keep both
+IDs and the bot credential in the protected local file. The owner must ensure
+exclusive use of the test bot during the window.
 
-| Owner action | Exact requested scenario | Expected bot messages |
+Set T0 to a whole minute between 08:00 and 20:49 IST. The approval window ends at
+T0 + 11 minutes. Begin the launcher within 15 minutes before T0, allowing time
+for the isolated stack to start. Submit the three commands in order and confirm
+both civil appointments before T0 + 4 minutes. Use the approved civil date in
+both commands.
+
+| Owner action | Exact input | Expected bot chat messages |
 | --- | --- | --- |
-| Ask one read-only question | `/panchang 6 December 2023` | One answer. No new event or request. |
-| Submit and confirm one silent civil appointment | `Schedule Acceptance silent on YYYY-MM-DD at HH:MM; none` | One preview and one confirmation. Zero reminder slots, attempts or receipts. |
-| Submit and confirm one reminding civil appointment | `Schedule Acceptance reminder on YYYY-MM-DD at HH:MM; at start` | One preview and one confirmation. One genuine reminder at the approved minute. |
+| Historical read | `/panchang 6 December 2023` | One answer. Zero writes to schedule, review and notification tables. |
+| Silent appointment | `Schedule Acceptance silent on YYYY-MM-DD at HH:MM; none` with time at T0 + 6 minutes, then click Confirm | One preview and one confirmation. No delivery row or attempt. |
+| At-start appointment | `Schedule Acceptance reminder on YYYY-MM-DD at HH:MM; at start` with time at T0 + 8 minutes, then click Confirm | One preview, one confirmation and exactly one reminder during the scheduled minute. |
 
-Total outbound chat messages are capped at **six**, of which **one is a reminder**.
-The scheduled reminder generates exactly one delivery attempt and one paired
-chat/message receipt. Telegram callback acknowledgements are API responses, with
-no separate chat message expected. Repeat worker ticks at least twice after the
-receipt and inspect the ledger without sending extra chat commands. The owner
-confirms on their device that one reminder arrived and the silent one produced
-none. No birth or marriage examples, lunar projections, or live replay are in
-this scope.
+The outbound cap is six chat-message attempts, including at most one reminder
+attempt. Successful acceptance requires all six acknowledged chat messages,
+including one genuine reminder with a paired database receipt. Callback
+acknowledgements have no chat-message text. The wrapper verifies the recipient
+and the actual bot in each chat receipt and checks the ledger at the silent
+minute, the reminder minute and twice afterward. The owner separately confirms
+the two appointment outcomes on their device.
 
-## Before approving execution
+## One WSL execution instruction, after authorization
 
-1. Complete the Cycle 7 exact-schema check and record the reviewed revision.
-2. Prepare and review a bounded runner derived from the existing test-bot
-   identity check. Pin the owner ID and bot ID, require explicit execution gates,
-   keep only the two allowed titles and times, verify the isolated signed relay,
-   and enable a single worker for at most one live send attempt. The development
-   slot worker current entry point accepts injected transport for simulation.
-   The bounded live wrapper needs separate implementation review before this plan
-   is executable. Validate the wrapper against recorded IO first.
-3. Take credentials from an owner-only local file via the existing protected
-   launcher. Keep token, chat and message IDs outside logs and Git. Confirm no
-   other poller or worker owns the disposable session. Record fixed preflight
-   headings, Git revision and start window only.
+In the authorized WSL checkout, switch to the reviewed branch at the approved
+full SHA and verify a clean working tree. Use the pinned local Python environment
+and verified public ephemeris. Create one local, owner-owned JSON file outside
+Git in an owner-only directory with file mode 0600. Set the following keys to
+the exact approved values. Avoid posting the populated file or any numeric
+recipient, token or receipt in chat or Git.
+
+```json
+{
+  "approval": {
+    "revision": "<full approved commit>",
+    "start_ist": "<approved YYYY-MM-DDTHH:MM:00+05:30>",
+    "bot_username": "dincharya_acceptance_test_bot",
+    "bot_id": 202,
+    "owner_id": 101,
+    "chat_type": "private",
+    "message_cap": 6,
+    "reminder_cap": 1
+  },
+  "telegram": {
+    "token": "<dedicated test bot credential>",
+    "bot_id": 202,
+    "owner_id": 101
+  }
+}
+```
+
+The numbers above are examples. Use actual identities only in the protected
+local file. Keep the existing daemon and exact authorized schema. From the
+repository root, run once with the approval file and full approved SHA supplied
+in the named environment variables.
+
+```bash
+OPENBLAS_NUM_THREADS=1 python -B tests/integration/m2h_private_telegram.py \
+  --approval-file "$DINCHARYA_PRIVATE_APPROVAL_FILE" \
+  --expected-revision "$DINCHARYA_PRIVATE_APPROVED_REVISION" \
+  --expected-daemon-id 44c1ef83-c50e-4ecc-8f19-4b112bc40f29 \
+  --ephemeris "$DINCHARYA_PUBLIC_DE440S" --execute-approved --live-approved
+```
+
+The launcher reserves one attempt at the window and owns the existing isolated
+three-service test project for its lifetime. It verifies the signed native relay,
+fresh database and database clock before contacting Telegram. It accepts only
+the two review tickets issued within this session and invokes the existing
+advisory-locked worker. The owner custody requirement covers separate hosts.
+The wrapper checks for a webhook, stale queue and polling conflicts, and stops
+on any unexpected update.
+
+## Simulated validation
+
+Nine focused recorded-I/O tests passed. Two disposable runs with real
+PostgreSQL 17.12 and native n8n 2.47.3 passed. The success case produced six
+simulated sends, one paired receipt and zero silent sends. The failure case
+returned a simulated Telegram 429, leaving one quarantined attempt and no
+retry or receipt. Both disposable databases shut down. The CLI refused
+startup without the explicit approval flags.
 
 ## Stop and evidence
 
-Stop on mismatch of bot identity, owner/chat, branch revision, database,
-approval, schedule, counts, receipt or worker lock. Stop on any response with
-uncertain acceptance, rejection, rate limit, unexpected message or second
-attempt. Do not retry, clear a quarantine row or switch transports. Observe
-through T0 + 11 minutes for the negative and duplicate cases. Stop gateway and
-worker, revoke test credentials loaded into the process, and tear down this
-session's database, n8n and local scratch files. Preserve only sanitized counts,
-paired receipt present/absent, owner confirmation, cleanup result and the
-pass/fail headings. Check unrelated processes and services are unchanged.
+Stop on a mismatched revision, database, signed relay, bot, private recipient,
+window, message, approval, worker lock, slot or receipt. Rejection, rate limit,
+timeout, uncertainty and extra traffic all end the session. The worker
+quarantines an unconfirmed reminder. Preserve the one-use reservation and never
+restart or resend the same window. Treat a failure after a send as unconfirmed
+until the device and ledger evidence can be reconciled separately.
+
+The protected test runner cleans up its disposable processes, containers and
+database. The owner keeps the approval file private and handles the credential
+under local custody. Report only fixed stage headings, exit code, outbound
+count, receipt present or absent, silent/reminder counts, owner device
+confirmation, and teardown status. General live scheduling, production, source
+promotion and merging require separate authorization.

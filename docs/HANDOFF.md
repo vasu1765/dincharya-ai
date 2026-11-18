@@ -3,11 +3,20 @@
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2H Cycle 7 release readiness
+## Current checkpoint — Cycle 7 final acceptance handoff
+
+[Cycle 7 WSL acceptance](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525) passed with exit 0 at the verified PR #11
+revision. Its exact-schema check used the same disposable database. The
+[cross-cluster synthetic rehearsal](M2H_CYCLE7_RELEASE.md#end-to-end-acceptance-matrix)
+provides separate recovery evidence. Use the
+[private Telegram runbook](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) after revision-bound
+owner authorization. The [source decisions](M2B_CYCLE7_DECISIONS.md) remain for
+review before any promotion.
+
+## Prior checkpoint — M2H Cycle 7 release readiness
 
 The [end-to-end matrix and release checklist](M2H_CYCLE7_RELEASE.md) document
-synthetic acceptance and the restore fence. The owner-reported exact Cycle 6
-WSL result is preserved. Use the focused WSL command for migration 0014.
+synthetic acceptance and the restore fence. The prior exact Cycle 6 result and the later 0014 compatibility result are preserved.
 [Source dispositions](M2B_CYCLE7_DECISIONS.md) and
 [private test scope](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) are ready for separate review.
 

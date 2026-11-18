@@ -27,7 +27,7 @@ promotion into an authoritative or production baseline.
 | `tests/integration/compose.json` | Current repository application configuration | `573d75e712fb9cbb399c8a1b5079e1404f7504acb4c3448b0781dbe218aa1c61` | Retain as development source | Pinned repository fixture configuration; used in isolated reconstruction | Required for promotion beyond development |
 | `tests/integration/m2h_development_schema.sql` | Current repository database schema | `460f41cb254af06485b5df38b8b6629a9d5adcd25322fd769ecdc3a75b010891` | Retain as synthetic source only | Reconstructed disposable PostgreSQL fixture; separate exact-schema evidence | Required for use as authoritative schema |
 | `workflows/m2g-lunar-acceptance.json` | Current repository current workflow | `04414cba56cd0cb1ee543c09d939d214ca544fb4744952d5e42fe37e8654dd0c` | Retain for isolated relay | Inactive Webhook/HTTP Request only; native signed relay and restart passed | Required for publishing or wider runtime adoption |
-| `database/migrations/0014_synthetic_restore_fence.sql` | Current Cycle 7 candidate | `75eb1ebebd5f9a932551cdb7b532fe43e4ef99a0115a05b1c105698e0aef7d7d` | Add in isolated development | Append-only audit, scoped roles, stale-review fence and cross-cluster rehearsal | Required for promotion beyond this scope |
+| `database/migrations/0014_synthetic_restore_fence.sql` | Current Cycle 7 candidate | `75eb1ebebd5f9a932551cdb7b532fe43e4ef99a0115a05b1c105698e0aef7d7d` | Add in isolated development | Append-only audit, stale-review fence and cross-cluster rehearsal. Focused same-database exact-schema acceptance passed | Required for promotion beyond this scope |
 | `dincharya/lunar_runtime.py` | Current Cycle 7 candidate | `929ebe8e2d4d585199be472e4ff163c932d7600540549034d701fc587b08c947` | Add in isolated development | Scoped runtime flag and identity before reading restore epoch | Required for promotion beyond this scope |
 | `dincharya/lunar_development.py` | Current Cycle 7 candidate | `bd0747bcfb8a852d56ad29892000b4ddda5073a549bb5ee458a41e3cb3dc71cb` | Add in isolated development | Fresh review and epoch-scoped retry identities | Required for promotion beyond this scope |
 | `legacy-current` | Current Workflow | Unavailable or excluded | Archive repository evidence; original workflow bodies outside scope | Four current versions recorded in repository evidence | Owner must separately authorize exact inputs |
@@ -42,3 +42,25 @@ Use [the verification and owner decision procedure](M2B_SOURCE_ADOPTION.md) for 
 existing manifest. Record each reviewed disposition in GitHub against its exact
 artifact digest. Cycle 7 candidates are separately listed above to preserve the
 original manifest bytes and evidence.
+
+
+## Final acceptance review package
+
+[Cycle 7 exact-schema evidence](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525) confirms migration
+0014 on the exact authorized input in the same disposable database. The
+cross-cluster synthetic rehearsal is separately scoped. Neither result records
+an owner artifact disposition. The inventory digest and every previously
+reviewed artifact are preserved.
+
+| Added candidate | SHA-256 | Proposed disposition | Evidence | Further authorization |
+| --- | --- | --- | --- | --- |
+| `dincharya/private_acceptance.py` | `20ac35b467f1def01e6a7e462352498114a5f5b5473e5c8a18a5b2d9fefcbf93` | Retain as test-only source | Recorded success, stop, quarantine and one-use message budget checks | Separate approval before live execution or source promotion |
+| `tests/integration/m2h_private_telegram.py` | `41ae259d4b7665a984abf4724c520929af73cfeff83f202f1455cceeeffe81a7` | Keep in isolated review branch | Dedicated bot and private recipient pin, exact schema preflight, signed native relay and scoped worker | Separate approval before live execution or source promotion |
+| `tests/integration/m2h_private_simulated.py` | `4f06c3e08e3bd6970764a8df49420bfcabe6a08797bf2813136c9b6bf574ed9c` | Retain as test-only source | Native PostgreSQL and n8n exercised with simulated Telegram | Separate approval before live execution or source promotion |
+| `tests/test_private_acceptance.py` | `ac3b19b72c46eed784460291a8abcea8ec792e21d81dbc95cbdbaeb0818ad0b4` | Retain as a test fixture | Focused replay, receipt, owner and deadline controls | Separate approval before live execution or source promotion |
+
+
+Record dispositions against the individual digests in the review. The live
+test authorization is a separate, revision- and window-bound decision.
+Security-sensitive sources, raw backups, private workflow versions and
+production artifacts remain outside authoritative adoption.

@@ -6,6 +6,16 @@ native signed n8n, simulated Telegram, recurrence, slots, historical Panchang
 and restart. That check is accepted at its original scope.
 [WSL evidence in issue #6](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6952877460)
 
+## Cycle 7 WSL compatibility accepted
+
+The exact authorized-schema run at 2efa2685bca35f74c1b9038da9e693ceea9b4cc1
+passed with exit 0. It applied and reapplied migration 0014, exercised the
+signed native relay and simulated civil delivery with receipts, and validated
+stale-approval fencing and fresh owner approval in the **same disposable
+database**. The **separate cross-cluster synthetic** rehearsal is recorded
+under E13. The WSL run preserved the source schema bytes and verified teardown.
+[Sanitized issue #6 evidence](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525)
+
 ## End-to-end acceptance matrix
 
 The disposable run used PostgreSQL 17.12, the native n8n 2.47.3 relay,
@@ -63,15 +73,15 @@ Other locations and festival rules remain outside release scope.
 - [x] Complete simulated end-to-end matrix and cross-cluster recovery. Use the
   [partial-approval recovery procedure](M2H_CYCLE7_RECOVERY.md) in development.
 - [x] Preserve Cycle 6 exact-schema and original source evidence.
-- [ ] Run the focused Cycle 7 check below against the authorized schema for the
-  new 0014 fence and revised approval behavior.
+- [x] Exact authorized-schema 0014 compatibility passed in WSL with exit 0.
+  Evidence is scoped to the same-database run.
 - [ ] Record owner decisions for [individual source artifacts](M2B_CYCLE7_DECISIONS.md).
-- [ ] Review the bounded live wrapper and obtain fresh owner authorization
-  for [the six-message private test](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md).
+- [ ] Review the simulated-validated wrapper and obtain fresh owner
+  authorization for [the six-message private test](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md).
 - [ ] Separately approve any release, authoritative source promotion or live
   lunar scheduling.
 
-## Reproduction and single WSL handoff
+## Reproduction and archived WSL command
 
 Use the verified DE440s and pinned local dependencies.
 
@@ -81,13 +91,8 @@ OPENBLAS_NUM_THREADS=1 python -B tests/integration/m2h_cycle7.py \
   --ephemeris "$DINCHARYA_PUBLIC_DE440S" --n8n /path/to/n8n --year 2027
 ```
 
-**One WSL task.** In the original authorized checkout, select the Cycle 7 draft
-head. Use the existing pinned daemon and exact previously authorized schema-only
-file. Report fixed stage headings and exit code to
-[issue #6](https://github.com/vasu1765/dincharya-ai/issues/6). The check stages
-the fence in the same disposable database. Independently recreated roles
-already ran across clusters in Work. The Work preflight exited 2 before
-Docker because the authorized file was absent.
+**Archived compatibility command.** This is the accepted Cycle 7 procedure.
+The result is already recorded above.
 
 ```bash
 OPENBLAS_NUM_THREADS=1 python -B tests/integration/m2h_cycle7_baseline.py \

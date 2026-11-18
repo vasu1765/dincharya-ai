@@ -7,9 +7,11 @@ and [decisions](DECISIONS.md).
 ## Milestone 2 completion roadmap
 
 [Cycle 7 acceptance and release readiness](M2H_CYCLE7_RELEASE.md) is the active
-checkpoint. The isolated end-to-end matrix and recovery passed. Exact-schema
-compatibility for 0014, artifact decisions and separately approved private
-acceptance remain open.
+checkpoint. The isolated end-to-end matrix and cross-cluster rehearsal passed.
+The same-database exact-schema compatibility check for 0014 also passed.
+Artifact decisions and separately approved
+[private acceptance](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) remain open.
+[Sanitized WSL evidence](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525)
 
 The [Cycle 6 matrix](M2H_CYCLE6_HISTORICAL.md#reproduce) and [2B review package](M2B_SOURCE_ADOPTION.md) record the active acceptance gates.
 

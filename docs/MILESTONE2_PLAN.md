@@ -200,6 +200,7 @@ track evidence, the new-migration exact-schema rehearsal and release decisions.
 
 ## Current M2H Cycle 7 checkpoint
 
-Complete the focused authorized-schema 0014 run and obtain separate owner
-decisions for artifact promotion and the bounded private test. See the
+The focused authorized-schema 0014 run passed with exit 0 in the same disposable
+database. The separate synthetic cross-cluster rehearsal passed independently.
+Owner decisions for artifact promotion and the bounded private test remain. See the
 [release checklist and WSL task](M2H_CYCLE7_RELEASE.md#remaining-release-decisions).
