@@ -1,5 +1,7 @@
 # Dincharya AI — handoff
 
+The [laptop staging implementation and consolidated WSL task](LAPTOP_STAGING.md) cover synthetic startup, supervision, recovery and cold transfer. Five focused checks passed in Work. Full Compose and physical acceptance remain pending.
+
 Prioritize the [laptop-hosted personal beta](LAPTOP_BETA.md) before India VPS handover. Physical lid, reboot and host-fencing acceptance remain pending.
 
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),

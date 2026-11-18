@@ -1,5 +1,7 @@
 # Dincharya AI roadmap
 
+The [laptop staging implementation and consolidated WSL task](LAPTOP_STAGING.md) cover synthetic startup, supervision, recovery and cold transfer. Five focused checks passed in Work. Full Compose and physical acceptance remain pending.
+
 Prioritize the [laptop-hosted personal beta](LAPTOP_BETA.md) before India VPS handover. Physical lid, reboot and host-fencing acceptance remain pending.
 
 Finish Milestone 2 before Milestone 3 or another orchestrator. Status is not
