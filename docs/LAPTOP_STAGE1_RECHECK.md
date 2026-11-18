@@ -42,3 +42,43 @@ stage start
 ```
 
 The driver checks empty tables, owner preview and foreign callback denial. It submits one owner confirmation. A passing confirmation requires one event, one control, one audit, no slots or legacy deliveries, one matching approved reply, a successful relay classification and an absent keyboard. Only on this fresh fixture and only after this pass does it inject a duplicate owner callback and demand the same result. Any failure ends the run. Preserve both projects. Report the two exit codes (journey and stop), fixed diagnostic fields, initial/final project inventories and pass/fail only. Do not rerun an uncertain action, print response bodies or move to the timed reminder/Windows tests.
+
+## Verified targeted WSL re-acceptance
+
+**PASS — journey exit 0; stop exit 0.** One fresh run at approved revision
+`7ec5d0b5fc969e9f4dc275b661b5c891453deacf` on
+`development/stage1-confirmation-recheck`. The checkout was clean through runtime
+and stopping. Only documentation changed afterward.
+
+| Check | Result | Verified evidence |
+| --- | --- | --- |
+| Approved revision, daemon, local runtime and public kernel | PASS | Exact revision/daemon; accepted local application image; pinned host astronomy dependencies and public DE440s checksum. No dependency retrieval. |
+| Original Stage 1 read-only inventory | PASS | Five stopped containers and four preserved volumes before and after; original container state unchanged. No original approval replay or original-state mount. |
+| Separate project preflight | PASS | No recheck state, container, volume or network existed initially. |
+| Focused confirmation tests | PASS | All three tests passed, including injected post-commit reply failures and independent ledger checks. Explicit changed-source checks passed. |
+| Reviewed gateway overlay | PASS | Networkless overlay on the accepted local image; only the reviewed staging service module copied. No application-logic or migration modification. |
+| Fresh synthetic initialization and startup | PASS | Separate database, native signed n8n relay, app, offline SDK gateway and worker started; signed status ready with zero initial backlog/quarantine. |
+| Owner preview and foreign callback rejection | PASS | Preview/foreign callback caused no event/control/audit/slot/legacy-delivery write. |
+| First owner confirmation | PASS | Relay classified approved reply; exactly one matching SDK reply; keyboard absent; independent committed-control match true. |
+| Duplicate owner callback | PASS | Tested only after first confirmation passed; same successful reply, same committed control and unchanged counts. No idempotency mismatch. |
+| Exactly-once persistence | PASS | One event, one control and one audit entry after both checks. |
+| Zero delivery work | PASS | Zero notification slots, zero legacy delivery rows, zero slot attempts and zero persistent recorder attempts. |
+| Recheck graceful stop | PASS | All five recheck containers stopped, each exit 0. Four recheck volumes and stopped containers preserved. |
+| Original and unrelated resources | PASS | Original project state and unrelated running/all-container and volume inventories unchanged; accepted local base image unchanged. |
+| First mismatch | PASS | None in this recheck. The original Stage 1 response failure was not reproduced or explained. |
+| Timed reminders, runtime recovery, uncertainty and competing worker | NOT TESTED | Outside this single-silent-fixture recheck; prior Stage 1 missing acceptance remains pending. |
+| Physical, Windows, real Telegram and production operations | NOT TESTED | No such actions; no host change, permanent installation, deployment or merge. |
+
+Both first and duplicate diagnostics were identical:
+
+```json
+{"approved_replies":1,"audits":1,"controls":1,"deliveries":0,"events":1,"fallback_replies":0,"keyboard":"absent","matches_control":true,"relay":"approved_reply","replies":1,"slots":0}
+```
+
+Independent post-journey inspection returned events/controls/audits **1/1/1**,
+slots/legacy deliveries/slot attempts **0/0/0**, and recorder attempts **0**.
+No response body, review ticket, control/message identifier or credential was
+published. No source correction or assertion relaxation was required. Preserve
+both stopped projects. A successful fresh recheck does not retroactively turn
+the original failed run into a pass, authorize reuse of its state, or complete
+the outstanding broader Stage 1 acceptance.

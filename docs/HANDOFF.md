@@ -1,6 +1,40 @@
 # Dincharya AI — handoff
 
-Stage 1 stopped after the silent approval committed and its response check failed. Preserve that project. Use the [first-approval investigation and single fresh WSL recheck](LAPTOP_STAGE1_RECHECK.md) for the next supervised diagnostic.
+## Latest checkpoint — PR #15 targeted WSL recheck passed
+
+The [single fresh confirmation recheck](LAPTOP_STAGE1_RECHECK.md#verified-targeted-wsl-re-acceptance)
+passed at approved `7ec5d0b5fc969e9f4dc275b661b5c891453deacf` on
+`development/stage1-confirmation-recheck`: **journey exit 0; stop exit 0**.
+Three focused confirmation tests passed. The real offline SDK, signed native
+n8n relay and PostgreSQL independently agreed on the first confirmation and,
+only afterward, the duplicate callback. Both produced one approved reply,
+no fallback, no keyboard and a true committed-control match. Persistence stayed
+at one event/control/audit with zero slots, legacy deliveries, delivery attempts
+or recorder attempts. No first mismatch or source correction.
+
+The original Stage 1 failure was not reproduced or explained. Its five stopped
+containers, four volumes and container state remain unchanged. The separate
+recheck's five containers all stopped with exit 0 and its four volumes are
+preserved. Unrelated container/volume inventories and accepted base image are
+unchanged. No original approval was replayed. Do not reuse or clean either
+project without reviewed scope. Broader timed-delivery/restart/quarantine and
+physical acceptance remain pending. No real Telegram or production operations.
+
+Only this handoff and the recheck evidence changed after stopping. Git metadata
+is read-only; reviewed safe-file commands for normal WSL:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/LAPTOP_STAGE1_RECHECK.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record passing targeted Stage 1 confirmation recheck"
+git push origin development/stage1-confirmation-recheck
+```
+
+Stage 1 originally stopped after the silent approval committed and its response
+check failed. Preserve that original evidence and project separately.
 
 ## Latest WSL checkpoint — laptop Stage 1 partially passed
 
