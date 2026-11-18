@@ -1,5 +1,49 @@
 # Dincharya AI — handoff
 
+## Latest WSL checkpoint — laptop Stage 1 partially passed
+
+[Verified Stage 1 results](LAPTOP_STAGE1_RESULTS.md) record the exact approved
+`37db544a872676ae75e2cacfa32b92f5775f2d46` on the owner's PR-head branch alias.
+The owner separately approved official Python 3.12 base selection. Its immutable
+linux/amd64 digest, Python 3.12.16, libraries, timezone and build evidence are in
+the report. The image, invented schema and five-service isolated startup passed.
+
+The synthetic gateway approval-response assertion failed after one silent event,
+one recurring control and one audit record persisted; zero slots/attempts were
+observed. No reminder/receipt, runtime quarantine, concurrent-worker or restart
+acceptance is claimed. Five focused repository tests and the networkless SDK
+response reproduction passed independently. The failure cause is not yet
+established; the report proposes bounded diagnostics for review, not a speculative
+application fix. Approved application source and migrations are unchanged.
+
+All five staging containers stopped with exit 0. Four staging volumes and stopped
+containers are preserved; unrelated inventories are unchanged. Do not reuse or
+delete the partially initialized project without reviewed cleanup scope. No private
+baseline, real bot, Windows changes, reboot, persistent installation or deployment.
+Physical and off-host restore acceptance remains untested. Earlier Cycle 7
+acceptance is preserved separately.
+
+Only documentation changes follow the run. Git metadata remains read-only.
+Normal WSL, review and commit these exact safe files on the current PR branch:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/LAPTOP_STAGING.md docs/LAPTOP_STAGE1_RESULTS.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record partial laptop Stage 1 acceptance and verified base"
+```
+
+The local branch is `development/pr14-laptop-staging`; PR #14's remote head is
+`development/laptop-staging-infrastructure`. After reviewing the documentation
+commit, publish without force:
+
+```bash
+git push origin HEAD:development/laptop-staging-infrastructure
+```
+
+
 The [laptop staging implementation and consolidated WSL task](LAPTOP_STAGING.md) cover synthetic startup, supervision, recovery and cold transfer. Five focused checks passed in Work. Full Compose and physical acceptance remain pending.
 
 Prioritize the [laptop-hosted personal beta](LAPTOP_BETA.md) before India VPS handover. Physical lid, reboot and host-fencing acceptance remain pending.

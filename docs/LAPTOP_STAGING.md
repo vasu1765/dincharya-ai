@@ -2,6 +2,14 @@
 
 Development-only. The project name is `dincharya-laptop-staging`. All service containers share a Docker internal network with no published ports. PostgreSQL also disables TCP. The gateway reads invented Telegram updates on container loopback; both SDK request adapters are in-process recorders. The worker records attempts in its own persistent SQLite volume and commits outcomes through the PostgreSQL notification-slot API. There is no real bot credential, polling loop or Telegram network transport. This profile cannot be used to enable live delivery.
 
+## WSL Stage 1 evidence
+
+[Stage 1 results](LAPTOP_STAGE1_RESULTS.md) record the verified official Python
+base, successful five-service startup and the subsequent post-commit confirmation
+response failure. Runtime acceptance is incomplete. Services are stopped and
+synthetic state preserved; do not reuse or delete it without reviewed scope.
+No physical or off-host restore acceptance is claimed.
+
 ## Work evidence
 
 Five focused tests passed: the Compose topology and scoped mounts, recorder process restart and uncertain-outcome handling, independent-monitor missed samples and quarantine reporting, signed and expired host transfer tickets, and CMS authenticated encryption/decryption with wrong-recipient and damaged-archive rejection. SQLite, separate Python processes and OpenSSL used disposable synthetic data. The repository source scanner passed on the new Python sources. The Imagefile and PowerShell require manual review because their types are outside the scanner's supported inputs. Work did not have a Docker engine, PostgreSQL 17 server, PowerShell or a Windows host. The five-service startup, SQL restore, actual monitor transport, Windows login, lid, reboot and optional GPU measurements remain outstanding. Preserve all Cycle 7 acceptance evidence separately.
