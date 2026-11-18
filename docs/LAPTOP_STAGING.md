@@ -1,5 +1,7 @@
 # Laptop staging implementation and one WSL acceptance task
 
+Stage 1 stopped after the silent approval committed and its response check failed. Preserve that project. Use the [first-approval investigation and single fresh WSL recheck](LAPTOP_STAGE1_RECHECK.md) for the next supervised diagnostic.
+
 Development-only. The project name is `dincharya-laptop-staging`. All service containers share a Docker internal network with no published ports. PostgreSQL also disables TCP. The gateway reads invented Telegram updates on container loopback; both SDK request adapters are in-process recorders. The worker records attempts in its own persistent SQLite volume and commits outcomes through the PostgreSQL notification-slot API. There is no real bot credential, polling loop or Telegram network transport. This profile cannot be used to enable live delivery.
 
 ## WSL Stage 1 evidence

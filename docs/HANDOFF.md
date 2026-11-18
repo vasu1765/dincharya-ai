@@ -1,5 +1,7 @@
 # Dincharya AI — handoff
 
+Stage 1 stopped after the silent approval committed and its response check failed. Preserve that project. Use the [first-approval investigation and single fresh WSL recheck](LAPTOP_STAGE1_RECHECK.md) for the next supervised diagnostic.
+
 ## Latest WSL checkpoint — laptop Stage 1 partially passed
 
 [Verified Stage 1 results](LAPTOP_STAGE1_RESULTS.md) record the exact approved

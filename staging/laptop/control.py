@@ -11,7 +11,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = ROOT / 'staging/laptop'
-PROJECT = 'dincharya-laptop-staging'
+PROJECT = ('dincharya-stage1-recheck' if os.environ.get('DINCHARYA_STAGE1_RECHECK') == '1'
+           else 'dincharya-laptop-staging')
 STATE = Path.home() / '.local/state' / PROJECT
 DB = 'dincharya_app_test'
 sys.path.insert(0, str(ROOT))

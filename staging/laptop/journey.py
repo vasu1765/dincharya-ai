@@ -6,6 +6,7 @@ import time
 from zoneinfo import ZoneInfo
 
 from control import DB, STATE, compose, sql
+from confirmation import snapshot, verify_confirmation
 
 CASES=[('Silent',3),('First',5),('Second',20),('Outage',33),('Recovered',45),('uncertain',47)]
 
@@ -34,7 +35,9 @@ def submit(start):
             raise ValueError('Expected review')
         result=send({'update_id':idx*2+1,'callback_query':{'id':str(idx),'from':owner,'data':action,
                             'message':base,'chat_instance':'synthetic'}})
-        if len(result['messages'])!=1 or not result['messages'][0].startswith('Rule approved. ID ') or result['keyboard']:
+        if idx==1:
+            verify_confirmation(result,lambda:snapshot(query))
+        elif len(result['messages'])!=1 or not result['messages'][0].startswith('Rule approved. ID ') or result['keyboard']:
             raise ValueError('Review incomplete')
     count=query("SELECT count(*) FROM public.schedule_events")
     if count!='6':

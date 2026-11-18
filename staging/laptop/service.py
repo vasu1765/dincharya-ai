@@ -120,20 +120,35 @@ async def gateway(config):
                 self.markup=request_data.parameters.get('reply_markup')
             return await super().do_request(url,method,request_data,**kw)
 
+    class ObservedClient(OrchestrationClient):
+        def call(self, command, nonce):
+            if command.get('operation') != 'confirm_lunar_draft':
+                return super().call(command,nonce)
+            self.confirmation='relay_error'
+            result=super().call(command,nonce)
+            self.confirmation='unexpected_result'
+            if isinstance(result,dict) and result.get('status')=='approved':
+                self.confirmation='approved_other_reply'
+                if result.get('reply')==f"Rule approved. ID {result.get('control')}." and result.get('control'):
+                    self.confirmation='approved_reply'
+            return result
+
     wire=Wire()
     client=httpx.Client(timeout=45,trust_env=False)
     app=Application.builder().token('123456:offline').request(wire).get_updates_request(Wire()).build()
-    register_lunar_previews(app,101,OrchestrationClient(client,URL,config['key']),recurring=True)
+    commands=ObservedClient(client,URL,config['key'])
+    register_lunar_previews(app,101,commands,recurring=True)
     await app.initialize()
     guard=asyncio.Lock()
     async def handle(reader,writer):
         try:
             raw=await asyncio.wait_for(reader.readline(),5)
             async with guard:
+                commands.confirmation='no_confirmation_call'
                 wire.messages.clear()
                 wire.markup=None
                 await app.process_update(Update.de_json(json.loads(raw),app.bot))
-                writer.write(json.dumps(dict(messages=wire.messages,keyboard=wire.markup)).encode()+b'\n')
+                writer.write(json.dumps(dict(messages=wire.messages,keyboard=wire.markup,relay=commands.confirmation)).encode()+b'\n')
                 await writer.drain()
         finally:
             writer.close()
