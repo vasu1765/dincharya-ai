@@ -107,3 +107,29 @@ under local custody. Report only fixed stage headings, exit code, outbound
 count, receipt present or absent, silent/reminder counts, owner device
 confirmation, and teardown status. General live scheduling, production, source
 promotion and merging require separate authorization.
+
+## Completed authorized private session — 18 November 2026
+
+**PASS — exit 0.** One wrapper execution at the approved clean revision
+`72286479d8b52aa0e5b34c3c2db19f14883281eb`, within the authorized
+12:15–12:26 IST session. The protected approval used the dedicated test bot and
+existing locally pinned private recipient. Credentials and numeric identities
+were not printed or stored in Git.
+
+- Exact revision, pinned public ephemeris/dependencies, daemon, isolated services,
+  original schema initialization, migrations, scoped roles and signed relay passed.
+- Owner confirmed both appointment approvals before the deadline.
+- **Six chat attempts, six acknowledgements, one reminder attempt, one paired
+  database receipt, zero silent reminders and no duplicate reminder.**
+- The wrapper checked the silent minute, reminder minute and two subsequent
+  worker ticks, and checked the authorized schema bytes unchanged.
+- Owner explicitly confirmed six total messages, exactly one reminder, no silent
+  reminder and no duplicate through the end of the approved window.
+- Wrapper exit 0; disposable teardown verified; unrelated running-container
+  inventory unchanged. No source correction, retry, restart, resend or delivery
+  history reset was needed.
+
+This one-use authorization is complete. Preserve its reservation. The protected
+approval file and dedicated credential remain under local owner custody outside
+Git. No further Telegram operations are authorized by this evidence. Production,
+source promotion, deployment, merging and general lunar scheduling remain gated.

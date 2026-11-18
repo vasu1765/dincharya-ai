@@ -5,6 +5,36 @@ Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 
 ## Current checkpoint — Cycle 7 final acceptance handoff
 
+The owner-authorized private test on 18 November 2026, 12:15–12:26 IST,
+**PASSED, exit 0**, using the exact approved revision
+`72286479d8b52aa0e5b34c3c2db19f14883281eb`. Both explicit appointment approvals
+completed before the deadline. Six chat attempts and six acknowledgements;
+one real reminder attempt and one paired database receipt; zero silent sends
+and no duplicates through the final two worker checks. Owner confirmed the same
+counts on their device. Original schema bytes unchanged, disposable teardown
+verified and unrelated running-container IDs unchanged. No application correction,
+retry, resend or history reset was required. See the
+[completed private evidence](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md#completed-authorized-private-session--18-november-2026).
+
+This one-use authority is consumed. Preserve the reservation and keep the
+protected approval and credential outside Git under owner custody. No more
+Telegram operations, production promotion, deployment, merge or general lunar
+scheduling is authorized. Sanitized results are recorded in issue #6.
+
+Only this handoff and the private acceptance report changed after the run.
+Git metadata remains read-only; normal WSL commit commands:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/M2H_CYCLE7_PRIVATE_ACCEPTANCE.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record bounded Cycle 7 private Telegram acceptance"
+git push origin development/m2h-private-telegram-acceptance
+```
+
+
 [Cycle 7 WSL acceptance](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525) passed with exit 0 at the verified PR #11
 revision. Its exact-schema check used the same disposable database. The
 [cross-cluster synthetic rehearsal](M2H_CYCLE7_RELEASE.md#end-to-end-acceptance-matrix)
