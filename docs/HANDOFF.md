@@ -1,5 +1,7 @@
 # Dincharya AI — handoff
 
+The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md) is ready for one fresh WSL run. The targeted confirmation recheck passed. Eleven focused staging tests passed in Work. Timed delivery, restart and isolated SQL restore on the laptop await the combined run.
+
 ## Latest checkpoint — PR #15 targeted WSL recheck passed
 
 The [single fresh confirmation recheck](LAPTOP_STAGE1_RECHECK.md#verified-targeted-wsl-re-acceptance)

@@ -10,8 +10,7 @@ from time import sleep
 
 from control import DB, docker
 
-def main():
-    archive, private_key, digest, image, daemon = sys.argv[1:]
+def restore(archive, private_key, digest, image, daemon, *, verify=None):
     if docker('info','--format','{{.ID}}',capture_output=True,text=True).stdout.strip()!=daemon:
         raise ValueError('unexpected daemon')
     if not re.fullmatch(r'sha256:[0-9a-f]{64}',image):
@@ -53,12 +52,14 @@ def main():
         if rows!=expected:
             raise ValueError('restore ledger mismatch')
         docker(*pg,'-c','SELECT lunar_private.fence_restored_pending()',capture_output=True)
+        if verify:
+            verify(lambda statement: docker(*pg,'-c',statement,capture_output=True,text=True).stdout.strip())
         print(docker(*pg,'-c',"SELECT json_build_object('slots',count(*),'sent',count(*) FILTER(WHERE status='sent'), 'uncertain',count(*) FILTER(WHERE status='uncertain')) FROM lunar_private.notification_slot",capture_output=True,text=True).stdout.strip())
     finally:
         docker('rm','-fv',cid,stdout=subprocess.DEVNULL)
 
 if __name__=='__main__':
     try:
-        main()
+        restore(*sys.argv[1:])
     except Exception:
         sys.exit('Isolated restore verification failed')

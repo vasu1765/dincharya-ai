@@ -1,5 +1,7 @@
 # Laptop Stage 1 acceptance results
 
+The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md) is ready for one fresh WSL run. The targeted confirmation recheck passed. Eleven focused staging tests passed in Work. Timed delivery, restart and isolated SQL restore on the laptop await the combined run.
+
 ## Scope and checkout
 
 Approved revision: `37db544a872676ae75e2cacfa32b92f5775f2d46` (draft PR #14).

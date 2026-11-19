@@ -39,6 +39,9 @@ class Recorder:
         with sqlite3.connect(self.path) as db:
             row = db.execute('INSERT INTO attempts(uncertain) VALUES (?)',(uncertain,))
             receipt = row.lastrowid
+            if os.environ.get('DINCHARYA_STAGE1_COMPLETE')=='1':
+                db.execute('CREATE TABLE IF NOT EXISTS observed(id INTEGER PRIMARY KEY,title TEXT,utc REAL)')
+                db.execute('INSERT INTO observed VALUES (?,?,?)',(receipt,payload['title'],time.time()))
         if uncertain:
             raise TimeoutError('Synthetic lost acknowledgement')
         return DeliveryReceipt(101,receipt)
@@ -55,7 +58,7 @@ def worker(config):
         lease.commit()
         lease.autocommit=True
         if not lease.execute('SELECT pg_try_advisory_lock(20261112,3)').fetchone()[0]:
-            raise ValueError('Worker busy')
+            raise SystemExit(75)
         while not STOP.is_set():
             lease.execute('SELECT 1')
             try:

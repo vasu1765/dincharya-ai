@@ -1,5 +1,7 @@
 # Dincharya AI roadmap
 
+The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md) is ready for one fresh WSL run. The targeted confirmation recheck passed. Eleven focused staging tests passed in Work. Timed delivery, restart and isolated SQL restore on the laptop await the combined run.
+
 The [laptop staging implementation and consolidated WSL task](LAPTOP_STAGING.md) cover synthetic startup, supervision, recovery and cold transfer. Five focused checks passed in Work. Full Compose and physical acceptance remain pending.
 
 Prioritize the [laptop-hosted personal beta](LAPTOP_BETA.md) before India VPS handover. Physical lid, reboot and host-fencing acceptance remain pending.
