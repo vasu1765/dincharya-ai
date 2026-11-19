@@ -1,5 +1,7 @@
 # Dincharya AI — handoff
 
+The [consolidated Stage 2 task](LAPTOP_STAGE2_PHYSICAL.md) uses the accepted Stage 1 images in a fresh project. Two focused offline tests passed for external monitoring and interruption checkpoints. Physical execution and off-device recovery are pending separate scoped permissions.
+
 ## Latest WSL checkpoint — combined Stage 1 passed
 
 The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md#verified-wsl-run--19-november-2026)

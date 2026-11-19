@@ -1,6 +1,6 @@
 # Laptop-first personal beta
 
-The [laptop staging implementation and consolidated WSL task](LAPTOP_STAGING.md) cover synthetic startup, supervision, recovery and cold transfer. Five focused checks passed in Work. Full Compose and physical acceptance remain pending.
+Stage 1 passed the six WSL integration checks. The [Stage 2 physical task](LAPTOP_STAGE2_PHYSICAL.md) covers the remaining Windows, independent monitoring and off-device recovery gates.
 
 The first candidate is the owner's AC-powered Windows laptop after interactive login. An India-based Linux VPS is a later, cold replacement. Physical acceptance is pending. PR #12's completed one-reminder private run is separate evidence. Its authorization cannot cover this exercise.
 
