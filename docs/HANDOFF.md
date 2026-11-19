@@ -1,6 +1,45 @@
 # Dincharya AI — handoff
 
-The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md) is ready for one fresh WSL run. The targeted confirmation recheck passed. Eleven focused staging tests passed in Work. Timed delivery, restart and isolated SQL restore on the laptop await the combined run.
+## Latest WSL checkpoint — combined Stage 1 passed
+
+The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md#verified-wsl-run--19-november-2026)
+executed once at approved `da6d08e2b583266af7615f9a5b86de9f6bd66131` on
+`development/stage1-confirmation-recheck`. **All six checks passed: journey 0,
+stop 0, overall script 0.** Existing verified runtime/kernel, pinned daemon and
+accepted images were reused. No previously accepted suite was repeated.
+
+Actual timed evidence: four approved schedules/controls/audits; three slots;
+zero legacy delivery rows; two paired accepted receipts; one uncertain attempt
+with no receipt or replay; zero silent attempts. Competing worker exited 75.
+Controlled outage/recovery retained recorder and SQL history, caught up once,
+rejected a stale review and exposed the expected quarantine health. Quiesced
+local CMS-encrypted synthetic dump restored networklessly with checksums and
+all six tracked histories equal (3 slots, 2 sent, 1 uncertain).
+
+All five complete-project services exited 0; its four volumes and stopped
+containers are preserved. Both earlier projects' exact stopped states and volumes
+and unrelated inventories are unchanged. No historical approval was replayed,
+no source correction was required, and the original Stage 1 failure is not
+retroactively erased or explained. No real Telegram, private baseline, Windows
+change/reboot/task registration, deployment, promotion or merge. Physical and
+off-host acceptance remain separate gates. Preserve all three stopped projects
+until their disposable cleanup scope is reviewed.
+
+Only this handoff and the combined acceptance report changed after stopping.
+Git metadata remains read-only. Normal WSL safe-file commands:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/LAPTOP_STAGE1_COMPLETE.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record successful combined Stage 1 WSL acceptance"
+git push origin development/stage1-confirmation-recheck
+```
+
+The earlier targeted confirmation recheck and Work's eleven focused staging
+tests remain accepted at their original scope; neither was rerun here.
 
 ## Latest checkpoint — PR #15 targeted WSL recheck passed
 
