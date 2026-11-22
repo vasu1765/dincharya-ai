@@ -11,16 +11,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = ROOT / 'staging/laptop'
-PROJECT = ('dincharya-stage1-recheck' if os.environ.get('DINCHARYA_STAGE1_RECHECK') == '1'
-           else 'dincharya-laptop-staging')
-if os.environ.get('DINCHARYA_STAGE1_COMPLETE')=='1':
-    if os.environ.get('DINCHARYA_STAGE1_RECHECK'):
-        raise ValueError('Conflicting project selectors')
-    PROJECT='dincharya-stage1-complete'
-if os.environ.get('DINCHARYA_STAGE2')=='1':
-    if any(os.environ.get(k) for k in ('DINCHARYA_STAGE1_RECHECK','DINCHARYA_STAGE1_COMPLETE')):
-        raise ValueError('Conflicting project selectors')
-    PROJECT='dincharya-stage2-physical'
+from project import select_project
+PROJECT = select_project(os.environ)
 STATE = Path.home() / '.local/state' / PROJECT
 DB = 'dincharya_app_test'
 sys.path.insert(0, str(ROOT))
@@ -43,7 +35,7 @@ def definition(images):
         services[role] = dict(image=images['app'], entrypoint=['/opt/application/bin/python' if role in ('app','worker') else 'python', '/src/staging/laptop/service.py', role],
                               volumes=mounts, healthcheck=dict(test=['CMD','python','/src/staging/laptop/service.py','health'],
                               interval='10s',timeout='3s',retries=3), init=True, stop_grace_period='40s')
-    if PROJECT in ('dincharya-stage1-complete','dincharya-stage2-physical'):
+    if PROJECT in ('dincharya-stage1-complete','dincharya-stage2-physical','dincharya-stage2-recovery-only'):
         services['worker']['environment']={'DINCHARYA_STAGE1_COMPLETE':'1'}
     services['db'] = dict(image=images['db'], environment=dict(POSTGRES_USER='synthetic_test',POSTGRES_DB=DB,
         POSTGRES_PASSWORD_FILE='/run/pass',POSTGRES_INITDB_ARGS='--auth-local=scram-sha-256'),

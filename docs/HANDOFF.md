@@ -1,5 +1,13 @@
 # Dincharya AI — handoff
 
+## Approved accelerated Stage 2 continuation — implementation ready; runtime pending
+
+The owner approved the [recovery-only continuation](LAPTOP_STAGE2_RECOVERY_ONLY.md), one additional supervised reboot and USB transfer scope. Implemented a fresh namespace, one-use resumable task, separate 600-second performance target and functional overdue catch-up assertions, duplicate/quarantine/worker checks, and locally staged encrypted export. Eighteen focused new tests passed; affected existing offline checks and syntax passed. No runtime/reboot/arming yet. The original aborted run and successful closed-lid/two-receipt evidence remain preserved; full old observer-log correlation is still documentary follow-up. Next: commit the explicit safe files (Git metadata read-only), use the reviewed clean revision on both hosts, prepare the fresh stack, retarget the existing attended bridge without SSH/firewall changes, and obtain fresh correct-target observer readiness plus owner attendance before arming. SMB remains NOT TESTED / DEFERRED.
+
+## Latest Stage 2 checkpoint — aborted after missed recovery window
+
+The 22 November attended run at approved `fb023f1` passed initial arm/open and two paired receipts, then stopped for the supervised reboot. The bounded recovery guard rejected timing; no recovery phase was reserved. Documented abort/stop exited 0 and prior Stage 1 inventories remained unchanged. Final counts, observer continuity, USB export and independent restore are not accepted. Preserve all state; do not replay phases. See [actual results](LAPTOP_STAGE2_RESULTS.md). Another physical attempt/reboot needs fresh authorization. Temporary monitoring/SMB cleanup and collection of the complete ThinkPad observer log remain pending.
+
 The [consolidated Stage 2 task](LAPTOP_STAGE2_PHYSICAL.md) uses the accepted Stage 1 images in a fresh project. Two focused offline tests passed for external monitoring and interruption checkpoints. Physical execution and off-device recovery are pending separate scoped permissions.
 
 ## Latest WSL checkpoint — combined Stage 1 passed
