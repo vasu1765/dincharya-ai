@@ -1,5 +1,22 @@
 # Dincharya AI roadmap
 
+## Current implementation checkpoint — integrated beta groundwork
+
+The [source inventory](BETA_RUNTIME_SOURCE_INVENTORY.md),
+[offline beta plan and guard](BETA_IMPLEMENTATION_CHECKPOINT.md) are
+committed to development. The baseline review remains source-only:
+new services are not running; image digests and the authoritative
+schema/migration disposition are not yet adopted. Telegram is the
+sole **planned** active channel, but its outbound activity remains
+disabled until Gate 1. WhatsApp stays non-executable design.
+
+Next executable verification is the consolidated offline Python task
+in the checkpoint. Follow with reviewed M2B source decisions and a
+fresh disabled-by-default runtime candidate. The attended and
+unattended gates remain separate; no test pass is inferred from
+source-only commits.
+
+
 ## Active plan — Integrated Personal Beta (owner decision, 22 November 2026)
 
 The owner combined former **Stage A (usable attended beta)** and **Stage B
