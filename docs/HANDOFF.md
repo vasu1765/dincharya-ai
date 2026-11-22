@@ -1,6 +1,27 @@
 # Dincharya AI — handoff
 
-## Recovery-only acceptance passed — documented limitations and cleanup pending
+## Final scoped cleanup complete
+
+Acer cleanup was verified locally: original SSH service restored Manual/Stopped;
+temporary monitoring account/two rules removed; no test listener and unrelated rule
+inventory unchanged. Owner-returned ThinkPad cleanup confirms the saved-SID receiver
+account, exact share and two backup rules removed, original directory permissions
+restored and unrelated rules unchanged. All databases, journals, evidence, keys,
+encrypted archives and restore records retained; retired monitoring configuration is
+inactive evidence. No Docker/WSL uninstall, power change or automatic startup.
+
+Stage 2's approved recovery-only acceptance and scoped cleanup are complete with the
+observer-tail limitation and owner-accepted USB filesystem warning retained. SMB
+transport remains NOT TESTED / DEFERRED, replaced by verified USB transfer. No repeat
+physical test is required by this closeout. PR #16 remains draft; GitHub currently
+reports it not mergeable, so stack/base review is needed before any merge approval.
+Next: commit the explicit closeout docs, review the PR stack and approve a bounded
+attended personal beta at a named revision. Manual startup only; no live scheduling,
+Telegram or deployment is enabled. Unattended beta needs separately approved independent
+monitoring/alerts and scheduled backup/recovery. Broader Milestone 2/source/calendar
+release gates are not closed by this acceptance. See [results](LAPTOP_STAGE2_RESULTS.md).
+
+## Recovery-only acceptance passed — documented limitations retained
 
 At `b89a2bc`, recovery-only functional checks and 435.014-second startup passed: four
 paired receipts, zero silent/duplicate attempts, one quarantined uncertain without
@@ -17,17 +38,18 @@ USB volume Warning/Full Repair Needed; filesystem health is not passed. SMB test
 remains deferred. See [complete evidence](LAPTOP_STAGE2_RESULTS.md).
 
 All source application services and the attended Acer bridge/Stage 2 SSH listener are
-stopped. Backups/logs/journals retained. Temporary account/firewall/receiver configuration
-removal/restoration remains a separately reviewed closeout task; no cleanup claimed.
-Commit only docs/HANDOFF.md and docs/LAPTOP_STAGE2_RESULTS.md to the existing PR branch.
+stopped. Backups/logs/journals retained. Acer monitoring cleanup is verified: original SSH service restored Manual/Stopped,
+temporary monitor account/two firewall rules removed, unrelated rule inventory unchanged.
+ThinkPad receiver cleanup is now owner-confirmed complete; see final checkpoint above.
+Commit the explicit four closeout documents listed in the final report to the existing PR branch.
 No further arming, reboot, resend, production, permanent deployment or merge authorized.
 
 
-## Latest Stage 2 checkpoint — aborted after missed recovery window
+## Historical Stage 2 checkpoint — aborted after missed recovery window
 
 The 22 November attended run at approved `fb023f1` passed initial arm/open and two paired receipts, then stopped for the supervised reboot. The bounded recovery guard rejected timing; no recovery phase was reserved. Documented abort/stop exited 0 and prior Stage 1 inventories remained unchanged. Final counts, observer continuity, USB export and independent restore are not accepted. Preserve all state; do not replay phases. See [actual results](LAPTOP_STAGE2_RESULTS.md). Another physical attempt/reboot needs fresh authorization. Temporary monitoring/SMB cleanup and collection of the complete ThinkPad observer log remain pending.
 
-The [consolidated Stage 2 task](LAPTOP_STAGE2_PHYSICAL.md) uses the accepted Stage 1 images in a fresh project. Two focused offline tests passed for external monitoring and interruption checkpoints. Physical execution and off-device recovery are pending separate scoped permissions.
+The original [Stage 2 task](LAPTOP_STAGE2_PHYSICAL.md) and approved recovery-only continuation are recorded separately in the results. Original aborted phases must never be replayed.
 
 ## Latest WSL checkpoint — combined Stage 1 passed
 

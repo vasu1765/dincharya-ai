@@ -1,8 +1,25 @@
 # Laptop-first personal beta
 
-Stage 1 passed the six WSL integration checks. The [Stage 2 physical task](LAPTOP_STAGE2_PHYSICAL.md) covers the remaining Windows, independent monitoring and off-device recovery gates.
+Stage 1's six WSL integration checks passed. Stage 2's preserved closed-lid evidence,
+approved recovery-only run, owner-mediated encrypted USB transfer, independent PG17
+restore and scoped cleanup are complete; see [actual results](LAPTOP_STAGE2_RESULTS.md).
+Retain two exceptions: the observer ended before final fixtures (later verified through
+SQL/recorder/restart), and the owner accepted a USB filesystem repair warning despite
+matching transfer/restore integrity checks. SMB transfer was deferred, not accepted.
 
-The first candidate is the owner's AC-powered Windows laptop after interactive login. An India-based Linux VPS is a later, cold replacement. Physical acceptance is pending. PR #12's completed one-reminder private run is separate evidence. Its authorization cannot cover this exercise.
+The shortest next step is PR-stack review and a separately approved bounded attended
+personal beta on the AC-powered Acer, with a named revision, dedicated bot/private
+recipient, secure local secrets, permitted activities/message limits, backup plan and
+stop/rollback conditions. Start manually after interactive login; no startup task is
+needed for this first bounded phase. Do not reuse acceptance databases as a personal
+schedule. Existing private Telegram evidence does not authorize new sends. PR #16
+stays draft; its reported mergeability must be reviewed before any merge approval.
+
+Unattended operation remains gated on independently powered observation/owner alerting
+and approved routine encrypted backups/recovery. Use healthy backup media rather than
+treating the accepted one-off USB warning as a future storage policy. India VPS handover
+is later and separately approved. No production, live lunar scheduling or personal
+persistent deployment is authorized by synthetic acceptance alone.
 
 ## Host contract
 

@@ -101,3 +101,42 @@ result. Original aborted recovery is not retroactively passed. Remaining operati
 closeout: reviewed removal/restoration of temporary receiver/monitor configuration and
 commit/push of these two evidence documents. No production/persistent deployment or
 release approval follows from this acceptance.
+
+
+### Final scoped cleanup — Acer verified; ThinkPad local execution pending
+
+At evidence commit a2acdd4, owner authorized exact-resource cleanup. Acer preflight
+matched saved original SSH service state, temporary account SID against setup ACL,
+and both exact firewall endpoint/source scopes. Cleanup exited 0: restored original
+SSH binary/configuration and Manual/Stopped state; removed temporary monitor account
+and exact two monitoring rules; verified no test listener and unchanged unrelated
+firewall rule inventory. Monitoring configuration retired offline with diagnostics;
+all databases, Docker/WSL installations, journals, archives and evidence preserved.
+ThinkPad receiver account/share/rules cleanup requires owner-local execution and is
+not yet claimed. Observer-tail and USB filesystem exceptions remain unchanged.
+
+
+### Final closeout — ThinkPad owner-confirmed cleanup
+
+Owner returned the local guarded cleanup results: PASS temporary account/share/two
+firewall rules removed; PASS original destination permissions restored and unrelated
+rules unchanged; PASS archives, keys, restore records and recovery directory preserved.
+The task matched the account SID and exact share/firewall scopes before removal.
+This is owner-executed evidence; no remote administrative access to ThinkPad was used.
+Together with verified Acer cleanup above, final scoped cleanup is complete. Earlier
+pending cleanup statements are chronological checkpoints superseded by this section.
+
+No Stage 1/Stage 2 database, volume, journal, receipt, observer log, encrypted archive
+or independent restore record was deleted or reset. Retired monitoring source/config
+and diagnostics remain offline evidence; active monitor account/rules/service target
+were removed/restored. USB repair warning and missing external observation of the late
+fixtures remain explicit. SMB isolation was not tested and is not credited. No claim
+that the observer crash was caused by Docker. No physical retest is required solely
+because of the retained tail gap under the approved continuation criteria.
+
+Approved Stage 2 acceptance/cleanup has no remaining execution gate. This does not close
+all Milestone 2 release requirements: PR-stack review (PR #16 remains draft and GitHub
+reported not mergeable at closeout), source-adoption and broader calendar decisions,
+and separately approved personal operation remain. Unattended operation still needs
+independent monitoring/alerts and routine backup arrangements. No real Telegram,
+persistent deployment, automatic startup or main merge has been enabled.

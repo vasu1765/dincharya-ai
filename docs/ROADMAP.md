@@ -1,10 +1,16 @@
 # Dincharya AI roadmap
 
-The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md) is ready for one fresh WSL run. The targeted confirmation recheck passed. Eleven focused staging tests passed in Work. Timed delivery, restart and isolated SQL restore on the laptop await the combined run.
+Stage 1 integration and the approved Stage 2 recovery-only continuation, independent
+restore and scoped cleanup are complete at their recorded scope. Preserve the original
+closed-lid acceptance and aborted recovery separately. See [Stage 2 evidence](LAPTOP_STAGE2_RESULTS.md)
+for the observer-tail gap and owner-accepted USB filesystem warning; SMB was deferred.
+No repeated physical test is proposed by closeout.
 
-The [laptop staging implementation and consolidated WSL task](LAPTOP_STAGING.md) cover synthetic startup, supervision, recovery and cold transfer. Five focused checks passed in Work. Full Compose and physical acceptance remain pending.
-
-Prioritize the [laptop-hosted personal beta](LAPTOP_BETA.md) before India VPS handover. Physical lid, reboot and host-fencing acceptance remain pending.
+Next: review the draft PR stack (PR #16 currently reported not mergeable) and obtain
+explicit authorization for a bounded attended [personal beta](LAPTOP_BETA.md), starting
+manually on AC after login. Unattended monitoring/alerts, routine backup operation,
+source/calendar release decisions and production authorization remain separate gates.
+No automatic startup, real Telegram, deployment or merge has been enabled.
 
 Finish Milestone 2 before Milestone 3 or another orchestrator. Status is not
 production authorization. See [handoff](HANDOFF.md), [policy](DEVELOPMENT_POLICY.md)
