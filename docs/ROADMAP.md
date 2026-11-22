@@ -1,5 +1,20 @@
 # Dincharya AI roadmap
 
+## Development integration closeout — 22 November 2026
+
+The 12-PR development stack has been integrated by [PR #17](https://github.com/vasu1765/dincharya-ai/pull/17),
+merge `62421931de6dad60d389c7d8951cecf2fef1b68e`. The two gateway
+preflights passed on Acer WSL, and a fresh networkless PG17 migration 0015
+receipt check passed with preserved-resource cleanup. All historical heads
+are ancestors of this baseline. PR #4 was marked merged by GitHub;
+#5 and #7–#16 were closed as superseded without deleting their branches.
+
+Next: final Milestone 2B artifact dispositions, beta-runtime grant/digest
+review and separately approved bounded attended Telegram operation.
+No `main` merge or production/source promotion. Unattended monitoring,
+routine backups, festival-calendar expansion and VPS remain later gates.
+
+
 The [consolidated integration review](PR_STACK_INTEGRATION_REVIEW.md) records all twelve PRs, receipt-safety migration 0015 and one fresh PG17 validation gate before the proposed development-only merge. Attended Telegram use requires a separate scoped approval.
 
 Stage 1 integration and the approved Stage 2 recovery-only continuation, independent
