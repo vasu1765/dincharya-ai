@@ -1,5 +1,17 @@
 # Laptop-first personal beta
 
+## Current implementation direction — combined Stage A+B
+
+The [Integrated Personal Beta plan](INTEGRATED_PERSONAL_BETA.md) supersedes
+earlier sequencing that treated an attended beta and operational reliability
+as separate development projects. The same development milestone now prepares
+both capabilities, but requires separate **Gate 1 attended** and **Gate 2
+unattended** owner acceptance. The host, recovery, backup, security and
+fencing conditions below remain mandatory and are not weakened by combining
+the workstreams. Only Telegram is active. The future WhatsApp adapter is
+design-only. Historical descriptions below reflect their earlier checkpoint.
+
+
 Stage 1's six WSL integration checks passed. Stage 2's preserved closed-lid evidence,
 approved recovery-only run, owner-mediated encrypted USB transfer, independent PG17
 restore and scoped cleanup are complete; see [actual results](LAPTOP_STAGE2_RESULTS.md).
