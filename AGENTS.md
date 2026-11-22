@@ -8,14 +8,11 @@ reading [HANDOFF](docs/HANDOFF.md), [policy](docs/DEVELOPMENT_POLICY.md),
 
 ## Coordination and approvals
 
-WSL Codex is the primary developer while ChatGPT Work is paused, per the owner's
-2026-11-13 instruction. It owns implementation, development-branch work, PR review,
-focused verification and planning within the existing approval boundaries.
-GitHub is the shared source of
-truth. Read the active PR and its latest evidence before choosing the next
-task. Preserve existing work.
-Put one executable task in the development branch and return sanitized results
-directly to the same PR. Keep AGENTS.md and docs/HANDOFF.md current.
+ChatGPT Work is the primary developer and development coordinator under the
+current owner instruction. GitHub is the shared source of truth. Read the active
+issue, PR and latest evidence before choosing the next task. Preserve existing
+work. If essential verification requires WSL, prepare one executable task and
+return sanitized results to the same PR. Keep AGENTS.md and docs/HANDOFF.md current.
 
 PR #1 is merged with the first owner-approved reminder accepted. Complete ALL
 Milestone 2, including Hindu Panchang scheduling and operational acceptance, before
@@ -54,7 +51,30 @@ Stage and commit explicit safe paths on the development branch.
 Do not relocate .git, change Docker permissions or escalate to bypass sandbox
 restrictions. Preserve pre-existing working-tree changes.
 
+For Panchang validation, keep numerical cross-checks, publisher display
+precision, and sunrise-date evidence separate. The Cycle 1 precision study
+uses public coordinates and offline tests. Drik New Delhi is primary for
+civil dates, IMD PAC is secondary, and the 90-second display diagnostic is
+independent of the 300-second guard. See docs/M2H_CYCLE1_ACCURACY.md.
+Use the isolated Cycle 2 harness documented in docs/M2H_CYCLE2_TELEGRAM.md
+for astronomical approvals, including the Cycle 3 annual checks in
+docs/M2H_CYCLE3_ANNUAL.md. See docs/M2H_CYCLE4_OPERATIONS.md for relay/recovery
+evidence and the exact-baseline handoff. Real Telegram use requires fresh approval.
+
 Offline suite (no services/packages needed):
 `PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests -v`.
 Use scripts/check-safe-source.py on explicit non-secret source files, never a
 recursive private-data scan. See HANDOFF.md for the latest validation checkpoint.
+
+Review the explicit [2B adoption package](docs/M2B_SOURCE_ADOPTION.md) before
+proposing a source promotion. Historical Panchang and the newest scoped
+exact-schema acceptance command are documented in
+[Cycle 6](docs/M2H_CYCLE6_HISTORICAL.md).
+
+For Cycle 7 use the [release checklist and focused WSL task](docs/M2H_CYCLE7_RELEASE.md).
+The original Cycle 6 exact-schema evidence remains accepted. Keep review of
+source artifacts, private acceptance and production promotion separately scoped.
+
+Cycle 7 exact-schema acceptance is complete. Use the
+[bounded private acceptance runbook](docs/M2H_CYCLE7_PRIVATE_ACCEPTANCE.md)
+only after fresh authorization of the exact wrapper revision and test window.

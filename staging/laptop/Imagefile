@@ -1,0 +1,16 @@
+ARG BASE
+FROM ${BASE}
+WORKDIR /src
+COPY prototypes/panchang/requirements.txt /tmp/astro.txt
+COPY telegram-gateway/requirements-m2g.txt /tmp/sdk.txt
+# Application and gateway retain their independently reviewed certifi pins.
+RUN python -m venv /opt/application && /opt/application/bin/pip install --no-cache-dir -r /tmp/astro.txt && /opt/application/bin/pip install --no-cache-dir psycopg==3.2.13 psycopg-binary==3.2.13 && /opt/application/bin/pip check
+RUN pip install --no-cache-dir -r /tmp/astro.txt && pip install --no-cache-dir -r /tmp/sdk.txt && pip check
+COPY dincharya/ dincharya/
+COPY prototypes/panchang/ prototypes/panchang/
+COPY telegram-gateway/lunar_handlers.py telegram-gateway/
+COPY tests/integration/m2g_bot.py tests/integration/
+COPY workflows/m2g-lunar-acceptance.json workflows/
+COPY staging/laptop/service.py staging/laptop/
+ENV PYTHONDONTWRITEBYTECODE=1
+LABEL org.dincharya.purpose="laptop-synthetic"

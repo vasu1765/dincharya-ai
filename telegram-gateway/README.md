@@ -104,3 +104,11 @@ and independent dedicated test-bot verification. Do not run it without owner
 authorization. [Runbook](../docs/M2G_TELEGRAM_ACCEPTANCE.md) prepares exactly one
 private fixture reminder; [evidence](../docs/M2G_TELEGRAM_RESULTS.md) records
 actual simulated-wire acceptance. No actual token was read or message sent.
+
+
+## Development lunar previews
+
+[Cycle 2](../docs/M2H_CYCLE2_TELEGRAM.md) documents the bounded English, Hindi
+and Hinglish syntax and the two-step approval flow. Use the offline SDK harness
+for validation. The separate development gateway mode requires explicit
+approval for real Telegram access and runs with reminder delivery disabled.

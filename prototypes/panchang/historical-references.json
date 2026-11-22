@@ -1,0 +1,46 @@
+{
+  "version": "delhi-historical-references-v1",
+  "retrieved": "2026-11-17",
+  "observations": [
+    {
+      "publisher": "Drik Panchang New Delhi",
+      "url": "https://www.drikpanchang.com/panchang/day-panchang.html?date=06%2F12%2F2023&lang=hi",
+      "day": "2023-12-06", "sunrise_ordinal": 24,
+      "transition": "2023-12-07T03:04:00+05:30", "entering": 25,
+      "amanta": "kartika", "purnimanta": "margashirsha",
+      "use": "delhi_civil_and_geocentric"
+    },
+    {
+      "publisher": "Drik Panchang New Delhi",
+      "url": "https://www.drikpanchang.com/panchang/day-panchang.html?date=07%2F12%2F2023",
+      "day": "2023-12-07", "sunrise_ordinal": 25,
+      "transition": "2023-12-08T05:06:00+05:30", "entering": 26,
+      "amanta": "kartika", "purnimanta": "margashirsha",
+      "use": "delhi_civil_and_geocentric"
+    },
+    {
+      "publisher": "Shree Saket Panchang, Bundi",
+      "url": "https://shreesaketpanchang.com/home/monthlypanchang?mydate=1995-07-22",
+      "day": "1995-07-22",
+      "transition": "1995-07-22T09:40:00+05:30", "entering": 26,
+      "amanta": "ashadha", "purnimanta": "shravana",
+      "use": "comparison_only"
+    }
+  ],
+  "future_comparisons": [
+    {
+      "publisher": "Drik Panchang New Delhi",
+      "url": "https://www.drikpanchang.com/panchang/table/month-panchang.html?date=24%2F07%2F2027&lang=en",
+      "rule": "shravana-purnimanta-krishna-11",
+      "year": 2027, "selected": null, "reason": "skipped_at_sunrise",
+      "bounds_displayed": ["2027-07-29T07:33:00+05:30", "2027-07-30T05:12:00+05:30"],
+      "sunrises_displayed": ["2027-07-29T05:41:00+05:30", "2027-07-30T05:41:00+05:30"]
+    },
+    {
+      "publisher": "Drik Panchang New Delhi, ISKCON edition",
+      "url": "https://www.drikpanchang.com/iskcon/panchang/iskcon-detailed-day-panchang.html?date=23%2F11%2F2027&time-format=24hour",
+      "rule": "kartika-amanta-krishna-10",
+      "year": 2027, "selected": "2027-11-23", "reason": "sunrise_tithi"
+    }
+  ]
+}

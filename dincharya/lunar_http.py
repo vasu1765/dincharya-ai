@@ -5,7 +5,7 @@ import json
 import os
 
 
-def server(path,service):
+def request_handler(service):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self,*args):pass
         def do_POST(self):
@@ -20,5 +20,9 @@ def server(path,service):
             self.send_response(403 if result['status']=='denied' else 200)
             self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(raw)))
             self.end_headers();self.wfile.write(raw)
+    return Handler
+
+
+def server(path,service):
     class Server(ThreadingMixIn,UnixStreamServer):daemon_threads=True
-    instance=Server(path,Handler);os.chmod(path,0o600);return instance
+    instance=Server(path,request_handler(service));os.chmod(path,0o600);return instance

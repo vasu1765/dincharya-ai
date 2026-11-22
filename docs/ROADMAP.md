@@ -1,10 +1,36 @@
 # Dincharya AI roadmap
 
+The [consolidated integration review](PR_STACK_INTEGRATION_REVIEW.md) records all twelve PRs, receipt-safety migration 0015 and one fresh PG17 validation gate before the proposed development-only merge. Attended Telegram use requires a separate scoped approval.
+
+Stage 1 integration and the approved Stage 2 recovery-only continuation, independent
+restore and scoped cleanup are complete at their recorded scope. Preserve the original
+closed-lid acceptance and aborted recovery separately. See [Stage 2 evidence](LAPTOP_STAGE2_RESULTS.md)
+for the observer-tail gap and owner-accepted USB filesystem warning; SMB was deferred.
+No repeated physical test is proposed by closeout.
+
+Next: review the draft PR stack (PR #16 currently reported not mergeable) and obtain
+explicit authorization for a bounded attended [personal beta](LAPTOP_BETA.md), starting
+manually on AC after login. Unattended monitoring/alerts, routine backup operation,
+source/calendar release decisions and production authorization remain separate gates.
+No automatic startup, real Telegram, deployment or merge has been enabled.
+
 Finish Milestone 2 before Milestone 3 or another orchestrator. Status is not
 production authorization. See [handoff](HANDOFF.md), [policy](DEVELOPMENT_POLICY.md)
 and [decisions](DECISIONS.md).
 
 ## Milestone 2 completion roadmap
+
+[Cycle 7 acceptance and release readiness](M2H_CYCLE7_RELEASE.md) is the active
+checkpoint. The isolated end-to-end matrix and cross-cluster rehearsal passed.
+The same-database exact-schema compatibility check for 0014 also passed.
+Artifact decisions and separately approved
+[private acceptance](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) remain open.
+[Sanitized WSL evidence](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525)
+
+The [Cycle 6 matrix](M2H_CYCLE6_HISTORICAL.md#reproduce) and [2B review package](M2B_SOURCE_ADOPTION.md) record the active acceptance gates.
+
+[Cycle 5 completion matrix](M2H_CYCLE5_RECURRENCE.md#milestone-2-completion-matrix)
+records the development recurrence and notification work and remaining acceptance.
 
 PR #1 merged into main at `f3db2ff600dbb417e8bd2c553aad5388697cbd9e`, including
 owner-approved reminder evidence and HTTP 429 quarantine. Complete ALL Milestone 2,
@@ -41,6 +67,28 @@ Completed 2C/live-reminder acceptance is retained without repeating it. Full
 Milestone 2 closure still requires reviewed source adoption, remaining recovery/
 operational acceptance and Hindu Panchang before other domains/orchestrators.
 
+Cycle 1 independently cross-checked the eight distinct tithi crossings behind
+the 13 published comparisons and examined minute-display sensitivity. Delhi
+sunrise assignments are stable for the disputed January and March endpoints.
+The June 30 sunrise profiles disagree and both withhold both adjacent tithis.
+The owner adopted Drik New Delhi as primary and IMD PAC as secondary.
+[Cycle 1](M2H_CYCLE1_ACCURACY.md) applies a 90-second display diagnostic and
+a separate 300-second guard in development. [Cycle 2](M2H_CYCLE2_TELEGRAM.md)
+provides isolated Telegram proposal and approval testing with signed envelopes
+and native PostgreSQL projections. Live and operational acceptance remain
+separate owner gates.
+
+[Cycle 3](M2H_CYCLE3_ANNUAL.md) adds annual projection, owner review recovery
+and cancellation in isolated development. The next acceptance target is
+the reviewed application baseline and real isolated n8n relay with simulated
+Telegram. The 2B artifact review and wider operational gates remain open.
+
+[Cycle 4](M2H_CYCLE4_OPERATIONS.md) exercises native n8n and operational
+recovery with the repository schema fixture. Its exact-schema run later
+passed in the original WSL environment. The Cycle 6 rerun covers the additive
+migrations for advance slots, recurrence and health. Broader calendar
+adoption, source review and production approval remain open.
+
 ## Historical checkpoint
 
 196 offline tests passed at the last full regression checkpoint. Final focused
@@ -62,8 +110,8 @@ usage. Work is uncommitted and unstaged; preserve all working-tree changes.
 
 1. Read the handoff; inspect status and preserve changes. Do not repeat the full
    integration suite without a functional change or unresolved runtime concern.
-2. Obtain the exact provenance manifest path from the operator; do not guess or
-   scan private directories. The authorized schema remains outside Git.
+2. Review the hash-bound [2B package](M2B_SOURCE_ADOPTION.md) and record the
+   artifact decisions. The exact authorized schema remains outside Git.
 3. The concurrent decision/reminder checks now pass. Checksum-mismatch rejection
    remains unexecuted; verify it selectively when continuing migration acceptance.
    Do not repeat the completed live reminder without new owner authorization.

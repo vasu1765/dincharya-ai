@@ -1,9 +1,323 @@
 # Dincharya AI — handoff
 
+The [consolidated integration review](PR_STACK_INTEGRATION_REVIEW.md) records all twelve PRs, receipt-safety migration 0015 and one fresh PG17 validation gate before the proposed development-only merge. Attended Telegram use requires a separate scoped approval.
+
+## Final scoped cleanup complete
+
+Acer cleanup was verified locally: original SSH service restored Manual/Stopped;
+temporary monitoring account/two rules removed; no test listener and unrelated rule
+inventory unchanged. Owner-returned ThinkPad cleanup confirms the saved-SID receiver
+account, exact share and two backup rules removed, original directory permissions
+restored and unrelated rules unchanged. All databases, journals, evidence, keys,
+encrypted archives and restore records retained; retired monitoring configuration is
+inactive evidence. No Docker/WSL uninstall, power change or automatic startup.
+
+Stage 2's approved recovery-only acceptance and scoped cleanup are complete with the
+observer-tail limitation and owner-accepted USB filesystem warning retained. SMB
+transport remains NOT TESTED / DEFERRED, replaced by verified USB transfer. No repeat
+physical test is required by this closeout. PR #16 remains draft; GitHub currently
+reports it not mergeable, so stack/base review is needed before any merge approval.
+Next: commit the explicit closeout docs, review the PR stack and approve a bounded
+attended personal beta at a named revision. Manual startup only; no live scheduling,
+Telegram or deployment is enabled. Unattended beta needs separately approved independent
+monitoring/alerts and scheduled backup/recovery. Broader Milestone 2/source/calendar
+release gates are not closed by this acceptance. See [results](LAPTOP_STAGE2_RESULTS.md).
+
+## Recovery-only acceptance passed — documented limitations retained
+
+At `b89a2bc`, recovery-only functional checks and 435.014-second startup passed: four
+paired receipts, zero silent/duplicate attempts, one quarantined uncertain without
+resend, durable history and single-worker enforcement. CMS export/source task exit 0.
+Owner-returned ThinkPad execution verified USB/destination hashes and independent
+networkless PG17 restore: exit 0, migrations plus all six histories equal, 5 slots/4
+sent/1 uncertain, no app/worker. Final Acer inventory comparison passed; prior Stage 1
+projects and aborted physical session remain unchanged. No repeated lid test.
+
+Limitations retained: observer trace passed outage/recovery criteria but ends before
+final fixtures; later outcomes were verified by SQL/recorder/restart, not external
+monitoring. Possible ThinkPad Docker crash is unconfirmed. Owner explicitly accepted
+USB volume Warning/Full Repair Needed; filesystem health is not passed. SMB testing
+remains deferred. See [complete evidence](LAPTOP_STAGE2_RESULTS.md).
+
+All source application services and the attended Acer bridge/Stage 2 SSH listener are
+stopped. Backups/logs/journals retained. Acer monitoring cleanup is verified: original SSH service restored Manual/Stopped,
+temporary monitor account/two firewall rules removed, unrelated rule inventory unchanged.
+ThinkPad receiver cleanup is now owner-confirmed complete; see final checkpoint above.
+Commit the explicit four closeout documents listed in the final report to the existing PR branch.
+No further arming, reboot, resend, production, permanent deployment or merge authorized.
+
+
+## Historical Stage 2 checkpoint — aborted after missed recovery window
+
+The 22 November attended run at approved `fb023f1` passed initial arm/open and two paired receipts, then stopped for the supervised reboot. The bounded recovery guard rejected timing; no recovery phase was reserved. Documented abort/stop exited 0 and prior Stage 1 inventories remained unchanged. Final counts, observer continuity, USB export and independent restore are not accepted. Preserve all state; do not replay phases. See [actual results](LAPTOP_STAGE2_RESULTS.md). Another physical attempt/reboot needs fresh authorization. Temporary monitoring/SMB cleanup and collection of the complete ThinkPad observer log remain pending.
+
+The original [Stage 2 task](LAPTOP_STAGE2_PHYSICAL.md) and approved recovery-only continuation are recorded separately in the results. Original aborted phases must never be replayed.
+
+## Latest WSL checkpoint — combined Stage 1 passed
+
+The [combined Stage 1 acceptance](LAPTOP_STAGE1_COMPLETE.md#verified-wsl-run--19-november-2026)
+executed once at approved `da6d08e2b583266af7615f9a5b86de9f6bd66131` on
+`development/stage1-confirmation-recheck`. **All six checks passed: journey 0,
+stop 0, overall script 0.** Existing verified runtime/kernel, pinned daemon and
+accepted images were reused. No previously accepted suite was repeated.
+
+Actual timed evidence: four approved schedules/controls/audits; three slots;
+zero legacy delivery rows; two paired accepted receipts; one uncertain attempt
+with no receipt or replay; zero silent attempts. Competing worker exited 75.
+Controlled outage/recovery retained recorder and SQL history, caught up once,
+rejected a stale review and exposed the expected quarantine health. Quiesced
+local CMS-encrypted synthetic dump restored networklessly with checksums and
+all six tracked histories equal (3 slots, 2 sent, 1 uncertain).
+
+All five complete-project services exited 0; its four volumes and stopped
+containers are preserved. Both earlier projects' exact stopped states and volumes
+and unrelated inventories are unchanged. No historical approval was replayed,
+no source correction was required, and the original Stage 1 failure is not
+retroactively erased or explained. No real Telegram, private baseline, Windows
+change/reboot/task registration, deployment, promotion or merge. Physical and
+off-host acceptance remain separate gates. Preserve all three stopped projects
+until their disposable cleanup scope is reviewed.
+
+Only this handoff and the combined acceptance report changed after stopping.
+Git metadata remains read-only. Normal WSL safe-file commands:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/LAPTOP_STAGE1_COMPLETE.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record successful combined Stage 1 WSL acceptance"
+git push origin development/stage1-confirmation-recheck
+```
+
+The earlier targeted confirmation recheck and Work's eleven focused staging
+tests remain accepted at their original scope; neither was rerun here.
+
+## Latest checkpoint — PR #15 targeted WSL recheck passed
+
+The [single fresh confirmation recheck](LAPTOP_STAGE1_RECHECK.md#verified-targeted-wsl-re-acceptance)
+passed at approved `7ec5d0b5fc969e9f4dc275b661b5c891453deacf` on
+`development/stage1-confirmation-recheck`: **journey exit 0; stop exit 0**.
+Three focused confirmation tests passed. The real offline SDK, signed native
+n8n relay and PostgreSQL independently agreed on the first confirmation and,
+only afterward, the duplicate callback. Both produced one approved reply,
+no fallback, no keyboard and a true committed-control match. Persistence stayed
+at one event/control/audit with zero slots, legacy deliveries, delivery attempts
+or recorder attempts. No first mismatch or source correction.
+
+The original Stage 1 failure was not reproduced or explained. Its five stopped
+containers, four volumes and container state remain unchanged. The separate
+recheck's five containers all stopped with exit 0 and its four volumes are
+preserved. Unrelated container/volume inventories and accepted base image are
+unchanged. No original approval was replayed. Do not reuse or clean either
+project without reviewed scope. Broader timed-delivery/restart/quarantine and
+physical acceptance remain pending. No real Telegram or production operations.
+
+Only this handoff and the recheck evidence changed after stopping. Git metadata
+is read-only; reviewed safe-file commands for normal WSL:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/LAPTOP_STAGE1_RECHECK.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record passing targeted Stage 1 confirmation recheck"
+git push origin development/stage1-confirmation-recheck
+```
+
+Stage 1 originally stopped after the silent approval committed and its response
+check failed. Preserve that original evidence and project separately.
+
+## Latest WSL checkpoint — laptop Stage 1 partially passed
+
+[Verified Stage 1 results](LAPTOP_STAGE1_RESULTS.md) record the exact approved
+`37db544a872676ae75e2cacfa32b92f5775f2d46` on the owner's PR-head branch alias.
+The owner separately approved official Python 3.12 base selection. Its immutable
+linux/amd64 digest, Python 3.12.16, libraries, timezone and build evidence are in
+the report. The image, invented schema and five-service isolated startup passed.
+
+The synthetic gateway approval-response assertion failed after one silent event,
+one recurring control and one audit record persisted; zero slots/attempts were
+observed. No reminder/receipt, runtime quarantine, concurrent-worker or restart
+acceptance is claimed. Five focused repository tests and the networkless SDK
+response reproduction passed independently. The failure cause is not yet
+established; the report proposes bounded diagnostics for review, not a speculative
+application fix. Approved application source and migrations are unchanged.
+
+All five staging containers stopped with exit 0. Four staging volumes and stopped
+containers are preserved; unrelated inventories are unchanged. Do not reuse or
+delete the partially initialized project without reviewed cleanup scope. No private
+baseline, real bot, Windows changes, reboot, persistent installation or deployment.
+Physical and off-host restore acceptance remains untested. Earlier Cycle 7
+acceptance is preserved separately.
+
+Only documentation changes follow the run. Git metadata remains read-only.
+Normal WSL, review and commit these exact safe files on the current PR branch:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/LAPTOP_STAGING.md docs/LAPTOP_STAGE1_RESULTS.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record partial laptop Stage 1 acceptance and verified base"
+```
+
+The local branch is `development/pr14-laptop-staging`; PR #14's remote head is
+`development/laptop-staging-infrastructure`. After reviewing the documentation
+commit, publish without force:
+
+```bash
+git push origin HEAD:development/laptop-staging-infrastructure
+```
+
+
+The [laptop staging implementation and consolidated WSL task](LAPTOP_STAGING.md) cover synthetic startup, supervision, recovery and cold transfer. Five focused checks passed in Work. Full Compose and physical acceptance remain pending.
+
+Prioritize the [laptop-hosted personal beta](LAPTOP_BETA.md) before India VPS handover. Physical lid, reboot and host-fencing acceptance remain pending.
+
 Read root [AGENTS.md](../AGENTS.md), [policy](DEVELOPMENT_POLICY.md),
 [roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md) and [decisions](DECISIONS.md).
 
-## Current checkpoint — M2G private Telegram acceptance PASSED
+## Current checkpoint — Cycle 7 final acceptance handoff
+
+The owner-authorized private test on 18 November 2026, 12:15–12:26 IST,
+**PASSED, exit 0**, using the exact approved revision
+`72286479d8b52aa0e5b34c3c2db19f14883281eb`. Both explicit appointment approvals
+completed before the deadline. Six chat attempts and six acknowledgements;
+one real reminder attempt and one paired database receipt; zero silent sends
+and no duplicates through the final two worker checks. Owner confirmed the same
+counts on their device. Original schema bytes unchanged, disposable teardown
+verified and unrelated running-container IDs unchanged. No application correction,
+retry, resend or history reset was required. See the
+[completed private evidence](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md#completed-authorized-private-session--18-november-2026).
+
+This one-use authority is consumed. Preserve the reservation and keep the
+protected approval and credential outside Git under owner custody. No more
+Telegram operations, production promotion, deployment, merge or general lunar
+scheduling is authorized. Sanitized results are recorded in issue #6.
+
+Only this handoff and the private acceptance report changed after the run.
+Git metadata remains read-only; normal WSL commit commands:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- docs/HANDOFF.md docs/M2H_CYCLE7_PRIVATE_ACCEPTANCE.md
+git diff --cached --check
+git diff --cached
+git commit -m "docs: record bounded Cycle 7 private Telegram acceptance"
+git push origin development/m2h-private-telegram-acceptance
+```
+
+
+[Cycle 7 WSL acceptance](https://github.com/vasu1765/dincharya-ai/issues/6#issuecomment-6970326525) passed with exit 0 at the verified PR #11
+revision. Its exact-schema check used the same disposable database. The
+[cross-cluster synthetic rehearsal](M2H_CYCLE7_RELEASE.md#end-to-end-acceptance-matrix)
+provides separate recovery evidence. Use the
+[private Telegram runbook](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) after revision-bound
+owner authorization. The [source decisions](M2B_CYCLE7_DECISIONS.md) remain for
+review before any promotion.
+
+## Prior checkpoint — M2H Cycle 7 release readiness
+
+The [end-to-end matrix and release checklist](M2H_CYCLE7_RELEASE.md) document
+synthetic acceptance and the restore fence. The prior exact Cycle 6 result and the later 0014 compatibility result are preserved.
+[Source dispositions](M2B_CYCLE7_DECISIONS.md) and
+[private test scope](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) are ready for separate review.
+
+## Prior checkpoint — M2H Cycle 6 historical Panchang and source review
+
+[Cycle 6](M2H_CYCLE6_HISTORICAL.md) records the historical query and anniversary
+flow, public comparisons, isolated operations and the single WSL exact-schema
+follow-up. The [2B review package](M2B_SOURCE_ADOPTION.md) is the owner-approved
+alternative process. Artifact adoption requires a separate reviewed decision.
+Current/published workflow lineage and original schema acceptance are preserved.
+
+## Prior checkpoint — M2H Cycle 5 recurrence and notifications
+
+Review [Cycle 5 behavior, test commands and the completion matrix](M2H_CYCLE5_RECURRENCE.md).
+The branch adds isolated controls and notification slots on top of PR #8.
+Existing manual rules and legacy delivery history are preserved. Restore coverage
+uses a separate database in one disposable cluster. Before promotion, repeat
+compatibility on the authorized schema with the new migrations, complete the
+cross-cluster restore and supervised recovery exercises, resolve 2B provenance
+and broaden the lunar calendar evidence. Live activation needs owner approval.
+
+## Prior checkpoint — M2H Cycle 4 application and operations
+
+Exact authorized schema acceptance now **PASSED (exit 0)** in the original WSL
+checkout on `development/m2h-operational-acceptance`, following a diagnostic
+failure and smallest launcher correction: convert the Unix socket `Path` to a
+string. Fixed stage labels expose no exception/SQL/credential/private-path
+contents. Schema bytes and migration assertions remain unchanged.
+
+Actual evidence: migration ledger/reapplication, scoped calculator permissions,
+native n8n relay, real SDK with simulated Telegram, owner approvals/foreign and
+duplicate rejection, annual restart/stale/expiry/cancellation/identity checks,
+one reminder row, teardown and unchanged unrelated container inventory passed.
+See [scope and results](M2H_CYCLE4_OPERATIONS.md#actual-focused-rerun-result).
+No broader restore/delivery matrix was rerun or newly credited on this baseline.
+
+Offline: 2 new launcher tests + 39 existing runner tests passed; AST/diff checks
+passed. A supplementary annual/application unit run stalled at sandbox executor
+shutdown and was stopped (143), not credited. Source scan passes for changed
+launcher/diagnostic test/M2G runner; the shared runner has a pre-existing scanner
+rejection in both HEAD and working tree; its fixed diagnostic additions were
+manually reviewed. No scanner policy was weakened. Production, real Telegram,
+2B source adoption, advance slots and scheduling enablement remain gated.
+
+Git metadata remains read-only. Exact safe-file commit in normal WSL:
+
+```bash
+git branch --show-current
+git diff --check
+git add -- tests/integration/runner.py tests/integration/m2g_runner.py tests/integration/m2h_baseline_acceptance.py tests/test_m2h_baseline_diagnostics.py docs/M2H_CYCLE4_OPERATIONS.md docs/HANDOFF.md
+git diff --cached --check
+git diff --cached
+git commit -m "fix: diagnose Cycle 4 stages and correct Unix socket startup"
+git push origin development/m2h-operational-acceptance
+```
+
+
+[Cycle 4](M2H_CYCLE4_OPERATIONS.md) verifies native n8n 2.47.3 with disposable
+PostgreSQL 17.12, the repository schema fixture and simulated Telegram. The
+report records restart, reminder recovery and same-cluster restore evidence.
+The exact previously authorized schema command now passes in WSL. The
+2B original provenance manifest remains unresolved. Live lunar scheduling
+stays disabled.
+
+## Prior checkpoint — M2H Cycle 3 annual development review
+
+[Cycle 3](M2H_CYCLE3_ANNUAL.md) adds durable annual rules, per-year owner
+approval, restart and expiry recovery, and reviewed cancellation. Reuse the
+standalone disposable acceptance harness with the pinned public ephemeris.
+For the next acceptance stage, use an exact separately authorized schema-only
+baseline and the real isolated n8n relay with Telegram simulated. The original
+2B provenance manifest path remains unknown. Production and real Telegram
+remain outside this checkpoint.
+
+## Prior checkpoint — M2H Cycle 2 development review
+
+[Cycle 2](M2H_CYCLE2_TELEGRAM.md) adds bounded English, Hindi and Hinglish lunar
+proposals and two explicit owner approvals. The integration harness uses the
+real Telegram SDK and a disposable PostgreSQL 17 cluster, with Telegram and
+the signed n8n relay simulated. Preview expiry, stale review and duplicate
+approval protections are covered. No WSL handoff or real Telegram run is needed
+for this checkpoint. Production scheduling and reminder delivery stay disabled.
+
+## M2H Cycle 1 owner policy
+
+[The Cycle 1 report](M2H_CYCLE1_ACCURACY.md) records the owner-approved Drik Delhi
+primary and IMD PAC secondary profiles, the 90-second publisher diagnostic
+and the 300-second sunrise guard. Himalayan Academy remains historical
+evidence outside the primary denominator. The guarded selector withholds
+model disagreements, conflicting comparable Delhi labels and uncertain dates.
+Production lunar scheduling remains disabled.
+
+## Prior checkpoint — M2G private Telegram acceptance PASSED
 
 Clean entry at pushed `6848d4f2b7a1bbbb6d61c0bbf162bf6f05bebd4d` on
 `development/m2g-telegram-integration`. Owner explicitly authorized ONE real

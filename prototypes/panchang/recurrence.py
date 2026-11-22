@@ -46,12 +46,13 @@ class RecurrenceResearch:
     Fixed profile; month LRU <=32, preview LRU <=8, astronomy sunrise cache <=800.
     No reference fixture or private birth record is read/stored in a cache.
     """
-    def __init__(self,astronomy,sunrise_model='upper_limb_50'):
+    def __init__(self,astronomy,sunrise_model='upper_limb_50',*,month_edge_seconds=DATE_GUARD_SECONDS):
         if not isinstance(sunrise_model,str) or sunrise_model not in MODELS:
             raise Unsupported('Unreviewed sunrise profile')
         self.a=astronomy
         self.h=LahiriHypothesis(astronomy)
         self.sunrise_model=sunrise_model
+        self.month_edge_seconds=month_edge_seconds
         self._profile=self._fingerprint()
         self.profile=VERSION+'/'+self._profile
         self._months=OrderedDict()
@@ -65,6 +66,8 @@ class RecurrenceResearch:
                     timezone='Asia/Kolkata',sunrise_model=self.sunrise_model,
                     numerical_guard_seconds=.1,date_guard_seconds=DATE_GUARD_SECONDS,
                     month_names=sorted(RESEARCH_NAMES),conversion='skip-adhika-for-ordinary-krishna-v1')
+        if self.month_edge_seconds!=DATE_GUARD_SECONDS:
+            values['instant_month_edge_seconds']=self.month_edge_seconds
         return hashlib.sha256(json.dumps(values,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
     def _check(self):
@@ -78,12 +81,12 @@ class RecurrenceResearch:
     def _month(self,instant):
         instant=aware(instant)
         for key,(start,end,result) in list(self._months.items()):
-            if start+timedelta(seconds=DATE_GUARD_SECONDS)<instant<end-timedelta(seconds=DATE_GUARD_SECONDS):
+            if start+timedelta(seconds=self.month_edge_seconds)<instant<end-timedelta(seconds=self.month_edge_seconds):
                 self._months.move_to_end(key)
                 return result
         result=self.h.amanta_diagnostic(instant)
         start,end=[datetime.fromisoformat(result[k]) for k in ('start','end')]
-        if min((instant-start).total_seconds(),(end-instant).total_seconds())<=DATE_GUARD_SECONDS:
+        if min((instant-start).total_seconds(),(end-instant).total_seconds())<=self.month_edge_seconds:
             raise Unsupported('Lunar month boundary requires review')
         self.month_misses+=1
         # Date-based cache key only for lookup; containment remains exact and guarded.
@@ -110,6 +113,13 @@ class RecurrenceResearch:
         return dict(month=canonical['candidate_amanta_month'],intercalation=flag,
                     month_anchor=start.date().isoformat(),lunation_cycle=cycle,supported=bool(supported and
                         canonical['candidate_amanta_month'] in RESEARCH_NAMES))
+
+    def label_at(self, instant, ordinal, convention):
+        """Expose the bounded naming model with its exceptional-month checks."""
+        self._check()
+        if convention not in ('amanta','purnimanta'):
+            raise Unsupported('Unknown month convention')
+        return self._label(instant,ordinal,convention)
 
     def _dawn(self,day):
         result=self.a.sunrise(day,self.sunrise_model)

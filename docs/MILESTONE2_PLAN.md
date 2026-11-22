@@ -14,7 +14,7 @@ Track remaining work in [GitHub issue #2](https://github.com/vasu1765/dincharya-
 | P1: 2E acknowledgement failures | Completed at 120b28a: sanitized finish failures and batch-abort coverage | Normalize finish exceptions/lease loss to sanitized DeliveryUncertain, one transport/finish call, abort remaining batch; synthetic tests for sent/rejected/unknown outcomes, no automatic resend. Completed focused foundation; preserve the no-replay contract. |
 | P2: 2D compatibility and adversarial acceptance | 0001/0003 and focused SQL cover recurrence, D10 coexistence/boundaries and the requested adversarial API matrix | Synthetic tests prove old decision dispatch remains functional, cannot bypass managed snapshots/approval or mutate in-flight sends; malformed selectors/bounds reject atomically; occurrence/series edits preserve identity and sent history. Add corrective migrations only when a failure requires them. |
 | P3: 2E recovery and receipts | 0002/0004 cover retries, claims and atomic nullable receipts; read-only inspection and owner-approved synthetic reconciliation implemented; production actions disabled | Cover recovery at/outside lookback, lease expiry, stale ack, cancelled/replanned work, restart and duplicate suppression; no blind resend after ambiguous acceptance. Add nullable chat/message receipt with lease-checked atomic acknowledgement and legacy compatibility, then explicit operator reconciliation audit tests. Further live tests need new approval. |
-| P4: 2B reproducible source | baseline/ and workflows/ contain guidance only; native/Code source provenance gates remain | Obtain exact missing manifest path, never search backups; hash-bound reviewed schema and current/published workflow provenance; decide adopted vs archived items, preserve Code/state bytes; owner approval before private-source promotion or execution. Prove clean synthetic reconstruction from reviewed source. |
+| P4: 2B reproducible source | Owner approved the new [source-review route](M2B_SOURCE_ADOPTION.md) | Review the hash-bound candidate package and reconstruction. Record adoption or archival per artifact. Private source and historical Code execution require separate authorization. |
 | P5: 2F Hindu Panchang | Phase 1 pushed at 9524757; isolated Skyfield feasibility implemented, incomplete for scheduling; storage/festival integration still gated | Owner chooses calculation/reference source, tradition and geographic parameters before engine/schema commitment. Define sunrise/day-boundary, tithi/paksha/month, amanta/purnimanta, adhika/kshaya, skipped/repeated tithi and observance policy. Compare versioned Delhi reference fixtures across ordinary, transition and leap-month cases; generate stable occurrences with overrides/conflicts/explicit approvals and deduplicated reminders. See M2F_PANCHANG_DESIGN.md for sources, proposed phases and owner decisions; isolated prototype dependencies approved; no migration or persistent integration. |
 | P6: 2G operational acceptance | Existing tests are disposable; production readiness is not established | Least-privilege roles, webhook auth, pinned dependencies/images, supervision, redacted logs, health and backlog visibility, restore rehearsal, migration/rollback and recovery runbooks all validated in isolated synthetic environment. Review diff/evidence and obtain explicit owner approval before production access, cutover or deployment. |
 
@@ -76,14 +76,10 @@ reminders preserve stable identities and sent/uncertain history; explicit
 conflict approval and stale-decision rejection passed. No corrective migration
 was needed. See [complete 2D matrix](M2D_RECURRENCE_ACCEPTANCE.md).
 
-Full trusted managed-v2 application/workflow integration remains blocked by 2B
-reviewed source adoption. The smallest next 2B action is the exact original
-provenance manifest path and owner authorization to read that file alone. The
-owner confirmed the path is unknown and no private search/referenced-artifact
-access is authorized. Do not recreate or substitute a manifest without approval.
-Repository-only validator-contract review, synthetic test-gap review and adoption
-checklist preparation can proceed without private inputs; they cannot unblock
-provenance validation. No referenced artifact is implicitly authorized.
+Full trusted managed-v2 application/workflow integration requires 2B artifact
+decisions and a reviewed promotion. Proceed through the
+[new source-adoption route](M2B_SOURCE_ADOPTION.md). Preserve prior provenance
+evidence and take separate authorization for each private input.
 The 730-day default/3660-day maximum conflict horizon, Asia/Kolkata model and
 unsupported overnight schedules are existing design limits, not failed cases.
 No new architecture decision was required by this acceptance checkpoint.
@@ -185,3 +181,26 @@ The earlier first-private-test implementation blockers are resolved for fixtures
 next is explicit one-reminder live acceptance authorization and hidden credentials.
 General calendar/astronomy, advance slots,2B provenance and wider operational/VPS
 acceptance remain gated. No additional orchestrator or deployment authorized.
+
+## M2H Cycle 5 — recurring schedules and notification slots
+
+See the [Cycle 5 development evidence and completion matrix](M2H_CYCLE5_RECURRENCE.md).
+Cycle 4 exact-schema acceptance passed under its existing scope. Cycle 5 adds
+isolated automatic recurrence and notification selection. Broader calendar
+validation, 2B provenance, supervised recovery, cross-cluster restore and
+separate release approval remain open.
+
+
+## Current M2H Cycle 6 checkpoint
+
+Use the [2B source review](M2B_SOURCE_ADOPTION.md) route approved by the owner.
+Historical Delhi lookups and Gregorian-event lunar anniversary previews
+reuse the guarded annual recurrence service. The [Cycle 6 results and follow-up](M2H_CYCLE6_HISTORICAL.md)
+track evidence, the new-migration exact-schema rehearsal and release decisions.
+
+## Current M2H Cycle 7 checkpoint
+
+The focused authorized-schema 0014 run passed with exit 0 in the same disposable
+database. The separate synthetic cross-cluster rehearsal passed independently.
+Owner decisions for artifact promotion and the bounded private test remain. See the
+[release checklist and WSL task](M2H_CYCLE7_RELEASE.md#remaining-release-decisions).

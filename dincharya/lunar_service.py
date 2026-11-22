@@ -15,6 +15,13 @@ from dincharya.reminder_adapters import PostgresReminders, TelegramReminders
 from dincharya.reminders import process_batch, DeliveryUncertain
 
 NAMESPACE=UUID('8c492eb7-bad2-4868-aa67-2a042e0bb312')
+DEVELOPMENT_OPERATIONS = frozenset({
+    "draft_recurring", "recurring_rules", "review_recurring_change", "review_recurring_adoption",
+    "project_tick", "reserve_recurring_alert", "historical_panchang", "draft_historical_anniversary", "recurring_health",
+    "draft_lunar", "confirm_lunar_draft", "cancel_lunar_draft",
+    "list_lunar_annual", "resume_lunar_annual", "cancel_lunar_annual",
+    "status_lunar_annual", "cancel_lunar_annual_occurrence",
+})
 
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
@@ -84,7 +91,8 @@ class FixtureCatalog:
 
 
 class LunarService:
-    def __init__(self,owner_connect,calculator_connect,worker_connect,catalog,command_key,tick_key,review_key,*,transport=None):
+    def __init__(self,owner_connect,calculator_connect,worker_connect,catalog,command_key,tick_key,review_key,*,transport=None,
+                 development_calendar=None, development_profile=None):
         keys=(command_key,tick_key,review_key)
         if len(set(keys))!=3 or not all(isinstance(k,str) and re.fullmatch(r'[a-f0-9]{64}',k) for k in keys):
             raise ValueError('Distinct strong application keys required')
@@ -93,11 +101,34 @@ class LunarService:
         self.repository=PostgresReminders(worker_connect,restricted_worker=True)
         self.catalog=FixtureCatalog(catalog);self.command_key=command_key;self.tick_key=tick_key
         self.tokens=ReviewTokens(review_key);self.transport=transport
+        self.development = None
+        if development_calendar is not None:
+            if transport is not None or not isinstance(development_profile, str) or not re.fullmatch(r"[a-f0-9]{64}", development_profile):
+                raise ValueError("Astronomical development mode requires a scoped profile and disabled delivery")
+            from dincharya.lunar_development import DevelopmentLunar
+
+            self.development = DevelopmentLunar(self.owner, self.calculator, development_calendar,
+                                                development_profile)
 
     def review(self,request,stage,**context):
         reviewed=self.owner.inspect_request(request)
         token=self.tokens.issue({'request':request,'fingerprint':reviewed['fingerprint'],'stage':stage,**context})
         return token
+
+    def run_development_slots(self, transport, clock):
+        """Single isolated worker entry point for a controlled test transport."""
+        if self.development is None or not self.development.historical or self.transport is not None:
+            raise ValueError("The isolated slot worker requires Cycle 6 development mode")
+        repository = PostgresReminders(self.worker_connect, notification_slots=True)
+        with closing(self.worker_connect()) as lease:
+            lease.commit()
+            lease.autocommit = True
+            if not lease.execute("SELECT pg_try_advisory_lock(20261112,3)").fetchone()[0]:
+                return {"status": "busy"}
+            try:
+                return {"status": "processed", "completed": process_batch(repository, transport, clock, limit=1)}
+            except DeliveryUncertain:
+                return {"status": "uncertain"}
 
     def handle(self,value,signature):
         try:
@@ -107,8 +138,21 @@ class LunarService:
             command=value['command']
             if not isinstance(command,dict):return {'status':'denied'}
             op=command['operation']
-            key=self.tick_key if op=='tick' else self.command_key
+            key=self.tick_key if op in ('tick','project_tick','reserve_recurring_alert') else self.command_key
             if not isinstance(signature,str) or not hmac.compare_digest(signature,sign(key,'command',value)):
+                return {'status':'denied'}
+            if op in DEVELOPMENT_OPERATIONS:
+                if self.development is None:
+                    return {'status':'disabled','reply':'Lunar scheduling is disabled.'}
+                if op == "project_tick" and self.development.historical:
+                    with closing(self.worker_connect()) as lease:
+                        lease.commit()
+                        lease.autocommit = True
+                        if not lease.execute("SELECT pg_try_advisory_lock(20261112,4)").fetchone()[0]:
+                            return {"status": "busy"}
+                        return self.development.handle(command)
+                return self.development.handle(command)
+            if self.development is not None and op != "tick":
                 return {'status':'denied'}
             action=uuid5(NAMESPACE,value['nonce'])
             if op=='request':

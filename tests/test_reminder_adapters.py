@@ -21,6 +21,12 @@ class ReminderAdapterTests(unittest.TestCase):
         self.payload = {'title': 'Havan', 'occurrence_date': '2032-01-02',
                         'start_time': '08:34:00', 'timezone': 'Asia/Kolkata'}
 
+    def test_receiptless_success_never_opens_a_connection(self):
+        connect = Mock()
+        with self.assertRaises(ValueError):
+            PostgresReminders(connect).finish(Claim(1, 'fixture', {}), 'sent', self.now)
+        connect.assert_not_called()
+
     def test_proposal_is_separate_from_owner_decision(self):
         local_now = self.now.astimezone(ZoneInfo('Asia/Kolkata'))
         when, title = parse_reminder(['2032-01-02', '08:35', 'Havan'], local_now)

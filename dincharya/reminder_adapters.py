@@ -22,11 +22,12 @@ class QuarantinedReminder:
 class PostgresReminders:
     """Use a fresh psycopg connection per operation and commit before returning."""
 
-    def __init__(self, connect, *, restricted_worker=False):
-        if type(restricted_worker) is not bool:
+    def __init__(self, connect, *, restricted_worker=False, notification_slots=False):
+        if type(restricted_worker) is not bool or type(notification_slots) is not bool:
             raise ValueError('Invalid worker API selection')
         self.connect = connect
-        self.worker_schema = 'reminder_worker_api' if restricted_worker else 'public'
+        self.worker_schema = ('notification_worker_api' if notification_slots else
+                              'reminder_worker_api' if restricted_worker else 'public')
 
     def propose(self, user_id, when, title):
         data = {
@@ -67,7 +68,8 @@ class PostgresReminders:
                 for delivery_id, worker_token, payload in rows]
 
     def finish(self, claim, outcome, now, *, receipt=None):
-        if receipt is not None and (outcome != 'sent' or not isinstance(receipt, DeliveryReceipt)):
+        if (outcome == 'sent' and not isinstance(receipt, DeliveryReceipt)
+                or outcome != 'sent' and receipt is not None):
             raise ValueError('Invalid delivery receipt')
         with self.connect() as connection:
             if receipt is None:
@@ -118,6 +120,8 @@ class TelegramReminders:
 
     def send(self, payload):
         text = f"Reminder: {payload['title']}\n{payload['occurrence_date']} {payload['start_time']} ({payload['timezone']})"
+        if payload.get('offset_minutes', 0):
+            text += f"\nScheduled in advance ({payload['offset_minutes']} min before start)."
         try:
             response = self.post(self.url, json={'chat_id': self.owner_id, 'text': text})
             body = response.json()
