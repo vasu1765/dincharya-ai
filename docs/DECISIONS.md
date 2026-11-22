@@ -1,5 +1,31 @@
 # Development decisions
 
+## D-next — Combined personal beta and future WhatsApp design (owner, 22 November 2026)
+
+The owner explicitly approved combining former Stage A (attended usability)
+and Stage B (operational reliability) into the **Integrated Personal Beta**
+development milestone. Preparation and testing can be coordinated, but there
+are **two independently approved acceptance gates**: an attended, finite
+Telegram session followed by separately authorized unattended operation.
+Monitoring, owner alerts, off-device encrypted backups, restore verification
+and host fencing are mandatory for the unattended gate, not waived by
+consolidation. This does not change D01's requirement to complete Milestone 2
+before other orchestrators.
+
+**Telegram remains the only active interface.** Prepare a future WhatsApp
+adapter contract as non-executable design only, with one shared authorization,
+schedule, notification and receipt model. Do not implement or activate
+WhatsApp, register a business number, install dependencies or use unofficial
+WhatsApp Web automation. Eligibility for general-purpose personal AI under
+Meta's evolving Business Platform policies is unverified and must be reassessed
+before any future adapter implementation; no claim of permission is recorded.
+
+This decision is permission for ordinary development planning and documentation,
+not for private/source promotion, Docker lifecycle changes, personal credentials,
+live messages, paid APIs, automatic startup, production access, India VPS, or
+merge to `main`. Reference: [Integrated Personal Beta plan](INTEGRATED_PERSONAL_BETA.md).
+
+
 These decisions record reviewed source/evidence and constraints. They do not
 provide fresh approval to access private inputs or operate services. See
 [architecture](ARCHITECTURE.md), [roadmap](ROADMAP.md) and [policy](DEVELOPMENT_POLICY.md).
