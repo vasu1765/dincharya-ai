@@ -1,6 +1,6 @@
 # Development decisions
 
-## D-next — Combined personal beta and future WhatsApp design (owner, 22 November 2026)
+## D25 — Combined personal beta and future WhatsApp design (owner, 22 November 2026)
 
 The owner explicitly approved combining former Stage A (attended usability)
 and Stage B (operational reliability) into the **Integrated Personal Beta**
