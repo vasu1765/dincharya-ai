@@ -1,5 +1,32 @@
 # Dincharya AI — handoff
 
+## Integrated Personal Beta — first implementation checkpoint (22 November 2026)
+
+Source-review groundwork is committed on the development branch:
+
+- [Pinned inventory](BETA_RUNTIME_SOURCE_INVENTORY.md): exact reviewed
+  gateway, n8n, PostgreSQL 0015, reminder and staging artifact blobs at
+  reference `894f32392185c26e7a59c390d337a62b564b9b8c`.
+- [Inert manifest](beta-source-pins.json): 16 explicit reviewed file blobs,
+  with `launch_authorized=false`, `telegram_egress_authorized=false`,
+  `whatsapp_enabled=false`.
+- [Offline verifier](../scripts/check-beta-source-pins.py) rejects changed
+  files, duplicate/traversal/symlink paths and non-inert manifest flags.
+  Five [focused regression cases](../tests/test_beta_source_pins.py)
+  were added. **These tests have not yet been executed in Acer WSL**; run
+  `python3 -B -m unittest discover -s tests -p test_beta_source_pins.py -v`
+  and `python3 -B scripts/check-beta-source-pins.py` from a clean checkout
+  before using this as acceptance evidence.
+
+The current existing Compose file is **not** the approved personal-beta
+launcher; migration 0015 is synthetic-DB guarded and must not be adapted to
+a real persistent database by simply removing safeguards. Next development
+task is a fresh disabled-by-default beta configuration and source-disposition
+review, then a single consolidated isolated Acer Codex acceptance.
+Do not touch prior tests/volumes, use private credentials, enable real
+Telegram, start services or infer deployment authority from the manifest.
+
+
 ## Active owner decision — Integrated Personal Beta (22 November 2026)
 
 The owner combined former Stage A (usable attended beta) and Stage B
