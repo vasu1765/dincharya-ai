@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "stage": "preparation",
+  "telegram_egress": false,
+  "whatsapp": false,
+  "startup": false,
+  "source_adopted": false,
+  "services": {
+    "postgres": {
+      "image": "pending",
+      "enabled": false
+    },
+    "n8n": {
+      "image": "pending",
+      "enabled": false
+    },
+    "gateway": {
+      "image": "pending",
+      "enabled": false
+    },
+    "scheduler": {
+      "image": "pending",
+      "enabled": false
+    },
+    "worker": {
+      "image": "pending",
+      "enabled": false
+    }
+  },
+  "database": {
+    "name": "dincharya_personal_beta",
+    "fresh": true,
+    "isolated": true,
+    "migration_adopted": false
+  },
+  "monitoring": {
+    "independent": false,
+    "verified": false
+  },
+  "backup": {
+    "off_device": false,
+    "encrypted": false,
+    "restore_verified": false
+  }
+}
