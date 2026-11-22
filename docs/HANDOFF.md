@@ -1,5 +1,25 @@
 # Dincharya AI — handoff
 
+## Current engineering checkpoint — offline beta runtime guard
+
+New source-only development files:
+[beta plan](beta-runtime-plan.json),
+[preflight](../dincharya/beta_preflight.py),
+[preflight tests](../tests/test_beta_preflight.py), and
+[consolidated verification task](BETA_IMPLEMENTATION_CHECKPOINT.md).
+All five conceptual runtime services, WhatsApp and Telegram egress,
+startup, and promotion are disabled by default. The database is an
+uncreated, isolated prospective personal-beta name; all image digests
+remain pending. Nothing has been deployed or activated.
+
+The new tests and previous source-pin tests require a clean Python-only
+execution by Acer Codex; **no new test PASS is claimed yet**. Native
+runtime, owner source adoption, independent alerting, encrypted routine
+backup/restore and live-message owner approval remain future gates.
+Do not reuse prior synthetic databases, change the synthetic-only
+migration 0015 guard or start the existing mutable-tag Compose.
+
+
 ## Integrated Personal Beta — first implementation checkpoint (22 November 2026)
 
 Source-review groundwork is committed on the development branch:
