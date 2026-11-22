@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "source_ref": "894f32392185c26e7a59c390d337a62b564b9b8c",
+  "scope": "source-only-development-review",
+  "launch_authorized": false,
+  "telegram_egress_authorized": false,
+  "whatsapp_enabled": false,
+  "artifacts": [
+    {
+      "path": "telegram-gateway/gateway.py",
+      "git_blob": "a90b0ab133fc687204c63063788bc698d64e8103"
+    },
+    {
+      "path": "telegram-gateway/lunar_handlers.py",
+      "git_blob": "5bdb78b57f1d69868eb257afcc09ac9de14c3b66"
+    },
+    {
+      "path": "telegram-gateway/reminder_handlers.py",
+      "git_blob": "a8a2b6a2b8710b1de03382ddbbdc65076e0352f5"
+    },
+    {
+      "path": "telegram-gateway/lunar_acceptance.py",
+      "git_blob": "00e0e5f2e8fd6258dbe50f860f2ef28a3d2a1618"
+    },
+    {
+      "path": "telegram-gateway/requirements-m2g.txt",
+      "git_blob": "bde0c5278ba5096c5808436d979d6773c05bfe9f"
+    },
+    {
+      "path": "dincharya/reminders.py",
+      "git_blob": "515e628d706ab1b330e6ecc23ea975e6de6701ee"
+    },
+    {
+      "path": "dincharya/reminder_adapters.py",
+      "git_blob": "e5ed9c25f049ac6a5e95c11c187a81782202d6e8"
+    },
+    {
+      "path": "dincharya/lunar_runtime.py",
+      "git_blob": "4d4d2238230409a0dd8a1c68a83653440ad378ef"
+    },
+    {
+      "path": "dincharya/lunar_service.py",
+      "git_blob": "8ed7b11bef76b904ca0ecf81c3c7528ea5d6ae30"
+    },
+    {
+      "path": "database/migrations/0015_managed_receipt_safety.sql",
+      "git_blob": "dd4d76d4855f08c79c224128979d44efb57ee100"
+    },
+    {
+      "path": "workflows/m2g-lunar-acceptance.json",
+      "git_blob": "f79027b0e8534a2978ffb4080e87d2569ed57873"
+    },
+    {
+      "path": "tests/integration/receipt_candidate.sh",
+      "git_blob": "2042d153481878543cd03b945eb48da59df51132"
+    },
+    {
+      "path": "tests/integration/compose.json",
+      "git_blob": "1ae4134386b86ac1e03bfc86dcbff4b355d7284e"
+    },
+    {
+      "path": "staging/laptop/service.py",
+      "git_blob": "3d871f3a39dae746d622915cfd9a62f59cffba95"
+    },
+    {
+      "path": "compose.yaml",
+      "git_blob": "e76126cdbb98718e4ad194147acd6fd4ad08bc5e"
+    },
+    {
+      "path": "docs/m2b-repository-review.json",
+      "git_blob": "b51199505cb3a2f231b4e6e494fcf5bd3bffae81"
+    }
+  ]
+}
