@@ -1,5 +1,28 @@
 # Dincharya AI — handoff
 
+## Active owner decision — Integrated Personal Beta (22 November 2026)
+
+The owner combined former Stage A (usable attended beta) and Stage B
+(reliable operation) into one **Integrated Personal Beta** workstream with
+**separate attended and unattended acceptance gates**. Implement both sets
+of capabilities in one cohesive development candidate where feasible; do
+not claim unattended readiness until independent monitoring/alerts, encrypted
+off-device routine backup and verified restoration, single-host fencing and
+separate owner authorization are complete.
+
+**Telegram is the sole active messaging interface.** A conceptual future
+WhatsApp transport adapter may be designed, but must not be implemented or
+activated until separate eligibility/policy, business onboarding, template
+constraints and cost review. No unofficial WhatsApp automation.
+
+Use [the new implementation plan](INTEGRATED_PERSONAL_BETA.md) and the
+[roadmap](ROADMAP.md) as the current work queue. Complete M2B revision-pinned
+artifact disposition before beta source promotion; no fresh live messages,
+credentials, ongoing personal scheduling, startup automation, production,
+VPS or `main` merge is authorized by this planning decision. All prior
+Stage 1/2 and PR #17 evidence remains preserved.
+
+
 ## Current checkpoint — development PR consolidation complete (22 November 2026)
 
 PR #17 merged into the development branch by merge commit
