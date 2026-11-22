@@ -1,5 +1,7 @@
 # Dincharya AI — handoff
 
+The [consolidated integration review](PR_STACK_INTEGRATION_REVIEW.md) records all twelve PRs, receipt-safety migration 0015 and one fresh PG17 validation gate before the proposed development-only merge. Attended Telegram use requires a separate scoped approval.
+
 ## Final scoped cleanup complete
 
 Acer cleanup was verified locally: original SSH service restored Manual/Stopped;

@@ -1,5 +1,7 @@
 # Dincharya AI roadmap
 
+The [consolidated integration review](PR_STACK_INTEGRATION_REVIEW.md) records all twelve PRs, receipt-safety migration 0015 and one fresh PG17 validation gate before the proposed development-only merge. Attended Telegram use requires a separate scoped approval.
+
 Stage 1 integration and the approved Stage 2 recovery-only continuation, independent
 restore and scoped cleanup are complete at their recorded scope. Preserve the original
 closed-lid acceptance and aborted recovery separately. See [Stage 2 evidence](LAPTOP_STAGE2_RESULTS.md)

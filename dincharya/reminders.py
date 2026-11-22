@@ -32,7 +32,7 @@ class Repository(Protocol):
 
 
 class Transport(Protocol):
-    def send(self, payload: Mapping[str, Any]) -> DeliveryReceipt | None:
+    def send(self, payload: Mapping[str, Any]) -> DeliveryReceipt:
         """Return only on confirmed acceptance; otherwise raise."""
 
 

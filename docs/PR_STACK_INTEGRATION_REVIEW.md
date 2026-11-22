@@ -1,5 +1,53 @@
 # PR-stack integration review checkpoint — 2026-11-22
 
+## Consolidated development candidate — 22 November 2026
+
+**Decision requested:** after the receipt SQL gate passes, merge this candidate with a merge commit into `development/m2g-telegram-integration` (reviewed target `7fc20d6c05e037b0ac3f01d11c5868b715476bd3`). One aggregate merge retains the twelve heads in their original history. Recheck the target and candidate pins first. Keep every original PR and branch available. Verify each head is an ancestor of the resulting target before deciding on any closure. Historical review comments [7076943222](https://github.com/vasu1765/dincharya-ai/pull/16#issuecomment-7076943222) and [7077006663](https://github.com/vasu1765/dincharya-ai/pull/16#issuecomment-7077006663) remain part of the evidence.
+
+| PR | Verified head | Files changed | Status against recorded base | Proposed disposition |
+|---|---|---:|---|---|
+| #4 | `ac0dbb0ddc34bc376bf7d92c7e11e92952fc9f10` | 12 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #5 | `f2753f9ff0f6f4221b3fc86c648936cb569151f3` | 15 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #7 | `c378ab87813bbdb46d4f23f9c894dd48fc9b8ea0` | 14 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #8 | `ac3f29f44336abb67db0755d3ff61ec3a2dfa3c8` | 12 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #9 | `f37e2f593547ddfb030061981ec636bfdfa56a93` | 17 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #10 | `29a4484fc4a1951be5e78a5fc1df754979c9434a` | 24 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #11 | `2efa2685bca35f74c1b9038da9e693ceea9b4cc1` | 19 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #12 | `e6a6743106ad887e2a725e2379cd80e6883d4b8e` | 12 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #13 | `7b72a4aebb8232aa9e5e6fe14a9eddd8bbf086bb` | 3 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #14 | `db4a8c75c7df3b0e815f36e486fc5d3127a916f1` | 13 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #15 | `f4545a5b7cfb2871a4450ecc89a705862e89a9e1` | 16 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+| #16 | `d4c1706a912e468974f033e22cf6785eeb47be0c` | 16 | Open draft, mergeable | Retain through aggregate merge and ancestry check |
+
+Each base-to-head compare had zero commits behind. The correction branch was identical to 9e17254 before the integration change. Mergeability describes Git's conflict check only.
+
+### Security and correctness review
+
+| Severity | Finding and disposition |
+|---|---|
+| High, fixed in candidate | Python could acknowledge an absent transport receipt. The worker quarantines unconfirmed sends and its PostgreSQL adapter now also rejects receipt-less success before connecting. An actual paired receipt is required by success mocks. Rejection backoff, lease loss and uncertain delivery retain separate paths. |
+| High, fixed in candidate; native validation pending | Both restricted Gregorian worker entry points could reach receipt-less success. Migration 0015 rejects that outcome, retains the scoped function owners and ACLs, and adds a slot constraint enforced on new writes. Previously applied migrations and historical null pairs remain intact. The historical public invoker API retains legacy behavior. Any beta worker must have scoped function execution and **no direct ledger DML**. |
+| Medium, operating limit | The bounded signed relay and private runner bind the owner, destination, decision, revision and deadline. The general gateway also has a plain webhook route; keep it outside the attended beta. Signing authenticates the request. Durable action identity, review expiry and the database's transaction/lease checks supply replay and duplicate protection. |
+| Medium, recovery and configuration | A shared database lock excludes a second worker on that cluster. It cannot fence a restored or independent host. Preserve sole bot custody, old-host fencing, fresh review for restored partial actions and the quarantine ledger. Restart or restore alone confers no approval. |
+| Medium, provenance gate | Repository-owned synthetic schema, migrations, native inactive relay and test configuration can continue in isolated development. Before beta, verify deployed digests, managed grants and one-worker scope. The dispatcher, scanner, authoritative schema and workflow promotion require explicit artifact-level owner decisions. Current, published and historical legacy sources have distinct dispositions. Keep private Code bodies, old state, credentials and historical backups excluded. |
+| Low, fixed | Two existing unit assertions modeled successful sends with a missing acknowledgement. The fixtures now require a real receipt on the success path; explicit negative coverage remains. |
+
+The [artifact decision table](M2B_CYCLE7_DECISIONS.md) retains the individual digests. Add migration 0015 (SHA-256 `d1ccf7a8ff4e420c49a2f876e0405e409c00560ed146cf8ab5c5d0894b9bd67b`) and the updated private launcher (`1351e6ea3f755d2c877a8e72fb9a64247229a686ad7029640ab0adbc1a842b0d`) as development-only candidates. The historical inventory verified at `4f30e69fe7ea74fd128d650aac939bd4159c407d764068b229e989c0aa2552bd`. No authoritative promotion decision is recorded here.
+
+### Verification and remaining gate
+
+Work executed 5 receipt regressions, 27 reminder tests, 9 bounded acceptance tests and 6 reconciliation tests (47 passed). Two optional SDK/psycopg gateway preflight tests skipped. Explicit source checks, registry verification and shell syntax passed. Stage 1 signed native relay, PG17, duplicate suppression, quarantine and simulated receipts, plus Stage 2 lid-closed operation, the recovery-only continuation, encrypted USB transfer and independent restore remain prior evidence. Preserve the aborted first recovery, observer-tail gap and USB-health qualification in [the physical report](LAPTOP_STAGE2_RESULTS.md).
+
+**One Acer WSL task.** Use a clean checkout of the reviewed candidate SHA and the previously accepted local PG17 image ID. From the repository root, set `REV` independently to the candidate pin and `PG` to that image ID. Using the existing gateway acceptance Python environment, run `python -B -m unittest discover -s tests -p test_reminder_gateway_preflight.py -v` and verify both tests execute. Then run `REV="$REV" PG="$PG" bash tests/integration/receipt_candidate.sh`. This creates one fresh networkless tmpfs cluster, applies the synthetic schema and migrations, checks both scoped worker APIs and receipt rows, and removes only that container. Record the exit status and PASS line on the integration PR. Work lacked PostgreSQL and Docker. Migration 0015 has no native PASS yet.
+
+### Attended beta after development integration
+
+1. Confirm source dispositions for the exact runtime, candidate migration ledger, isolated database and single polling/worker owner. Resolve the native gate before requesting a live window.
+2. Obtain fresh authorization for an exact reviewed revision, dedicated test bot, numeric owner-only recipient, one 11-minute IST window and six outbound messages including one genuine reminder.
+3. Execute the [bounded launcher](M2H_CYCLE7_PRIVATE_ACCEPTANCE.md) once within that authorization. It covers one historical query, one silent appointment and one at-start reminder with explicit confirmation. End on uncertainty, identity mismatch, extra traffic or receipt mismatch. Keep only scoped evidence. An ongoing personal schedule requires a separate approval.
+
+## Historical initial correction checkpoint
+
 ## Scope and ancestry
 
 Base: `d4c1706a912e468974f033e22cf6785eeb47be0c`, previously accepted PR #16.

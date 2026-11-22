@@ -10,7 +10,7 @@ class WorkerTests(unittest.TestCase):
         self.repository.claim.return_value = [Claim(1, 'invented-lease', {'title': 'Synthetic'})]
         self.repository.finish.return_value = True
         self.transport = Mock()
-        self.transport.send.return_value = None
+        self.transport.send.return_value = DeliveryReceipt(101, 12)
         self.clock = lambda: datetime(2032, 1, 1, tzinfo=timezone.utc)
 
     def test_confirmed_acceptance_is_acknowledged_once(self):
@@ -53,7 +53,8 @@ class WorkerTests(unittest.TestCase):
                 self.assertNotIn('synthetic transport detail', formatted)
                 self.transport.send.assert_called_once()
                 self.repository.finish.assert_called_once_with(
-                    self.repository.claim.return_value[0], outcome, self.clock())
+                    self.repository.claim.return_value[0], outcome, self.clock(),
+                    **({'receipt': self.transport.send.return_value} if outcome == 'sent' else {}))
 
     def test_failed_acknowledgement_aborts_batch_before_second_send(self):
         first = self.repository.claim.return_value[0]

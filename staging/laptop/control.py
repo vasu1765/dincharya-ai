@@ -111,7 +111,7 @@ def prepare(a):
     # The postgres image reads this as its own UID; parent directory is mode 0700.
     os.chmod(STATE/'pass',0o444)
     paths = sorted((ROOT/'database/migrations').glob('*.sql'))
-    if [p.name[:4] for p in paths] != [f'{i:04d}' for i in range(1,15)]:
+    if [p.name[:4] for p in paths] != [f'{i:04d}' for i in range(1,16)]:
         raise ValueError('migration set changed')
     script = [(ROOT/'tests/integration/m2h_development_schema.sql').read_text(), render_migrations(paths),'BEGIN;']
     roles = {}

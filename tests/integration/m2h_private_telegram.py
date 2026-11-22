@@ -87,7 +87,7 @@ class BotAPI:
 
 class PrivateRunner(ExactRunner):
     label = "Bounded private Telegram"
-    migrations = (*ExactRunner.migrations, "0014_synthetic_restore_fence.sql")
+    migrations = (*ExactRunner.migrations, "0014_synthetic_restore_fence.sql", "0015_managed_receipt_safety.sql")
     server_script = Path(__file__).name
 
     def configure_service(self):

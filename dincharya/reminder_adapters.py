@@ -68,7 +68,8 @@ class PostgresReminders:
                 for delivery_id, worker_token, payload in rows]
 
     def finish(self, claim, outcome, now, *, receipt=None):
-        if receipt is not None and (outcome != 'sent' or not isinstance(receipt, DeliveryReceipt)):
+        if (outcome == 'sent' and not isinstance(receipt, DeliveryReceipt)
+                or outcome != 'sent' and receipt is not None):
             raise ValueError('Invalid delivery receipt')
         with self.connect() as connection:
             if receipt is None:
