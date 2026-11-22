@@ -67,8 +67,10 @@ def process_batch(repository: Repository, transport: Transport, clock, limit: in
     for claim in claims:
         try:
             receipt = transport.send(claim.payload)
-            if receipt is not None and not isinstance(receipt, DeliveryReceipt):
-                raise RuntimeError('Invalid transport acknowledgement')
+            # A missing receipt does not establish a confirmed external send.
+            # Never turn a transport's None return into a sent ledger row.
+            if not isinstance(receipt, DeliveryReceipt):
+                raise RuntimeError('Transport acknowledgement absent or invalid')
         except NotAccepted:
             finish(claim, 'not_accepted')
         except Exception:
