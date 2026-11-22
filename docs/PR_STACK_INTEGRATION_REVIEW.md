@@ -1,5 +1,43 @@
 # PR-stack integration review checkpoint — 2026-11-22
 
+## Verified development integration and historical PR closeout — 22 November 2026
+
+PR #17 was merged (not merely proposed) via history-preserving merge
+`62421931de6dad60d389c7d8951cecf2fef1b68e`.
+Parent 1: `7fc20d6c05e037b0ac3f01d11c5868b715476bd3`.
+Parent 2: `4674c5d9ea3751272b8b1492849a324b2479f738`.
+
+Acer Codex executed exactly two gateway preflight tests, both PASS, zero
+skips. The unchanged isolated PostgreSQL 17 receipt migration 0015 script
+returned exit 0 and the expected PASS line; disposable cleanup did not
+change preserved Docker inventories. This closes the specific SQL acceptance
+gate previously marked pending.
+
+GitHub confirmed each remaining recorded historical head as an ancestor of
+the integrated merge (zero commits behind). PR #4 was automatically marked
+merged. PRs #5 and #7–#16 were closed **as superseded** by PR #17 after
+independent ancestry and unchanged-head verification. No branch, commit,
+review history or acceptance evidence was deleted. Earlier descriptions
+below of a pending PR #17 merge and missing PG17 validation are historical
+checkpoints superseded by this closeout.
+
+### Pending source-adoption decisions
+
+Repository-owned synthetic schema and migrations through 0015, inactive
+native relay, bounded fixtures and source scanners remain approved for
+isolated development only. Before personal beta, review exact source digests,
+managed function grants without direct worker ledger DML, owner and bot
+identity, single poller/worker, fail-closed delivery, backup and stop conditions.
+A fresh, separately authorized real-message window is required.
+
+Authoritative source/workflow promotion, current/published legacy workflow
+replacement, historical Code execution, private-state adoption, broad
+Panchang/festival rules, persistent deployment, unattended operation and
+`main` merge are **not approved**. Use the digest-bound artifact table in
+[M2B source adoption](M2B_SOURCE_ADOPTION.md) to obtain separate owner
+dispositions.
+
+
 ## Consolidated development candidate — 22 November 2026
 
 **Decision requested:** after the receipt SQL gate passes, merge this candidate with a merge commit into `development/m2g-telegram-integration` (reviewed target `7fc20d6c05e037b0ac3f01d11c5868b715476bd3`). One aggregate merge retains the twelve heads in their original history. Recheck the target and candidate pins first. Keep every original PR and branch available. Verify each head is an ancestor of the resulting target before deciding on any closure. Historical review comments [7076943222](https://github.com/vasu1765/dincharya-ai/pull/16#issuecomment-7076943222) and [7077006663](https://github.com/vasu1765/dincharya-ai/pull/16#issuecomment-7077006663) remain part of the evidence.
