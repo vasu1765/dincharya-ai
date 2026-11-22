@@ -1,5 +1,36 @@
 # Dincharya AI roadmap
 
+## Active plan — Integrated Personal Beta (owner decision, 22 November 2026)
+
+The owner combined former **Stage A (usable attended beta)** and **Stage B
+(reliable operation)** into one coordinated **Integrated Personal Beta**
+development milestone, with **two distinct acceptance gates**. The first is a
+revision-pinned, manually attended, bounded live Telegram session; the second
+requires independently monitored and encrypted-backup-protected unattended
+operation and **separate approval**. Development activities may run together;
+passing the first gate does not authorize the second.
+
+**Telegram is the only active interface.** Design a transport-neutral boundary
+for a potential future **WhatsApp** adapter now, documentation only. Do not add
+WhatsApp runtime dependencies, messaging/credentials or outbound traffic. A
+future adapter is conditional on review of Meta's then-current platform and
+general-purpose AI eligibility policies, onboarding, template/service-window
+constraints, pricing, consent and retention. Do not use unofficial automation.
+
+The [executable milestone plan](INTEGRATED_PERSONAL_BETA.md) defines source
+disposition, revision-pinned runtime, shared functional journeys, independently
+powered monitoring/alerts, healthy-media encrypted backups, exact history
+restore, single-host fencing, synthetic acceptance and the separate attended
+and unattended owner gates. [Milestone 2B](M2B_SOURCE_ADOPTION.md) artifact
+decisions, guarded Panchang boundaries and all production/main/deployment
+prohibitions remain in force. Reuse accepted Stage 1/2 physical tests and PR #17
+receipt validation; do not repeat them without an invalidating change.
+
+**Current status:** implementation plan committed; neither gate has been
+executed or approved by this roadmap decision. Do not label the integrated
+personal beta operational.
+
+
 ## Development integration closeout — 22 November 2026
 
 The 12-PR development stack has been integrated by [PR #17](https://github.com/vasu1765/dincharya-ai/pull/17),
