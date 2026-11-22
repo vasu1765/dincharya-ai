@@ -7,7 +7,7 @@ from pathlib import Path
 import json
 import re
 
-_SHA = re.compile(r"sha256:[0-9a-f]{64}\\Z")
+_SHA = re.compile(r"sha256:[0-9a-f]{64}\Z")
 _REQUIRED = frozenset({"postgres", "n8n", "gateway", "scheduler", "worker"})
 _FORBIDDEN = frozenset({"telegram_token", "bot_token", "password", "secret", "api_key",
                         "command_key", "tick_key", "review_key", "whatsapp_token"})
@@ -89,7 +89,7 @@ def main():
     try:
         verify_file(args.plan)
     except (ValueError, OSError, json.JSONDecodeError):
-        parser.exit(1, "FAIL: beta plan is not inert or valid\\n")
+        parser.exit(1, "FAIL: beta plan is not inert or valid\n")
     print("PASS: offline beta planning flags are disabled; NOT runtime authorization")
 
 
