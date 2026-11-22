@@ -1,5 +1,28 @@
 # Dincharya AI — handoff
 
+## Current checkpoint — development PR consolidation complete (22 November 2026)
+
+PR #17 merged into the development branch by merge commit
+`62421931de6dad60d389c7d8951cecf2fef1b68e` (first parent
+`7fc20d6c05e037b0ac3f01d11c5868b715476bd3`; second parent
+`4674c5d9ea3751272b8b1492849a324b2479f738`).
+On Acer WSL, both gateway preflights passed without skips and the fresh,
+networkless PostgreSQL 17 migration 0015 receipt gate passed (exit 0);
+disposable cleanup preserved prior environments.
+
+All original historical PR heads were independently verified as ancestors
+of that integrated development history. PR #4 was automatically marked
+merged; #5 and #7–#16 were subsequently closed **as superseded**, not merged
+individually. Their remote branches, histories and comments are retained.
+
+Next: artifact-level Milestone 2B owner dispositions and a new, explicitly
+approved attended personal-beta scope. The prior Telegram acceptance was
+one-use. No authoritative source promotion, persistent personal scheduling,
+unattended operation, production, VPS deployment or `main` merge is authorized.
+Preserve the Stage 1/2 evidence, aborted recovery, observer-tail qualification,
+owner-accepted USB warning and deferred SMB.
+
+
 The [consolidated integration review](PR_STACK_INTEGRATION_REVIEW.md) records all twelve PRs, receipt-safety migration 0015 and one fresh PG17 validation gate before the proposed development-only merge. Attended Telegram use requires a separate scoped approval.
 
 ## Final scoped cleanup complete
