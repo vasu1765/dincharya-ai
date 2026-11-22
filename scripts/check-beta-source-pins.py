@@ -11,12 +11,12 @@ from pathlib import Path, PurePosixPath
 import re
 import sys
 
-HEX = re.compile(r"[0-9a-f]{40}\\Z")
+HEX = re.compile(r"[0-9a-f]{40}\Z")
 
 
 def git_blob(path):
     data = path.read_bytes()
-    return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\\0" + data).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
 
 
 def verify(root, manifest):
@@ -41,7 +41,7 @@ def verify(root, manifest):
         posix = PurePosixPath(relative)
         if (posix.is_absolute() or not posix.parts or
                 any(part in ("", ".", "..") for part in relative.split("/")) or
-                "\\\\" in relative or relative in seen):
+                "\\" in relative or relative in seen):
             raise ValueError("Unsafe or duplicate source path")
         seen.add(relative)
         current = root
