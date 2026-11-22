@@ -1,5 +1,30 @@
 # Milestone 2B source adoption review
 
+## Post-consolidation recommended disposition — 22 November 2026
+
+The merged development baseline is `development/m2g-telegram-integration`,
+with PR #17 merge `62421931de6dad60d389c7d8951cecf2fef1b68e`.
+This **recommendation is not an owner artifact-adoption decision**.
+Keep the digest-bound inventory and decision-record procedure below unchanged.
+
+| Artifact group | Proposed disposition | Release boundary |
+| --- | --- | --- |
+| Synthetic PG schema and migrations 0001–0015 | Retain for isolated development; migration 0015 passed fresh networkless PG17 receipt-safety tests | Do not substitute synthetic schema for an authoritative personal baseline without artifact review |
+| Inactive repository n8n Webhook/HTTP Request relay | Retain for synthetic integration | Review exact deployment digest, network binding and activation scope before attended beta |
+| Signed dispatcher, Telegram gateway, restricted worker and source scanner | Retain for development with recorded receipt fixes | Verify owner identity, role grants, signature keys, destination, no direct ledger DML and fail-closed transport at exact beta revision |
+| Local Stage 1/Stage 2 staging and recovery sources | Retain as acceptance evidence and optional future test tooling | Do not replay preserved physical tests or install persistent startup based on this approval |
+| Current vs published legacy workflows | Separately evaluate exact authorized identities/bytes; no replacement approved | Historical n8n versions are not interchangeable with current/published definitions |
+| Historical Code nodes, credentials, backups and runtime state | Exclude from current adoption | No private-input access, execution or state migration without explicit authorization |
+| Broad festival and non-Delhi calendar rules | Keep disabled/withheld where unvalidated | Selected calendar acceptance does not certify general scheduling |
+| Production and unattended deployment | No promotion | Requires separate source, operational and owner approvals |
+
+Before a personal beta, produce a *revision-pinned* deployment inventory (exact
+code digests, migrations, restricted roles, inactive/active flags and single
+worker/poller), then record the owner's artifact decisions via the existing
+`--verify-decisions` workflow. The earlier one-use private Telegram test does
+not authorize a new session.
+
+
 The owner approved establishing a new process on 17 November 2026. The package
 covers the repository-owned synthetic schema, ordered migrations, test configuration,
 native relay and security-sensitive dispatcher and source scanner. It is awaiting
