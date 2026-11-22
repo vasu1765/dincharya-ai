@@ -1,8 +1,27 @@
 # Dincharya AI — handoff
 
-## Approved accelerated Stage 2 continuation — implementation ready; runtime pending
+## Recovery-only acceptance passed — documented limitations and cleanup pending
 
-The owner approved the [recovery-only continuation](LAPTOP_STAGE2_RECOVERY_ONLY.md), one additional supervised reboot and USB transfer scope. Implemented a fresh namespace, one-use resumable task, separate 600-second performance target and functional overdue catch-up assertions, duplicate/quarantine/worker checks, and locally staged encrypted export. Eighteen focused new tests passed; affected existing offline checks and syntax passed. No runtime/reboot/arming yet. The original aborted run and successful closed-lid/two-receipt evidence remain preserved; full old observer-log correlation is still documentary follow-up. Next: commit the explicit safe files (Git metadata read-only), use the reviewed clean revision on both hosts, prepare the fresh stack, retarget the existing attended bridge without SSH/firewall changes, and obtain fresh correct-target observer readiness plus owner attendance before arming. SMB remains NOT TESTED / DEFERRED.
+At `b89a2bc`, recovery-only functional checks and 435.014-second startup passed: four
+paired receipts, zero silent/duplicate attempts, one quarantined uncertain without
+resend, durable history and single-worker enforcement. CMS export/source task exit 0.
+Owner-returned ThinkPad execution verified USB/destination hashes and independent
+networkless PG17 restore: exit 0, migrations plus all six histories equal, 5 slots/4
+sent/1 uncertain, no app/worker. Final Acer inventory comparison passed; prior Stage 1
+projects and aborted physical session remain unchanged. No repeated lid test.
+
+Limitations retained: observer trace passed outage/recovery criteria but ends before
+final fixtures; later outcomes were verified by SQL/recorder/restart, not external
+monitoring. Possible ThinkPad Docker crash is unconfirmed. Owner explicitly accepted
+USB volume Warning/Full Repair Needed; filesystem health is not passed. SMB testing
+remains deferred. See [complete evidence](LAPTOP_STAGE2_RESULTS.md).
+
+All source application services and the attended Acer bridge/Stage 2 SSH listener are
+stopped. Backups/logs/journals retained. Temporary account/firewall/receiver configuration
+removal/restoration remains a separately reviewed closeout task; no cleanup claimed.
+Commit only docs/HANDOFF.md and docs/LAPTOP_STAGE2_RESULTS.md to the existing PR branch.
+No further arming, reboot, resend, production, permanent deployment or merge authorized.
+
 
 ## Latest Stage 2 checkpoint — aborted after missed recovery window
 
