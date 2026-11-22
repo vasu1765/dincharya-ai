@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Integrated personal beta cycle 1
+
+[Implementation and Acer verification](BETA_CYCLE1.md) records 16 passing offline tests, source verification, the civil preview, isolated storage renderer, observer and encrypted synthetic archive. Personal schema adoption, image review and native journeys remain open before Gate 1.
+
 ## Current engineering checkpoint — offline beta runtime guard
 
 New source-only development files:
