@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Accepted synthetic rehearsal and attended candidate
+
+At `5bcda101bba4f10c1d87113da27e8f6ffc7b97b1`, Acer completed the native synthetic rehearsal with exit 0, all 15 checksums, signed relay and receipt checks, nine-table restore and unchanged inventory. The accepted four recurrence and nine historical tests carry forward. [Artifact decisions and attended candidate](ATTENDED_CANDIDATE.md) describe the offline preview renderer, remaining adapter work and separate owner gates. Earlier pending entries below document the historical sequence.
+
 ## PR 18 webhook registration race — focused fix, native validation pending
 
 One browser-independent native rerun at `3409afad` reproduced forged-denial HTTP 404,

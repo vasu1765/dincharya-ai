@@ -1,5 +1,9 @@
 # PR 18 personal schema rehearsal
 
+## Accepted synthetic rehearsal and attended candidate
+
+At `5bcda101bba4f10c1d87113da27e8f6ffc7b97b1`, Acer completed the native synthetic rehearsal with exit 0, all 15 checksums, signed relay and receipt checks, nine-table restore and unchanged inventory. The accepted four recurrence and nine historical tests carry forward. [Artifact decisions and attended candidate](ATTENDED_CANDIDATE.md) describe the offline preview renderer, remaining adapter work and separate owner gates. Earlier pending entries below document the historical sequence.
+
 The first repository-owned migration is independent of the historical 0001–0015 chain. It runs transactionally on PostgreSQL 17 in the disposable database dincharya_beta_rehearsal and fixes the recipient to synthetic user 101. Discard the newly created rehearsal environment to roll back. Never run a down migration against an accepted database.
 
 The signed adapter issues civil drafts and separate authenticated decisions. Date projection uses Asia/Kolkata and a rolling 400-day horizon. Restrictive function grants separate proposal, worker and evidence-backed operator actions. Receipt writes require a valid lease and a complete pair. Restore rotates the epoch, expires pending reviews and fences pending or in-flight delivery. Review the SQL and execute the native assertions before accepting these properties.

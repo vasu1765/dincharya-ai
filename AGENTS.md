@@ -1,5 +1,7 @@
 # Dincharya AI — repository instructions
 
+For integrated beta work, follow [the current attended candidate](docs/ATTENDED_CANDIDATE.md). Preserve the accepted synthetic evidence at `5bcda101`; native reruns require a changed boundary. Personal storage adoption, live messaging and unattended operation each require explicit authorization.
+
 This root AGENTS.md applies to the entire repository unless more-specific
 instructions apply. User instructions take precedence. Start a new session by
 reading [HANDOFF](docs/HANDOFF.md), [policy](docs/DEVELOPMENT_POLICY.md),
