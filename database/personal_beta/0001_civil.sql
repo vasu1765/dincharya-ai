@@ -209,7 +209,7 @@ CREATE TABLE beta.reconcile_permit (
 );
 CREATE TABLE beta.resolution (
  action_id uuid PRIMARY KEY, slot_id bigint UNIQUE NOT NULL REFERENCES beta.slot,
- epoch uuid NOT NULL, evidence uuid NOT NULL REFERENCES beta.receipt_evidence, authorization uuid UNIQUE NOT NULL REFERENCES beta.reconcile_permit,
+ epoch uuid NOT NULL, evidence uuid NOT NULL REFERENCES beta.receipt_evidence, permit_id uuid UNIQUE NOT NULL REFERENCES beta.reconcile_permit,
  operator_oid oid NOT NULL,
  reason text NOT NULL CHECK(length(trim(reason)) BETWEEN 1 AND 500 AND reason !~ '[[:cntrl:]]'),
  observed text NOT NULL, chat bigint NOT NULL CHECK(chat=101), message bigint NOT NULL CHECK(message>0)
@@ -238,7 +238,7 @@ BEGIN
  PERFORM 1 FROM beta.slot WHERE id=target FOR UPDATE;
  SELECT * INTO r FROM beta.resolution WHERE action_id=action;
  IF FOUND THEN
-   IF r.operator_oid IS DISTINCT FROM session_user::regrole::oid OR (r.epoch,r.slot_id,r.observed,r.chat,r.message,r.evidence,r.authorization,r.reason)
+   IF r.operator_oid IS DISTINCT FROM session_user::regrole::oid OR (r.epoch,r.slot_id,r.observed,r.chat,r.message,r.evidence,r.permit_id,r.reason)
       IS DISTINCT FROM (a.epoch,target,observation_arg,chat_id,message_id,evidence_id,authorization_id,reason_arg)
    THEN RAISE EXCEPTION 'reconciliation replay mismatch'; END IF;
    RETURN false;
