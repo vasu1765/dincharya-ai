@@ -193,12 +193,35 @@ BEGIN
  UPDATE beta.slot SET state='cancelled' WHERE state='pending';
 END $$;
 -- Only an independently authorized operator may attach a confirmed paired receipt.
+CREATE TABLE beta.receipt_evidence (
+ id uuid PRIMARY KEY, epoch uuid NOT NULL, slot_id bigint NOT NULL REFERENCES beta.slot,
+ chat bigint NOT NULL CHECK(chat=101), message bigint NOT NULL CHECK(message>0),
+ digest text NOT NULL CHECK(digest ~ '^[0-9a-f]{64}$'),
+ delivered_at timestamptz NOT NULL CHECK(isfinite(delivered_at)), verified boolean NOT NULL,
+ issuer name NOT NULL DEFAULT session_user
+);
+CREATE TABLE beta.reconcile_permit (
+ id uuid PRIMARY KEY, action_id uuid UNIQUE NOT NULL, operator_oid oid NOT NULL,
+ epoch uuid NOT NULL, slot_id bigint NOT NULL REFERENCES beta.slot,
+ evidence uuid NOT NULL REFERENCES beta.receipt_evidence, observed text NOT NULL CHECK(observed ~ '^[0-9a-f]{64}$'),
+ reason text NOT NULL, approved boolean NOT NULL, expires timestamptz NOT NULL CHECK(isfinite(expires)),
+ issuer name NOT NULL DEFAULT session_user
+);
 CREATE TABLE beta.resolution (
  action_id uuid PRIMARY KEY, slot_id bigint UNIQUE NOT NULL REFERENCES beta.slot,
- epoch uuid NOT NULL, evidence uuid NOT NULL, authorization uuid NOT NULL,
+ epoch uuid NOT NULL, evidence uuid NOT NULL REFERENCES beta.receipt_evidence, authorization uuid UNIQUE NOT NULL REFERENCES beta.reconcile_permit,
+ operator_oid oid NOT NULL,
  reason text NOT NULL CHECK(length(trim(reason)) BETWEEN 1 AND 500 AND reason !~ '[[:cntrl:]]'),
  observed text NOT NULL, chat bigint NOT NULL CHECK(chat=101), message bigint NOT NULL CHECK(message>0)
 );
+CREATE FUNCTION beta.reject_history_change() RETURNS trigger LANGUAGE plpgsql
+SET search_path=pg_catalog,pg_temp AS $$ BEGIN RAISE EXCEPTION 'immutable reconciliation history'; END $$;
+CREATE TRIGGER immutable_evidence BEFORE UPDATE OR DELETE OR TRUNCATE ON beta.receipt_evidence
+ FOR EACH STATEMENT EXECUTE FUNCTION beta.reject_history_change();
+CREATE TRIGGER immutable_permit BEFORE UPDATE OR DELETE OR TRUNCATE ON beta.reconcile_permit
+ FOR EACH STATEMENT EXECUTE FUNCTION beta.reject_history_change();
+CREATE TRIGGER immutable_resolution BEFORE UPDATE OR DELETE OR TRUNCATE ON beta.resolution
+ FOR EACH STATEMENT EXECUTE FUNCTION beta.reject_history_change();
 CREATE FUNCTION beta.inspect_uncertain() RETURNS TABLE(slot_id bigint,observation text)
 LANGUAGE sql STABLE SECURITY DEFINER SET search_path=pg_catalog,pg_temp AS $$
  SELECT s.id,encode(sha256(convert_to(a.epoch::text||'/'||s.id::text||'/'||s.attempts::text||'/'||t.token::text,'UTF8')),'hex')
@@ -215,14 +238,24 @@ BEGIN
  PERFORM 1 FROM beta.slot WHERE id=target FOR UPDATE;
  SELECT * INTO r FROM beta.resolution WHERE action_id=action;
  IF FOUND THEN
-   IF (r.epoch,r.slot_id,r.observed,r.chat,r.message,r.evidence,r.authorization,r.reason)
+   IF r.operator_oid IS DISTINCT FROM session_user::regrole::oid OR (r.epoch,r.slot_id,r.observed,r.chat,r.message,r.evidence,r.authorization,r.reason)
       IS DISTINCT FROM (a.epoch,target,observation_arg,chat_id,message_id,evidence_id,authorization_id,reason_arg)
    THEN RAISE EXCEPTION 'reconciliation replay mismatch'; END IF;
    RETURN false;
  END IF;
  IF NOT EXISTS(SELECT FROM beta.inspect_uncertain() WHERE slot_id=target AND observation=observation_arg)
  THEN RAISE EXCEPTION 'stale observation'; END IF;
- INSERT INTO beta.resolution VALUES(action,target,a.epoch,evidence_id,authorization_id,reason_arg,observation_arg,chat_id,message_id);
+ -- Check after acquiring both locks, including expiry after any lock wait.
+ IF NOT EXISTS (
+   SELECT FROM beta.reconcile_permit p JOIN beta.receipt_evidence e ON e.id=p.evidence
+   WHERE p.id=authorization_id AND p.action_id=action AND p.operator_oid=session_user::regrole::oid
+     AND p.approved AND p.epoch=a.epoch AND p.slot_id=target AND p.observed=observation_arg
+     AND p.reason=reason_arg AND p.expires>clock_timestamp()
+     AND e.id=evidence_id AND e.verified AND e.epoch=a.epoch AND e.slot_id=target
+     AND e.chat=a.recipient AND e.chat=chat_id AND e.message=message_id
+     AND e.delivered_at<=clock_timestamp()
+ ) THEN RAISE EXCEPTION 'invalid reconciliation authority' USING ERRCODE='42501'; END IF;
+ INSERT INTO beta.resolution VALUES(action,target,a.epoch,evidence_id,authorization_id,session_user::regrole::oid,reason_arg,observation_arg,chat_id,message_id);
  UPDATE beta.slot SET state='sent',chat=chat_id,message=message_id WHERE id=target AND state='uncertain';
  RETURN true;
 END $$;

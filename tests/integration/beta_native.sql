@@ -35,13 +35,59 @@ DO $$ BEGIN
  OR NOT EXISTS(SELECT 1 FROM beta.proposal WHERE request_id=21 AND state='expired')
  THEN RAISE EXCEPTION 'restore ledger mismatch'; END IF;
 END $$;
-SET SESSION AUTHORIZATION beta_operator;
-DO $$ DECLARE observation_row record; action uuid:=gen_random_uuid(); evidence uuid:=gen_random_uuid(); auth uuid:=gen_random_uuid();
-BEGIN
- SELECT * INTO STRICT observation_row FROM beta.inspect_uncertain();
- IF NOT beta.reconcile(action,observation_row.slot_id,observation_row.observation,101,235,evidence,auth,'observed synthetic receipt',true)
- THEN RAISE EXCEPTION 'confirmed receipt missing'; END IF;
- IF beta.reconcile(action,observation_row.slot_id,observation_row.observation,101,235,evidence,auth,'observed synthetic receipt',true)
- THEN RAISE EXCEPTION 'duplicate reconciliation'; END IF;
+-- Fixture authority independently provisions observations and single-use grants.
+INSERT INTO beta.receipt_evidence(id,epoch,slot_id,chat,message,digest,delivered_at,verified)
+ SELECT md5('proof-'||n)::uuid,a.epoch,u.slot_id,101,235,
+ encode(sha256(convert_to('synthetic paired receipt 101/235','UTF8')),'hex'),now(),n<>3
+ FROM beta.inspect_uncertain() u CROSS JOIN beta.authority a CROSS JOIN generate_series(1,5) n;
+INSERT INTO beta.reconcile_permit(id,action_id,operator_oid,epoch,slot_id,evidence,observed,reason,approved,expires)
+ SELECT md5('permit-'||n)::uuid,md5('action-'||n)::uuid,'beta_operator'::regrole::oid,
+ a.epoch,u.slot_id,md5('proof-'||n)::uuid,u.observation,'fixture review',n<>4,
+ now()+CASE WHEN n=2 THEN -interval '1 minute' ELSE interval '10 minutes' END
+ FROM beta.inspect_uncertain() u CROSS JOIN beta.authority a CROSS JOIN generate_series(1,5) n;
+
+SET SESSION AUTHORIZATION beta_worker;
+DO $$ BEGIN
+ BEGIN
+   PERFORM beta.reconcile(gen_random_uuid(),1,repeat('0',64),101,235,
+     gen_random_uuid(),gen_random_uuid(),'fixture review',true);
+   RAISE EXCEPTION 'worker reconciled';
+ EXCEPTION WHEN insufficient_privilege THEN NULL; END;
 END $$;
 RESET SESSION AUTHORIZATION;
+SET SESSION AUTHORIZATION beta_operator;
+DO $$ DECLARE u record; n int;
+BEGIN
+ SELECT * INTO STRICT u FROM beta.inspect_uncertain();
+ IF has_table_privilege(current_user,'beta.receipt_evidence','INSERT') OR
+    has_table_privilege(current_user,'beta.reconcile_permit','INSERT') THEN RAISE EXCEPTION 'issuance privilege leak'; END IF;
+ -- absent, expired, unverified, unapproved, wrong recipient, wrong message, reused permit for different action
+ FOREACH n IN ARRAY ARRAY[0,2,3,4,5,6,7] LOOP
+   BEGIN
+     PERFORM beta.reconcile(md5('action-'||CASE WHEN n=6 THEN 5 ELSE n END)::uuid,u.slot_id,u.observation,
+       CASE WHEN n=5 THEN 102 ELSE 101 END,CASE WHEN n=6 THEN 236 ELSE 235 END,
+       md5('proof-'||least(n,5))::uuid,md5('permit-'||least(n,5))::uuid,'fixture review',true);
+     RAISE EXCEPTION 'invalid permit accepted %',n;
+   EXCEPTION WHEN insufficient_privilege THEN NULL; END;
+ END LOOP;
+ BEGIN
+   PERFORM beta.reconcile(md5('action-1')::uuid,u.slot_id,repeat('0',64),101,235,
+       md5('proof-1')::uuid,md5('permit-1')::uuid,'fixture review',true);
+   RAISE EXCEPTION 'obsolete observation accepted';
+ EXCEPTION WHEN raise_exception THEN IF SQLERRM<>'stale observation' THEN RAISE; END IF; END;
+ IF NOT beta.reconcile(md5('action-1')::uuid,u.slot_id,u.observation,101,235,
+   md5('proof-1')::uuid,md5('permit-1')::uuid,'fixture review',true) THEN RAISE EXCEPTION 'valid receipt rejected'; END IF;
+ IF beta.reconcile(md5('action-1')::uuid,u.slot_id,u.observation,101,235,
+   md5('proof-1')::uuid,md5('permit-1')::uuid,'fixture review',true) THEN RAISE EXCEPTION 'duplicate mutation'; END IF;
+ BEGIN
+   PERFORM beta.reconcile(md5('action-1')::uuid,u.slot_id,u.observation,101,236,
+     md5('proof-1')::uuid,md5('permit-1')::uuid,'fixture review',true);
+   RAISE EXCEPTION 'altered replay accepted';
+ EXCEPTION WHEN raise_exception THEN IF SQLERRM<>'reconciliation replay mismatch' THEN RAISE; END IF; END;
+END $$;
+RESET SESSION AUTHORIZATION;
+DO $$ BEGIN
+ IF (SELECT count(*) FROM beta.resolution)<>1 OR
+ (SELECT count(*) FROM beta.slot WHERE state='sent' AND chat=101 AND message=235)<>1
+ THEN RAISE EXCEPTION 'reconciliation history mismatch'; END IF;
+END $$;
