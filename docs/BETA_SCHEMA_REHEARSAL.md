@@ -13,28 +13,28 @@ The signed adapter issues civil drafts and separate authenticated decisions. Dat
 | beta_observer.py and beta_archive.py | Simulated alert transitions and local encrypted fixture archives. Off-site observation and off-device restore remain separate. |
 | Existing pinned gateway, workflow and migrations | Retain the reviewed bytes and historical acceptance scope. |
 
-## One Acer WSL Codex task
+## Single scoped Acer native rerun
 
-Use a clean detached worktree at the exact PR head supplied with this task. Export REV to that full SHA. Use the previously accepted local PG17, staging Python and n8n image IDs as PG, APP and N8N respectively. Use the accepted astronomy interpreter as ASTRO_PYTHON and the reviewed public kernel path as DINCHARYA_PUBLIC_DE440S. Resolve these from public dependency records and local image metadata only. Stop if any pin is unavailable. Use no existing service, private configuration or retained volume.
+The Acer run at `a05e1484ef364e50568c33318ace8aa70aaf4ec4` passed the manifest and all four recurrence and nine historical tests with zero skips. Native execution exited 3. The failing stage and SQLSTATE were not captured. Cleanup reported no labelled leftovers or inventory mismatch. Those observations do not identify a failed SQL statement.
+
+In Acer WSL Codex use a fresh, clean detached worktree at the exact revision in the PR diagnostic handoff. Export that SHA as REV. Reuse the independently verified, previously accepted full local PG, APP and N8N image IDs and the pinned daemon. Run only:
 
 ```bash
 set -eu
 test "$(git rev-parse HEAD)" = "$REV"
 test -z "$(git status --porcelain)"
-test -r "${DINCHARYA_PUBLIC_DE440S:?pinned public kernel}"
 sha256sum --check docs/beta-schema-rehearsal.sha256
-"$ASTRO_PYTHON" -B tests/integration/beta_focused.py
 bash tests/integration/beta_native.sh
 ```
 
-Require four recurrence tests, all historical tests with the pinned kernel, zero skips and native exit 0. Capture the first failing assertion if any. Record the SHA, disposable image IDs, counts and sanitized outcomes on PR 18. The native runner uses an internal-only n8n network and fresh PG tmpfs, records simulated approvals and lifecycle changes, exercises receipts and operator reconciliation, and compares nine tables after encrypted dump restoration to a second, networkless PG instance.
+Record the exit code, stage markers, sanitized SQLSTATE/input line if available, and cleanup/inventory result on PR 18. Stop at the first failure. Do not submit SQL text, Docker logs, environment values or raw stderr. The previous astronomy results apply to this diagnostic-only revision. A successful native run requires the native, restore and cleanup PASS markers and exit zero.
 
 ## Evidence and release gates
 
-Work ran 19 beta tests with zero skips, matched 16 prior source pins, validated the inert runtime plan, compiled Python and checked native shell syntax. The two astronomy-dependent suites and native runner await Acer execution. Prior Stage 1/2 runs do not qualify this schema. Persistent identity provisioning, status/worker supervision, independent host fencing, operator alert delivery, off-device backup verification, image adoption and a bounded owner-approved Telegram window remain release gates.
+Work ran 19 beta tests with zero skips, matched 16 prior source pins, validated the inert runtime plan, compiled Python and checked native shell syntax. Acer subsequently passed both astronomy suites. Native acceptance remains open. Prior Stage 1/2 runs do not qualify this schema. Persistent identity provisioning, status/worker supervision, independent host fencing, operator alert delivery, off-device backup verification, image adoption and a bounded owner-approved Telegram window remain release gates.
 
 ## Coordinator review correction
 
 The previous rehearsal schema allowed arbitrary evidence and authorization identifiers. The replacement requires immutable positive evidence from the rehearsal fixture authority and a separately issued permit. The permit binds the operator OID, action, epoch, slot, observation, reason and evidence. The evidence binds the verified destination and message. The locked transaction checks expiry and writes one audit record. Exact replay is idempotent. Altered replay fails.
 
-Use this document's single Acer task on the corrected PR revision. Verify all three full local image IDs independently against the accepted records before export. Record them with the test counts and exit status. The harness checks cleanup against the complete pre-run container/state, network, volume and image inventory on success and failure. Inventory differences require inspection, never automatic repair. The second database is on the same Docker daemon. Off-device restore and independent monitoring still require separate evidence.
+Use the scoped rerun above on the diagnostic revision. Verify all three full local image IDs independently against the accepted records before export. Record them with the test counts and exit status. The harness checks cleanup against the complete pre-run container/state, network, volume and image inventory on success and failure. Inventory differences require inspection, never automatic repair. The second database is on the same Docker daemon. Off-device restore and independent monitoring still require separate evidence.
