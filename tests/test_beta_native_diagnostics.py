@@ -31,6 +31,12 @@ case "$*" in
 info*) echo 44c1ef83-c50e-4ecc-8f19-4b112bc40f29;;
 "image inspect"*) echo "${!#}";;
 "network create"*) echo fixture-net;;
+run*"beta_relay_journey.py")
+  if [[ $FAIL_AT == relay ]]; then
+    echo 'PRIVATE_FIXTURE signature' >&2
+    echo 'RELAY_FAIL step=pause_apply class=AssertionError http=0' >&2
+    exit 1
+  fi;;
 run*) echo fixture-container;;
 *"cat /proc/1/comm") echo postgres;;
 *"psql "*"-f -")
@@ -56,12 +62,22 @@ esac
             result = subprocess.run(["bash", str(RUNNER)], cwd=ROOT, env=env,
                                     capture_output=True, text=True, timeout=10)
             output = result.stdout + result.stderr
+            if ordinal == "relay":
+                self.assertEqual(result.returncode, 1, output)
+                self.assertIn("RELAY_FAIL step=pause_apply class=AssertionError http=0", output)
+                self.assertIn("FAIL stage=signed_relay_journey exit=1", output)
+                self.assertNotIn("PRIVATE_FIXTURE", output)
+                self.assertIn("PASS cleanup and unchanged Docker inventory", output)
+                return
             self.assertEqual(result.returncode, 3, output)
             self.assertIn(f"FAIL stage={expected_stage} exit=3 sqlstate=42501 input_line=42", output)
             self.assertNotIn("PRIVATE_FIXTURE", output)
             self.assertTrue(cleaned.exists())
             self.assertIn("FAIL inventory volumes" if drift else "PASS cleanup and unchanged Docker inventory", output)
             self.assertNotIn("STAGE pg_dump", output)
+
+    def test_relay_marker_survives_cleanup(self):
+        self.run_failure("relay", "signed_relay_journey")
 
     def test_bootstrap_exit_three(self):
         self.run_failure(1, "schema_bootstrap")

@@ -13,6 +13,12 @@ The signed adapter issues civil drafts and separate authenticated decisions. Dat
 | beta_observer.py and beta_archive.py | Simulated alert transitions and local encrypted fixture archives. Off-site observation and off-device restore remain separate. |
 | Existing pinned gateway, workflow and migrations | Retain the reviewed bytes and historical acceptance scope. |
 
+## Signed relay checkpoint
+
+At `31c5d9b7e2b12a77f455fd2040619c65ca191f8e`, Acer verified 14/14 source hashes, schema bootstrap and gateway role setup. The signed relay journey exited 1. Its precise failure is unknown. Cleanup and inventory passed; native SQL assertions and restore were not reached.
+
+The diagnostic revision accepts an expected denial only on HTTP 403 or a relayed HTTP 200 with the exact denial object. A positive request still requires HTTP success and the expected application result. Work reproduced the former 403 handling mismatch offline. It does not establish which step failed on Acer. The rehearsal installer traces the inactive repository workflow through readiness, owner setup, creation and activation. The source-pinned staging installer is preserved.
+
 ## Single scoped Acer native rerun
 
 The Acer run at `a05e1484ef364e50568c33318ace8aa70aaf4ec4` passed the manifest and all four recurrence and nine historical tests with zero skips. Native execution exited 3. The failing stage and SQLSTATE were not captured. Cleanup reported no labelled leftovers or inventory mismatch. Those observations do not identify a failed SQL statement.
@@ -27,7 +33,7 @@ sha256sum --check docs/beta-schema-rehearsal.sha256
 bash tests/integration/beta_native.sh
 ```
 
-Record the exit code, stage markers, sanitized SQLSTATE/input line if available, and cleanup/inventory result on PR 18. Stop at the first failure. Do not submit SQL text, Docker logs, environment values or raw stderr. The previous astronomy results apply to this diagnostic-only revision. A successful native run requires the native, restore and cleanup PASS markers and exit zero.
+Record the exit code, stage markers, any allowlisted RELAY_FAIL substage/class/HTTP code, sanitized SQLSTATE/input line if available, and cleanup/inventory result on PR 18. Stop at the first failure. Do not submit SQL text, Docker logs, environment values or raw stderr. The previous astronomy results apply to this diagnostic-only revision. A successful native run requires the native, restore and cleanup PASS markers and exit zero.
 
 ## Evidence and release gates
 
