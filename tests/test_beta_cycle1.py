@@ -48,7 +48,8 @@ class CycleTests(unittest.TestCase):
     def test_observer_alert_transitions(self):
         rev = "a" * 40
         status = dict(project="dincharya-personal-beta", revision=rev, due=0, relay="ready",
-                      sending=0, uncertain=0, dead=0)
+                      sending=0, uncertain=0, dead=0, fenced_single_host=True,
+                      heartbeat_age_seconds=0, oldest_due_seconds=0, oldest_sending_seconds=0)
         results = [dict(status, revision="wrong"), {}, dict(status, uncertain=1), status]
         output = []
         observe("synthetic", rev, 4, probe=Mock(side_effect=[Mock(stdout=json.dumps(r)) for r in results]),

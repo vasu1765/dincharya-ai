@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Personal schema rehearsal
+
+[PR 18 rehearsal and consolidated Acer task](BETA_SCHEMA_REHEARSAL.md) records the new repository-owned synthetic schema, 19 offline tests and pending native gates. Review-only scope continues.
+
 ## Integrated personal beta cycle 1
 
 [Implementation and Acer verification](BETA_CYCLE1.md) records 16 passing offline tests, source verification, the civil preview, isolated storage renderer, observer and encrypted synthetic archive. Personal schema adoption, image review and native journeys remain open before Gate 1.

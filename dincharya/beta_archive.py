@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import re
+import stat
 import subprocess
 import sys
 import tempfile
@@ -13,7 +14,15 @@ import tempfile
 def seal(source, directory, certificate, cert_sha256):
     if not re.fullmatch("[0-9a-f]{64}", cert_sha256):
         raise ValueError("Expected SHA-256 for the reviewed PEM bytes")
-    pem = Path(certificate).read_bytes()
+    directory = Path(directory)
+    info = directory.lstat()
+    if not stat.S_ISDIR(info.st_mode) or info.st_uid != os.geteuid() or info.st_mode & 0o077:
+        raise ValueError("Owner-only archive directory required")
+    with os.fdopen(os.open(certificate, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK), "rb") as cert:
+        info = os.fstat(cert.fileno())
+        if not stat.S_ISREG(info.st_mode) or info.st_size > 65536:
+            raise ValueError("Regular PEM certificate required")
+        pem = cert.read(65537)
     if hashlib.sha256(pem).hexdigest() != cert_sha256:
         raise ValueError("Backup recipient pin mismatch")
     with tempfile.TemporaryDirectory(dir=directory) as temp:

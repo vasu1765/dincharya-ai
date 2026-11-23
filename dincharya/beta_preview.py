@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 from dincharya.recurring_intent import parse_recurring, policy_name
 
 
-def preview(update, owner, now):
+def owner_message(update, owner):
     if type(owner) is not int or not 0 < owner < 2**63:
         raise ValueError("Invalid owner")
     message = update.get("message") if isinstance(update, dict) else None
@@ -18,6 +18,11 @@ def preview(update, owner, now):
             chat.get("type") == "private" and sender.get("is_bot") is False and
             all(type(item.get("id")) is int and item["id"] == owner for item in (chat, sender))):
         raise ValueError("Private owner message required")
+    return message
+
+
+def preview(update, owner, now):
+    message = owner_message(update, owner)
     if now.utcoffset() is None:
         raise ValueError("Timezone-aware clock required")
     local = now.astimezone(ZoneInfo("Asia/Kolkata"))

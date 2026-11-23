@@ -81,9 +81,10 @@ def parse_recurring(text, today, now=None, *, civil_only=False):
         if field in seen:
             raise Clarify("Provide one approval mode and one notification clause.")
         seen.add(field)
+    if civil_only and (LUNAR.search(raw) or re.search(
+            r"(?:festival|ekadashi|purnima|amavasya|diwali|एकादशी|पूर्णिमा|अमावस्या|दिवाली)", raw, re.I)):
+        raise Clarify("Lunar and festival scheduling is withheld in the personal beta.")
     if LUNAR.search(TITLE.sub("", raw)):
-        if civil_only:
-            raise Clarify("Annual lunar scheduling is withheld in the personal beta.")
         from prototypes.panchang.recurrence import LunarRule
 
         if "notifications" not in seen and re.search(r"remind me|याद दिलाओ|yaad dilao", raw, re.I):
@@ -116,6 +117,8 @@ def parse_recurring(text, today, now=None, *, civil_only=False):
     if re.search(r"don't remind me", raw, re.I) and offsets:
         raise Clarify("The request gives conflicting reminder preferences.")
     name, day, at = match.groups()
+    if civil_only and re.search(r"(?<!\w)(?:every|daily|weekly|yearly|annually|har|हर|रोज|roz)(?!\w)|[0-9]{2}:[0-9]{2}", name, re.I):
+        raise Clarify("Give one activity, one recurrence and one start time.")
     title = name.strip('"“” ')
     if not title or len(title) > 80 or any(not c.isprintable() for c in title):
         raise Clarify("Use a short activity title.")

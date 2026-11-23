@@ -15,6 +15,15 @@ def state(sample, revision):
         return "unavailable"
     if sample["uncertain"] or sample["dead"]:
         return "review_delivery"
+    ages = ("heartbeat_age_seconds", "oldest_due_seconds", "oldest_sending_seconds")
+    if (sample.get("fenced_single_host") is not True or
+            any(type(sample.get(k)) is not int or sample[k] < 0 for k in ages)):
+        return "unavailable"
+    if sample["heartbeat_age_seconds"] >= 30:
+        return "worker_stalled"
+    if (sample["oldest_due_seconds"] >= 60 or sample["oldest_sending_seconds"] >= 120
+            or sample["sending"] > 1):
+        return "backlog"
     return "available"
 
 
