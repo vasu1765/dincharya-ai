@@ -31,6 +31,23 @@ def decode(response, *, denial=False):
     return response.json()
 
 
+def wait_for_webhook(client, mark, *, attempts=20, delay=0.25):
+    """Wait for registration using only an invalid, non-writing envelope.
+
+    n8n can acknowledge activation before the production webhook is registered.
+    Retry only that route's 404, never a valid action or any other failure.
+    """
+    mark("relay_webhook_readiness")
+    for attempt in range(attempts):
+        response = client.post("http://relay:5678/webhook/m2g-lunar", json={},
+                               headers={"x-dincharya-signature": "readiness-invalid"})
+        if response.status_code == 404 and attempt + 1 < attempts:
+            time.sleep(delay)
+            continue
+        return decode(response, denial=True)
+    raise ValueError("Webhook readiness attempt bound required")
+
+
 def install(mark):
     mark("n8n_workflow_read")
     flow = json.loads((Path(__file__).resolve().parents[2] / "workflows/m2g-lunar-acceptance.json").read_bytes())
@@ -78,6 +95,7 @@ def journey(mark):
         try:
             install(mark)
             with httpx.Client(trust_env=False, timeout=15) as client:
+                wait_for_webhook(client, mark)
                 def send(step, update, *, forged=False, denial=False):
                     mark(step)
                     value, signature = envelope(key, {"operation": "beta_update", "update": update}, uuid4().hex)

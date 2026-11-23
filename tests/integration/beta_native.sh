@@ -44,7 +44,7 @@ cleanup() {
   set +e
   if (( original )); then
     if [[ $current_stage == signed_relay_journey ]]; then
-      LC_ALL=C grep -Ex 'RELAY_FAIL step=(relay_server_start|n8n_(workflow_read|health|owner_setup|workflow_create|workflow_activate)|relay_(forged_denial|foreign_owner_denial|draft|confirm)(_replay)?|(pause|resume|cancel)_(preview|apply)(_replay)?) class=(HTTPStatusError|RequestError|DenialMismatch|AssertionError|KeyError|ValueError|Exception) http=(0|[1-5][0-9]{2})' "$diagnostic" | tail -1 >&3
+      LC_ALL=C grep -Ex 'RELAY_FAIL step=(relay_server_start|relay_webhook_readiness|n8n_(workflow_read|health|owner_setup|workflow_create|workflow_activate)|relay_(forged_denial|foreign_owner_denial|draft|confirm)(_replay)?|(pause|resume|cancel)_(preview|apply)(_replay)?) class=(HTTPStatusError|RequestError|DenialMismatch|AssertionError|KeyError|ValueError|Exception) http=(0|[1-5][0-9]{2})' "$diagnostic" | tail -1 >&3
     fi
     printf 'FAIL stage=%s exit=%d' "$current_stage" "$original" >&3
     LC_ALL=C sed -nE '/^(psql:<stdin>:[0-9]+: )?(ERROR|FATAL|PANIC):  [0-9A-Z]{5}:/{s/^(psql:<stdin>:([0-9]+): )?(ERROR|FATAL|PANIC):  ([0-9A-Z]{5}):.*/ sqlstate=\4 input_line=\2/p;q;}' "$diagnostic" | tr -d '\n' >&3

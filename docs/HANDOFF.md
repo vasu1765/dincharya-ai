@@ -1,5 +1,21 @@
 # Dincharya AI — handoff
 
+## PR 18 webhook registration race — focused fix, native validation pending
+
+One browser-independent native rerun at `3409afad` reproduced forged-denial HTTP 404,
+exit 1; cleanup/inventory passed. A separate disposable n8n-only diagnostic proved
+activation may return 200/active before its webhook is registered; browser cookies are
+not involved. Added a non-writing invalid-envelope readiness probe with bounded 404
+retry and strict exact denial checks. Actual forged/foreign-owner and approval/lifecycle
+assertions remain unchanged. No business SQL/workflow/staging-installer changes. Focused
+offline tests and refreshed source checksums pass; no full native rerun after the fix.
+Manual review resolved both unchanged scanner matches as pre-existing false positives
+(SQL placeholder and synthetic password environment lookup); no scanner bypass or
+weakening. Manifest checked with its designated checksum tool. Seven-file patch remains
+uncommitted only because shared Git metadata is read-only.
+See [rehearsal investigation](BETA_SCHEMA_REHEARSAL.md). Keep PR #18 draft; next native
+acceptance requires a clean committed reviewed revision. No messaging or deployment.
+
 ## Personal schema rehearsal
 
 [PR 18 rehearsal and consolidated Acer task](BETA_SCHEMA_REHEARSAL.md) records the new repository-owned synthetic schema, 19 offline tests and pending native gates. Review-only scope continues.
