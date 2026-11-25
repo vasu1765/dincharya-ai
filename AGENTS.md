@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Attended operator
+
+Preserve Acer’s six accepted adapter scenarios at `86d4a69b77c6c429a9408658243ff9de3d28209c`. Use the [single operator-path task](docs/ATTENDED_CANDIDATE.md#operator-acceptance) for the new code. A consumed manifest fences restart. Keep the poller, worker and historical reply under one disposable session budget.
+
 ## Attended gateway and worker
 
 Use only the disposable PG17 adapter and scoped Acer task in [the candidate runbook](docs/ATTENDED_CANDIDATE.md#disposable-adapter-acceptance). Reserve every outbound attempt before transport. Preserve uncertain attempts and stop both roles on an unexpected result. Historical migrations and synthetic identity 101 belong to their original environments.

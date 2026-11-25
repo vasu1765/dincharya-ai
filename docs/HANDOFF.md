@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Operator candidate
+
+Acer accepted all six adapter scenarios and Docker cleanup at `86d4a69b77c6c429a9408658243ff9de3d28209c`. The disabled operator now routes each update through n8n, polls the dedicated bot manually and budgets historical, scheduling and reminder messages together. Work passed 12 focused tests, compilation, shell syntax and six source hashes. The single new [operator acceptance task](ATTENDED_CANDIDATE.md#operator-acceptance) is pending. Keep the PR draft and obtain separate live authorization after the operator evidence is reviewed.
+
 ## PR #18 attended appointments timing failure diagnosed; focused correction passes
 
 At candidate `c8b981d46d7933c042a8bd77a40d049f7c6ed730`, the six source
@@ -616,4 +620,3 @@ Historical 2B evidence remains: four
 current workflows, 94 history versions, two structural candidates; current and
 published bodies remain separate; seven Code bodies were neither executed nor
 cleared. No complete production workflow/schema baseline has been adopted in Git.
-

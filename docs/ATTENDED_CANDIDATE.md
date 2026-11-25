@@ -1,5 +1,37 @@
 # Attended personal beta candidate
 
+## Operator acceptance
+
+The six adapter scenarios at `86d4a69b77c6c429a9408658243ff9de3d28209c` passed on Acer, including cleanup and unchanged Docker inventory. The transcript did not print a separate numeric final exit status. Keep the earlier PostgreSQL, astronomy and physical evidence at their accepted revisions.
+
+The operator holds both role connections for its lifetime, consumes a separately provisioned one-use approval and verifies the dedicated bot before polling. It calls getUpdates explicitly, one update at a time. Only sendMessage transmits chat content. Bot API HTTP requests disable retries, redirects and environment proxies. There is no webhook deletion, callback answer, startup greeting or error reply. Each signed update must return through the native relay with matching payload and signature before dispatch. All outgoing messages, including the read-only historical answer, use the same PG17 reservation and paired-receipt functions. The operator exits after six attempts, cancellation, a deadline, a stop signal or an unexpected result. A consumed approval cannot resume.
+
+### Single disposable Acer run
+
+In a clean detached checkout of the exact operator SHA recorded on PR #18, export REV, the accepted full local image IDs PG, APP and N8N, and KERNEL pointing to the previously reviewed public de440s.bsp. Run:
+
+```bash
+set -eu
+test "$(git rev-parse HEAD)" = "$REV"
+test -z "$(git status --porcelain)"
+sha256sum -c docs/attended-operator.sha256
+bash tests/integration/operator_path.sh
+```
+
+The runner uses one fresh internal network, an ephemeral PG17 database, native n8n and recorded Telegram HTTP. It executes one historical lookup through the unchanged calculator. Expected evidence is a consumed approval, rejection of a second startup and six positive receipt pairs in order: historical, preview, decision, preview, decision, reminder. Record the image IDs, revision, each stage, exit and cleanup/inventory outcome. Stop on missing image dependencies or any mismatch. Keep the first failure stage and avoid replaying the session.
+
+### Live manifest and manually attended procedure
+
+After disposable acceptance, obtain explicit owner approval for the exact executable SHA, full PG/APP/N8N image IDs, public kernel SHA-256, Docker daemon ID as host fence, numeric bot ID and username dincharya_acceptance_test_bot, private owner ID equal to chat and recipient, exact historical question, both exact appointment commands and absolute IST window (maximum one hour). The silent and reminder fields use `Schedule TITLE on YYYY-MM-DD at HH:MM`; the owner appends `; at start` to the reminder request in Telegram. Confirm each preview separately. Limit the session to six attempted outbound chat messages, including exactly one genuine reminder on successful completion.
+
+The JSON manifest has exactly the fields of the frozen Approval object: sha, host, pg, app, n8n, bot, owner, start, end, silent, reminder, question, kernel_sha256. Start/end are whole Unix seconds. Approve the SHA-256 of the exact manifest bytes separately. On a fenced host provision a fresh tmpfs database, apply only attended/0001 and 0002, provision the scoped logins and insert the exact identities and timestamps in attended.session. The administrator inserts the approved digest into attended.operator_approval with consumed=false. Enable the session only within the separately approved procedure.
+
+Stage a fresh private relay using the reviewed workflow, with no saved execution data, telemetry or public listener. Its request target must be http://app:8080/lunar. Isolate PG and n8n on the private network. Enforce the host egress policy so only the application can reach the Telegram Bot API. Mount a reviewed Git archive of dincharya and prototypes/panchang read-only at /candidate, with PYTHONPATH and working directory /candidate. The dedicated app container hostname equals the approved daemon ID. Its read-only /run/attended mount holds manifest.json, revision, public de440s.bsp and the separately provisioned bot.key, relay.key, poller.key and worker.key. Restrict mount access to the attended identities. Keep the mount under operator control so adding STOP takes effect immediately before the next operation.
+
+Prepare the stopped app with entrypoint python and arguments `-B -m dincharya.attended_operator --attended --approval DIGEST`. Verify the exact three container IDs, network memberships, host fencing and stop control. Run `PYTHONPATH=. python scripts/attended_operator_host.py MANIFEST DIGEST PG_CONTAINER APP_CONTAINER N8N_CONTAINER` on the host. Preserve the approved mounts and network configuration unchanged between preflight and manual startup. Default invocation without --attended exits before reading credentials.
+
+On any mismatch, owner cancellation, uncertain acknowledgement, unexpected egress, lock loss or deadline, create STOP, disable attended.session, stop polling and delivery and fence the host. Preserve the attempt ledger and paired receipts. Inspect unresolved reservations without resending. A fresh session requires separate owner approval. Restrict summaries to counts, stage and disposition. Keep credentials, chat contents and personal IDs out of PR evidence.
+
 ## Disposable adapter acceptance
 
 The source candidate binds recorded python-telegram-bot updates to the signed handler and the existing one-off preview. An administrator provisions the synthetic owner, bot and short window only in a fresh disposable PG17 database. Separate session logins hold poller and worker locks. The signed callback must present a canonical proposal UUID, matching preview receipt, private owner and originating bot. A proposal becomes scheduled only on confirmation. An unanswered preview expires after at most 15 minutes.
