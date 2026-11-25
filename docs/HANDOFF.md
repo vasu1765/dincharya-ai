@@ -1,8 +1,36 @@
 # Dincharya AI — handoff
 
-## Operator candidate
+## PR #18 operator runtime diagnosis
 
-Acer accepted all six adapter scenarios and Docker cleanup at `86d4a69b77c6c429a9408658243ff9de3d28209c`. The disabled operator now routes each update through n8n, polls the dedicated bot manually and budgets historical, scheduling and reminder messages together. Work passed 12 focused tests, compilation, shell syntax and six source hashes. The single new [operator acceptance task](ATTENDED_CANDIDATE.md#operator-acceptance) is pending. Keep the PR draft and obtain separate live authorization after the operator evidence is reviewed.
+The operator run at `75d0155a2607665a47fe88315a4988be0f000b4f` exited 1.
+A focused disposable diagnostic verified n8n activation, webhook readiness,
+one-use approval consumption and the first signed echo. The calculator then
+rejected the image's certifi 2026.10.23 because the astronomy lock requires
+2025.10.5. The older relay forwards a signed request to its dispatcher.
+The operator relay verifies a single matching signed echo before local
+dispatch. Both use the same webhook installation and denial probe.
+
+The recording fixture now verifies the public certifi wheel against the
+existing astronomy artifact hash and stages it on the disposable Python
+import path. Diagnostics report fixed stages, error class, HTTP status when
+available and allowlisted source locations. The live launcher does not use
+this overlay. Before live review, pin a runtime that satisfies the
+astronomy dependency lock and has reviewed Telegram TLS trust.
+
+The corrected working-tree diagnostic exited 0 on Acer with the pinned
+PG17, application and n8n images. It verified a historical reply, two previews,
+two confirmations and one reminder, with all six receipt pairs in order.
+A second startup with the consumed approval was rejected without sending.
+Cleanup and the container, network, volume and image inventory comparison
+passed. All 12 focused operator tests and six source checksums passed.
+The source scanner still flags identical pre-existing credential patterns
+in the two harness files.
+
+The six adapter cases passed earlier at
+`86d4a69b77c6c429a9408658243ff9de3d28209c`. Retain that result and the earlier
+astronomy and synthetic native evidence at their accepted revisions.
+See [the operator runbook](ATTENDED_CANDIDATE.md#operator-acceptance).
+Keep PR #18 draft and obtain separate authorization for a live session.
 
 ## PR #18 attended appointments timing failure diagnosed; focused correction passes
 

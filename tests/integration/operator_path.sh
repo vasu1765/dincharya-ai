@@ -47,6 +47,7 @@ cleanup() {
     LC_ALL=C sed -nE '/^(psql:<stdin>:[0-9]+: )?(ERROR|FATAL|PANIC):  [0-9A-Z]{5}:/{s/^(psql:<stdin>:([0-9]+): )?(ERROR|FATAL|PANIC):  ([0-9A-Z]{5}):.*/ sqlstate=\4 input_line=\2/p;q;}' "$diagnostic" | tr -d '\n' >&3
     printf '\n' >&3
     LC_ALL=C sed -nE '/^FAIL substage=[a-z_]+ exception=[A-Za-z_]+( sqlstate=[[:alnum:]]{5})?$/p; /^DIAGNOSTIC sent_count=[0-9]+ last_text_matches_fixture=(True|False)$/p' "$diagnostic" >&3
+    LC_ALL=C sed -nE '/^OPERATOR_FAIL step=[a-z_]+ class=[A-Za-z]+ http=[0-9]{1,3}( site=[a-z_]+\.py:[0-9]+)?$/p' "$diagnostic" >&3
   fi
   stage cleanup
   owned=$(docker ps -aq --filter "label=$label") || failed=1
@@ -72,6 +73,14 @@ stage public_ephemeris
 kernel_pin=$(python3 -c 'import json; print(json.load(open("prototypes/panchang/ephemeris.json"))["sha256"])')
 [[ $(sha256sum "$KERNEL" | cut -d' ' -f1) == "$kernel_pin" ]]
 export kernel_pin
+stage astronomy_dependency
+: "${CERTIFI_WHEEL:?absolute path to the reviewed certifi 2025.10.5 wheel}"
+[[ $CERTIFI_WHEEL = /* && -f $CERTIFI_WHEEL ]]
+wheel_name=certifi-2025.10.5-py3-none-any.whl
+wheel_pin=$(python3 -c 'import json,sys; print(next(w["sha256"] for w in json.load(open("prototypes/panchang/ephemeris.json"))["wheel_artifacts"] if w["filename"] == sys.argv[1]))' "$wheel_name")
+# Stage and verify the bytes that the recording-only application imports.
+cp -- "$CERTIFI_WHEEL" "$scratch/$wheel_name"
+[[ $(sha256sum "$scratch/$wheel_name" | cut -d' ' -f1) == "$wheel_pin" ]]
 stage network_create
 net=$(docker network create --internal --label "$label" "$name")
 stage source_archive
@@ -117,7 +126,7 @@ PYTHON
   start=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["start"])' "$scratch/manifest.json")
   "${sql[@]}" -c "INSERT INTO attended.session VALUES(true,93001,93002,to_timestamp($start),to_timestamp($start+600),true); INSERT INTO attended.operator_approval(singleton,digest) VALUES(true,'$pin')"
   stage operator_loop
-  docker run --label "$label" --rm --pull never --network "$net" --network-alias app -e POLLER_PASSWORD -e WORKER_PASSWORD -e REV -e PYTHONPATH=/candidate -e PYTHONDONTWRITEBYTECODE=1 --mount "type=bind,src=$KERNEL,dst=/ephemeris/de440s.bsp,readonly" -v "$scratch:/candidate:ro" -w /candidate --entrypoint python "$APP" tests/integration/operator_path.py
+  docker run --label "$label" --rm --pull never --network "$net" --network-alias app -e POLLER_PASSWORD -e WORKER_PASSWORD -e REV -e "PYTHONPATH=/candidate/$wheel_name:/candidate" -e PYTHONDONTWRITEBYTECODE=1 --mount "type=bind,src=$KERNEL,dst=/ephemeris/de440s.bsp,readonly" -v "$scratch:/candidate:ro" -w /candidate --entrypoint python "$APP" tests/integration/operator_path.py
   stage operator_evidence
   [[ $("${sql[@]}" -c "SELECT string_agg(kind,',' ORDER BY ordinal) FROM attended.attempt WHERE status='sent' AND chat=93001 AND message>0") == historical,preview,decision,preview,decision,reminder ]]
   [[ $("${sql[@]}" -c "SELECT consumed FROM attended.operator_approval") == t ]]

@@ -8,7 +8,13 @@ The operator holds both role connections for its lifetime, consumes a separately
 
 ### Single disposable Acer run
 
-In a clean detached checkout of the exact operator SHA recorded on PR #18, export REV, the accepted full local image IDs PG, APP and N8N, and KERNEL pointing to the previously reviewed public de440s.bsp. Run:
+In a clean detached checkout of the exact operator SHA recorded on PR #18, export REV, the accepted full local image IDs PG, APP and N8N, and KERNEL pointing to the previously reviewed public de440s.bsp. Set CERTIFI_WHEEL
+to the absolute path of the public `certifi-2025.10.5-py3-none-any.whl` recorded
+in `prototypes/panchang/ephemeris.json`. The disposable runner verifies the
+staged wheel bytes against that lock before starting a container. The pinned
+application image supplies certifi 2026.10.23, so the fixture puts the verified
+wheel first on the recorded operator's Python import path. The live launcher
+does not use this fixture overlay. Run:
 
 ```bash
 set -eu
