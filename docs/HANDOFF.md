@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Final runtime candidate
+
+The corrected operator working tree passed on Acer with exit 0, six receipt pairs and unchanged inventory. The current source isolates astronomy from Telegram TLS and adds image, CA, host and environment checks. Work passed 18 focused tests. The clean committed CLI journey is pending. Use the [single Acer task and owner authorization template](ATTENDED_CANDIDATE.md#final-attended-runtime-candidate).
+
 ## PR #18 operator runtime diagnosis
 
 The operator run at `75d0155a2607665a47fe88315a4988be0f000b4f` exited 1.

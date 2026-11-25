@@ -15,6 +15,8 @@ trap 'rc=$?; if (( rc )); then printf "FAIL stage=%s exit=%d\n" "$current_stage"
 : "${REV:?candidate SHA}" "${PG:?PG17 image ID}" "${APP:?accepted staging Python image ID}"
 [[ $(git rev-parse HEAD) == "$REV" && -z $(git status --porcelain) ]]
 [[ $(docker info --format '{{.ID}}') == 44c1ef83-c50e-4ecc-8f19-4b112bc40f29 ]]
+read -r expected_pg expected_app expected_n8n < <(python3 -B -c 'from dincharya.attended_runtime import PG,APP,N8N;print(PG,APP,N8N)')
+[[ $PG == "$expected_pg" && $APP == "$expected_app" && ${N8N:?} == "$expected_n8n" ]]
 for image in "$PG" "$APP" "${N8N:?pinned n8n image ID}"; do
   [[ $image =~ ^sha256:[a-f0-9]{64}$ && $(docker image inspect --format '{{.Id}}' "$image") == "$image" ]]
 done
@@ -84,7 +86,7 @@ cp -- "$CERTIFI_WHEEL" "$scratch/$wheel_name"
 stage network_create
 net=$(docker network create --internal --label "$label" "$name")
 stage source_archive
-git archive "$REV" -- dincharya prototypes/panchang tests/integration/operator_path.py tests/integration/beta_relay_journey.py workflows/m2g-lunar-acceptance.json | tar -x -C "$scratch"
+git archive "$REV" -- dincharya prototypes/panchang tests/integration/operator_path.py tests/test_attended_trust.py tests/integration/beta_relay_journey.py workflows/m2g-lunar-acceptance.json | tar -x -C "$scratch"
 chmod -R a+rX "$scratch"
 mode=operator
   stage "${mode}_start"
@@ -125,8 +127,20 @@ PYTHON
   pin=$(sha256sum "$scratch/manifest.json" | cut -d' ' -f1)
   start=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["start"])' "$scratch/manifest.json")
   "${sql[@]}" -c "INSERT INTO attended.session VALUES(true,93001,93002,to_timestamp($start),to_timestamp($start+600),true); INSERT INTO attended.operator_approval(singleton,digest) VALUES(true,'$pin')"
+  stage synthetic_runtime_files
+  mkdir "$resources/session"
+  cp "$scratch/manifest.json" "$resources/session/"
+  printf '%s' "$REV" > "$resources/session/revision"
+  printf '%s' "$POLLER_PASSWORD" > "$resources/session/poller.key"
+  printf '%s' "$WORKER_PASSWORD" > "$resources/session/worker.key"
+  printf '93002:%032d' 0 > "$resources/session/bot.key"
+  openssl rand -hex 32 > "$resources/session/relay.key"
+  # Fixture keys are disposable. Restrict the host parent and grant the app UID access.
+  touch "$resources/session/de440s.bsp" "$resources/session/$wheel_name"
+  chmod 755 "$resources/session"
+  chmod 444 "$resources/session/"*
   stage operator_loop
-  docker run --label "$label" --rm --pull never --network "$net" --network-alias app -e POLLER_PASSWORD -e WORKER_PASSWORD -e REV -e "PYTHONPATH=/candidate/$wheel_name:/candidate" -e PYTHONDONTWRITEBYTECODE=1 --mount "type=bind,src=$KERNEL,dst=/ephemeris/de440s.bsp,readonly" -v "$scratch:/candidate:ro" -w /candidate --entrypoint python "$APP" tests/integration/operator_path.py
+  docker run --label "$label" --rm --pull never --network "$net" --network-alias app --hostname operator-fixture --read-only -e TMPDIR=/tmp --tmpfs /tmp:mode=1777 -e REV -e PYTHONPATH=/candidate -v "$resources/session:/run/attended:ro" --mount "type=bind,src=$scratch/$wheel_name,dst=/run/attended/$wheel_name,readonly" -e PYTHONDONTWRITEBYTECODE=1 --mount "type=bind,src=$KERNEL,dst=/run/attended/de440s.bsp,readonly" -v "$scratch:/candidate:ro" -w /candidate --entrypoint python "$APP" tests/integration/operator_path.py
   stage operator_evidence
   [[ $("${sql[@]}" -c "SELECT string_agg(kind,',' ORDER BY ordinal) FROM attended.attempt WHERE status='sent' AND chat=93001 AND message>0") == historical,preview,decision,preview,decision,reminder ]]
   [[ $("${sql[@]}" -c "SELECT consumed FROM attended.operator_approval") == t ]]

@@ -12,14 +12,22 @@ import httpx
 import psycopg
 
 from beta_relay_journey import DenialMismatch, install, wait_for_webhook
-from dincharya.attended_operator import Approval, Telegram, operate, signed_route, historical, USERNAME
+from dincharya import attended_operator as operator
+from dincharya.attended_operator import Approval, USERNAME
+from unittest.mock import patch
 
 def main(mark):
+    from dincharya.attended_runtime import telegram_tls, verify_images
+    import runpy
+    mark("telegram_tls")
+    context, ca_sha = telegram_tls()
+    runpy.run_path("/candidate/tests/test_attended_trust.py")["exercise_tls"](context)
+    print("PASS immutable image CA sha256="+ca_sha, flush=True)
     mark("approval_manifest")
     raw=Path("/candidate/manifest.json").read_bytes()
     pin=hashlib.sha256(raw).hexdigest()
     a=Approval.load(raw,pin,os.environ["REV"],"operator-fixture")
-    key=secrets.token_hex(32)
+    verify_images(a.pg,a.app,a.n8n)
     bot=dict(id=a.bot,is_bot=True,first_name="Test",username=USERNAME)
     owner=dict(id=a.owner,is_bot=False,first_name="Fixture")
     chat=dict(id=a.owner,type="private")
@@ -58,38 +66,33 @@ def main(mark):
         else:
             raise AssertionError("Unexpected method")
         return httpx.Response(200,json={"ok":True,"result":result})
-    mark("database_connections")
+    mark("runtime_startup")
     with ExitStack() as stack:
-        def connect(role):
-            return stack.enter_context(psycopg.connect(host="db",dbname="dincharya_attended_test",
-                user="attended_"+role,password=os.environ[role.upper()+"_PASSWORD"],autocommit=True))
-        poll,work=connect("poller"),connect("worker")
-        tg=Telegram(stack.enter_context(httpx.Client(transport=httpx.MockTransport(respond))),
-                    str(a.bot)+":"+"s"*32,a)
         client=stack.enter_context(httpx.Client(timeout=5,trust_env=False))
-        mark("relay_server_start")
-        relay_submit=stack.enter_context(signed_route(key,client))
-
-        def route(value, signature):
-            mark("operator_signed_dispatch")
-            relay_submit(value, signature)
-            mark("operator_signed_echo_verified")
-
-        def lookup(question):
-            mark("historical_lookup")
-            return historical(question, Path("/ephemeris/de440s.bsp"))
         install(mark)
-        wait_for_webhook(client,mark)
-        mark("operator_startup")
-        operate(a,pin,poll,work,tg,key,route,lookup,lambda: False)
+        # Only the Telegram transport is recorded. Run the actual CLI, file mounts,
+        # identity/DB checks, signed relay receiver, TLS factory and child calculator.
+        real_transport=httpx.HTTPTransport
+        def transport(**kwargs):
+            import ssl
+            if isinstance(kwargs.get("verify"),ssl.SSLContext):
+                assert kwargs["retries"]==0 and kwargs["trust_env"] is False
+                return httpx.MockTransport(respond)
+            return real_transport(**kwargs)
+        original=operator.operate
+        def ready(*args,**kwargs):
+            wait_for_webhook(client,mark)
+            return original(*args,**kwargs)
+        stack.enter_context(patch.object(httpx,"HTTPTransport",side_effect=transport))
+        stack.enter_context(patch.object(operator,"operate",side_effect=ready))
+        stack.enter_context(patch.object(sys,"argv",["operator","--attended","--approval",pin]))
+        operator.main()
         mark("operator_receipts")
         assert len(replies)==6 and "2023-12-06" in replies[0]["text"] and "Drik Delhi primary" in replies[0]["text"] and replies[-1]["text"]=="Reminder"
         count=len(replies)
-        poll.close()
-        work.close()
         mark("consumed_approval_restart_rejection")
         try:
-            operate(a,pin,connect("poller"),connect("worker"),tg,key,route,None,lambda:False)
+            operator.main()
         except RuntimeError as exc:
             assert str(exc)=="Disposable approval absent or consumed"
         else:

@@ -1,12 +1,52 @@
 # Attended personal beta candidate
 
-## Operator acceptance
+## Final attended runtime candidate
+
+Acer's corrected working-tree journey exited 0 with six paired receipts, one reminder, rejection after approval consumption and unchanged inventory. That run staged the legacy astronomy wheel on the fixture's main import path. The first clean committed run of the isolated runtime is pending.
+
+The operator uses the application image's certifi 2026.10.23 PEM. It verifies the bytes against the SHA-256 in that immutable distribution's RECORD and loads them explicitly into a hostname-verifying client TLS context with TLS 1.2 minimum. Acer prints the measured CA SHA-256 before the recorded journey. The legacy wheel enters only a short-lived Python child started with isolated and no-site flags, a scrubbed environment and closed inherited descriptors. This is dependency isolation within the reviewed app container. The unchanged astronomy calculator still verifies its dependencies, reference files and ephemeris.
+
+| Runtime input | Approved local content identity |
+| --- | --- |
+| Linux/amd64 PG17 | sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f |
+| Application, including Telegram TLS trust | sha256:fff0b1b58321339ad0de04804548cb8ff14c9a929e6eead08ce3cd96535493ca |
+| Native n8n | sha256:6723b440354bb8e1395a1ecee12685fe03923f897bf6e4d5bb2c6c2bd2051697 |
+| Public certifi 2025.10.5 wheel, astronomy child | 0f212c2744a9bb6de0c56639a6f68afe01ecd92d91f14ae897c4fe7bbeeef0de |
+| Public DE440s kernel | c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2 |
+
+Use these existing images with pull disabled. Place the verified wheel beside de440s.bsp in the read-only /run/attended mount, with its original filename. Keep the operator root filesystem read-only, the image environment intact except PYTHONPATH=/candidate, and the committed Git archive read-only. The host check verifies the three image identities and the private/egress network split. The external Telegram-only outbound firewall rule and old-host fencing require independent host evidence. Mount paths and firewall rules remain frozen for the session.
+
+### One disposable Acer command
+
+Use a fresh clean detached checkout at the exact PR handoff SHA. Export REV to that SHA and KERNEL and CERTIFI_WHEEL to the already reviewed public files. From the checkout root run:
+
+```bash
+set -eu
+test "$(git rev-parse HEAD)" = "$REV"
+test -z "$(git status --porcelain)"
+sha256sum -c docs/attended-operator.sha256
+read -r PG APP N8N < <(python3 -B -c 'from dincharya.attended_runtime import PG,APP,N8N;print(PG,APP,N8N)')
+export PG APP N8N
+bash tests/integration/operator_path.sh
+```
+
+Use Bash. This invokes the real CLI with disposable mounted inputs and recorded Telegram HTTP; the relay, database and child historical calculation run natively. The fixture also checks valid private-fixture TLS, rejection of an untrusted issuer and rejection of a wrong hostname. Report measured CA hash, six ordered receipts, consumed-manifest restart rejection, exit and cleanup/inventory. Preserve the first failing stage. End after this one run.
+
+### Single-session owner authorization template
+
+Fill every bracket after acceptance. Record non-public identity fields privately. The operator derives chat and recipient from the same private owner ID.
+
+> I authorize one manually attended disposable session at [exact accepted SHA], manifest SHA-256 [digest], on Acer daemon 44c1ef83-c50e-4ecc-8f19-4b112bc40f29. I approve the three image IDs, DE440s and child-wheel digests in this revision and measured Telegram CA SHA-256 [digest]. Dedicated bot dincharya_acceptance_test_bot has numeric ID [bot]. The sole owner, private chat and recipient are [owner]. The fresh tmpfs database dincharya_attended_test is [container ID]. The poller and worker are fenced to [host], with verified Telegram-only egress. From [absolute IST start] through [absolute IST end], allow [exact historical question], [exact silent Schedule command and IST time] and [exact at-start Schedule command and distinct IST time]. I will confirm each preview separately. Permit at most six outbound chat attempts including one reminder on success. Stop on cancellation, deadline, budget, identity, network or receipt mismatch, lock loss or uncertainty. Fence the host, disable the database session and preserve receipts. No automatic resend or restart.
+
+Manifest times are Unix seconds and the maximum window is one hour. Keep credentials outside Git and PR evidence. Privately verify the filled manifest against the host preflight, including the exact UTC-to-IST conversion. A pending run, an unverified egress rule or an unfilled field keeps live execution blocked.
+
+## Earlier operator acceptance evidence
 
 The six adapter scenarios at `86d4a69b77c6c429a9408658243ff9de3d28209c` passed on Acer, including cleanup and unchanged Docker inventory. The transcript did not print a separate numeric final exit status. Keep the earlier PostgreSQL, astronomy and physical evidence at their accepted revisions.
 
 The operator holds both role connections for its lifetime, consumes a separately provisioned one-use approval and verifies the dedicated bot before polling. It calls getUpdates explicitly, one update at a time. Only sendMessage transmits chat content. Bot API HTTP requests disable retries, redirects and environment proxies. There is no webhook deletion, callback answer, startup greeting or error reply. Each signed update must return through the native relay with matching payload and signature before dispatch. All outgoing messages, including the read-only historical answer, use the same PG17 reservation and paired-receipt functions. The operator exits after six attempts, cancellation, a deadline, a stop signal or an unexpected result. A consumed approval cannot resume.
 
-### Single disposable Acer run
+### Prior fixture procedure (superseded)
 
 In a clean detached checkout of the exact operator SHA recorded on PR #18, export REV, the accepted full local image IDs PG, APP and N8N, and KERNEL pointing to the previously reviewed public de440s.bsp. Set CERTIFI_WHEEL
 to the absolute path of the public `certifi-2025.10.5-py3-none-any.whl` recorded

@@ -156,12 +156,9 @@ def signed_route(key, client):
         thread.join()
 
 
-def historical(question,kernel):
-    from dincharya.historical_panchang import HistoricalPanchang,historical_text
-    from prototypes.panchang.guarded import GuardedCalendar
-    event=historical_text(question)
-    reader=HistoricalPanchang(GuardedCalendar(kernel))
-    return reader.display(event,reader.read(event))
+def historical(question, kernel):
+    from dincharya.attended_runtime import WHEEL, isolated_lookup
+    return isolated_lookup(question, kernel, kernel.with_name(WHEEL))
 
 
 def operate(a,pin,poll,work,tg,key,route,history,stopped,clock=time.time):
@@ -245,6 +242,12 @@ def main():
     root=Path("/run/attended")
     pin=args.approval or ""
     a=Approval.load((root/"manifest.json").read_bytes(),pin,(root/"revision").read_text().strip(),socket.gethostname())
+    from dincharya.attended_runtime import verify_images, verify_wheel, telegram_tls, KERNEL_SHA, WHEEL
+    verify_images(a.pg, a.app, a.n8n)
+    if a.kernel_sha256 != KERNEL_SHA:
+        raise ValueError("Unreviewed ephemeris")
+    verify_wheel(root/WHEEL)
+    tls, _ = telegram_tls()
     kernel=root/"de440s.bsp"
     with kernel.open("rb") as stream:
         if hashlib.file_digest(stream,"sha256").hexdigest()!=a.kernel_sha256:
@@ -261,14 +264,14 @@ def main():
             return stack.enter_context(psycopg.connect(host="db",dbname="dincharya_attended_test",
                 user="attended_"+role,password=(root/(role+".key")).read_text().strip(),
                 autocommit=True,connect_timeout=3,options="-c statement_timeout=3000 -c lock_timeout=1500"))
-        def client():
+        def client(verify=True):
             return stack.enter_context(httpx.Client(timeout=4,trust_env=False,follow_redirects=False,
-                                      transport=httpx.HTTPTransport(retries=0,trust_env=False)))
+                                      transport=httpx.HTTPTransport(verify=verify,retries=0,trust_env=False)))
         poll,work=connect("poller"),connect("worker")
         key=(root/"relay.key").read_text().strip()
         if len(key)<32:
             raise ValueError("Invalid signing key")
-        tg=Telegram(client(),(root/"bot.key").read_text().strip(),a)
+        tg=Telegram(client(tls),(root/"bot.key").read_text().strip(),a)
         route=stack.enter_context(signed_route(key,client()))
         operate(a,pin,poll,work,tg,key,route,lambda q:historical(q,kernel),blocked)
 

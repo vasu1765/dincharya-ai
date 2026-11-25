@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Attended runtime
+
+Use the [isolated runtime and single Acer command](docs/ATTENDED_CANDIDATE.md#final-attended-runtime-candidate). Keep the astronomy wheel confined to its child interpreter. Pin the operator CA through the accepted application image and verified RECORD. Live authorization requires the filled session manifest after native acceptance.
+
 ## Attended operator
 
 Preserve Acer’s six accepted adapter scenarios at `86d4a69b77c6c429a9408658243ff9de3d28209c`. Use the [single operator-path task](docs/ATTENDED_CANDIDATE.md#operator-acceptance) for the new code. A consumed manifest fences restart. Keep the poller, worker and historical reply under one disposable session budget.
