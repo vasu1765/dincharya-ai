@@ -1,5 +1,25 @@
 # Attended personal beta candidate
 
+## Disposable adapter acceptance
+
+The source candidate binds recorded python-telegram-bot updates to the signed handler and the existing one-off preview. An administrator provisions the synthetic owner, bot and short window only in a fresh disposable PG17 database. Separate session logins hold poller and worker locks. The signed callback must present a canonical proposal UUID, matching preview receipt, private owner and originating bot. A proposal becomes scheduled only on confirmation. An unanswered preview expires after at most 15 minutes.
+
+All roles share six durable outbound reservations. A second database statement consumes a single-use transport permit after checking the window and destination. A valid response pairs the owner chat and positive message ID and identifies the pinned bot. Missing acknowledgements fence both roles. A successor quarantines abandoned reservations for its role. Stop both processes on any unexpected outcome, disable the session, and retain the attempt history. Do not reuse a restored copy to resume outbound work. This candidate offers no operator interface for clearing quarantine. The operator reconciliation review for the existing rehearsal schema remains separate.
+
+**One Acer WSL task.** Use a new clean detached worktree at the exact SHA in the PR handoff. Export that SHA as REV and reuse the previously verified full local PG and APP image IDs from Acer acceptance. The runner requires the accepted Docker daemon, uses fresh internal-only resources, records Telegram I/O in process and checks inventory after cleanup. Run from the repository root:
+
+```bash
+set -eu
+test "$(git rev-parse HEAD)" = "$REV"
+test -z "$(git status --porcelain)"
+sha256sum -c docs/attended-delta.sha256
+bash tests/integration/attended_delta.sh
+```
+
+Report exit code, each scenario and cleanup/inventory status. Expected successful appointment evidence is two confirmed appointments, five reservations with paired receipts and exactly one reminder. Other independent fixture cases cover six attempts across restart and rejection of the seventh, uncertain delivery, abandoned reservations, disabled sessions and an expired proposal. Preserve the failed stage on interruption and do not replay its approvals. Work verified 13 focused offline tests and six file hashes. Acer evidence for these changes is pending.
+
+**Live gate.** After native acceptance, review and pin the actual operator entry point for polling, SDK transport timeouts/retry suppression, signed relay routing, stop controls and the historical reply sharing this budget. These are outside the recorded adapter's execution path. Require fresh approval for the exact runnable SHA and source/image digests, dedicated bot ID and username, private owner/chat/recipient ID, manually fenced host, absolute IST window and both civil event times. Count every outbound chat attempt, including ambiguous ones. Permit one historical answer, two previews, two confirmation replies and exactly one reminder. Stop on the first unexpected recipient, identity, window, ownership, budget, receipt, egress or health result. Preserve evidence and close the disposable session.
+
 ## Decision and evidence
 
 The coordinator accepted one synthetic run at `5bcda101bba4f10c1d87113da27e8f6ffc7b97b1`: native exit 0, 15/15 checksums, signed n8n and owner decisions, paired receipt, quarantine, scoped operator reconciliation, restore comparison of nine tables on a second container on the same daemon, and unchanged Docker inventory. Four recurrence and nine historical regressions carry forward. This review recommends source reuse only. Personal database creation and source promotion require explicit approval.
@@ -48,7 +68,7 @@ The existing preparation plan keeps startup, all services and messaging disabled
 
 Before integration, implement personal identity provisioning on a fresh disposable schema variant, scoped logins, a bot-origin check on callback messages, single active poller and worker, and an atomic attempt budget shared across service restarts. Use separate relay and worker authority. A transport receipt must pair the approved recipient and message ID. After loss of acknowledgement quarantine and stop. Reconciliation requires independently verified positive evidence and an unexpired operator permit; never turn a review into a resend.
 
-## One future Acer task, after adapter integration
+## Previous renderer-only checkpoint (superseded)
 
 At the pinned adapter revision, use fresh disposable storage, synthetic identities distinct from 101, pinned images, an isolated relay and recorded SDK I/O. Exercise only the changed binding and worker paths: mismatched bot/chat and stale callbacks rejected; silent appointment with zero slots; one confirmed at-start appointment with one paired receipt; repeated confirmation and second worker rejected or idempotent; process loss after send leaves quarantine; budget and stop survive restart. Verify no unexpected traffic and unchanged unrelated Docker inventory. Record exact pins, counts and exit on PR 18. There is no WSL task to execute for this renderer-only revision.
 

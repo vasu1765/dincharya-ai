@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Attended gateway and worker
+
+Use only the disposable PG17 adapter and scoped Acer task in [the candidate runbook](docs/ATTENDED_CANDIDATE.md#disposable-adapter-acceptance). Reserve every outbound attempt before transport. Preserve uncertain attempts and stop both roles on an unexpected result. Historical migrations and synthetic identity 101 belong to their original environments.
+
 For integrated beta work, follow [the current attended candidate](docs/ATTENDED_CANDIDATE.md). Preserve the accepted synthetic evidence at `5bcda101`; native reruns require a changed boundary. Personal storage adoption, live messaging and unattended operation each require explicit authorization.
 
 This root AGENTS.md applies to the entire repository unless more-specific

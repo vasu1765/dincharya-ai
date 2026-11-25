@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Attended adapter checkpoint
+
+The PR now has a signed PTB update adapter, bounded one-off approvals and a separately owned worker in a disposable PG17 schema. Work ran 13 focused offline tests with zero skips, checked the shell runner syntax and verified six source digests. Native tests of the new schema, role locks and crash fencing await Acer. The existing synthetic and astronomy evidence retains its original scope. The recorded transport is the only runnable integration. Use the [single scoped Acer task](ATTENDED_CANDIDATE.md#disposable-adapter-acceptance). Gate 1 remains blocked.
+
 ## Accepted synthetic rehearsal and attended candidate
 
 At `5bcda101bba4f10c1d87113da27e8f6ffc7b97b1`, Acer completed the native synthetic rehearsal with exit 0, all 15 checksums, signed relay and receipt checks, nine-table restore and unchanged inventory. The accepted four recurrence and nine historical tests carry forward. [Artifact decisions and attended candidate](ATTENDED_CANDIDATE.md) describe the offline preview renderer, remaining adapter work and separate owner gates. Earlier pending entries below document the historical sequence.
