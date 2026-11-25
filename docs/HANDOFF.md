@@ -1,5 +1,41 @@
 # Dincharya AI — handoff
 
+## PR #18 attended appointments timing failure diagnosed; focused correction passes
+
+At candidate `c8b981d46d7933c042a8bd77a40d049f7c6ed730`, the six source
+checksums passed and the native task first failed in `appointments_journey`.
+The failure was isolated in fresh disposable PG17 diagnostics:
+
+- The origin-ID, token and preview-message bot-identity negative checks were
+  correct and passed; the bot/owner callback checks are unchanged.
+- The final delivery assertion saw four sent preview/decision messages and no
+  reminder attempt. PostgreSQL showed one confirmed reminder appointment was
+  still two seconds in the future when the worker tick ran. The fixture had
+  waited using the application container clock plus 300 ms. It now waits on
+  PostgreSQL `clock_timestamp()` with a bounded timeout and a 55-second lateness
+  guard within the unchanged one-minute due window.
+
+Added fixed-label, secret-safe journey diagnostics and focused tests. Results:
+4 timing tests, 11 gateway tests and 2 preview tests passed; syntax checks
+passed. The appointments-only isolated scenario passed with 5 attempts, 5
+paired sends, 1 reminder, 2 confirmed appointments and 0 uncertain deliveries;
+cleanup and the complete Docker inventory comparison passed. No business SQL,
+gateway authorization, advisory locks, lease/receipt settlement or delivery
+policy changed. The updated eight-entry source manifest verifies. The other
+five native scenarios remain pending.
+
+The explicit source scanner rejected both the baseline and modified
+`attended_delta.py` and `attended_delta.sh` inputs. These are the same existing
+generated-password environment/SQL-transfer patterns; no credential values
+are embedded or printed. The new timing helper, its tests, and both gateway
+modules passed the scanner. The scanner was not modified or bypassed.
+
+This correction is in the detached worktree only. Git metadata is read-only;
+no commit SHA exists yet. After the owner commits and pushes the explicit safe
+files listed below, prepare one fresh clean detached six-mode acceptance at
+that exact SHA. PR #18 remains draft. No Telegram, retained database, persistent
+storage, deployment or merge was used.
+
 ## Attended adapter checkpoint
 
 The PR now has a signed PTB update adapter, bounded one-off approvals and a separately owned worker in a disposable PG17 schema. Work ran 13 focused offline tests with zero skips, checked the shell runner syntax and verified six source digests. Native tests of the new schema, role locks and crash fencing await Acer. The existing synthetic and astronomy evidence retains its original scope. The recorded transport is the only runnable integration. Use the [single scoped Acer task](ATTENDED_CANDIDATE.md#disposable-adapter-acceptance). Gate 1 remains blocked.

@@ -46,6 +46,7 @@ cleanup() {
     printf 'FAIL stage=%s exit=%d' "$current_stage" "$original" >&3
     LC_ALL=C sed -nE '/^(psql:<stdin>:[0-9]+: )?(ERROR|FATAL|PANIC):  [0-9A-Z]{5}:/{s/^(psql:<stdin>:([0-9]+): )?(ERROR|FATAL|PANIC):  ([0-9A-Z]{5}):.*/ sqlstate=\4 input_line=\2/p;q;}' "$diagnostic" | tr -d '\n' >&3
     printf '\n' >&3
+    LC_ALL=C sed -nE '/^FAIL substage=[a-z_]+ exception=[A-Za-z_]+( sqlstate=[[:alnum:]]{5})?$/p; /^DIAGNOSTIC sent_count=[0-9]+ last_text_matches_fixture=(True|False)$/p' "$diagnostic" >&3
   fi
   stage cleanup
   owned=$(docker ps -aq --filter "label=$label") || failed=1
@@ -68,7 +69,7 @@ trap 'exit 143' TERM
 stage network_create
 net=$(docker network create --internal --label "$label" "$name")
 stage source_archive
-git archive "$REV" -- dincharya prototypes/panchang tests/integration/attended_delta.py | tar -x -C "$scratch"
+git archive "$REV" -- dincharya prototypes/panchang tests/integration/attended_delta.py tests/integration/attended_delta_timing.py | tar -x -C "$scratch"
 chmod -R a+rX "$scratch"
 for mode in appointments budget loss crash disabled expired; do
   stage "${mode}_start"
