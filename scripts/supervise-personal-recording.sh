@@ -20,7 +20,11 @@ done
 [[ $ready == true ]]
 while kill -0 "$child" 2>/dev/null; do
   if [[ -e "$root/STOP" ]]; then stop; break; fi
-  python -m dincharya.personal_health --recorded-root "$root" || exit 1
+  if ! python -m dincharya.personal_health --recorded-root "$root"; then
+    [[ -e "$root/STOP" ]] || exit 1
+    stop
+    break
+  fi
   sleep 5
 done
 wait "$child"

@@ -18,19 +18,24 @@ END $$;
 REVOKE ALL ON FUNCTION beta.reserve_recording(bigint,bigint) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION beta.reserve_recording(bigint,bigint) TO personal_gateway;
 CREATE FUNCTION beta.recording_ready() RETURNS boolean
-LANGUAGE sql STABLE SECURITY DEFINER SET search_path=pg_catalog,pg_temp AS $
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path=pg_catalog,pg_temp AS $$
  SELECT beta.owned('personal_worker') AND h.enabled AND h.poller AND h.worker
  AND h.uncertain=0 AND h.ui_unsettled=0 FROM beta.health() h;
-$;
+$$;
 CREATE FUNCTION beta.recording_claim() RETURNS TABLE(slot_id bigint,token uuid,recipient bigint,title text,starts timestamptz)
-LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,pg_temp AS $
+LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,pg_temp AS $$
 BEGIN
  IF NOT beta.recording_ready() THEN RAISE EXCEPTION 'recording requires inspection'; END IF;
  PERFORM pg_advisory_xact_lock(18890421);
  UPDATE beta.slot SET state='uncertain',lease=NULL,deadline=NULL WHERE state='sending' AND deadline<=clock_timestamp();
- IF FOUND THEN RETURN; END IF;
+ -- A live send may expire between this check and the inner claim. Leave
+ -- it to the next tick so quarantine and a new claim cannot coincide.
+ IF FOUND OR EXISTS(SELECT FROM beta.slot WHERE state='sending') THEN RETURN; END IF;
  RETURN QUERY SELECT * FROM beta.claim_notice();
-END $;
+END $$;
 REVOKE ALL ON FUNCTION beta.recording_ready(),beta.recording_claim() FROM PUBLIC;
+-- Only the wrapper may claim in this profile. It calls both underlying
+-- SECURITY DEFINER functions as their owner.
+REVOKE EXECUTE ON FUNCTION beta.claim(),beta.claim_notice() FROM personal_worker;
 GRANT EXECUTE ON FUNCTION beta.recording_ready(),beta.recording_claim() TO personal_worker;
 COMMIT;

@@ -54,6 +54,12 @@ def ready():
     return sql("SELECT poller AND worker FROM beta.health()")=="t"
 
 
+# Verify effective role grants before opening either application connection.
+assert sql("""SELECT NOT has_function_privilege('personal_worker','beta.claim()','execute')
+ AND NOT has_function_privilege('personal_worker','beta.claim_notice()','execute')
+ AND has_function_privilege('personal_worker','beta.recording_claim()','execute')
+ AND NOT has_function_privilege('personal_gateway','beta.recording_claim()','execute')
+ AND NOT has_table_privilege('personal_gateway','beta.recording_budget','update')""")=="t"
 p=service()
 until(ready)
 competing=subprocess.run(["docker","exec","-i",app,"python","-m","dincharya.personal_service",

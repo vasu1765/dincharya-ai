@@ -14,14 +14,19 @@ inventory() { docker ps -aq --no-trunc | sort; docker volume ls -q | sort; docke
 inventory > "$tmp/before"
 cleanup() {
   rc=$?
+  cleanup_rc=0
   for id in "$svc" "$db"; do
     if [[ -n $id ]]; then
-      [[ $(docker inspect -f '{{index .Config.Labels "org.dincharya.supervised"}}' "$id") == "$nonce" ]] && docker rm -fv "$id" >/dev/null || rc=1
+      [[ $(docker inspect -f '{{index .Config.Labels "org.dincharya.supervised"}}' "$id") == "$nonce" ]] && docker rm -fv "$id" >/dev/null || cleanup_rc=1
     fi
   done
-  if [[ -n $net ]]; then docker network rm "$net" >/dev/null || rc=1; fi
-  inventory > "$tmp/after" && cmp -s "$tmp/before" "$tmp/after" || rc=1
+  if [[ -n $net ]]; then docker network rm "$net" >/dev/null || cleanup_rc=1; fi
+  inventory > "$tmp/after" && cmp -s "$tmp/before" "$tmp/after" || cleanup_rc=1
   rm -rf -- "$tmp"
+  if (( cleanup_rc )); then
+    echo "FAIL cleanup or inventory" >&2
+    (( rc != 0 )) || rc=$cleanup_rc
+  fi
   exit "$rc"
 }
 trap cleanup EXIT
@@ -32,15 +37,18 @@ export POSTGRES_PASSWORD=$(openssl rand -hex 32)
 db=$(docker run --pull never -d --network "$net" --network-alias db --label "$label" --tmpfs /var/lib/postgresql/data -e POSTGRES_PASSWORD -e POSTGRES_DB=dincharya_personal_candidate "$pg")
 unset POSTGRES_PASSWORD
 sql() { docker exec -i "$db" psql -XqAt -U postgres -v ON_ERROR_STOP=1 -d dincharya_personal_candidate "$@"; }
+ready=false
 for _ in {1..60}; do
-  if [[ $(docker exec "$db" cat /proc/1/comm) == postgres ]] && sql -c 'select 1' >/dev/null 2>&1; then break; fi
+  if [[ $(docker exec "$db" cat /proc/1/comm) == postgres ]] && sql -c 'select 1' >/dev/null 2>&1; then ready=true; break; fi
   sleep 1
 done
-for f in database/personal/*.sql; do sql < "$f"; done
+[[ $ready == true ]] || { echo "FAIL postgres_readiness" >&2; exit 1; }
+source tests/personal_migration_diagnostic.sh
+for f in database/personal/*.sql; do run_personal_migration "$f"; done
 for r in personal_gateway personal_worker personal_operator; do
   key=$(openssl rand -hex 32)
   echo "$key" > "$tmp/fixture/$r.key"
-  printf "ALTER ROLE %s LOGIN PASSWORD '%s';\n" "$r" "$key" | sql >/dev/null
+  printf "ALTER ROLE %s LOGIN PASSWORD '%s';\n" "$r" "$key" | sql >/dev/null 2>&1 || { echo "FAIL scoped role setup" >&2; exit 1; }
 done
 unset key
 sql -c "INSERT INTO beta.authority(singleton,recipient,bot,enabled,lookback) VALUES(true,903,904,true,interval '5 minutes')"
