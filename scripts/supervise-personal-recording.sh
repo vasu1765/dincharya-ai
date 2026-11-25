@@ -12,6 +12,7 @@ trap stop TERM INT
 trap 'stop; wait "$child" 2>/dev/null || true' EXIT
 ready=false
 for _ in {1..20}; do
+  if [[ -e "$root/STOP" ]]; then stop; wait "$child"; exit 0; fi
   kill -0 "$child" || { wait "$child"; exit 1; }
   if python -m dincharya.personal_health --recorded-root "$root"; then ready=true; break; fi
   sleep 1

@@ -17,7 +17,7 @@ from dincharya.personal_recorded import PersonalReview,Recorder,dispatch_recorde
 
 
 def deliver_due(worker,record,owner,bot):
-    item=worker.execute("SELECT * FROM beta.claim_notice()").fetchone()
+    item=worker.execute("SELECT * FROM beta.recording_claim()").fetchone()
     if item is None:
         return
     slot,ticket,recipient,title,starts=item
@@ -66,7 +66,12 @@ def main():
                 user=role,password=(root/(role+".key")).read_text().strip(),autocommit=True,connect_timeout=3,
                 options="-c statement_timeout=5000 -c lock_timeout=2000"))
         gateway,worker=connect("personal_gateway"),connect("personal_worker")
-        record=Recorder(owner,bot,lambda:gateway.execute("SELECT beta.recorded_id()").fetchone()[0])
+        from dincharya.daily_sdk import RecordedSDK
+        record=RecordedSDK(owner,bot,
+            lambda:gateway.execute("SELECT beta.recorded_id()").fetchone()[0],
+            lambda:gateway.execute("SELECT beta.reserve_recording(%s,%s)",(owner,bot)).fetchone()[0],
+            lambda:stopping or (root/"STOP").exists())
+        stack.callback(record.close)
         review=PersonalReview(gateway,key,owner,bot,record,
                               lambda q,d:lookup(q,d,root/"de440s.bsp",root/WHEEL))
         if worker.execute("SELECT beta.acquire()").fetchone()!=(True,):
@@ -76,6 +81,8 @@ def main():
         pending=b""
         projection=0
         while not stopping and not (root/"STOP").exists():
+            if worker.execute("SELECT beta.recording_ready()").fetchone()!=(True,):
+                raise RuntimeError("Recording requires inspection")
             if time.monotonic()>=projection:
                 worker.execute("SELECT beta.roll_forward()")
                 projection=time.monotonic()+3600
@@ -93,7 +100,7 @@ def main():
                 line,pending=pending.split(b"\n",1)
                 if stopping or (root/"STOP").exists():
                     return
-                dispatch_recorded(review,json.loads(line),datetime.now(timezone.utc))
+                dispatch_recorded(review,record.poll_one(json.loads(line)),datetime.now(timezone.utc))
                 print("processed",flush=True)
 
 

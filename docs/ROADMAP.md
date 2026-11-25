@@ -1,5 +1,9 @@
 # Dincharya AI roadmap
 
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
 ## Civil-first daily release
 
 Fresh personal migrations and recorded civil change proposals are in development. Next verify the new migrations and encrypted restore, then complete daily supervision and transport acceptance. Annual lunar scheduling and reviewed observance profiles remain Milestone 2 deliverables. [Review package](PERSONAL_CANDIDATE.md)

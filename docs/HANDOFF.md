@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
 ## Current personal candidate
 
 The owner accepted the previous 14 Python checks and PG17 concurrency result. The fresh personal schema, signed recorded dispatcher and encrypted restore runner are ready for changed-path review. See [evidence, Acer task and consolidated decision package](PERSONAL_CANDIDATE.md). Persistent operation remains gated.

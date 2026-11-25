@@ -47,6 +47,9 @@ class PersonalReview(Review):
 
     def message(self,u,m,now):
         text=m.get("text")
+        if isinstance(text,str) and re.match(r"^(?:/modify\s|schedule\s|मुझे\s|mujhe\s|remind me\s)",text,re.I):
+            if re.search(r"ram[a ]*navami|janma?shtami|janmashtami|smarta|vai(?:sh|ṣ)\w*nava|vaishnava|राम\s*नवमी|जन्माष्टमी|स्मार्त|वैष्णव",text,re.I):
+                return self.reply(u["update_id"],"This observance needs a reviewed tradition and date rule.")
         if text=="/rules":
             rows=self.conn.execute("SELECT * FROM beta.ui_rules(%s,%s)",(self.owner,self.bot)).fetchall()
             result="Active rules (up to 25)\n"+"\n".join(f"{name} · {freq} · {uid}" for uid,name,freq in rows)

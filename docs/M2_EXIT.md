@@ -1,5 +1,9 @@
 # Milestone 2 exit review
 
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
 ## Current exit gates
 
 Acer passed the original preview concurrency test and all 14 focused regressions. The 72-entry register has a bounded owner disposition. Fresh personal migrations, recorded lifecycle changes, health and isolated backup/restore now have a separate candidate. The [current decision table](PERSONAL_CANDIDATE.md) supersedes the pending actions in the historical checkpoint below.

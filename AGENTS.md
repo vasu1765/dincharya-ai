@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](docs/SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
 ## Daily development authorization
 
 Use the [personal candidate review](docs/PERSONAL_CANDIDATE.md) for the approved register scope and fresh-schema work. Preserve the accepted attended implementation and all three ledgers. Test only new personal paths.
