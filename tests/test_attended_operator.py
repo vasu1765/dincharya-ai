@@ -3,7 +3,7 @@ import hashlib
 import json
 from unittest import TestCase
 from unittest.mock import Mock
-from dincharya.attended_operator import Approval, Telegram, USERNAME
+from dincharya.attended_operator import Approval, Telegram
 
 class OperatorTests(TestCase):
     def setUp(self):
@@ -11,7 +11,7 @@ class OperatorTests(TestCase):
         t=int(datetime.fromisoformat("2027-01-01T09:00:00+05:30").timestamp())
         self.a=Approval("a"*40,"acer",*(["sha256:"+"b"*64]*3),902,901,t,t+3600,
             "Schedule Quiet on 2027-01-01 at 09:10","Schedule Reminder on 2027-01-01 at 09:20",
-            "What was the tithi on 2023-12-06?","f"*64)
+            "What was the tithi on 2023-12-06?","f"*64,"Fixture_bot","93.184.216.34")
         self.c=Mock()
         self.t=Telegram(self.c,"902:"+"t"*32,self.a)
 

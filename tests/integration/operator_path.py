@@ -13,7 +13,7 @@ import psycopg
 
 from beta_relay_journey import DenialMismatch, install, wait_for_webhook
 from dincharya import attended_operator as operator
-from dincharya.attended_operator import Approval, USERNAME
+from dincharya.attended_operator import Approval
 from unittest.mock import patch
 
 def main(mark):
@@ -28,7 +28,7 @@ def main(mark):
     pin=hashlib.sha256(raw).hexdigest()
     a=Approval.load(raw,pin,os.environ["REV"],"operator-fixture")
     verify_images(a.pg,a.app,a.n8n)
-    bot=dict(id=a.bot,is_bot=True,first_name="Test",username=USERNAME)
+    bot=dict(id=a.bot,is_bot=True,first_name="Test",username=a.bot_username)
     owner=dict(id=a.owner,is_bot=False,first_name="Fixture")
     chat=dict(id=a.owner,type="private")
     replies=[]

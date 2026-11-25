@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## CONNECT gateway delta
+
+PR #18 retains the accepted e3518726 runtime. The candidate binds username and upstream IP to the manifest, uses explicit CONNECT with end-to-end TLS and verifies namespace output rules and a four-container topology. Work passed 26 focused tests. The [single isolated Acer test](ATTENDED_CANDIDATE.md#one-acer-task-for-this-delta) remains pending. Obtain separate live approval after review.
+
 ## Final runtime candidate
 
 The corrected operator working tree passed on Acer with exit 0, six receipt pairs and unchanged inventory. The current source isolates astronomy from Telegram TLS and adds image, CA, host and environment checks. Work passed 18 focused tests. The clean committed CLI journey is pending. Use the [single Acer task and owner authorization template](ATTENDED_CANDIDATE.md#final-attended-runtime-candidate).

@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Attended network boundary
+
+Use the [restricted gateway procedure](docs/ATTENDED_CANDIDATE.md#restricted-gateway-candidate). Require a manifest-bound bot username, numeric bot/owner IDs, destination IPv4 and readback of the four disposable namespace policies. Preserve the accepted runtime and receipt evidence. Never give the operator an uplink.
+
 ## Attended runtime
 
 Use the [isolated runtime and single Acer command](docs/ATTENDED_CANDIDATE.md#final-attended-runtime-candidate). Keep the astronomy wheel confined to its child interpreter. Pin the operator CA through the accepted application image and verified RECORD. Live authorization requires the filled session manifest after native acceptance.

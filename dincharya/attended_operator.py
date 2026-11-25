@@ -20,7 +20,7 @@ from dincharya.attended_gateway import Gateway, Session, dispatch_sdk_update, id
 from dincharya.lunar_service import sign
 
 RELAY = "http://relay:5678/webhook/m2g-lunar"
-USERNAME = "dincharya_acceptance_test_bot"
+from dincharya.attended_connect import PROXY, upstream
 
 
 @dataclass(frozen=True)
@@ -38,13 +38,17 @@ class Approval:
     reminder: str
     question: str
     kernel_sha256: str
+    bot_username: str
+    telegram_ipv4: str
 
     @classmethod
     def load(cls, raw, pin, revision, host):
         if not hmac.compare_digest(hashlib.sha256(raw).hexdigest(), pin):
             raise ValueError("Manifest hash mismatch")
         a = cls(**json.loads(raw))
-        if (a.sha != revision or not re.fullmatch("[0-9a-f]{40}", a.sha)
+        upstream(a.telegram_ipv4)
+        if (not isinstance(a.bot_username,str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{1,28}[Bb][Oo][Tt]",a.bot_username)
+                or a.sha != revision or not re.fullmatch("[0-9a-f]{40}", a.sha)
                 or a.host != host or not host or not positive(a.bot) or not positive(a.owner)
                 or a.owner in (101,a.bot) or not positive(a.start) or not positive(a.end)
                 or not 0 < a.end-a.start <= 3600
@@ -62,6 +66,11 @@ class Approval:
         if a.silent.rsplit(" on ",1)[1] == a.reminder.rsplit(" on ",1)[1]:
             raise ValueError("Appointments overlap")
         return a
+
+
+def telegram_transport(tls):
+    import httpx
+    return httpx.HTTPTransport(proxy=PROXY,verify=tls,retries=0,trust_env=False)
 
 
 class Telegram:
@@ -84,7 +93,7 @@ class Telegram:
 
     def me(self):
         me=self.call("getMe",{})["result"]
-        if not identity(me,self.approval.bot,True) or me.get("username") != USERNAME:
+        if not identity(me,self.approval.bot,True) or me.get("username") != self.approval.bot_username:
             raise ValueError("Dedicated bot mismatch")
         return me
 
@@ -264,14 +273,14 @@ def main():
             return stack.enter_context(psycopg.connect(host="db",dbname="dincharya_attended_test",
                 user="attended_"+role,password=(root/(role+".key")).read_text().strip(),
                 autocommit=True,connect_timeout=3,options="-c statement_timeout=3000 -c lock_timeout=1500"))
-        def client(verify=True):
+        def client(transport=None):
             return stack.enter_context(httpx.Client(timeout=4,trust_env=False,follow_redirects=False,
-                                      transport=httpx.HTTPTransport(verify=verify,retries=0,trust_env=False)))
+                                      transport=transport or httpx.HTTPTransport(retries=0,trust_env=False)))
         poll,work=connect("poller"),connect("worker")
         key=(root/"relay.key").read_text().strip()
         if len(key)<32:
             raise ValueError("Invalid signing key")
-        tg=Telegram(client(tls),(root/"bot.key").read_text().strip(),a)
+        tg=Telegram(client(telegram_transport(tls)),(root/"bot.key").read_text().strip(),a)
         route=stack.enter_context(signed_route(key,client()))
         operate(a,pin,poll,work,tg,key,route,lambda q:historical(q,kernel),blocked)
 

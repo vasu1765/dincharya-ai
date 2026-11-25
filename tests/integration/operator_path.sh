@@ -120,7 +120,7 @@ def slot(label,delay):
     return "Schedule "+label+" on "+t.strftime("%Y-%m-%d at %H:%M")
 with open(sys.argv[1],"w") as f:
     json.dump(dict(sha=os.environ["REV"],host="operator-fixture",pg=os.environ["PG"],app=os.environ["APP"],
-        n8n=os.environ["N8N"],bot=93002,owner=93001,start=start,end=start+600,silent=slot("Quiet",360),
+        n8n=os.environ["N8N"],bot=93002,bot_username="Fixture_bot",telegram_ipv4="93.184.216.34",owner=93001,start=start,end=start+600,silent=slot("Quiet",360),
         reminder=slot("Reminder",240),question="What was the tithi on 2023-12-06?",kernel_sha256=os.environ["kernel_pin"]),f)
 PYTHON
   chmod 444 "$scratch/manifest.json"
