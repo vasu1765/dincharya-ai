@@ -4,6 +4,22 @@
 
 PR #18 retains the accepted e3518726 runtime. The candidate binds username and upstream IP to the manifest, uses explicit CONNECT with end-to-end TLS and verifies namespace output rules and a four-container topology. Work passed 26 focused tests. The [single isolated Acer test](ATTENDED_CANDIDATE.md#one-acer-task-for-this-delta) remains pending. Obtain separate live approval after review.
 
+Acer verified all nine source hashes and passed eight focused CONNECT tests at
+`0d74512f6a56d6d14ccc3a27b5d088ab3c07eb1a`. After nftables installation the native
+runner exited 255 before loading any policy. A separate isolated probe reproduced
+the exact error from `ip link set up netns PID`: iproute2 read `up` as the state
+flag and reported a missing device. The harness now names the interface
+`uplink0`, supplies explicit `dev` arguments and records the stage and original
+status on failure. A targeted replay moved and activated both veth ends and
+reaped the child namespaces. No CONNECT runner or gateway process remained
+visible after the reported failure. The original scratch directory was not
+retained for independent inspection.
+
+The corrected full namespace run is pending a clean committed revision and
+interactive sudo. Require the alternate-port positive control, both policy
+readbacks, TLS through CONNECT, destination denials, cleanup and exit 0
+before staging daemon-host topology. All earlier accepted suites carry forward.
+
 ## Final runtime candidate
 
 The corrected operator working tree passed on Acer with exit 0, six receipt pairs and unchanged inventory. The current source isolates astronomy from Telegram TLS and adds image, CA, host and environment checks. Work passed 18 focused tests. The clean committed CLI journey is pending. Use the [single Acer task and owner authorization template](ATTENDED_CANDIDATE.md#final-attended-runtime-candidate).
