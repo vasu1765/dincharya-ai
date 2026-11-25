@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Laptop beta profile
+
+Owner authorization 7164321931 scopes standard Docker outbound to the Acer laptop-beta manifest and launcher. Use the [parked Docker Desktop procedure](docs/ATTENDED_CANDIDATE.md#acer-docker-desktop-laptop-beta). The hardened profile keeps its CONNECT gateway, upstream pin and namespace rules. Live execution requires fresh exact-session approval.
+
 ## Attended network boundary
 
 Use the [restricted gateway procedure](docs/ATTENDED_CANDIDATE.md#restricted-gateway-candidate). Require a manifest-bound bot username, numeric bot/owner IDs, destination IPv4 and readback of the four disposable namespace policies. Preserve the accepted runtime and receipt evidence. Never give the operator an uplink.

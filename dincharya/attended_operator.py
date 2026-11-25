@@ -39,14 +39,19 @@ class Approval:
     question: str
     kernel_sha256: str
     bot_username: str
-    telegram_ipv4: str
+    telegram_ipv4: str | None = None
+    profile: str = "hardened"
 
     @classmethod
     def load(cls, raw, pin, revision, host):
         if not hmac.compare_digest(hashlib.sha256(raw).hexdigest(), pin):
             raise ValueError("Manifest hash mismatch")
         a = cls(**json.loads(raw))
-        upstream(a.telegram_ipv4)
+        if a.profile == "hardened":
+            upstream(a.telegram_ipv4)
+        elif a.profile != "laptop-beta" or a.telegram_ipv4 is not None:
+            raise ValueError("Invalid attended profile or destination")
+
         if (not isinstance(a.bot_username,str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{1,28}[Bb][Oo][Tt]",a.bot_username)
                 or a.sha != revision or not re.fullmatch("[0-9a-f]{40}", a.sha)
                 or a.host != host or not host or not positive(a.bot) or not positive(a.owner)
@@ -68,9 +73,11 @@ class Approval:
         return a
 
 
-def telegram_transport(tls):
+def telegram_transport(tls, profile="hardened"):
     import httpx
-    return httpx.HTTPTransport(proxy=PROXY,verify=tls,retries=0,trust_env=False)
+    if profile not in ("hardened","laptop-beta"):
+        raise ValueError("Unknown transport profile")
+    return httpx.HTTPTransport(proxy=PROXY if profile=="hardened" else None,verify=tls,retries=0,trust_env=False)
 
 
 class Telegram:
@@ -244,6 +251,7 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--attended",action="store_true")
     parser.add_argument("--approval")
+    parser.add_argument("--profile",choices=("hardened","laptop-beta"),default="hardened")
     args=parser.parse_args()
     if not args.attended:
         return
@@ -251,6 +259,10 @@ def main():
     root=Path("/run/attended")
     pin=args.approval or ""
     a=Approval.load((root/"manifest.json").read_bytes(),pin,(root/"revision").read_text().strip(),socket.gethostname())
+    if a.profile != args.profile:
+        raise ValueError("Launcher and approved profile differ")
+    if (root/"STOP").exists():
+        raise RuntimeError("Session is fenced")
     from dincharya.attended_runtime import verify_images, verify_wheel, telegram_tls, KERNEL_SHA, WHEEL
     verify_images(a.pg, a.app, a.n8n)
     if a.kernel_sha256 != KERNEL_SHA:
@@ -280,7 +292,7 @@ def main():
         key=(root/"relay.key").read_text().strip()
         if len(key)<32:
             raise ValueError("Invalid signing key")
-        tg=Telegram(client(telegram_transport(tls)),(root/"bot.key").read_text().strip(),a)
+        tg=Telegram(client(telegram_transport(tls,a.profile)),(root/"bot.key").read_text().strip(),a)
         route=stack.enter_context(signed_route(key,client()))
         operate(a,pin,poll,work,tg,key,route,lambda q:historical(q,kernel),blocked)
 

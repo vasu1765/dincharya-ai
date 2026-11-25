@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Docker Desktop laptop candidate
+
+Owner decision 7164321931 allows standard Docker outbound for the attended Acer profile. The manifest and CLI must agree on laptop-beta. Work passed six changed-path tests and twelve existing operator tests. Acer unarmed staging remains pending. Use the [single acceptance task](ATTENDED_CANDIDATE.md#one-acer-acceptance-and-unarmed-staging-task) and the private authorization template before live operation.
+
 ## CONNECT gateway delta
 
 PR #18 retains the accepted e3518726 runtime. The candidate binds username and upstream IP to the manifest, uses explicit CONNECT with end-to-end TLS and verifies namespace output rules and a four-container topology. Work passed 26 focused tests. The [single isolated Acer test](ATTENDED_CANDIDATE.md#one-acer-task-for-this-delta) remains pending. Obtain separate live approval after review.

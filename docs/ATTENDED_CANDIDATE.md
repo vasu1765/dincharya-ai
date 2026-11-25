@@ -1,5 +1,37 @@
 # Attended personal beta candidate
 
+## Acer Docker Desktop laptop beta
+
+Owner decision 7164321931 permits ordinary Docker outbound connectivity for this attended laptop profile. A process in the operator container can reach other internet destinations. The application still fixes its Telegram endpoint, verifies its pinned CA and hostname, ignores ambient proxies and performs zero transport retries. PG and n8n share only a fresh internal bridge. Only the parked operator joins a separate ordinary outbound bridge. Nothing publishes a host port. The hardened profile and its four-container procedure below remain available independently.
+
+Select laptop-beta in the exact hashed manifest **and** on both preflight and launch commands. Omit telegram_ipv4. A manifest without an explicit laptop profile takes the hardened path and requires its destination pin. Both profiles retain one-time owner approval, a private recipient, exclusive poller and worker, six durable attempts, receipt pairing, deadline, STOP and uncertain-send quarantine.
+
+### One Acer acceptance and unarmed staging task
+
+Use the existing approved Docker Desktop context and a clean detached checkout at the exact PR handoff SHA. Run in Bash as the normal WSL owner. Set REV to that SHA, KERNEL and CERTIFI_WHEEL to the previously reviewed public files, and STATE to an absolute, **nonexistent** child of a private directory on the WSL Linux filesystem. Use the accepted host Python environment, with HTTPX and OpenSSL available.
+
+```bash
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.
+test "$(git rev-parse HEAD)" = "$REV"
+test -z "$(git status --porcelain)"
+sha256sum -c docs/laptop-beta.sha256
+python3 -B -m unittest discover -s tests -p test_laptop_profile.py
+bash scripts/laptop_beta.sh stage "$STATE"
+```
+
+Record the SHA, six focused test results, CA digest, preflight result, signed relay echo, zero approvals/attempts and the three staged container IDs. The app stays parked. STOP exists, no bot credential is mounted and the DB cannot authorize a session. The relay probe uses an ephemeral synthetic key and makes no scheduling or delivery writes. Inspect failures in the new namespace only; no replay or auto-retry of staging. Keep prior native receipts and astronomy, firewall and recovery results at their accepted revisions. This test needs no personal identity, token, external Telegram request or firewall change.
+
+### Private approval and attended operation
+
+After unarmed staging succeeds, prepare the real manifest privately using the staged template. Keep profile laptop-beta, exact executable SHA, accepted daemon and three full image IDs, kernel pin, numeric dedicated bot ID/username, private owner ID equal to chat and recipient, exact historical question, silent and reminder appointment commands, and two distinct local appointment times inside an absolute IST window of at most one hour. Supply the hash of the exact bytes. Start/end fields are Unix seconds. Include the measured CA hash, wheel digest and staged DB/relay/app IDs in the approval record. Never post personal IDs or credentials in PR evidence.
+
+> I authorize one attended laptop-beta session at [SHA] with manifest [SHA-256], Acer daemon [ID], disposable PG/relay/app [IDs], image and public artifact pins [digests], bot [numeric ID and username], and private owner/chat/recipient [ID]. I accept ordinary Docker outbound access for the operator. From [start IST] to [end IST], allow [historical question], [silent appointment and time] and [at-start appointment and time]. I will confirm each preview separately. Permit six outbound chat attempts maximum and one reminder on successful completion. Stop on cancellation, deadline, mismatch, lost ownership, uncertainty or unexpected activity. No automatic resend or restart.
+
+With STOP still present, atomically replace the private manifest and run `APPROVAL_DIGEST=<digest> bash scripts/laptop_beta.sh check "$STATE"`. After explicit session approval only, privately provision session/bot.key owner-readable, export APPROVAL_DIGEST and LIVE_SESSION_APPROVAL to that exact digest, and run `bash scripts/laptop_beta.sh start "$STATE"` in the foreground. This rechecks the three immutable containers, inserts both database authority records in one transaction, removes STOP, then runs the operator. A failed or consumed session cannot be restarted with this procedure. On exit the launcher restores STOP and disables the session.
+
+For an immediate fence, create `"$STATE/session/STOP"`, then run `bash scripts/laptop_beta.sh stop "$STATE"`. Leave PG running until receipts and any unresolved attempts have been inspected: stopping its tmpfs container discards the ledger. Preserve sanitized counts and outcomes. Only after evidence review and explicit cleanup approval, set CLEANUP_TAG to the value in `"$STATE/tag"` and run `bash scripts/laptop_beta.sh cleanup "$STATE"`. Cleanup targets only objects carrying that run label and leaves private host files for separately reviewed disposal. The same label procedure covers partial staging after STOP was created.
+
 ## Restricted gateway candidate
 
 This section supersedes the three-container startup and egress instructions below. Retain the accepted runtime, astronomy, scheduling and six-receipt evidence at e35187269e9e03b172eb7dbfa4807f7945159d1d. Acer's earlier synthetic gateway probes are design evidence. The committed namespace delta still needs native acceptance.
