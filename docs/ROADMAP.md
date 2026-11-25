@@ -1,5 +1,9 @@
 # Dincharya AI roadmap
 
+## Milestone 2 release status
+
+Attended personal Telegram acceptance is complete at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. Persistent daily use, calendar release scope and source promotion remain open. The [Milestone 2 exit checklist](M2_EXIT.md) distinguishes verified civil and lunar contracts, the isolated daily UX and the remaining owner decisions. Keep subsequent orchestrators queued.
+
 ## Personal schema rehearsal
 
 [PR 18 rehearsal and consolidated Acer task](BETA_SCHEMA_REHEARSAL.md) records the new repository-owned synthetic schema, 19 offline tests and pending native gates. Review-only scope continues.

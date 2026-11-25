@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Daily-use candidate and Milestone 2 exit
+
+The bounded live Telegram audit passed at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. The owner observed all nine checks; the final audit found six paired receipts and no duplicate or uncertain deliveries. The daily-use candidate and reusable prepare/approve/start/stop tools are separate from the accepted runtime. Work passed 14 new offline tests. Native verification of the optional UI decision schema is pending. Review [the exit checklist, 2B register and consolidated owner decisions](M2_EXIT.md).
+
 ## Operation diagnostics checkpoint
 
 The separately authorized getMe diagnostic returned HTTP 200 in 533 ms with an exact bot match and unchanged ledger. PR #18 adds sanitized operation, elapsed milliseconds and exception class for Telegram and the signed relay. Six offline diagnostic tests passed. Keep the previous consumed session parked with STOP and preserve its evidence. Follow [the single fresh Acer task](ATTENDED_CANDIDATE.md#single-acer-task-for-fresh-staging-and-private-approval) before seeking new exact-session live approval.

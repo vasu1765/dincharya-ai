@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Milestone 2 exit work
+
+The attended test at `77fe4c729511c21f27389eaf43ae7bffb445a8e6` passed. Preserve all three ledgers and the six-attempt runtime. Use [the daily-use exit checklist](docs/M2_EXIT.md) for the isolated UX, sanitized operational tools, source decisions and persistent-release gates. Keep the next orchestrator gated on issue #2.
+
 ## Laptop beta profile
 
 Owner authorization 7164321931 scopes standard Docker outbound to the Acer laptop-beta manifest and launcher. Use the [parked Docker Desktop procedure](docs/ATTENDED_CANDIDATE.md#acer-docker-desktop-laptop-beta). The hardened profile keeps its CONNECT gateway, upstream pin and namespace rules. Live execution requires fresh exact-session approval.
