@@ -15,10 +15,19 @@ reaped the child namespaces. No CONNECT runner or gateway process remained
 visible after the reported failure. The original scratch directory was not
 retained for independent inspection.
 
+The run at `3234ef93e1354f1ddc8114bf07e0c3caa4f09275` passed veth setup and
+the alternate-port positive control. App nftables load succeeded. Readback
+exited 1 and cleanup passed. With `nft -nn`, the installed nftables prints
+`ct direction 1` for the rendered `ct direction reply`. The verifier now uses
+`nft -s -y` to preserve the symbolic conntrack direction and numeric hook
+priority. The exact comparison and rules remain unchanged. The focused
+regression passed. A synthetic namespace test verified real readback for all
+four roles and confirmed the verifier rejects an added accept rule for each.
+
 The corrected full namespace run is pending a clean committed revision and
-interactive sudo. Require the alternate-port positive control, both policy
-readbacks, TLS through CONNECT, destination denials, cleanup and exit 0
-before staging daemon-host topology. All earlier accepted suites carry forward.
+interactive sudo. Require both policy readbacks, TLS through CONNECT,
+destination denials, cleanup and exit 0 before staging daemon-host topology.
+All earlier accepted suites carry forward.
 
 ## Final runtime candidate
 

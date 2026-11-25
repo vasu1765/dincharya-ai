@@ -35,7 +35,8 @@ def rules(role, pin):
 def verify(pid,role,pin):
     if int(pid)<=1 or os.stat(f"/proc/{int(pid)}/ns/net").st_ino == os.stat("/proc/self/ns/net").st_ino:
         raise ValueError("Distinct container network namespace required")
-    cmd=["nsenter","-t",str(pid),"-n","nft","-nn","-s","-y","list","table","inet",TABLE]
+    # Keep symbolic conntrack enums (reply). Only the hook priority needs numeric output.
+    cmd=["nsenter","-t",str(pid),"-n","nft","-s","-y","list","table","inet",TABLE]
     actual=subprocess.check_output(cmd,text=True)
     def tokens(s):
         return s.split()

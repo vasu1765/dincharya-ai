@@ -28,8 +28,11 @@ class BoundaryTests(unittest.TestCase):
             expected=rules(role,pin)
             self.assertIn("policy drop;",expected)
             self.assertNotIn("udp",expected)
-            with patch("os.stat",side_effect=[SimpleNamespace(st_ino=1),SimpleNamespace(st_ino=2)]), patch("subprocess.check_output",return_value=expected):
+            with patch("os.stat",side_effect=[SimpleNamespace(st_ino=1),SimpleNamespace(st_ino=2)]), patch("subprocess.check_output",return_value=expected) as readback:
                 verify(88,role,pin)
+            readback.assert_called_once_with(
+                ["nsenter", "-t", "88", "-n", "nft", "-s", "-y",
+                 "list", "table", "inet", "dincharya_attended"], text=True)
             with patch("os.stat",side_effect=[SimpleNamespace(st_ino=1),SimpleNamespace(st_ino=2)]), patch("subprocess.check_output",return_value=expected.replace("policy drop","policy accept")),self.assertRaises(ValueError):
                 verify(88,role,pin)
 
