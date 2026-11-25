@@ -1,0 +1,439 @@
+{
+  "version": 1,
+  "package_sha256": "e6726382da971c814b3feae4ff454a83aed19b785598c22a5c1b7011f84740ab",
+  "review": "https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7169708227",
+  "decisions": [
+    {
+      "path": "compose.yaml",
+      "sha256": "eb6055de678eca305f0c2205afff9d44ad9f9b6cc17c8f361e2864771b0973af",
+      "status": "awaiting_review",
+      "reason": "Defer for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/attended/0001_disposable.sql",
+      "sha256": "0a8776718396ffea4a77fbb77371c68d1d5fccc9b3ca2afe24aa721f1d00384f",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/attended/0002_operator.sql",
+      "sha256": "cb6b5021e869ccc13acebe0e9f090157ad061dcbea6b6370f9a47cab0e71b05a",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0001_gregorian_occurrences.sql",
+      "sha256": "e4e8f07c4f3233b2f94a01a8f8551693c04624ca95c5d1e3aa029320d075cbb9",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0002_occurrence_reminders.sql",
+      "sha256": "5792db4447c093a8a47142bd7a1dc3da966eedf903e0375cbd5b8523e2e6983f",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0003_managed_legacy_boundary.sql",
+      "sha256": "f5418bd4d944bba240883b36c19d860fd19ecb389f0d93ba7ecdd6a3d68858db",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0004_telegram_receipts.sql",
+      "sha256": "3e50ecdfe91058e771d176826954c7c66889c0bfc38ac902cae158640e0f468f",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0005_synthetic_reconciliation.sql",
+      "sha256": "629fa13920c4c30d4374ff73440ae02aaea312ac4dd628eec166e5555d9dd450",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0006_synthetic_lunar_approval.sql",
+      "sha256": "c1f911aa1c0e0a02338121c0f6c70b64a6993ccb883d1d3e51636b608520b78c",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0007_lunar_calculation_binding.sql",
+      "sha256": "d2663fc16d75fe9e22c84b6e670da1f59e7804050ea24a1320a0aaf4114b5294",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0008_lunar_projection_trigger_path.sql",
+      "sha256": "5d4006db8fbbbeb85bf64296f377537f2dbd8e8f9037ec37ad0a5c1cca81ff21",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0009_lunar_delivery_status.sql",
+      "sha256": "273a9611c584d6d43764d6a993a1df12bde528dc982534cb43c766e8754fde6d",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0010_synthetic_annual_lunar_rules.sql",
+      "sha256": "5f4282a3453818e763855b5f7e10edc2e4757f094214bf97702ba5d0248539ad",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0011_synthetic_notification_slots.sql",
+      "sha256": "bcb72590c3da26ee36c0b6ffca6475f2c572f8d127f3f9c453f220ddaba9ef81",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0012_synthetic_recurring_automation.sql",
+      "sha256": "4619a40af8fdf4a9ead6ceecf2f7abeea94afa741f4fe5a7b045ffc1b09cab0e",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0013_synthetic_recurrence_health.sql",
+      "sha256": "b29ef1c215e3a20c18979fa4e4e7870eb323f11783008d87e73f9b297a62ebc0",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0014_synthetic_restore_fence.sql",
+      "sha256": "75eb1ebebd5f9a932551cdb7b532fe43e4ef99a0115a05b1c105698e0aef7d7d",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0015_managed_receipt_safety.sql",
+      "sha256": "d1ccf7a8ff4e420c49a2f876e0405e409c00560ed146cf8ab5c5d0894b9bd67b",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/personal_beta/0001_civil.sql",
+      "sha256": "6ccfe7b51475545511750c4551aea360d1472e5d47de98f2caba690654639a75",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/attended_astronomy.py",
+      "sha256": "ee1287441db539f307916fc38e8eee93ef21d1c9904d00bb3d02a9cf5fcfec7a",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/attended_connect.py",
+      "sha256": "18c0a563872c18a5b47dcf46112cb3a78f1f92795588adccf25b894d2c49e872",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/attended_gateway.py",
+      "sha256": "d5fe69cda91255696b93ce98d7f81f8467d30fd10e1864149d048da02267c7f3",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/attended_operator.py",
+      "sha256": "d8b0f18ea8eeff9b041f26931b2e78d0af3942d5862e84177fa766e893cde023",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/attended_review.py",
+      "sha256": "93475186c9262773d7bd6b463ec9837ec54c270e8001c527ff69cf9ef5f1c205",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/attended_runtime.py",
+      "sha256": "59b793529c776789b310892c14ce82519db99324235e53c5dfb3818f3b897307",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/beta_archive.py",
+      "sha256": "376553457d143a73b6c85d2075f1fa9bfd94ab4d5c45500fe053ce0f518bb52a",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/beta_dispatch.py",
+      "sha256": "a5d0c5ddcc989b23afd7c3494be6aafd768670e0c59680e1f3ee845dc0cf4b4a",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/beta_observer.py",
+      "sha256": "e0f239362041f0e013d9cb49908ef584daf03b220e015d213745b71e1292fb6a",
+      "status": "awaiting_review",
+      "reason": "Defer for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/beta_preview.py",
+      "sha256": "53b7373efa9ae8d05bc047bce71ed9e655147acc0f6016aed228578e3762b13c",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/historical_panchang.py",
+      "sha256": "e3a55f2e76e7ace81ae18bea8a87d675a912ea42935ca6ebe6fc56bc3d4b6d00",
+      "status": "adopted",
+      "reason": "Reuse for guarded Delhi calculation under pinned ephemeris and reference policy. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/lunar_development.py",
+      "sha256": "bd0747bcfb8a852d56ad29892000b4ddda5073a549bb5ee458a41e3cb3dc71cb",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/lunar_runtime.py",
+      "sha256": "929ebe8e2d4d585199be472e4ff163c932d7600540549034d701fc587b08c947",
+      "status": "awaiting_review",
+      "reason": "Defer for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/lunar_service.py",
+      "sha256": "90996b624d65de5dfda5c40928e17b42f83691642587d8cd0b5c66faa1af7224",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/private_acceptance.py",
+      "sha256": "20ac35b467f1def01e6a7e462352498114a5f5b5473e5c8a18a5b2d9fefcbf93",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/recurring.py",
+      "sha256": "5c3cc575ee6715be866852936c810a23ee34c1b9a55cf94808bd0b7976e775e5",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/recurring_intent.py",
+      "sha256": "73b661c0af46b2d0c7599a72546eaf0410330df417994f356715399e97c9a4a8",
+      "status": "adopted",
+      "reason": "Adopt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/reminder_adapters.py",
+      "sha256": "1f0ec4ad64c60512a6fa6d23aa2bb9d6251d5864fd048e67adb8eb4d76294128",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/reminders.py",
+      "sha256": "4a8853038a9bcb29fd8e2ce8f0b13b9bff700fe0e7ed54ab335111fa34ec5f74",
+      "status": "adopted",
+      "reason": "Adopt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "docs/m2b-repository-review.json",
+      "sha256": "4f30e69fe7ea74fd128d650aac939bd4159c407d764068b229e989c0aa2552bd",
+      "status": "adopted",
+      "reason": "Adopt for review for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "prototypes/panchang/ephemeris.json",
+      "sha256": "cc572cf7860b939e418f5a9c7f904c180240e1c21deb38b3c4ddff16283e4571",
+      "status": "adopted",
+      "reason": "Reuse for guarded Delhi calculation under pinned ephemeris and reference policy. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "prototypes/panchang/guarded.py",
+      "sha256": "a38a6b25edac642b293a2784580d19424643dd69b5cd03fd8a3ff89b3a273914",
+      "status": "adopted",
+      "reason": "Reuse for guarded Delhi calculation under pinned ephemeris and reference policy. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "prototypes/panchang/recurrence.py",
+      "sha256": "e5838007a3ae7f846cdbac24e26d1f22af2e9af399b960b08fecddae718b2b69",
+      "status": "adopted",
+      "reason": "Reuse for guarded Delhi calculation under pinned ephemeris and reference policy. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "prototypes/panchang/requirements.txt",
+      "sha256": "90c9fb6e3a9cc6cb06e61cace60819449aa442e63017e6ac9c5a4dccd059d448",
+      "status": "adopted",
+      "reason": "Reuse for guarded Delhi calculation under pinned ephemeris and reference policy. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "scripts/attended_net_policy.py",
+      "sha256": "e6a6c11eb92510b51eff478d1496f2c71825c1103cbf843121393f269999a9cf",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "scripts/attended_operator_host.py",
+      "sha256": "cc82559293438eae33a8db5e0cdd9b64958d95a9cb19a140080ba1312d1b7208",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "scripts/check-safe-source.py",
+      "sha256": "c4e22f78a1a829e85f477a250d5cff237b9cfa6930615bd0cb0100f5afda4c38",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "scripts/laptop_beta.sh",
+      "sha256": "0f8fd7d2478b894afed19770de40dbd0cf28cb9eca355d3b1be0cd0be31e775b",
+      "status": "adopted",
+      "reason": "Retain for bounded attended profile; independently review any daily adaptation. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "staging/laptop/host.ps1",
+      "sha256": "e4aa2911c128d68ec0d6bc37ea3c5e3ff1f86db4dfa0eedd3c0e55be5eeec9d2",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "staging/laptop/observer.py",
+      "sha256": "ad39c224beff1f0af9cdd09bf95fcaef35c71e58965eb00679fde8546afd5391",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "staging/laptop/physical_restore.py",
+      "sha256": "8ecab27ff8f1b99646b43baf725aa841c0b83652419ca6dae825b20efc60ccfc",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "staging/laptop/service.py",
+      "sha256": "bb2d7e1a33e93f1fe7970faef738cacb4ad1e32d28bc15a58c4adf0eaf38fbd5",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "telegram-gateway/gateway.py",
+      "sha256": "4515c1bc61c102f55045a5a7795fac5bdaae883dcb7415b60380dbbcb82affee",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "telegram-gateway/lunar_acceptance.py",
+      "sha256": "259ddcfac9143a989e46206ebe9e2bbbf5e80056abab62cedaabb1ddaf75c168",
+      "status": "awaiting_review",
+      "reason": "Defer for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "telegram-gateway/lunar_handlers.py",
+      "sha256": "2b96d20de18ceaec71219a5674bf64137120df92f06e166ff8fc3db2b0325de6",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "telegram-gateway/reminder_handlers.py",
+      "sha256": "b53d1b49d29f0ed7f925b295f1fe93120643a7204a09e0ea5db559730a944420",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "telegram-gateway/requirements-m2g.txt",
+      "sha256": "ad622b3d77d3ad11e2747d966bc860727388bcb2ed7e990788123a4b5d493baf",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/beta_focused.py",
+      "sha256": "a47d97879f80f3cc07af9add1d7cb35a2456b8df6e3e836218c0a6022ba75ef3",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/beta_native.sh",
+      "sha256": "e32507a682df75a67d643f025ead92d81ee8a725963475ef888e9f3dd8b06dfe",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/beta_native.sql",
+      "sha256": "cc1bbba9fe37e5f2c0cd709e78d2f0c61801a3efea241a254b1adfc043aa4860",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/beta_relay_journey.py",
+      "sha256": "84e3a7d467ae09bc31a05c561e3a4705ce53f3097eb292c8ad5a8cfa023d09d9",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/compose.json",
+      "sha256": "573d75e712fb9cbb399c8a1b5079e1404f7504acb4c3448b0781dbe218aa1c61",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/m2h_development_schema.sql",
+      "sha256": "460f41cb254af06485b5df38b8b6629a9d5adcd25322fd769ecdc3a75b010891",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/m2h_private_simulated.py",
+      "sha256": "4f06c3e08e3bd6970764a8df49420bfcabe6a08797bf2813136c9b6bf574ed9c",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/m2h_private_telegram.py",
+      "sha256": "1351e6ea3f755d2c877a8e72fb9a64247229a686ad7029640ab0adbc1a842b0d",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/receipt_candidate.sh",
+      "sha256": "9789df61be67b8ebf70954d9cf0776d2faf305fe8f53092992997b8741f7714a",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/test_beta_cycle1.py",
+      "sha256": "6ec9f392b9a9b963794ffb36fd82a89bec8c3ba8047d1a7a44a5450e4337a33b",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/test_beta_native_diagnostics.py",
+      "sha256": "3323276f9414b7d85f5f0e702d42680e1b6800a82b019eef7573ff11c10de639",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/test_beta_relay_diagnostics.py",
+      "sha256": "20327097a7e429992cef5bba8bb525be0338d55711f08a4988c8791be01f50ba",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/test_beta_resolution_schema.py",
+      "sha256": "bb2f86a1e83968851511d9d6e9f4deab70969046cb2995be2fbec5981e4ad971",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/test_beta_review.py",
+      "sha256": "ec9c62ab5cb787fa123236e4ffef764fed3717773e5b49197f66328b7e11e6b4",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/test_private_acceptance.py",
+      "sha256": "ac3b19b72c46eed784460291a8abcea8ec792e21d81dbc95cbdbaeb0818ad0b4",
+      "status": "adopted",
+      "reason": "Retain as development or acceptance evidence. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "workflows/m2g-lunar-acceptance.json",
+      "sha256": "04414cba56cd0cb1ee543c09d939d214ca544fb4744952d5e42fe37e8654dd0c",
+      "status": "adopted",
+      "reason": "Adapt for named development scope. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    }
+  ]
+}

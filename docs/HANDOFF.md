@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Current personal candidate
+
+The owner accepted the previous 14 Python checks and PG17 concurrency result. The fresh personal schema, signed recorded dispatcher and encrypted restore runner are ready for changed-path review. See [evidence, Acer task and consolidated decision package](PERSONAL_CANDIDATE.md). Persistent operation remains gated.
+
 ## Daily-use candidate and Milestone 2 exit
 
 The bounded live Telegram audit passed at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. The owner observed all nine checks; the final audit found six paired receipts and no duplicate or uncertain deliveries. The daily-use candidate and reusable prepare/approve/start/stop tools are separate from the accepted runtime. Work passed 14 new offline tests. Native verification of the optional UI decision schema is pending. Review [the exit checklist, 2B register and consolidated owner decisions](M2_EXIT.md).

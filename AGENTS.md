@@ -1,5 +1,9 @@
 # Dincharya AI — repository instructions
 
+## Daily development authorization
+
+Use the [personal candidate review](docs/PERSONAL_CANDIDATE.md) for the approved register scope and fresh-schema work. Preserve the accepted attended implementation and all three ledgers. Test only new personal paths.
+
 ## Milestone 2 exit work
 
 The attended test at `77fe4c729511c21f27389eaf43ae7bffb445a8e6` passed. Preserve all three ledgers and the six-attempt runtime. Use [the daily-use exit checklist](docs/M2_EXIT.md) for the isolated UX, sanitized operational tools, source decisions and persistent-release gates. Keep the next orchestrator gated on issue #2.

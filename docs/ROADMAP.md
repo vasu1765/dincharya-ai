@@ -1,5 +1,9 @@
 # Dincharya AI roadmap
 
+## Civil-first daily release
+
+Fresh personal migrations and recorded civil change proposals are in development. Next verify the new migrations and encrypted restore, then complete daily supervision and transport acceptance. Annual lunar scheduling and reviewed observance profiles remain Milestone 2 deliverables. [Review package](PERSONAL_CANDIDATE.md)
+
 ## Milestone 2 release status
 
 Attended personal Telegram acceptance is complete at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. Persistent daily use, calendar release scope and source promotion remain open. The [Milestone 2 exit checklist](M2_EXIT.md) distinguishes verified civil and lunar contracts, the isolated daily UX and the remaining owner decisions. Keep subsequent orchestrators queued.

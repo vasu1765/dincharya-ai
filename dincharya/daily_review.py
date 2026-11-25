@@ -9,9 +9,9 @@ from dincharya.beta_preview import preview
 from dincharya.lunar_service import sign
 
 IST = ZoneInfo("Asia/Kolkata")
-STATUS = {"active":"Confirmed", "cancelled":"Cancelled", "expired":"Preview expired",
+STATUS = {"kept":"Change declined · original kept","removed":"Future schedule cancelled","replaced":"Replacement confirmed", "active":"Confirmed", "cancelled":"Cancelled", "expired":"Preview expired",
           "paused":"Paused", "conflict":"Time already occupied"}
-NOTICE = {"active":"Already confirmed. To change it, request a new review.",
+NOTICE = {"kept":"Original rule kept.","removed":"Future occurrences already cancelled.","replaced":"Replacement already confirmed.", "active":"Already confirmed. To change it, request a new review.",
           "cancelled":"Already cancelled.", "expired":"This preview expired. Request a fresh one.",
           "paused":"This schedule is paused.", "conflict":"Please choose another time."}
 
@@ -58,11 +58,12 @@ def concise(event,value,label,*,devanagari=False):
 
 
 class Review:
+    database_identity=("dincharya_beta_rehearsal","daily_gateway","daily_gateway")
+
     def __init__(self,conn,key,owner,bot,record,calendar=None):
         if (not conn.autocommit or not positive(owner) or not positive(bot) or owner==bot
                 or not isinstance(key,str) or len(key)<32 or conn.execute(
-                    "SELECT current_database(),current_user,session_user").fetchone()!=(
-                    "dincharya_beta_rehearsal","daily_gateway","daily_gateway")):
+                    "SELECT current_database(),current_user,session_user").fetchone()!=self.database_identity):
             raise ValueError("Scoped rehearsal connection required")
         self.conn,self.key,self.owner,self.bot,self.record,self.calendar=conn,key,owner,bot,record,calendar
 
@@ -103,7 +104,7 @@ class Review:
         if not isinstance(cmd,dict) or set(cmd)!={"operation","bot_id","recipient","update"} or cmd["operation"]!="daily_review":
             return "denied"
         u=cmd["update"]
-        if not isinstance(u,dict) or not positive(u.get("update_id")) or envelope["nonce"]!=str(u["update_id"]):
+        if not isinstance(u,dict) or set(u) not in ({"update_id","message"},{"update_id","callback_query"}) or not positive(u.get("update_id")) or envelope["nonce"]!=str(u["update_id"]):
             return "denied"
         if any(not positive(cmd[k]) or cmd[k]!=v for k,v in (("bot_id",self.bot),("recipient",self.owner))):
             return "denied"
@@ -114,6 +115,9 @@ class Review:
             return "denied"
         if type(m.get("date")) is not int or not 0<=now.timestamp()-m["date"]<=60:
             return "That message expired. Please send a fresh request."
+        return self.message(u,m,now)
+
+    def message(self,u,m,now):
         def reply(text):
             return self.reply(u["update_id"],text)
         text=m.get("text")
@@ -147,12 +151,19 @@ class Review:
         clock=datetime.strptime(a["start_time"],"%H:%M").time()
         offsets=v["offset_minutes"]
         recurrence={"once":"Once","daily":"Daily","weekly":f"Every {day:%A}","yearly":f"Every year on {day:%d %b}"}[freq]
-        p,ticket=self.conn.execute("SELECT * FROM beta.ui_draft(%s,%s,%s,%s,%s,%s,%s,%s::integer[])",
-            (self.owner,self.bot,u["update_id"],title,freq,day,clock,offsets)).fetchone()
+        row=self.reserve_preview(u,title,freq,day,clock,offsets)
+        if row is None:
+            return reply("That rule is no longer active. Use /rules for the current list.")
+        p,ticket,heading=row
         notes=", ".join("at start" if x==0 else f"{x} min before" for x in offsets) or "none"
-        self.emit(ticket,"sendMessage",dict(chat_id=self.owner,text=f"{title}\n{recurrence} · {when(day,clock)}\nReminders: {notes}",
+        self.emit(ticket,"sendMessage",dict(chat_id=self.owner,text=f"{heading}\n{recurrence} · {when(day,clock)}\nReminders: {notes}",
             reply_markup={"inline_keyboard":[[{"text":x.title(),"callback_data":f"{x}/{p}"} for x in ("confirm","cancel")]]}))
         return "preview"
+
+    def reserve_preview(self,u,title,freq,day,clock,offsets):
+        p,t=self.conn.execute("SELECT * FROM beta.ui_draft(%s,%s,%s,%s,%s,%s,%s,%s::integer[])",
+            (self.owner,self.bot,u["update_id"],title,freq,day,clock,offsets)).fetchone()
+        return p,t,title
 
     def callback(self,q):
         if not isinstance(q,dict) or not identity(q.get("from"),self.owner,False):

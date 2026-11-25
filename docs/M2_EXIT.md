@@ -1,5 +1,9 @@
 # Milestone 2 exit review
 
+## Current exit gates
+
+Acer passed the original preview concurrency test and all 14 focused regressions. The 72-entry register has a bounded owner disposition. Fresh personal migrations, recorded lifecycle changes, health and isolated backup/restore now have a separate candidate. The [current decision table](PERSONAL_CANDIDATE.md) supersedes the pending actions in the historical checkpoint below.
+
 **Attended Telegram acceptance passed. Persistent daily-use release is open.** The owner observed all nine checks. The final audit exited 0 at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. It found two confirmed appointments, six ordered paired receipts, exactly one at-start reminder, zero silent reminders, zero duplicates and zero uncertain or unsettled attempts. The database records the appointment times and receipt order; the owner observed the actual delivery time and Panchang text. All three earlier disposable ledgers stay parked and preserved. [Live acceptance](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7168879730)
 
 ## Exit checklist
