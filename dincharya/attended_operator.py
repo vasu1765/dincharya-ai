@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import signal
 import socket
+import sys
 import threading
 import time
 
@@ -80,6 +81,41 @@ def telegram_transport(tls, profile="hardened"):
     return httpx.HTTPTransport(proxy=PROXY if profile=="hardened" else None,verify=tls,retries=0,trust_env=False)
 
 
+def safe_exception_class(exc):
+    # Emit only trusted class names, even for dynamically named subclasses.
+    import httpx
+    for cls in (httpx.ReadTimeout, httpx.ConnectTimeout, httpx.WriteTimeout,
+                httpx.PoolTimeout, httpx.TimeoutException, httpx.HTTPStatusError,
+                httpx.ConnectError, httpx.ReadError, httpx.WriteError,
+                httpx.RemoteProtocolError, httpx.RequestError, TimeoutError,
+                OSError, json.JSONDecodeError, ValueError, KeyError, TypeError, RuntimeError):
+        if isinstance(exc, cls):
+            return cls.__name__
+    return "Exception"
+
+
+@contextmanager
+def operation_diagnostic(operation):
+    if operation not in ("getMe", "getUpdates", "sendMessage", "signed_relay"):
+        raise ValueError("Unreviewed diagnostic operation")
+    start = time.monotonic_ns()
+    outcome = "interrupted"
+    try:
+        yield
+        outcome = "none"
+    except Exception as exc:
+        outcome = safe_exception_class(exc)
+        raise
+    finally:
+        elapsed = (time.monotonic_ns() - start) // 1_000_000
+        try:
+            print(f"operation={operation} elapsed_ms={elapsed} exception={outcome}",
+                  file=sys.stderr, flush=True)
+        except (OSError, ValueError):
+            # A closed diagnostic stream must not change delivery or settlement.
+            pass
+
+
 class Telegram:
     """Explicit single HTTP request per Bot API operation. No SDK polling supervisor."""
     def __init__(self, client, token, approval):
@@ -98,16 +134,19 @@ class Telegram:
             raise RuntimeError("Telegram rejected operation")
         return data
 
+    @operation_diagnostic("getMe")
     def me(self):
         me=self.call("getMe",{})["result"]
         if not identity(me,self.approval.bot,True) or me.get("username") != self.approval.bot_username:
             raise ValueError("Dedicated bot mismatch")
         return me
 
+    @operation_diagnostic("getUpdates")
     def poll(self, offset):
         return self.call("getUpdates",dict(offset=offset,limit=1,timeout=1,
                          allowed_updates=["message","callback_query"]))["result"]
 
+    @operation_diagnostic("sendMessage")
     def send(self, **payload):
         if payload.get("chat_id") != self.approval.owner:
             raise ValueError("Unapproved destination")
@@ -151,6 +190,7 @@ def signed_route(key, client):
     server=QuietServer(("0.0.0.0",8080),Handler)
     thread=threading.Thread(target=server.serve_forever,daemon=True)
     thread.start()
+    @operation_diagnostic("signed_relay")
     def submit(value,sig):
         nonlocal pending,received
         with lock:
@@ -302,4 +342,4 @@ if __name__=="__main__":
     try:
         main()
     except Exception as exc:
-        raise SystemExit("Attended stop: "+type(exc).__name__) from None
+        raise SystemExit("Attended stop: "+safe_exception_class(exc)) from None

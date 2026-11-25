@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Operation diagnostics checkpoint
+
+The separately authorized getMe diagnostic returned HTTP 200 in 533 ms with an exact bot match and unchanged ledger. PR #18 adds sanitized operation, elapsed milliseconds and exception class for Telegram and the signed relay. Six offline diagnostic tests passed. Keep the previous consumed session parked with STOP and preserve its evidence. Follow [the single fresh Acer task](ATTENDED_CANDIDATE.md#single-acer-task-for-fresh-staging-and-private-approval) before seeking new exact-session live approval.
+
 ## Docker Desktop laptop candidate
 
 Owner decision 7164321931 allows standard Docker outbound for the attended Acer profile. The manifest and CLI must agree on laptop-beta. Work passed six changed-path tests and twelve existing operator tests. Acer unarmed staging remains pending. Use the [single acceptance task](ATTENDED_CANDIDATE.md#one-acer-acceptance-and-unarmed-staging-task) and the private authorization template before live operation.

@@ -1,5 +1,30 @@
 # Attended personal beta candidate
 
+## Next attended attempt after the getMe diagnostic
+
+The authorized identity check returned HTTP 200 in 533 ms, matched the dedicated bot, used the original pinned TLS and four-second client timeout, and left the ledger unchanged. It establishes identity and connectivity for that request only. Preserve the prior consumed approval, ledger, STOP and parked environment. Leave its state path and containers untouched.
+
+The attended operator writes one stderr line when each getMe, getUpdates, sendMessage or signed_relay operation finishes. Fields are the fixed operation name, monotonic elapsed_ms and an allowlisted exception class (none on normal return). Unknown classes are grouped as Exception. An operation returning normally does not establish delivery: verify the paired database receipt. A failed send remains subject to the existing quarantine and stop rules. A process killed before completion can leave no diagnostic line.
+
+### Single Acer task for fresh staging and private approval
+
+Use a fresh clean detached checkout of the exact diagnostic SHA in the PR handoff. Export REV to that SHA, KERNEL and CERTIFI_WHEEL to the previously reviewed public files. Set STATE to a **new, nonexistent absolute child** of a private WSL directory. Use the existing Acer Docker Desktop context and approved local images.
+
+```bash
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.
+test "$(git rev-parse HEAD)" = "$REV"
+test -z "$(git status --porcelain)"
+test ! -e "$STATE"
+sha256sum -c docs/laptop-beta.sha256
+python3 -B -m unittest discover -s tests -p test_attended_diagnostics.py
+bash scripts/laptop_beta.sh stage "$STATE"
+```
+
+Record fresh preflight, signed synthetic relay echo, CA digest, zero approvals and attempts, parked operator and STOP. Keep the fresh container IDs for the private approval. Do not run another standalone getMe check. Stage never needs the bot credential. Report only the sanitized diagnostic fields and the normal staged evidence.
+
+Prepare the exact private manifest using the approval procedure below: new revision and digest, laptop-beta, Acer daemon, fresh PG/relay/app IDs, pinned images/kernel/wheel/measured CA, dedicated bot ID and username, private owner/chat/recipient ID, historical question, both civil appointment commands and distinct times, and absolute IST window of at most one hour. Keep STOP in place and run the documented check with the private manifest digest. End the Acer task at that checkpoint and request separate approval of these exact values, six maximum chat attempts and one reminder on success. Only after that approval use the existing start/stop commands on this fresh state. Preserve both ledgers on interruption; never replay an uncertain send.
+
 ## Acer Docker Desktop laptop beta
 
 Owner decision 7164321931 permits ordinary Docker outbound connectivity for this attended laptop profile. A process in the operator container can reach other internet destinations. The application still fixes its Telegram endpoint, verifies its pinned CA and hostname, ignores ambient proxies and performs zero transport retries. PG and n8n share only a fresh internal bridge. Only the parked operator joins a separate ordinary outbound bridge. Nothing publishes a host port. The hardened profile and its four-container procedure below remain available independently.
