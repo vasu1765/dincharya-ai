@@ -25,6 +25,8 @@ Run only `REV=<exact commit> bash tests/daily_gate_delta.sh` from a clean matchi
 
 The manifest has exactly owner, bot, bot_username, revision, host, profile, start, end and commands. Times are integer UTC epochs converted from the owner's reviewed IST window. For a bounded profile, use “What was the tithi in Delhi on YYYY-MM-DD?”, then “Schedule TITLE on YYYY-MM-DD at HH:MM”, then the same scheduling form with “; at start”. Keep real files private. Render configuration using PYTHONPATH=. in the pinned environment.
 
+The bounded live ledger audit passed at `dc7335d`. Review the [persistent activation checklist](DAILY_ACTIVATION_REVIEW.md) before provisioning any personal storage. The backup and restore helpers require verified Linux tmpfs scratch; size it and review swap handling before the off-device qualification.
+
 ## Milestone 2 calendar gates
 
 Civil release includes read-only Delhi Panchang and /details. Personal anniversaries still require independent Delhi reference dates linking historical tithi at the instant to the annual sunrise-selected civil date. Retain Amanta/Purnimanta, ordinary/Adhika identity, explicit repeated-tithi selection, withheld skipped and Kshaya cases, the 300-second sunrise guard and 90-second publisher diagnostic. A festival name plus a civil recurrence is insufficient authority to schedule an observance.

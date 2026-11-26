@@ -1,5 +1,22 @@
 # Dincharya AI — handoff
 
+## Bounded live daily acceptance and activation readiness
+
+The owner accepted the bounded live session at `dc7335d` and the final
+read-only audit exited 0. Six paired outbound operations, two appointments,
+one at-start reminder, no silent or duplicate delivery, zero uncertain or
+unsettled records, consumed approval, STOP and released ownership locks
+passed. All four ledgers are preserved. The bounded authority row remains
+enabled with a consumed and expired one-use release. No operator is running.
+
+Use the [persistent activation review](DAILY_ACTIVATION_REVIEW.md) for the
+remaining Acer, observer and exact off-device recovery qualification.
+The backup and restore scripts now keep plaintext scratch on tmpfs; restore
+hashes the private ciphertext copy it decrypts. Focused shell checks used
+real OpenSSL CMS with synthetic input and a stubbed Docker boundary.
+The accepted live runtime and migrations are unchanged. Keep the daily
+volume, startup, live operation and calendar approval gates closed.
+
 ## Daily release delta correction and bounded preparation
 
 The original Acer run at `c1e3d45` exited 1 in the retention unit test because

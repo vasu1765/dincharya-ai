@@ -7,7 +7,7 @@ archive=${2:?approved ciphertext}
 digest=${3:?independently retained SHA256}
 cert=${4:?recipient PEM}
 key=${5:?recovery key}
-[[ $id =~ ^[0-9a-f]{64}$ && $digest =~ ^[0-9a-f]{64}$ && $(sha256sum < "$archive" | cut -d' ' -f1) == "$digest" ]]
+[[ $id =~ ^[0-9a-f]{64}$ && $digest =~ ^[0-9a-f]{64}$ ]]
 docker inspect "$id" | python3 -c '
 import json,sys
 c,=json.load(sys.stdin)
@@ -20,9 +20,15 @@ if not ok: sys.exit("Restore target refused")'
 sql() { docker exec -i "$id" psql -XqAt -U postgres -v ON_ERROR_STOP=1 -d dincharya_personal_candidate "$@"; }
 [[ $(sql -c "SELECT count(*) FROM pg_namespace WHERE nspname NOT IN ('public','information_schema') AND nspname !~ '^pg_'") == 0 ]]
 [[ $(sql -c "SELECT count(*) FROM pg_class WHERE relnamespace='public'::regnamespace") == 0 ]]
-tmp=$(mktemp -d)
+# Fail closed rather than placing a plaintext database dump in the default /tmp.
+[[ $(findmnt -n -M /dev/shm -o FSTYPE) == tmpfs ]]
+tmp=$(mktemp -d /dev/shm/dincharya-daily.XXXXXXXX)
 trap 'rm -rf -- "$tmp"' EXIT
-openssl cms -decrypt -binary -inform DER -in "$archive" -recip "$cert" -inkey "$key" -out "$tmp/dump"
+# Authenticate the exact private copy passed to OpenSSL.
+[[ -f "$archive" && ! -L "$archive" ]]
+cp -- "$archive" "$tmp/ciphertext"
+[[ $(sha256sum < "$tmp/ciphertext" | cut -d' ' -f1) == "$digest" ]]
+openssl cms -decrypt -binary -inform DER -in "$tmp/ciphertext" -recip "$cert" -inkey "$key" -out "$tmp/dump"
 docker exec -i "$id" pg_restore -l < "$tmp/dump" >/dev/null
 sql -c 'BEGIN; CREATE ROLE personal_executor NOLOGIN; CREATE ROLE personal_gateway NOLOGIN; CREATE ROLE personal_worker NOLOGIN; CREATE ROLE personal_operator NOLOGIN; CREATE ROLE personal_observer NOLOGIN; CREATE ROLE personal_backup NOLOGIN; COMMIT'
 docker exec -i "$id" pg_restore -e -1 -U postgres -d dincharya_personal_candidate < "$tmp/dump"
