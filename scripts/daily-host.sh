@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Existing provisioned services only. No registration, volume creation or restart loop.
 set -euo pipefail
+# The protected mount is owner-only; run the operator as that non-root owner.
+operator_user="$(id -u):$(id -g)"
+[[ $(id -u) -gt 0 ]]
 mode=${3:-daily}
 [[ "$mode" == daily || "$mode" == bounded ]]
 rev=${1:?approved commit}
@@ -63,4 +66,4 @@ for service in db relay; do
   id=$("${compose[@]}" ps -q "$service")
   [[ -n "$id" && $(docker inspect -f '{{.State.Running}}' "$id") == true ]]
 done
-"${compose[@]}" run --rm --no-deps --use-aliases -T operator --authorized-root /run/daily --revision "$rev" --host "$host"
+"${compose[@]}" run --rm --no-deps --use-aliases --user "$operator_user" -T operator --authorized-root /run/daily --revision "$rev" --host "$host"

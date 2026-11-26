@@ -1,5 +1,24 @@
 # Dincharya AI — handoff
 
+## Daily release delta correction and bounded preparation
+
+The original Acer run at `c1e3d45` exited 1 in the retention unit test because
+the read-only fixture had no writable temporary directory. The corrected
+daily delta passed in the isolated development checkout at `cc59ad7`. It uses
+a bounded tmpfs, retains the read-only root and source and stays networkless.
+It verifies the second-reminder denial before the total cap, effective role
+boundaries and cursor durability across connections. The prior three ledgers
+and Docker inventories matched.
+
+A separate networkless probe confirmed the default capability-dropped app
+user could not read an owner-only mount. The host launcher now selects the
+owner's numeric non-root UID and GID. The same probe succeeded with that
+identity and unchanged file permissions. The named bounded Compose project
+uses disposable tmpfs database and relay data. A reviewed private manifest,
+scoped role setup and separate explicit live authorization are required
+before launch. Do not mount a bot token or enable release authority while
+staging. Keep the calendar, persistent adoption and operation gates open.
+
 ## Daily Telegram release candidate
 
 Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.
