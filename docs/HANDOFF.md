@@ -1,5 +1,9 @@
 # Dincharya AI — handoff
 
+## Daily Telegram release candidate
+
+Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.
+
 ## Supervised recording bootstrap correction
 
 Acer stopped with exit 3 at `9be9ba0` after verifying 26 checksums. Cleanup and inventory passed. SDK and service scenarios did not run. Migration 0004 had two invalid function delimiters. The correction also confines worker claims to the quarantine-aware entry point and distinguishes STOP during a health check from an outage. Work ran five focused offline checks, shell syntax checks and both manifests (28 entries). Native acceptance remains pending. Run only `tests/run_supervised_daily.sh` on the exact corrected revision in the PR handoff. Its failure record gives the migration basename, exit code, psql input line, statement-relative line and SQLSTATE when available. [Original evidence](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7175797158)

@@ -1,5 +1,9 @@
 # Milestone 2 exit review
 
+## Daily Telegram release candidate
+
+Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.
+
 ## Supervised daily candidate
 
 The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](SUPERVISED_DAILY.md). Daily activation and calendar release remain open.

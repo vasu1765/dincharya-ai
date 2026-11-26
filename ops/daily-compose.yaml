@@ -1,0 +1,56 @@
+name: dincharya-personal
+services:
+  db:
+    profiles: [personal]
+    image: sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f
+    pull_policy: never
+    restart: "no"
+    environment:
+      POSTGRES_DB: dincharya_personal_candidate
+      POSTGRES_PASSWORD_FILE: /run/secrets/bootstrap
+    secrets: [bootstrap]
+    volumes: [personal:/var/lib/postgresql/data]
+    networks: [private]
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "dincharya_personal_candidate"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  relay:
+    profiles: [personal]
+    image: sha256:6723b440354bb8e1395a1ecee12685fe03923f897bf6e4d5bb2c6c2bd2051697
+    pull_policy: never
+    restart: "no"
+    environment:
+      EXECUTIONS_DATA_SAVE_ON_SUCCESS: none
+      EXECUTIONS_DATA_SAVE_ON_ERROR: none
+      EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS: "false"
+      N8N_DIAGNOSTICS_ENABLED: "false"
+    volumes: [relay:/home/node/.n8n]
+    networks: [private]
+  operator:
+    profiles: [personal]
+    image: sha256:fff0b1b58321339ad0de04804548cb8ff14c9a929e6eead08ce3cd96535493ca
+    pull_policy: never
+    restart: "no"
+    entrypoint: ["python","-B","-m","dincharya.daily_live"]
+    working_dir: /repo
+    environment: {PYTHONPATH: /repo}
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    volumes:
+      - ${REVIEWED_SOURCE:?approved source export}:/repo:ro
+      - ${OPERATOR_ROOT:?operator-only credentials and approval}:/run/daily:ro
+    networks:
+      private:
+        aliases: [dincharya-lunar]
+      uplink: {}
+networks:
+  private: {internal: true}
+  uplink: {}
+volumes:
+  personal: {external: true, name: dincharya_personal_pg17}
+  relay: {external: true, name: dincharya_personal_n8n}
+secrets:
+  bootstrap: {file: "${PG_BOOTSTRAP_FILE:?approved bootstrap secret}"}

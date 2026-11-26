@@ -1,0 +1,11 @@
+# Overlay only on the dedicated dincharya-daily-bounded project.
+services:
+  db:
+    volumes:
+      - type: tmpfs
+        target: /var/lib/postgresql/data
+  relay:
+    volumes:
+      - type: tmpfs
+        target: /home/node/.n8n
+        tmpfs: {mode: 01777}
