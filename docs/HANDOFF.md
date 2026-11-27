@@ -1,5 +1,17 @@
 # Dincharya AI — handoff
 
+## Persistent Acer preparation
+
+The owner authorized the fresh personal PG17 and n8n volumes at `9e4cbe6`.
+The exact five migrations, private native signed relay, forged denial,
+SCRAM role boundaries, AC policy, local outage detection, and local
+encrypted empty-source restore passed. Four prior acceptance ledgers
+remain fenced. STOP is present with no operator, live release or token.
+See the [qualification and Drive procedure](DAILY_ACTIVATION_REVIEW.md).
+One owner checkpoint remains for restricted Drive OAuth, off-device
+certificate and recovery, and an independent observer. Live activation
+requires a separate approved seven-day manifest after qualification.
+
 ## Bounded live daily acceptance and activation readiness
 
 The owner accepted the bounded live session at `dc7335d` and the final

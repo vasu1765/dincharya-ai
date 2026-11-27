@@ -57,3 +57,74 @@ uncertain delivery. Keep the original volumes and ciphertext for rollback.
 The daily scope is civil appointments and reminders plus read-only Delhi
 Panchang. Personal lunar scheduling, festival rules, 2B source adoption,
 production promotion and merging remain separate gates.
+
+## Persistent preparation checkpoint
+
+The owner authorized the fresh Acer environment, same dedicated bot,
+ordinary operator outbound access, manual startup, a seven-day initial
+daily window and five-minute catch-up. The backup policy is encrypted
+Google Drive daily with seven daily and four weekly recovery points.
+Activity tracking and a web dashboard are outside the selected profile.
+[Owner authorization](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7199827092)
+
+| Qualification | Result |
+| --- | --- |
+| Existing acceptance | All four ledger fences and aggregate counts rechecked against the approved daemon. Preserved resources and images retained. |
+| Fresh storage | Created the two approved named volumes and started only PostgreSQL 17 and n8n on an unpublished internal bridge. Applied exact personal migrations 0001–0005 and recorded their hashes. No bot key, authority, release or operator present. |
+| Database boundary | Native SCRAM over private TCP with four scoped keys. Wrong password rejected. Gateway and worker acquisition denied with no authority. Observer could read only aggregate health. Backup could read its granted ledger and could not mutate authority. Reconciliation and executor logins remain disabled. Existing exclusive lease evidence carries forward. |
+| Relay | Pinned native n8n CLI imported and published the single reviewed workflow. Signed round-trip passed. The application receiver returned HTTP 403 for a forged signature and n8n surfaced the denial to the caller as HTTP 500. |
+| Acer readiness | AC connected, do-nothing lid action, and AC standby and hibernate timeouts disabled at inspection. Local readiness failed during a deliberate stop of the new relay and recovered when the same container restarted. Independent observation of an Acer outage still requires the designated observer. |
+| Backup tools | Local AES-GCM CMS qualification used the new empty PostgreSQL database, an invented local recovery credential and a networkless PG17 restore. Schema function signatures and empty history counts matched and all six restored roles remained NOLOGIN. Cleanup restored the Docker inventory. Populated-history rollback fencing carries forward from prior synthetic restore acceptance. |
+| Real backup destination | Pending owner-selected Drive OAuth, folder pin and independent key custody/recovery. No Drive files were listed or transferred. |
+
+### Google Drive procedure
+
+Use an owner-only local Linux spool with normal filesystem semantics.
+`scripts/daily-backup.sh --spool` reads through the scoped backup role,
+checks the dump using PG17 tools, uses verified tmpfs for plaintext scratch,
+and publishes only authenticated CMS ciphertext to the spool.
+
+The proposed transfer uses the Drive API through a dedicated rclone remote.
+Pin the folder ID. Create the folder with the same app if the
+`drive.file` client cannot see an existing browser-created folder.
+The owner performs OAuth locally. Use a dedicated client and configuration
+with only the `drive.file` scope. Keep authorization material outside the
+operator mount and Git. The official Linux amd64 rclone v1.76.0 executable
+was verified against the published archive SHA-256
+`b00f00b3266c3764413afe599d3ec316f6f43b3e0ea8a0bc1d186d2133e46df7`.
+[rclone Drive scope and root options](https://rclone.org/drive/)
+
+```bash
+bash scripts/daily-backup.sh --spool "$DB" "$SPOOL" "$RECIPIENT_PEM" "$RECIPIENT_PIN"
+python3 -B scripts/daily-drive-upload.py "$SPOOL/$DIGEST.cms" \
+  --config "$PRIVATE_DRIVE_CONFIG" --folder "$APPROVED_FOLDER_ID" --rclone "$RCLONE"
+```
+
+The uploader validates the local CMS and digest, then uses immutable copy
+and streams back the exact remote object for an independent SHA-256
+comparison. It exposes only the digest or a sanitized failure class.
+Focused tests used real OpenSSL CMS with a mock Drive client to verify the
+bounded read-back and denial of plaintext, symlinks, wrong scope or folder,
+and corrupted remote bytes. The Google Drive service qualification remains
+pending until one synthetic archive succeeds through the actual remote.
+
+For the first remote qualification, use the empty source or invented
+fixture, verify exactly one uploaded ciphertext, independently record its
+digest, then retrieve that exact object on the approved recovery host.
+Restore with the independent key into networkless, disposable PG17.
+Report migration register, aggregate comparisons, epoch and role fences,
+and cleanup. Keep the key outside Google Drive and the application host.
+Keep retention report-only and start with manual backup invocation.
+
+### Final owner checkpoint
+
+- Confirm the dedicated Drive OAuth client and folder pin through local
+  instructions, with credentials held in its separate protected config.
+- Confirm the independent recovery host and recipient certificate fingerprint.
+  The same host may run the attended external observer if permitted. Agree
+  on the narrow status connection and observe both readiness and outage
+  from that host before activation.
+- After these gates pass, select the exact IST start for the seven-day window
+  and approve the resulting private manifest digest. Keep STOP in place
+  until deliberate manual startup. Registration, personal backup scheduling,
+  deletion and any scope expansion remain separate decisions.
