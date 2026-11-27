@@ -1,0 +1,26 @@
+{
+  "enabled": false,
+  "hostname_profile": "acer-wsl2-docker-desktop",
+  "persistent_volume": {
+    "external": true,
+    "name": "dincharya_personal_pg17",
+    "approved": false
+  },
+  "login_start": {
+    "registered": false,
+    "interactive_login": true,
+    "requires_host_fence": true
+  },
+  "backup": {
+    "enabled": false,
+    "destination": null,
+    "certificate_sha256": null,
+    "proposed_daily": 7,
+    "proposed_weekly": 4,
+    "prune_enabled": false
+  },
+  "missed_window_proposed_minutes": 5,
+  "live_attempt_cap_proposed": 6,
+  "lunar_writes": false,
+  "observance_profiles": []
+}

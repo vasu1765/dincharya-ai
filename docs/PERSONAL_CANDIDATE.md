@@ -1,0 +1,32 @@
+# Personal daily-use candidate
+
+Development is authorized for the reviewed artifact register, a fresh schema, civil scheduling and recorded Telegram I/O. The [owner decision](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7169708227) applies to the specific registered bytes and scope. The original register remains historical evidence. Use the two owner-decision JSON files and run `python scripts/verify-personal-register.py`. A deferred artifact stays deferred. No private source is needed.
+
+## Evidence
+
+The [Acer result](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7175097911) accepts 14 focused Python checks and the original PostgreSQL 17 concurrency check at `357eac41dc75f5fb743a45752d8a04718a1e8ecd`. The race produced one appointment, two reminder slots and one preview edit reservation. The subsequent Cancel left the appointment active. The three ledgers and Docker inventory were preserved. This evidence covers the predecessor schema.
+
+The new schema starts empty with no logins or owner configured. The three files in `database/personal/` define the civil ledger, owner-bound UI transactions and recovery functions. They apply only to the named fresh PostgreSQL 17 candidate database. Review migration and runtime bytes in `docs/personal-candidate.sha256`. Never apply the fixture or historical migration series to this database. A failed bootstrap or restore remains isolated for inspection.
+
+The recorder accepts signed, fresh owner updates. New schedules support once, daily, weekly and yearly civil frequency, a 400-day projection, offset slots and silent occurrences. `/rules` lists active rule IDs. `/modify ID Schedule ...` proposes a full replacement, including its reminder settings. `/cancel ID` proposes removing future occurrences. Both require a fresh confirmation on the matching preview. Competing changes use the approved target revision. A rejected replacement or conflict preserves the original. The receipt for editing a preview is distinct from a reminder receipt. Historical questions run through a separate isolated astronomy process, with a concise answer or `/details`.
+
+## Changed-path acceptance on Acer
+
+From a clean checkout of the candidate revision supplied with this handoff, export its full SHA as `REV` and execute `bash tests/personal_changed_paths.sh`. Use the already reviewed local PostgreSQL image and a disposable synthetic recipient. The runner creates two networkless tmpfs containers, checks installation and replacement, refuses to carry a reserved UI action or enabled authority across encrypted restore, and compares inventory after cleanup. Stop on failure and report the failing operation and exit code. This runner exercises SQL and local CMS archives. Recorded dispatcher behavior is covered by the focused Python suite. Full service-process integration under independent supervision is outstanding.
+
+The disabled foreground entry point is `python -m dincharya.personal_service`. For a separately prepared disposable recording environment its explicit arguments are `--recorded --root /absolute/fixture`. Input is synthetic newline-delimited Telegram updates on a pipe. Provision distinct scoped connections in the fixture, recording.json containing numeric owner and bot, the accepted astronomy wheel and kernel, and private fixture role keys. The service acquires both role locks, projects on startup, processes recorded reminders, honors STOP and SIGTERM, and exits on EOF. The database allocates synthetic receipt IDs across process restarts. A supervisor must fence the old process before restarting and must never replay input to resolve an uncertain receipt. Health is available to personal_operator through `SELECT * FROM beta.health()` and contains ownership and aggregate backlog counts only.
+
+## One owner release review
+
+| Decision | Proposed scope and evidence still required |
+| --- | --- |
+| Release artifacts and personal schema | Inspect the exact release manifest at the candidate SHA and the changed-path native evidence. Approve creation of a new personal database and separate identities only after review. |
+| Missed reminders | Select the permitted age of an already materialized reminder after interruption. A five-minute lookback is proposed for review. Older pending reminders expire; uncertain attempts always require positive reconciliation. A late projection skips past slots. |
+| Backup and rollback | Select the off-device destination, recipient certificate fingerprint, separate key custodian and retention. Rehearse restore in isolation first. On rollback stop both owners, fence the restored epoch, preserve the source and receipts, and review future work before enabling the restored copy. Never run two hosts against separate copies of the same schedule. The fixture helper only uses networkless tmpfs and local encrypted output. |
+| Persistent startup | Approve the Acer volume, scoped logins, login trigger, restart policy, external availability observer and power settings together after the recorded service and restore checks pass. Independent daily process supervision and recovery still need integration evidence. |
+| Bounded daily Telegram acceptance | Review a pinned daily transport first. Agree on bot, owner private chat, exact IST window, methods, per-method attempt caps, one reminder, operator stop and receipt audit. The historical six-send grant is consumed. |
+| Annual lunar and festivals | Keep annual personal anniversaries in scope. Before civil-date release require independently reviewed Delhi examples at month and sunrise boundaries, repeated/skipped tithi, Adhika and Kshaya, for each approved convention. Retain the 300-second sunrise guard and 90-second publication diagnostic. Each festival needs its own approved tradition, selection rule and reference-date fixtures before scheduling. |
+
+Milestone 2 remains open. Civil-first release approval does not authorize calendar writes, activation or real Telegram traffic.
+
+For recorded supervision, pipe synthetic updates into `bash scripts/supervise-personal-recording.sh --recorded-root /absolute/fixture` inside the prepared isolated application environment. It waits for both database owners, polls the aggregate health endpoint, propagates stop signals and stops on failed health. Supply the scoped observer key separately. Restart requires a fresh input pipe. This wrapper has no registration or live startup action.

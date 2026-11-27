@@ -1,0 +1,20 @@
+{
+  "status": "review-only",
+  "enabled": false,
+  "interface": "telegram_private_owner",
+  "host": "existing Acer WSL2 / Docker Desktop",
+  "approved_source_revision": null,
+  "persistent_volume": null,
+  "bootstrap_allowed": false,
+  "startup_after_login": false,
+  "poller_count_when_authorized": 1,
+  "worker_count_when_authorized": 1,
+  "automatic_host_failover": false,
+  "calendar_observances_enabled": [],
+  "lunar_scheduling_enabled": false,
+  "automatic_uncertain_resend": false,
+  "backup_recipient_sha256": null,
+  "off_device_destination": null,
+  "health_fields": ["database_ready", "poller_owned", "worker_owned", "backlog_count", "oldest_due_age", "uncertain_count", "last_verified_backup_age"],
+  "release_gates": ["personal schema and source adoption", "authenticated daily dispatcher", "receipt and edit acceptance", "fresh encrypted restore and authority fencing", "host login and supervision approval"]
+}

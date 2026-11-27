@@ -1,5 +1,214 @@
 # Dincharya AI — handoff
 
+## Persistent Acer preparation
+
+The owner authorized the fresh personal PG17 and n8n volumes at `9e4cbe6`.
+The exact five migrations, private native signed relay, forged denial,
+SCRAM role boundaries, AC policy, local outage detection, and local
+encrypted empty-source restore passed. Four prior acceptance ledgers
+remain fenced. STOP is present with no operator, live release or token.
+See the [qualification and Drive procedure](DAILY_ACTIVATION_REVIEW.md).
+One owner checkpoint remains for restricted Drive OAuth, off-device
+certificate and recovery, and an independent observer. Live activation
+requires a separate approved seven-day manifest after qualification.
+
+## Bounded live daily acceptance and activation readiness
+
+The owner accepted the bounded live session at `dc7335d` and the final
+read-only audit exited 0. Six paired outbound operations, two appointments,
+one at-start reminder, no silent or duplicate delivery, zero uncertain or
+unsettled records, consumed approval, STOP and released ownership locks
+passed. All four ledgers are preserved. The bounded authority row remains
+enabled with a consumed and expired one-use release. No operator is running.
+
+Use the [persistent activation review](DAILY_ACTIVATION_REVIEW.md) for the
+remaining Acer, observer and exact off-device recovery qualification.
+The backup and restore scripts now keep plaintext scratch on tmpfs; restore
+hashes the private ciphertext copy it decrypts. Focused shell checks used
+real OpenSSL CMS with synthetic input and a stubbed Docker boundary.
+The accepted live runtime and migrations are unchanged. Keep the daily
+volume, startup, live operation and calendar approval gates closed.
+
+## Daily release delta correction and bounded preparation
+
+The original Acer run at `c1e3d45` exited 1 in the retention unit test because
+the read-only fixture had no writable temporary directory. The corrected
+daily delta passed in the isolated development checkout at `cc59ad7`. It uses
+a bounded tmpfs, retains the read-only root and source and stays networkless.
+It verifies the second-reminder denial before the total cap, effective role
+boundaries and cursor durability across connections. The prior three ledgers
+and Docker inventories matched.
+
+A separate networkless probe confirmed the default capability-dropped app
+user could not read an owner-only mount. The host launcher now selects the
+owner's numeric non-root UID and GID. The same probe succeeded with that
+identity and unchanged file permissions. The named bounded Compose project
+uses disposable tmpfs database and relay data. A reviewed private manifest,
+scoped role setup and separate explicit live authorization are required
+before launch. Do not mount a bot token or enable release authority while
+staging. Keep the calendar, persistent adoption and operation gates open.
+
+## Daily Telegram release candidate
+
+Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.
+
+## Supervised recording bootstrap correction
+
+Acer stopped with exit 3 at `9be9ba0` after verifying 26 checksums. Cleanup and inventory passed. SDK and service scenarios did not run. Migration 0004 had two invalid function delimiters. The correction also confines worker claims to the quarantine-aware entry point and distinguishes STOP during a health check from an outage. Work ran five focused offline checks, shell syntax checks and both manifests (28 entries). Native acceptance remains pending. Run only `tests/run_supervised_daily.sh` on the exact corrected revision in the PR handoff. Its failure record gives the migration basename, exit code, psql input line, statement-relative line and SQLSTATE when available. [Original evidence](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7175797158)
+
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
+## Current personal candidate
+
+The owner accepted the previous 14 Python checks and PG17 concurrency result. The fresh personal schema, signed recorded dispatcher and encrypted restore runner are ready for changed-path review. See [evidence, Acer task and consolidated decision package](PERSONAL_CANDIDATE.md). Persistent operation remains gated.
+
+## Daily-use candidate and Milestone 2 exit
+
+The bounded live Telegram audit passed at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. The owner observed all nine checks; the final audit found six paired receipts and no duplicate or uncertain deliveries. The daily-use candidate and reusable prepare/approve/start/stop tools are separate from the accepted runtime. Work passed 14 new offline tests. Native verification of the optional UI decision schema is pending. Review [the exit checklist, 2B register and consolidated owner decisions](M2_EXIT.md).
+
+## Operation diagnostics checkpoint
+
+The separately authorized getMe diagnostic returned HTTP 200 in 533 ms with an exact bot match and unchanged ledger. PR #18 adds sanitized operation, elapsed milliseconds and exception class for Telegram and the signed relay. Six offline diagnostic tests passed. Keep the previous consumed session parked with STOP and preserve its evidence. Follow [the single fresh Acer task](ATTENDED_CANDIDATE.md#single-acer-task-for-fresh-staging-and-private-approval) before seeking new exact-session live approval.
+
+## Docker Desktop laptop candidate
+
+Owner decision 7164321931 allows standard Docker outbound for the attended Acer profile. The manifest and CLI must agree on laptop-beta. Work passed six changed-path tests and twelve existing operator tests. Acer unarmed staging remains pending. Use the [single acceptance task](ATTENDED_CANDIDATE.md#one-acer-acceptance-and-unarmed-staging-task) and the private authorization template before live operation.
+
+## CONNECT gateway delta
+
+PR #18 retains the accepted e3518726 runtime. The candidate binds username and upstream IP to the manifest, uses explicit CONNECT with end-to-end TLS and verifies namespace output rules and a four-container topology. Work passed 26 focused tests. The [single isolated Acer test](ATTENDED_CANDIDATE.md#one-acer-task-for-this-delta) remains pending. Obtain separate live approval after review.
+
+Acer verified all nine source hashes and passed eight focused CONNECT tests at
+`0d74512f6a56d6d14ccc3a27b5d088ab3c07eb1a`. After nftables installation the native
+runner exited 255 before loading any policy. A separate isolated probe reproduced
+the exact error from `ip link set up netns PID`: iproute2 read `up` as the state
+flag and reported a missing device. The harness now names the interface
+`uplink0`, supplies explicit `dev` arguments and records the stage and original
+status on failure. A targeted replay moved and activated both veth ends and
+reaped the child namespaces. No CONNECT runner or gateway process remained
+visible after the reported failure. The original scratch directory was not
+retained for independent inspection.
+
+The run at `3234ef93e1354f1ddc8114bf07e0c3caa4f09275` passed veth setup and
+the alternate-port positive control. App nftables load succeeded. Readback
+exited 1 and cleanup passed. With `nft -nn`, the installed nftables prints
+`ct direction 1` for the rendered `ct direction reply`. The verifier now uses
+`nft -s -y` to preserve the symbolic conntrack direction and numeric hook
+priority. The exact comparison and rules remain unchanged. The focused
+regression passed. A synthetic namespace test verified real readback for all
+four roles and confirmed the verifier rejects an added accept rule for each.
+
+The corrected full namespace run is pending a clean committed revision and
+interactive sudo. Require both policy readbacks, TLS through CONNECT,
+destination denials, cleanup and exit 0 before staging daemon-host topology.
+All earlier accepted suites carry forward.
+
+## Final runtime candidate
+
+The corrected operator working tree passed on Acer with exit 0, six receipt pairs and unchanged inventory. The current source isolates astronomy from Telegram TLS and adds image, CA, host and environment checks. Work passed 18 focused tests. The clean committed CLI journey is pending. Use the [single Acer task and owner authorization template](ATTENDED_CANDIDATE.md#final-attended-runtime-candidate).
+
+## PR #18 operator runtime diagnosis
+
+The operator run at `75d0155a2607665a47fe88315a4988be0f000b4f` exited 1.
+A focused disposable diagnostic verified n8n activation, webhook readiness,
+one-use approval consumption and the first signed echo. The calculator then
+rejected the image's certifi 2026.10.23 because the astronomy lock requires
+2025.10.5. The older relay forwards a signed request to its dispatcher.
+The operator relay verifies a single matching signed echo before local
+dispatch. Both use the same webhook installation and denial probe.
+
+The recording fixture now verifies the public certifi wheel against the
+existing astronomy artifact hash and stages it on the disposable Python
+import path. Diagnostics report fixed stages, error class, HTTP status when
+available and allowlisted source locations. The live launcher does not use
+this overlay. Before live review, pin a runtime that satisfies the
+astronomy dependency lock and has reviewed Telegram TLS trust.
+
+The corrected working-tree diagnostic exited 0 on Acer with the pinned
+PG17, application and n8n images. It verified a historical reply, two previews,
+two confirmations and one reminder, with all six receipt pairs in order.
+A second startup with the consumed approval was rejected without sending.
+Cleanup and the container, network, volume and image inventory comparison
+passed. All 12 focused operator tests and six source checksums passed.
+The source scanner still flags identical pre-existing credential patterns
+in the two harness files.
+
+The six adapter cases passed earlier at
+`86d4a69b77c6c429a9408658243ff9de3d28209c`. Retain that result and the earlier
+astronomy and synthetic native evidence at their accepted revisions.
+See [the operator runbook](ATTENDED_CANDIDATE.md#operator-acceptance).
+Keep PR #18 draft and obtain separate authorization for a live session.
+
+## PR #18 attended appointments timing failure diagnosed; focused correction passes
+
+At candidate `c8b981d46d7933c042a8bd77a40d049f7c6ed730`, the six source
+checksums passed and the native task first failed in `appointments_journey`.
+The failure was isolated in fresh disposable PG17 diagnostics:
+
+- The origin-ID, token and preview-message bot-identity negative checks were
+  correct and passed; the bot/owner callback checks are unchanged.
+- The final delivery assertion saw four sent preview/decision messages and no
+  reminder attempt. PostgreSQL showed one confirmed reminder appointment was
+  still two seconds in the future when the worker tick ran. The fixture had
+  waited using the application container clock plus 300 ms. It now waits on
+  PostgreSQL `clock_timestamp()` with a bounded timeout and a 55-second lateness
+  guard within the unchanged one-minute due window.
+
+Added fixed-label, secret-safe journey diagnostics and focused tests. Results:
+4 timing tests, 11 gateway tests and 2 preview tests passed; syntax checks
+passed. The appointments-only isolated scenario passed with 5 attempts, 5
+paired sends, 1 reminder, 2 confirmed appointments and 0 uncertain deliveries;
+cleanup and the complete Docker inventory comparison passed. No business SQL,
+gateway authorization, advisory locks, lease/receipt settlement or delivery
+policy changed. The updated eight-entry source manifest verifies. The other
+five native scenarios remain pending.
+
+The explicit source scanner rejected both the baseline and modified
+`attended_delta.py` and `attended_delta.sh` inputs. These are the same existing
+generated-password environment/SQL-transfer patterns; no credential values
+are embedded or printed. The new timing helper, its tests, and both gateway
+modules passed the scanner. The scanner was not modified or bypassed.
+
+This correction is in the detached worktree only. Git metadata is read-only;
+no commit SHA exists yet. After the owner commits and pushes the explicit safe
+files listed below, prepare one fresh clean detached six-mode acceptance at
+that exact SHA. PR #18 remains draft. No Telegram, retained database, persistent
+storage, deployment or merge was used.
+
+## Attended adapter checkpoint
+
+The PR now has a signed PTB update adapter, bounded one-off approvals and a separately owned worker in a disposable PG17 schema. Work ran 13 focused offline tests with zero skips, checked the shell runner syntax and verified six source digests. Native tests of the new schema, role locks and crash fencing await Acer. The existing synthetic and astronomy evidence retains its original scope. The recorded transport is the only runnable integration. Use the [single scoped Acer task](ATTENDED_CANDIDATE.md#disposable-adapter-acceptance). Gate 1 remains blocked.
+
+## Accepted synthetic rehearsal and attended candidate
+
+At `5bcda101bba4f10c1d87113da27e8f6ffc7b97b1`, Acer completed the native synthetic rehearsal with exit 0, all 15 checksums, signed relay and receipt checks, nine-table restore and unchanged inventory. The accepted four recurrence and nine historical tests carry forward. [Artifact decisions and attended candidate](ATTENDED_CANDIDATE.md) describe the offline preview renderer, remaining adapter work and separate owner gates. Earlier pending entries below document the historical sequence.
+
+## PR 18 webhook registration race — focused fix, native validation pending
+
+One browser-independent native rerun at `3409afad` reproduced forged-denial HTTP 404,
+exit 1; cleanup/inventory passed. A separate disposable n8n-only diagnostic proved
+activation may return 200/active before its webhook is registered; browser cookies are
+not involved. Added a non-writing invalid-envelope readiness probe with bounded 404
+retry and strict exact denial checks. Actual forged/foreign-owner and approval/lifecycle
+assertions remain unchanged. No business SQL/workflow/staging-installer changes. Focused
+offline tests and refreshed source checksums pass; no full native rerun after the fix.
+Manual review resolved both unchanged scanner matches as pre-existing false positives
+(SQL placeholder and synthetic password environment lookup); no scanner bypass or
+weakening. Manifest checked with its designated checksum tool. Seven-file patch remains
+uncommitted only because shared Git metadata is read-only.
+See [rehearsal investigation](BETA_SCHEMA_REHEARSAL.md). Keep PR #18 draft; next native
+acceptance requires a clean committed reviewed revision. No messaging or deployment.
+
+## Personal schema rehearsal
+
+[PR 18 rehearsal and consolidated Acer task](BETA_SCHEMA_REHEARSAL.md) records the new repository-owned synthetic schema, 19 offline tests and pending native gates. Review-only scope continues.
+
+## Integrated personal beta cycle 1
+
+[Implementation and Acer verification](BETA_CYCLE1.md) records 16 passing offline tests, source verification, the civil preview, isolated storage renderer, observer and encrypted synthetic archive. Personal schema adoption, image review and native journeys remain open before Gate 1.
+
 ## Current engineering checkpoint — offline beta runtime guard
 
 New source-only development files:
@@ -548,4 +757,3 @@ Historical 2B evidence remains: four
 current workflows, 94 history versions, two structural candidates; current and
 published bodies remain separate; seven Code bodies were neither executed nor
 cleared. No complete production workflow/schema baseline has been adopted in Git.
-

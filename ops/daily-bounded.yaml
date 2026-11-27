@@ -1,0 +1,14 @@
+# Overlay only on the dedicated dincharya-daily-bounded project.
+services:
+  db:
+    volumes:
+      - type: tmpfs
+        target: /var/lib/postgresql/data
+  relay:
+    # The disposable relay uses HTTP only on the unpublished internal bridge.
+    environment:
+      N8N_SECURE_COOKIE: "false"
+    volumes:
+      - type: tmpfs
+        target: /home/node/.n8n
+        tmpfs: {mode: 01777}

@@ -1,5 +1,9 @@
 # Milestone 2 completion plan
 
+## Exit checkpoint
+
+Use [the consolidated exit matrix and operating package](M2_EXIT.md) for current release decisions. The accepted attended journey is complete. Persistent source adoption, daily supervisor integration, UI transport approval and calendar observance selection remain open.
+
 Owner decision, 2026-11-13: complete ALL Milestone 2, including Hindu Panchang
 scheduling and operational acceptance, before Adhyayan, Arogya, Atma-Chintan,
 Vittiya or another orchestrator. Deployment and production access remain gated.

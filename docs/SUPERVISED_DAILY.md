@@ -1,0 +1,23 @@
+# Daily transport and supervisor release review
+
+Acer accepted the three personal migrations, replacement/declined cancellation, encrypted restore and authority fencing at `2f9502fdf075aee71e4ab4de2f392a258bb61e96`. All 15 checksums, both source registers, fixture cleanup and inventory passed. Keep that result attached to its revision. [Evidence](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7175465255)
+
+## Changed-path native check
+
+At the exact PR revision in the coordinator comment run `REV=$(git rev-parse HEAD) bash tests/run_supervised_daily.sh` after independently comparing HEAD with the supplied SHA. This task needs the two accepted image IDs on Acer. The new PG cluster and application share a fresh internal-only bridge. The Telegram SDK has an in-process request implementation for both standard requests and getUpdates. No token or private storage is required.
+
+Require success for SDK poll/send/edit/answer, lost ownership, fresh-pipe restart between preview and decision, one original edit, one repeated-callback notice, one silent one-off, one recurring schedule, a missed reminder outside the five-minute fixture window, one paired reminder, six durable attempts, STOP, quarantine after an expired lease and refusal to resume unhealthy work. Preserve the exit and inventory result. On failure retain the first failed assertion and sanitized operation. Do not replay the archive or earlier acceptance suites. Work reviewed the source and integrity manifest. Native execution and Python test counts for this revision remain pending.
+
+## One owner decision after the recorded run
+
+| Item | Candidate and required decision |
+| --- | --- |
+| Source and permissions | Pin the reviewed PR commit, both local image IDs, the candidate manifests and migrations 0001–0004. Personal executor owns objects without login; gateway and worker use separate locks and function grants. Budget consumption is restricted to the authenticated gateway; the worker reads and claims under its own lock. Observer credentials in the existing model also have permit-bound reconciliation authority. Review that scope before personal provisioning. |
+| Personal storage | Review the inert [settings](../ops/personal-release-proposal.json). If approved, provision the named external volume on the fenced Acer host, fresh database, separate credentials and exact migration ledger. Keep disposable environments separate. |
+| Startup and recovery | Approve interactive-login startup only after Docker Desktop and WSL readiness, disallow concurrent hosts, and keep the earlier closed-lid/reboot evidence. Verify AC lid/sleep settings read-only. Stop on unhealthy ownership, quarantine, database unavailability or a STOP file. After correction, inspect receipts and restart once. Automatic startup and unattended recovery remain separate activation decisions. |
+| Missed reminders | Proposed five minutes for materialized pending slots. Skip older pending slots and past offsets on late projection. Ambiguous sends retain their quarantine across restart. |
+| Backup and rollback | Supply the off-device destination, certificate fingerprint and recovery-key custodian. Suggested retention is seven daily and four weekly verified encrypted copies. Authorize transfer and retention separately from local generation. Before rollback, stop the gateway and worker, preserve the original volume, restore in isolation, rotate the epoch, expire old approvals, quarantine uncertain sends and review future work before switching hosts. |
+| Bounded live UX | A subsequent live adapter and exact artifact review are required. Specify dedicated bot and private owner, approved IST window, current host fence and a fresh disposable session. Proposed six outbound attempts are one Panchang answer, two previews, two original-message edits and one at-start reminder. A repeated callback consumes a slot and ends the scripted journey early if needed. Stop at the first discrepancy or uncertainty. |
+| Calendar | Retain accepted annual Chaitra projection and historical instant evidence. Annual civil dates require the approved month system, Adhika identity, repeated-tithi policy and sunrise guard; withhold skipped/Kshaya/disputed days. Smarta and Vaishnava Ekadashi need separately identified tradition, fasting-day and parana rules, primary Delhi reference dates and disagreement fixtures. Ram Navami, Janmashtami and Diwali likewise need observance-specific selection windows and independent examples. Calendar scheduling remains withheld from this release. |
+
+Daily transport is recorded-only. A persistent volume, off-device destination and live daily transport are not provisioned by this package.

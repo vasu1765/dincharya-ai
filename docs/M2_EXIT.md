@@ -1,0 +1,72 @@
+# Milestone 2 exit review
+
+## Daily Telegram release candidate
+
+Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.
+
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
+## Current exit gates
+
+Acer passed the original preview concurrency test and all 14 focused regressions. The 72-entry register has a bounded owner disposition. Fresh personal migrations, recorded lifecycle changes, health and isolated backup/restore now have a separate candidate. The [current decision table](PERSONAL_CANDIDATE.md) supersedes the pending actions in the historical checkpoint below.
+
+**Attended Telegram acceptance passed. Persistent daily-use release is open.** The owner observed all nine checks. The final audit exited 0 at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. It found two confirmed appointments, six ordered paired receipts, exactly one at-start reminder, zero silent reminders, zero duplicates and zero uncertain or unsettled attempts. The database records the appointment times and receipt order; the owner observed the actual delivery time and Panchang text. All three earlier disposable ledgers stay parked and preserved. [Live acceptance](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7168879730)
+
+## Exit checklist
+
+| Capability | Evidence and remaining condition |
+| --- | --- |
+| Historical Panchang | Live Delhi 6 December 2023 question passed. The daily candidate renders date, sunrise tithi, location, IST and transitions, including a withheld result near sunrise. A timestamp question additionally shows tithi at that instant. Prefix the same question with /details for existing full calculation and provenance. No engine or reference changes. |
+| Gregorian recurrence and reminders | The PG17 civil rehearsal has once/daily/weekly/yearly projection, conflict checking, missed past-offset suppression and unique occurrence/offset slots. The live scope covered only two one-offs. Daily candidate previews include recurrence and exact offsets and call the existing projector only after confirmation. Release needs the adopted recipient/schema and daily dispatcher. |
+| Decisions and lifecycle | The new recorder-only daily adapter binds signed input, private chat, sender, bot, epoch, UUID and original preview receipt. The decision transaction locks the proposal and delegates to the existing projector. An edit replaces the preview with its final status and empty keyboard. A later Confirm or Cancel can produce one status toast. It never changes a terminal proposal. Read-only replies and unsupported-command feedback use per-update reservations. Old or foreign messages cannot write schedules. |
+| Approved changes to confirmed events | Existing two-stage recurring review supports replacement, changing offsets, approval mode, pause, resume and cancellation, with revision checks. The synthetic personal schema has review/apply for pause, resume and cancel. Wiring the complete replacement and notification-edit paths to the adopted personal schema and signed daily interaction remains open. Old Cancel buttons cannot cancel confirmed events. |
+| Annual lunar rules and personal anniversaries | Preserve Cycle 5–7 projection/recovery evidence, rolling automatic and manual policies, Amanta/Purnimanta and Adhika identity, explicit repeated-tithi choice and fail-closed skipped, Kshaya or uncertain cases. Event-instant tithi and annual civil-date selection use separate rules. Keep Drik Delhi primary, IMD PAC secondary, 90-second publisher diagnostic and 300-second sunrise guard. Authoritative calendar release and remaining independent reference coverage are open. |
+| Festival observance | The roadmap names Ekadashi, Ram Navami, Janmashtami and Diwali as candidates. No approved, versioned rule set with reference dates for those observances was identified. Keep scheduling disabled. Specify regional/tradition labels and merge coincident dates only after a rule-level review. |
+| Delivery and recovery | Retain scoped worker/poller ownership, lease, positive receipt, recovery and no-resend evidence. A reserved or uncertain UI operation cannot be reissued by replay. New UI methods have separate receipts; a successful edit must return the original chat/message, expected text and removed buttons. A callback answer requires an exact true result. No UI operation settles a reminder. |
+| Persistent operations | Existing Acer Docker Desktop, WSL2, private PG/n8n bridge and direct operator HTTPS remain the target. Persistent adoption, supervised daily dispatcher, restore verification against the selected personal schema, owner-visible outage reporting and activation are open. No new orchestrator or host installation. |
+
+### Daily UX candidate and changed-path acceptance
+
+The new daily module has no client, poller, bootstrap credentials or automatic startup. Its recording transport accepts a bounded preview/decision contract: at most one preview send, one original-message edit and one repeat status toast per proposal. A lost response or failed settlement stops that operation for inspection. Reserved calls after a crash remain spent. Duplicate callbacks after the single toast stay silent. Daily messages are English with existing Hindi/Hinglish scheduling grammar and Sanskrit tithi terminology; Devanagari questions receive Devanagari sunrise and transition labels. Full Sanskrit natural-language parsing has not been accepted. Fast-path stale input is ignored without a transport call.
+
+Run only the delta in a fresh checkout. Work ran 14 offline tests covering compact/withheld answers, annual preview, origin/expiry guards, duplicate and conflicting callbacks, edit receipt pairing, uncertainty, private file permissions and approval/resource binding. For the new database boundary, use the accepted local PG17 image on Acer with `REV` equal to the reviewed candidate. From the clean checkout run:
+
+```bash
+export PYTHONPATH=. PYTHONDONTWRITEBYTECODE=1
+python3 -B -m unittest discover -s tests -p test_daily_review.py
+python3 -B -m unittest discover -s tests -p test_session_operations.py
+bash tests/daily_sql_delta.sh
+```
+
+The native script creates one labelled, networkless tmpfs fixture and competes two scoped decisions for one preview. Require one occurrence, two independent offset slots, at most one original edit reservation and retained active state after a later Cancel. This SQL check awaits native execution. No accepted astronomy, full-stack, physical or live replay is needed. Future integration of real editMessageText and answerCallbackQuery requires a separately approved daily transport scope and recorded SDK checks before live use.
+
+## 2B adoption recommendation and owner decision
+
+The accompanying [artifact register](m2-exit-sources.json) reconciles the original 2B package, Cycle 7 dispositions, the 31-entry attended review and daily operational dependencies at the accepted revision. Each of 72 repository files was read at the exact revision and its Git blob independently recomputed. SHA-256 covers file bytes. The one older mismatching review pin belongs to tests/integration/m2h_private_telegram.py. Retain its earlier acceptance against its reviewed revision; the current harness is test evidence only. Keep the existing review manifest and owner-decision format. This register is a supplemental recommendation and grants no promotion. Register SHA-256: `e6726382da971c814b3feae4ff454a83aed19b785598c22a5c1b7011f84740ab`.
+
+| Owner decision | Recommendation and consequence |
+| --- | --- |
+| Source scope and personal data | Endorse the register for development and bounded attended reuse. Authorize designing/selecting a separate fresh personal schema from the reviewed contracts, with provisioned owner, bot, scoped roles and restore epoch. The existing fixture-101 and disposable database guards remain essential. Select the final migration by exact SHA after independent security review before creating a personal volume. Historical migrations, source backups and private manifests are never substituted for that decision. |
+| Source exclusions | Keep four original current workflows distinct from their published identities. Preserve inventory-only evidence of 94 historical versions and seven Code bodies. Archive available provenance and exclude private state, credentials, historical execution and unverified workflow imports. No private source recovery is needed for the recommended repository-owned path. |
+| Calendar release | Choose whether first personal use includes only civil scheduling and read-only Delhi Panchang; recommended. Annual lunar and anniversary writes can follow after selection fixtures and a specific release authorization. If observances are wanted, supply/approve the named rule edition and reference dates for each tradition. Neutral-labelled Smarta/Vaishnava handling remains the design. |
+| Operations and daily UI authority | Approve or defer a bounded recorded daily integration, then a separately scoped live UX window allowing the original-message edit and repeat-status toast. Separately specify persistent volume, backup certificate fingerprint, off-device destination, recovery objectives, missed-reminder lookback and owner alert destination. Login task, changes to lid/sleep settings, live daily sends and unattended startup each need explicit authorization at activation. |
+
+See [2B review procedure](M2B_SOURCE_ADOPTION.md), [Cycle 7 calendar and recovery evidence](M2H_CYCLE7_RELEASE.md) and [attended artifact decisions](ATTENDED_CANDIDATE.md). Reported synthetic reconstruction does not authorize persistent data or private sources.
+
+## Persistent daily-use preparation
+
+[daily-use-profile.json](daily-use-profile.json) is an inert policy record. No service consumes it to start anything. Use a new named PG17 volume on the existing laptop architecture only after adoption. Preserve earlier databases and journals. Apply approved migrations in order under bootstrap authority, verify checksums and grants, then switch to separate runtime logins. The app must take exclusive session locks before polling or claiming a slot. Keep projections bounded and pending approvals time-limited. Runtime start must remain fenced until an explicit owner decision.
+
+After interactive Windows login use the existing laptop supervision design: bounded WSL/Docker readiness, DB/relay health, exclusive poller/worker readiness, then delivery. Check AC power/lid policy read-only and retain external monitoring of host loss. Expose aggregate health and quarantine counts only. No personal activity tracking. After interruption, expire old approvals, reclaim only definitively unsent work within the approved lookback, mark older slots missed, and quarantine ambiguous sends. Never infer delivery from a network timeout.
+
+For backup, stream a completed logical dump into the pinned recipient encryption path, verify ciphertext hash and restore on independent media in a networkless cluster. Recreate restricted roles, rotate the epoch, fence pending actions, compare occurrence/slot counts and receipt pairs, and quarantine the interval between the backup and the outage. Roll back schema changes by restoring a pre-migration snapshot to **another** volume with delivery disabled; reconcile newer receipts before any cutover. A future Indian Linux VPS uses the same service boundaries and explicit old-host fencing. Switch only after the old poller and worker are independently confirmed stopped. [Laptop readiness and backup design](LAPTOP_BETA.md) · [Restore procedure](M2H_CYCLE7_RECOVERY.md)
+
+## Repository-owned operator tools
+
+The four entry points implement the documented workflow against the existing launcher. They were written from repository contracts without reading local helper scripts or private files. Run from a clean pinned checkout with `PYTHONPATH=.` and `PYTHONDONTWRITEBYTECODE=1`. Use only a new stage that has been separately authorized. Do not run them against the preserved accepted sessions.
+
+1. Stage via scripts/laptop_beta.sh under the applicable authorization. In a private owner-only file supply bot, bot_username, owner, start, end, silent, reminder and question. Times are Unix seconds for the window and IST for the appointments. Optionally provide the full private manifest. Run `python3 -B -m scripts.operations.prepare "$STATE" --input "$PRIVATE_INPUT"`. It verifies immutable pins, combines the fields with the staged template and prints the exact SHA-256.
+2. Inspect the result privately. Run the existing laptop preflight check with this digest. Obtain separate owner authorization for the digest, revision, container IDs, recipient, session window, scenarios and six-attempt cap. Only then run `python3 -B -m scripts.operations.approve "$STATE" --owner-approved-digest "$DIGEST"`. The local record binds exact manifest bytes to the revision and three resource IDs. It cannot be replaced. The record documents the operator's attestation; the independent owner decision is still required.
+3. Only within that authorized window, after separate private token provisioning, run `bash scripts/operations/start.sh "$STATE"`. It validates the recorded binding and delegates receipt, window and one-use enforcement to the accepted launcher. For a fence, run `bash scripts/operations/stop.sh "$STATE"`. STOP is written before the delegated shutdown. Keep approved evidence private; commit reusable source only.

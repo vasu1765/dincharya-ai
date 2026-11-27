@@ -1,5 +1,29 @@
 # Dincharya AI roadmap
 
+## Daily Telegram release candidate
+
+Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.
+
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
+## Civil-first daily release
+
+Fresh personal migrations and recorded civil change proposals are in development. Next verify the new migrations and encrypted restore, then complete daily supervision and transport acceptance. Annual lunar scheduling and reviewed observance profiles remain Milestone 2 deliverables. [Review package](PERSONAL_CANDIDATE.md)
+
+## Milestone 2 release status
+
+Attended personal Telegram acceptance is complete at `77fe4c729511c21f27389eaf43ae7bffb445a8e6`. Persistent daily use, calendar release scope and source promotion remain open. The [Milestone 2 exit checklist](M2_EXIT.md) distinguishes verified civil and lunar contracts, the isolated daily UX and the remaining owner decisions. Keep subsequent orchestrators queued.
+
+## Personal schema rehearsal
+
+[PR 18 rehearsal and consolidated Acer task](BETA_SCHEMA_REHEARSAL.md) records the new repository-owned synthetic schema, 19 offline tests and pending native gates. Review-only scope continues.
+
+## Integrated personal beta cycle 1
+
+[Implementation and Acer verification](BETA_CYCLE1.md) records 16 passing offline tests, source verification, the civil preview, isolated storage renderer, observer and encrypted synthetic archive. Personal schema adoption, image review and native journeys remain open before Gate 1.
+
 ## Current implementation checkpoint — integrated beta groundwork
 
 The [source inventory](BETA_RUNTIME_SOURCE_INVENTORY.md),

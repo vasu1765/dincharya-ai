@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "package_sha256": "4f30e69fe7ea74fd128d650aac939bd4159c407d764068b229e989c0aa2552bd",
+  "review": "https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7169708227",
+  "decisions": [
+    {
+      "path": "database/migrations/0001_gregorian_occurrences.sql",
+      "sha256": "e4e8f07c4f3233b2f94a01a8f8551693c04624ca95c5d1e3aa029320d075cbb9",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0002_occurrence_reminders.sql",
+      "sha256": "5792db4447c093a8a47142bd7a1dc3da966eedf903e0375cbd5b8523e2e6983f",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0003_managed_legacy_boundary.sql",
+      "sha256": "f5418bd4d944bba240883b36c19d860fd19ecb389f0d93ba7ecdd6a3d68858db",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0004_telegram_receipts.sql",
+      "sha256": "3e50ecdfe91058e771d176826954c7c66889c0bfc38ac902cae158640e0f468f",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0005_synthetic_reconciliation.sql",
+      "sha256": "629fa13920c4c30d4374ff73440ae02aaea312ac4dd628eec166e5555d9dd450",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0006_synthetic_lunar_approval.sql",
+      "sha256": "c1f911aa1c0e0a02338121c0f6c70b64a6993ccb883d1d3e51636b608520b78c",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0007_lunar_calculation_binding.sql",
+      "sha256": "d2663fc16d75fe9e22c84b6e670da1f59e7804050ea24a1320a0aaf4114b5294",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0008_lunar_projection_trigger_path.sql",
+      "sha256": "5d4006db8fbbbeb85bf64296f377537f2dbd8e8f9037ec37ad0a5c1cca81ff21",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0009_lunar_delivery_status.sql",
+      "sha256": "273a9611c584d6d43764d6a993a1df12bde528dc982534cb43c766e8754fde6d",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0010_synthetic_annual_lunar_rules.sql",
+      "sha256": "5f4282a3453818e763855b5f7e10edc2e4757f094214bf97702ba5d0248539ad",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0011_synthetic_notification_slots.sql",
+      "sha256": "bcb72590c3da26ee36c0b6ffca6475f2c572f8d127f3f9c453f220ddaba9ef81",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0012_synthetic_recurring_automation.sql",
+      "sha256": "4619a40af8fdf4a9ead6ceecf2f7abeea94afa741f4fe5a7b045ffc1b09cab0e",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "database/migrations/0013_synthetic_recurrence_health.sql",
+      "sha256": "b29ef1c215e3a20c18979fa4e4e7870eb323f11783008d87e73f9b297a62ebc0",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "dincharya/lunar_service.py",
+      "sha256": "90996b624d65de5dfda5c40928e17b42f83691642587d8cd0b5c66faa1af7224",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "prototypes/panchang/requirements.txt",
+      "sha256": "90c9fb6e3a9cc6cb06e61cace60819449aa442e63017e6ac9c5a4dccd059d448",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "scripts/check-safe-source.py",
+      "sha256": "c4e22f78a1a829e85f477a250d5cff237b9cfa6930615bd0cb0100f5afda4c38",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "telegram-gateway/requirements-m2g.txt",
+      "sha256": "ad622b3d77d3ad11e2747d966bc860727388bcb2ed7e990788123a4b5d493baf",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/compose.json",
+      "sha256": "573d75e712fb9cbb399c8a1b5079e1404f7504acb4c3448b0781dbe218aa1c61",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "tests/integration/m2h_development_schema.sql",
+      "sha256": "460f41cb254af06485b5df38b8b6629a9d5adcd25322fd769ecdc3a75b010891",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    },
+    {
+      "path": "workflows/m2g-lunar-acceptance.json",
+      "sha256": "04414cba56cd0cb1ee543c09d939d214ca544fb4744952d5e42fe37e8654dd0c",
+      "status": "adopted",
+      "reason": "Keep in isolated development. Limited to the reviewed development, evidence or bounded attended scope. Personal storage and service activation require separate authorization."
+    }
+  ]
+}

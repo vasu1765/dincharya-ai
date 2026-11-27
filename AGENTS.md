@@ -1,5 +1,43 @@
 # Dincharya AI — repository instructions
 
+## Daily Telegram release candidate
+
+Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](docs/DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.
+
+## Supervised daily candidate
+
+The personal PostgreSQL 17 and encrypted restore result at `2f9502f` is accepted. Run only the new recorded SDK and supervised process paths. See the [single Acer task and release decision table](docs/SUPERVISED_DAILY.md). Daily activation and calendar release remain open.
+
+## Daily development authorization
+
+Use the [personal candidate review](docs/PERSONAL_CANDIDATE.md) for the approved register scope and fresh-schema work. Preserve the accepted attended implementation and all three ledgers. Test only new personal paths.
+
+## Milestone 2 exit work
+
+The attended test at `77fe4c729511c21f27389eaf43ae7bffb445a8e6` passed. Preserve all three ledgers and the six-attempt runtime. Use [the daily-use exit checklist](docs/M2_EXIT.md) for the isolated UX, sanitized operational tools, source decisions and persistent-release gates. Keep the next orchestrator gated on issue #2.
+
+## Laptop beta profile
+
+Owner authorization 7164321931 scopes standard Docker outbound to the Acer laptop-beta manifest and launcher. Use the [parked Docker Desktop procedure](docs/ATTENDED_CANDIDATE.md#acer-docker-desktop-laptop-beta). The hardened profile keeps its CONNECT gateway, upstream pin and namespace rules. Live execution requires fresh exact-session approval.
+
+## Attended network boundary
+
+Use the [restricted gateway procedure](docs/ATTENDED_CANDIDATE.md#restricted-gateway-candidate). Require a manifest-bound bot username, numeric bot/owner IDs, destination IPv4 and readback of the four disposable namespace policies. Preserve the accepted runtime and receipt evidence. Never give the operator an uplink.
+
+## Attended runtime
+
+Use the [isolated runtime and single Acer command](docs/ATTENDED_CANDIDATE.md#final-attended-runtime-candidate). Keep the astronomy wheel confined to its child interpreter. Pin the operator CA through the accepted application image and verified RECORD. Live authorization requires the filled session manifest after native acceptance.
+
+## Attended operator
+
+Preserve Acer’s six accepted adapter scenarios at `86d4a69b77c6c429a9408658243ff9de3d28209c`. Use the [single operator-path task](docs/ATTENDED_CANDIDATE.md#operator-acceptance) for the new code. A consumed manifest fences restart. Keep the poller, worker and historical reply under one disposable session budget.
+
+## Attended gateway and worker
+
+Use only the disposable PG17 adapter and scoped Acer task in [the candidate runbook](docs/ATTENDED_CANDIDATE.md#disposable-adapter-acceptance). Reserve every outbound attempt before transport. Preserve uncertain attempts and stop both roles on an unexpected result. Historical migrations and synthetic identity 101 belong to their original environments.
+
+For integrated beta work, follow [the current attended candidate](docs/ATTENDED_CANDIDATE.md). Preserve the accepted synthetic evidence at `5bcda101`; native reruns require a changed boundary. Personal storage adoption, live messaging and unattended operation each require explicit authorization.
+
 This root AGENTS.md applies to the entire repository unless more-specific
 instructions apply. User instructions take precedence. Start a new session by
 reading [HANDOFF](docs/HANDOFF.md), [policy](docs/DEVELOPMENT_POLICY.md),
