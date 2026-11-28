@@ -1,5 +1,15 @@
 # Dincharya AI — handoff
 
+## Daily-use Feedback Release 2
+
+The isolated feedback branch adds sanitized read-only recovery, scoped
+Panchang context, reference-gated lunar previews and series projection,
+and the model provider boundary. Acer 3B measurements do not qualify its
+NLU. The independent loopback benchmark was stopped before 7B inference
+because of RAM pressure on the live host. Provider activation and attended
+closed-lid verification remain gated. See the [consolidated report and
+upgrade plan](DAILY_FEEDBACK_RELEASE_2.md).
+
 ## Persistent Acer preparation
 
 The owner authorized the fresh personal PG17 and n8n volumes at `9e4cbe6`.

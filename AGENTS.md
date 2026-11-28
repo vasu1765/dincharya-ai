@@ -1,5 +1,14 @@
 # Dincharya AI — repository instructions
 
+## Feedback Release 2
+
+The owner-approved provider boundary and Acer benchmark are documented in
+[Feedback Release 2](docs/DAILY_FEEDBACK_RELEASE_2.md). Natural-language
+interpretation uses the typed provider route. Keep exact commands and
+execution deterministic, local inference preferred when qualified, and
+cloud use explicitly approved. Reuse the existing application, calendar,
+approval and delivery controls. Keep the active release untouched.
+
 ## Daily Telegram release candidate
 
 Acer accepted the supervised run at `624327f` (exit 0, 28 checksums, four SDK tests and the supervised journey). The real transport, separate bounded/daily policies, observer-only role and inert operations package require changed-path validation and owner review. See [the release package](docs/DAILY_RELEASE.md). Keep the attended runtime, all three ledgers and calendar release gates intact.

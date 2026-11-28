@@ -30,6 +30,21 @@ def historical_reply(question, calendar, *, detailed=False):
     return concise(event,value,label,devanagari=any("\u0900"<=c<="\u097f" for c in question))
 
 
+def label_for_rule(rule):
+    from dincharya.historical_intent import label
+    ordinal=rule["tithi"]+(15 if rule["paksha"]=="krishna" else 0)
+    return f"{rule['month'].title()} Māsa · {label(ordinal)} · {rule['convention'].title()}, {rule['intercalation']}"
+
+
+def month_text(months):
+    def name(convention):
+        value=months.get(convention)
+        if not value:
+            return "withheld"
+        return ("Adhika " if value["intercalation"]=="adhika" else "")+value["month"].title()
+    return f"Māsa: {name('purnimanta')} (Purnimanta) · {name('amanta')} (Amanta)"
+
+
 def concise(event,value,label,*,devanagari=False):
     if devanagari:
         names=("प्रतिपदा","द्वितीया","तृतीया","चतुर्थी","पञ्चमी","षष्ठी","सप्तमी","अष्टमी","नवमी",
@@ -40,7 +55,9 @@ def concise(event,value,label,*,devanagari=False):
         sunrise=value["sunrise"]
         lines=[f"{event.day:%d %b %Y} · नई दिल्ली (IST)",
                "सूर्योदय पर: "+label(sunrise) if sunrise else "सूर्योदय के पास तिथि परिवर्तन है। तिथि अनिश्चित है।"]
+        lines.append(month_text(value.get("sunrise_months",{})))
         if event.clock is not None:
+            lines.append(month_text(value.get("months",{})))
             lines.append(f"{event.clock:%H:%M} पर: {label(value['interval']['ordinal'])}")
         for row in value["transitions"]:
             at=datetime.fromisoformat(row["at"]).astimezone(IST)
@@ -49,7 +66,12 @@ def concise(event,value,label,*,devanagari=False):
     sunrise = value["sunrise"]
     lines=[f"{event.day:%d %b %Y} · New Delhi (IST)",
            f"At sunrise: {label(sunrise)}" if sunrise else "Sunrise tithi withheld: the transition is too close to sunrise."]
+    if "sunrise_months" in value:
+        lines.append(month_text(value["sunrise_months"]))
+    elif not sunrise:
+        lines.append("Māsa and Paksha withheld at sunrise.")
     if event.clock is not None:
+        lines.append("Event "+month_text(value.get("months",{})))
         lines.append(f"At {event.clock:%I:%M %p}: {label(value['interval']['ordinal'])}")
     for row in value["transitions"]:
         at=datetime.fromisoformat(row["at"]).astimezone(IST)
@@ -90,6 +112,8 @@ class Review:
             raise RuntimeError("UI operation requires inspection")
 
     def reply(self,request,text):
+        if len(text.encode("utf-16-le"))>8000:
+            raise ValueError("Use a shorter response page")
         ticket,=self.conn.execute("SELECT beta.ui_reply(%s,%s,%s)",(self.owner,self.bot,request)).fetchone()
         self.emit(ticket,"sendMessage",dict(chat_id=self.owner,text=text))
         return text

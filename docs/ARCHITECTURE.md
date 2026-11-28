@@ -1,5 +1,16 @@
 # Dincharya AI architecture
 
+## Daily intent interpretation
+
+The Feedback Release 2 gateway authenticates the update through its signed
+relay, takes a bounded owner context snapshot and sends unfixed phrasing
+to one configured provider. A strict intent validator and deterministic
+router return a proposal to the existing PostgreSQL approval and worker.
+Providers receive no SQL, tool access, tokens, owner identifiers or ability
+to confirm. One background inference leaves the foreground reminder loop
+available. Exact commands bypass the model. Cloud policy and spend
+reservations are opt-in. See [Feedback Release 2](DAILY_FEEDBACK_RELEASE_2.md).
+
 This describes repository configuration and reviewed private evidence, not a new
 live-service health check. Runtime operations remain approval-gated. See
 [decisions](DECISIONS.md), [roadmap](ROADMAP.md) and [handoff](HANDOFF.md).
