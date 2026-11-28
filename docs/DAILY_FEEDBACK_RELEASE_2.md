@@ -134,3 +134,27 @@ resulting count and role checks before resuming a compatible runtime. A
 database restore must keep the old host fenced, invalidate stale approvals,
 and preserve uncertain delivery without replay. Never restore an older
 copy over later accepted deliveries.
+
+### Accepted changed-path evidence
+
+The clean runnable revision `dcd0e40bfd1ce326ccbd590aef48b9cdd81c7b37`
+passed the focused native command, exit 0. All 37 release checksum entries
+matched. The pinned app ran 37 focused transport, intent and UX tests plus
+nine historical regressions in the separate astronomy child, with zero
+skips. The actual DE440s sunrise/instant and guarded annual lookup passed.
+A networkless PG17 applied 0001–0006 and checked owner scope, preview
+receipt binding, the 100-rule cap, projection idempotency, approved lunar
+cancellation and atomic cloud budget. The compatibility rollback kept
+ledger counts and restored the legacy cap. Both fixtures were removed and
+the Docker container, network, volume and image inventories matched.
+
+The guarded remaining model check is
+`python -B tests/benchmark_daily_intents.py` from this checkout with the
+accepted host HTTPX interpreter. The benchmark harness verifies pinned
+public model digests in its isolated loopback Ollama instance. A local
+provider profile uses `provider=ollama` with fields `model`, `digest`,
+`endpoint`, `timeout`, `max_calls`, `max_micro_usd` and
+`per_call_micro_usd`. The three cloud budget values are zero for Ollama.
+An OpenAI profile uses its fixed HTTPS API endpoint and reviewed positive
+budget values, an empty model digest, and a separate protected key.
+No provider file was installed on the active host runtime.
