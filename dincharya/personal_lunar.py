@@ -15,7 +15,9 @@ def candidate(calendar, rule, year):
     rule=LunarRule(**rule)
     if rule.intercalation not in ("ordinary","adhika") or rule.month is None or not 1901<=year<=2099:
         return None
-    rows=json.loads(REFERENCE_PATH.with_name("historical-references.json").read_bytes())["future_comparisons"]
+    historical=json.loads(REFERENCE_PATH.with_name("historical-references.json").read_bytes())
+    recent=json.loads(REFERENCE_PATH.with_name("personal-annual-references.json").read_bytes())
+    rows=historical["future_comparisons"]+recent["rows"]
     matches=[r for r in rows if r["year"]==year and r["rule"]==rule_key(rule)
              and r.get("intercalation","ordinary")==rule.intercalation]
     if len(matches)!=1 or not matches[0]["selected"]:

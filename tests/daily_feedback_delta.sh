@@ -2,6 +2,8 @@
 # Focused feedback candidate. Only local immutable images, synthetic data and networkless fixtures.
 set -euo pipefail
 umask 077
+mode=${1:-feedback}
+[[ "$mode" == feedback || "$mode" == completion ]]
 [[ $(git rev-parse HEAD) == "${REV:?exact feedback candidate revision}" && -z $(git status --porcelain) ]]
 sha256sum --quiet -c docs/daily-release.sha256
 expected=44c1ef83-c50e-4ecc-8f19-4b112bc40f29
@@ -49,10 +51,18 @@ docker run --rm -i --network none --pull never --read-only --tmpfs /tmp:rw,nosui
   --cap-drop ALL --security-opt no-new-privileges --user "$(id -u):$(id -g)" \
   -v "$PWD":/repo:ro -v "$kernel":/fixtures/de440s.bsp:ro \
   -v "$wheel":/fixtures/certifi-2025.10.5-py3-none-any.whl:ro -w /repo \
-  -e OPENBLAS_NUM_THREADS=1 -e PYTHONPATH=/repo -e DINCHARYA_PUBLIC_DE440S=/fixtures/de440s.bsp --entrypoint python "$app" -B - <<'PY'
+  -e OPENBLAS_NUM_THREADS=1 -e PYTHONPATH=/repo -e DINCHARYA_PUBLIC_DE440S=/fixtures/de440s.bsp --entrypoint python "$app" -B - "$mode" <<'PY'
 import subprocess, sys, unittest
 from pathlib import Path
 from dincharya.personal_history import lookup, anniversary
+if sys.argv[1]=="completion":
+    result=unittest.TextTestRunner(verbosity=1).run(
+        unittest.defaultTestLoader.discover("tests",pattern="test_intent_benchmark_cases.py"))
+    if not result.wasSuccessful() or result.skipped:
+        raise SystemExit(1)
+    subprocess.run([sys.executable,"-I","-S","-B","tests/daily_completion_astronomy.py",
+                    "/fixtures/certifi-2025.10.5-py3-none-any.whl","/fixtures/de440s.bsp"],check=True)
+    raise SystemExit(0)
 suite=unittest.TestSuite(unittest.defaultTestLoader.discover("tests",pattern=pattern)
                          for pattern in ("test_daily_feedback.py","test_intent_model.py","test_daily_live_release.py","test_daily_review.py"))
 result=unittest.TextTestRunner(verbosity=1).run(suite)
@@ -94,7 +104,13 @@ for _ in {1..45}; do
   sleep 1
 done
 [[ $ready == true ]]
-for item in database/personal/000[1-6]_*.sql tests/daily_feedback.sql; do
+steps=(database/personal/000[1-6]_*.sql)
+if [[ "$mode" == completion ]]; then
+  steps+=(database/personal/0007_delhi_lunar_coverage.sql tests/daily_completion.sql)
+else
+  steps+=(tests/daily_feedback.sql)
+fi
+for item in "${steps[@]}"; do
   stage=${item##*/}
   if sql -f - < "$item" > "$tmp/result" 2> "$tmp/error"; then
     printf 'PASS %s\n' "$stage"
@@ -105,6 +121,10 @@ for item in database/personal/000[1-6]_*.sql tests/daily_feedback.sql; do
     exit "$rc"
   fi
 done
+if [[ "$mode" == completion ]]; then
+  echo 'PASS additive Delhi evidence register and runtime write fences'
+  exit 0
+fi
 stage=cancelled_replay
 sql -c "SET SESSION AUTHORIZATION personal_worker; SELECT beta.acquire(); SELECT beta.roll_forward();" >/dev/null
 [[ $(sql -c "SELECT count(*) FROM beta.occurrence o JOIN beta.proposal p ON p.id=o.rule WHERE p.request_id=201 AND o.enabled") == 0 ]]

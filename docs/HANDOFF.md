@@ -1,5 +1,13 @@
 # Dincharya AI — handoff
 
+## Feedback Release 2 completion
+
+The scoped completion delta adds three independently sourced Purnimanta
+years and a staged prompt/schema benchmark with categorized failures.
+The historical Windows event log shows both lid-related sleeps followed
+the switch to battery. Keep AC-only attended operation and the existing
+battery policy. See [completion gates and upgrade order](DAILY_FEEDBACK_2_COMPLETION.md).
+
 ## Daily-use Feedback Release 2
 
 The isolated feedback branch adds sanitized read-only recovery, scoped
