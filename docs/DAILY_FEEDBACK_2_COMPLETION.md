@@ -150,3 +150,20 @@ Set `REV` to the clean candidate, and `KERNEL` and `CERTIFI_WHEEL` to
 the pinned public assets. Run `bash tests/daily_feedback_delta.sh completion`.
 The mature runtime's earlier tests carry forward. Only the new formatter,
 calendar cases and additive SQL acceptance run on this path.
+
+### Verified completion evidence
+
+The clean tested delta `436473383525e11c31bc5c677a4a4c7a8a96f164` exited 0.
+All 44 manifest records matched. Two benchmark contract tests passed.
+The pinned astronomy child independently derived the historical event
+rule, matched all three ordinary Purnimanta dates and distinguished their
+logical identities. It also passed Adhika/ordinary separation, repeated
+first/last and review, skipped withholding and out-of-coverage rejection.
+Fresh networkless PG17 applied 0001–0007. The exact three new registry rows
+matched, runtime write grants remained fenced, and no authority or
+scheduling records were seeded. Disposable cleanup and Docker inventory
+comparison passed. The prior 46 tests and rollback result carry forward.
+
+The owner chose to leave the real three-model comparison and physical
+lid test pending. No candidate model is selected. The AC/DC diagnosis and
+attended procedure above are available for the next qualified window.
