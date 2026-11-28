@@ -128,3 +128,32 @@ Keep retention report-only and start with manual backup invocation.
   and approve the resulting private manifest digest. Keep STOP in place
   until deliberate manual startup. Registration, personal backup scheduling,
   deletion and any scope expansion remain separate decisions.
+
+
+## Acer-only initial release
+
+The owner elected to proceed on Acer while ThinkPad is unavailable.
+ThinkPad restore, independent availability monitoring and transfer of key
+custody are **DEFERRED**. Carry forward local encrypted PG17 restore,
+aggregate observer permissions and local relay outage/recovery evidence.
+Keep the seven-day startup attended and manual, with a five-minute
+missed-reminder catch-up and a separate exact manifest approval.
+[Coordinator checkpoint](https://github.com/vasu1765/dincharya-ai/pull/18#issuecomment-7237038780)
+
+The remaining Acer qualification is one real synthetic Drive round-trip
+into the dedicated `Dincharya-AI-Backups` folder using owner-local,
+file-scoped OAuth. Before key creation, agree on the exact mounted
+removable device. Place the passphrase-encrypted recipient key directly
+on the agreed offline device and keep its passphrase separately. Only
+the public certificate remains on Acer. After the exact remote
+ciphertext SHA-256 matches, test that the offline copy decrypts it and
+eject the recovery medium before recording the qualification. The key
+and OAuth material stay outside Drive and the operator bind mount. Drive
+receive, independent media custody, and final release remain pending
+until completed. No backup scheduler or retention deletion is active.
+
+The private Acer-only runbook covers OAuth, ciphertext qualification,
+safe media detachment, and the existing prepare/approve/provision/start/stop
+sequence. Keep STOP in place until the owner authorizes the settled
+seven-day manifest. Use the local aggregate status command during the
+initial operation window. The prior four ledgers are preserved.

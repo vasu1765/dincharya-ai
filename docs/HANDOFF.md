@@ -1,5 +1,16 @@
 # Dincharya AI — handoff
 
+## Acer-only daily readiness
+
+The approved initial profile defers ThinkPad restore, external
+availability monitoring and recovery key custody transfer. Local
+observer and encrypted restore evidence carry forward. The pinned
+persistent services remain parked with STOP and no live authority or
+bot key. Complete the single owner-local file-scoped OAuth and offline
+removable custody checkpoint, then qualify exact synthetic Google Drive
+upload/read-back and decryption with the agreed media. Prepare the exact
+seven-day approval only after it passes. See [Acer-only review](DAILY_ACTIVATION_REVIEW.md#acer-only-initial-release).
+
 ## Persistent Acer preparation
 
 The owner authorized the fresh personal PG17 and n8n volumes at `9e4cbe6`.
