@@ -50,11 +50,11 @@ docker run --rm -i --network none --pull never --read-only --tmpfs /tmp:rw,nosui
   -v "$PWD":/repo:ro -v "$kernel":/fixtures/de440s.bsp:ro \
   -v "$wheel":/fixtures/certifi-2025.10.5-py3-none-any.whl:ro -w /repo \
   -e OPENBLAS_NUM_THREADS=1 -e PYTHONPATH=/repo -e DINCHARYA_PUBLIC_DE440S=/fixtures/de440s.bsp --entrypoint python "$app" -B - <<'PY'
-import unittest
+import subprocess, sys, unittest
 from pathlib import Path
 from dincharya.personal_history import lookup, anniversary
 suite=unittest.TestSuite(unittest.defaultTestLoader.discover("tests",pattern=pattern)
-                         for pattern in ("test_daily_feedback.py","test_intent_model.py","test_daily_live_release.py","test_daily_review.py","test_historical_panchang.py"))
+                         for pattern in ("test_daily_feedback.py","test_intent_model.py","test_daily_live_release.py","test_daily_review.py"))
 result=unittest.TextTestRunner(verbosity=1).run(suite)
 if not result.wasSuccessful() or result.skipped: raise SystemExit(1)
 dir=Path("/fixtures")
@@ -68,6 +68,16 @@ rule=instant["context"]["basis"]["amanta"] | {"repeated":"review"}
 assert anniversary(rule,2027,kernel,wheel)["day"]=="2027-11-23"
 assert anniversary(rule,2028,kernel,wheel) is None
 print("PASS isolated actual sunrise/instant naming and evidence-bounded annual computation")
+# Historical tests must use the same astronomy-only certifi overlay as live lookup.
+subprocess.run([sys.executable,"-I","-S","-B","-c",r"""
+import sys, sysconfig, unittest
+sys.path[:0]=[sys.argv[1],"/repo"]
+sys.path.extend([sysconfig.get_path("purelib"),sysconfig.get_path("platlib")])
+tests=unittest.defaultTestLoader.discover("/repo/tests",pattern="test_historical_panchang.py")
+result=unittest.TextTestRunner(verbosity=1).run(tests)
+if not result.wasSuccessful() or result.skipped: raise SystemExit(1)
+""",str(wheel)],check=True)
+
 PY
 stage=postgres_start
 POSTGRES_PASSWORD=$(openssl rand -hex 32) docker run --network none --pull never -d \
